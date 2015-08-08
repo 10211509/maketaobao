@@ -16,13 +16,13 @@
  *
  */
 
-package nobugs.team.shopping.presenter.impl;
+package nobugs.team.shopping.mvp.presenter;
 
-import nobugs.team.shopping.iviewer.LoginView;
-import nobugs.team.shopping.interactor.impl.LoginInteractorImpl;
-import nobugs.team.shopping.interactor.inter.LoginInteractor;
+import nobugs.team.shopping.view.LoginView;
+import nobugs.team.shopping.mvp.interactor.LoginInteractorImpl;
+import nobugs.team.shopping.mvp.interactor.LoginInteractor;
 import nobugs.team.shopping.interfaces.OnLoginFinishedListener;
-import nobugs.team.shopping.presenter.inter.LoginPresenter;
+import nobugs.team.shopping.presenter.LoginPresenter;
 
 public class LoginPresenterImpl implements LoginPresenter, OnLoginFinishedListener {
 

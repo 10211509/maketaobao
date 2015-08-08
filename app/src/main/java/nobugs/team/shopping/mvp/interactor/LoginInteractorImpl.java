@@ -1,9 +1,9 @@
-package nobugs.team.shopping.interactor.impl;
+package nobugs.team.shopping.mvp.interactor;
 
 import android.os.Handler;
 import android.text.TextUtils;
 
-import nobugs.team.shopping.interactor.inter.LoginInteractor;
+import nobugs.team.shopping.mvp.interactor.LoginInteractor;
 import nobugs.team.shopping.interfaces.OnLoginFinishedListener;
 
 public class LoginInteractorImpl implements LoginInteractor {

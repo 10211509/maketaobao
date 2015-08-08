@@ -16,10 +16,19 @@
  *
  */
 
-package nobugs.team.shopping.interactor.inter;
+package nobugs.team.shopping.view;
 
-import nobugs.team.shopping.interfaces.OnLoginFinishedListener;
+/**
+ * 登录界面展示层
+ */
+public interface LoginView {
+    public void showProgress();
 
-public interface LoginInteractor {
-    public void login(String username, String password, OnLoginFinishedListener listener);
+    public void hideProgress();
+
+    public void setUsernameError();
+
+    public void setPasswordError();
+
+    public void navigateToHome();
 }

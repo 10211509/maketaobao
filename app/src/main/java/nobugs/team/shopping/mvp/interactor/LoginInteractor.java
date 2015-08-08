@@ -16,8 +16,10 @@
  *
  */
 
-package nobugs.team.shopping.presenter.inter;
+package nobugs.team.shopping.mvp.interactor;
 
-public interface LoginPresenter {
-    public void validateCredentials(String username, String password);
+import nobugs.team.shopping.interfaces.OnLoginFinishedListener;
+
+public interface LoginInteractor {
+    public void login(String username, String password, OnLoginFinishedListener listener);
 }

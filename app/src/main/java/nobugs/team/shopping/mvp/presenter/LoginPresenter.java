@@ -16,19 +16,8 @@
  *
  */
 
-package nobugs.team.shopping.iviewer;
+package nobugs.team.shopping.presenter;
 
-/**
- * 登录界面展示层
- */
-public interface LoginView {
-    public void showProgress();
-
-    public void hideProgress();
-
-    public void setUsernameError();
-
-    public void setPasswordError();
-
-    public void navigateToHome();
+public interface LoginPresenter {
+    public void validateCredentials(String username, String password);
 }

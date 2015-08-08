@@ -6,9 +6,9 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 
 import nobugs.team.shopping.R;
-import nobugs.team.shopping.presenter.impl.LoginPresenterImpl;
-import nobugs.team.shopping.presenter.inter.LoginPresenter;
-import nobugs.team.shopping.iviewer.LoginView;
+import nobugs.team.shopping.mvp.presenter.LoginPresenterImpl;
+import nobugs.team.shopping.presenter.LoginPresenter;
+import nobugs.team.shopping.view.LoginView;
 
 public class LoginActivity extends BaseActivity implements LoginView ,View.OnClickListener{
 
