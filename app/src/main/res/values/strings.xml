@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Shopping</string>
+    <string name="login_name">请输入用户名</string>
+    <string name="login_password">请输入密码</string>
+    <string name="login_button">请输入密码</string>
+
+</resources>
