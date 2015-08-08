@@ -18,7 +18,7 @@
 
 package nobugs.team.shopping.mvp.interactor;
 
-import nobugs.team.shopping.interfaces.OnLoginFinishedListener;
+import nobugs.team.shopping.mvp.interfaces.OnLoginFinishedListener;
 
 public interface LoginInteractor {
     public void login(String username, String password, OnLoginFinishedListener listener);

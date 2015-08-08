@@ -16,7 +16,7 @@
  *
  */
 
-package nobugs.team.shopping.view;
+package nobugs.team.shopping.ui.widget;
 
 /**
  * 登录界面展示层

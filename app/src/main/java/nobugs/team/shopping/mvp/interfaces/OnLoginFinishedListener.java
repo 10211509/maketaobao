@@ -16,7 +16,7 @@
  *
  */
 
-package nobugs.team.shopping.interfaces;
+package nobugs.team.shopping.mvp.interfaces;
 
 public interface OnLoginFinishedListener {
 

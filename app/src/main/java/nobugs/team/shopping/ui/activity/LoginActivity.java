@@ -1,4 +1,4 @@
-package nobugs.team.shopping.activity;
+package nobugs.team.shopping.ui.activity;
 
 import android.view.View;
 import android.widget.Button;
@@ -9,7 +9,7 @@ import nobugs.team.shopping.R;
 import nobugs.team.shopping.app.BaseActivity;
 import nobugs.team.shopping.mvp.presenter.LoginPresenterImpl;
 import nobugs.team.shopping.presenter.LoginPresenter;
-import nobugs.team.shopping.view.LoginView;
+import nobugs.team.shopping.ui.widget.LoginView;
 
 public class LoginActivity extends BaseActivity implements LoginView ,View.OnClickListener{
 

@@ -67,6 +67,13 @@ public class OkHttpUtil {
         });
     }
 
+    /**
+     *
+     *
+     * @param url
+     * @return
+     * @throws IOException
+     */
     public static String getStringFromServer(String url) throws IOException {
         Request request = new Request.Builder().url(url).build();
         Response response = execute(request);

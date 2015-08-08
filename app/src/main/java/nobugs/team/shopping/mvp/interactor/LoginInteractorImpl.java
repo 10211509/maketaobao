@@ -3,8 +3,7 @@ package nobugs.team.shopping.mvp.interactor;
 import android.os.Handler;
 import android.text.TextUtils;
 
-import nobugs.team.shopping.mvp.interactor.LoginInteractor;
-import nobugs.team.shopping.interfaces.OnLoginFinishedListener;
+import nobugs.team.shopping.mvp.interfaces.OnLoginFinishedListener;
 
 public class LoginInteractorImpl implements LoginInteractor {
 

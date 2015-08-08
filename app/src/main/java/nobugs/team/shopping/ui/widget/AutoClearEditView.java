@@ -1,4 +1,4 @@
-package nobugs.team.shopping.view;
+package nobugs.team.shopping.ui.widget;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
