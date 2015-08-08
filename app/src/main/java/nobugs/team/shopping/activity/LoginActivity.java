@@ -6,6 +6,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 
 import nobugs.team.shopping.R;
+import nobugs.team.shopping.app.BaseActivity;
 import nobugs.team.shopping.mvp.presenter.LoginPresenterImpl;
 import nobugs.team.shopping.presenter.LoginPresenter;
 import nobugs.team.shopping.view.LoginView;

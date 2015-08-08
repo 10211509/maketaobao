@@ -1,4 +1,4 @@
-package nobugs.team.shopping.activity;
+package nobugs.team.shopping.app;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
