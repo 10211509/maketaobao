@@ -6,9 +6,9 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 
 import nobugs.team.shopping.R;
-import nobugs.team.shopping.app.BaseActivity;
+import nobugs.team.shopping.app.base.BaseActivity;
 import nobugs.team.shopping.mvp.presenter.LoginPresenterImpl;
-import nobugs.team.shopping.presenter.LoginPresenter;
+import nobugs.team.shopping.mvp.presenter.LoginPresenter;
 import nobugs.team.shopping.ui.widget.LoginView;
 
 public class LoginActivity extends BaseActivity implements LoginView ,View.OnClickListener{
@@ -18,6 +18,7 @@ public class LoginActivity extends BaseActivity implements LoginView ,View.OnCli
     private EditText password;
     private LoginPresenter presenter;
     private Button loginbtn;
+
     @Override
     protected void initView() {
         setContentView(R.layout.activity_login);
