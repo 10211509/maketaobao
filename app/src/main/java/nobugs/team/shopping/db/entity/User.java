@@ -7,6 +7,8 @@ package nobugs.team.shopping.db.entity;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Entity mapped to table USER.

@@ -20,9 +20,9 @@ package nobugs.team.shopping.mvp.interfaces;
 
 public interface OnLoginFinishedListener {
 
-    public void onUsernameError();
+    public void onNetWorkError();
 
-    public void onPasswordError();
+    public void onFailure();
 
     public void onSuccess();
 }

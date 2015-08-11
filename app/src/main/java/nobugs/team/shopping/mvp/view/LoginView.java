@@ -16,19 +16,23 @@
  *
  */
 
-package nobugs.team.shopping.ui.widget;
+package nobugs.team.shopping.mvp.view;
 
 /**
  * 登录界面展示层
  */
 public interface LoginView {
-    public void showProgress();
+   /* public void showProgress();
 
     public void hideProgress();
 
     public void setUsernameError();
 
-    public void setPasswordError();
+    public void setPasswordError();*/
 
-    public void navigateToHome();
+    public void setLoginError();//有网，登录失败
+
+    public void setNewWorkDown();//无网络
+
+    public void navigateToHome();//登录成功，跳转到下一个页面
 }

@@ -133,6 +133,19 @@ public class OkHttpUtil {
     }
 
     /**
+     * 异步get请求，带参数
+     * @param baseurl
+     * @param params
+     * @param responseCallback
+     */
+    public static void get(String baseurl,List<BasicNameValuePair> params, Callback responseCallback) {
+        String url = attachHttpGetParams(baseurl,params);
+        Request request = new Request.Builder().url(url).build();
+        enqueue(request, responseCallback);
+    }
+
+
+    /**
      * 异步post请求
      *
      * @param url

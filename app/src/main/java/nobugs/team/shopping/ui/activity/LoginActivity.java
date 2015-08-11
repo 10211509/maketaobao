@@ -1,20 +1,23 @@
 package nobugs.team.shopping.ui.activity;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import nobugs.team.shopping.R;
 import nobugs.team.shopping.app.base.BaseActivity;
 import nobugs.team.shopping.mvp.presenter.LoginPresenterImpl;
 import nobugs.team.shopping.mvp.presenter.LoginPresenter;
-import nobugs.team.shopping.ui.widget.LoginView;
+import nobugs.team.shopping.mvp.view.LoginView;
 
-public class LoginActivity extends BaseActivity implements LoginView ,View.OnClickListener{
+public class LoginActivity extends BaseActivity implements LoginView,View.OnClickListener{
 
     private ProgressBar progressBar;
     private EditText username;
+
     private EditText password;
     private LoginPresenter presenter;
     private Button loginbtn;
@@ -38,6 +41,7 @@ public class LoginActivity extends BaseActivity implements LoginView ,View.OnCli
     protected void initEvent() {
         loginbtn.setOnClickListener(this);
     }
+/*
 
     @Override
     public void showProgress() {
@@ -58,10 +62,22 @@ public class LoginActivity extends BaseActivity implements LoginView ,View.OnCli
     public void setPasswordError() {
         password.setError("密码错误");
     }
+*/
+
+    @Override
+    public void setLoginError() {
+        Toast.makeText(this,"登录错误！",Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void setNewWorkDown() {
+        Toast.makeText(this,"网路错误！",Toast.LENGTH_SHORT).show();
+    }
 
     @Override
     public void navigateToHome() {
-        //TODO 跳转到主页面
+        // 跳转到主页面
+        startActivity(new Intent(this,MainPageActivity.class));
     }
 
     @Override

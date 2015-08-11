@@ -18,10 +18,11 @@
 
 package nobugs.team.shopping.mvp.presenter;
 
+
 import nobugs.team.shopping.mvp.interactor.LoginInteractor;
 import nobugs.team.shopping.mvp.interactor.LoginInteractorImpl;
 import nobugs.team.shopping.mvp.interfaces.OnLoginFinishedListener;
-import nobugs.team.shopping.ui.widget.LoginView;
+import nobugs.team.shopping.mvp.view.LoginView;
 
 public class LoginPresenterImpl implements LoginPresenter, OnLoginFinishedListener {
 
@@ -34,12 +35,11 @@ public class LoginPresenterImpl implements LoginPresenter, OnLoginFinishedListen
     }
 
     @Override public void validateCredentials(String username, String password) {
-        loginView.showProgress();
         //请求服务器
         loginInteractor.login(username, password, this);
     }
 
-    @Override public void onUsernameError() {
+   /* @Override public void on() {
         loginView.setUsernameError();
         loginView.hideProgress();
     }
@@ -47,6 +47,20 @@ public class LoginPresenterImpl implements LoginPresenter, OnLoginFinishedListen
     @Override public void onPasswordError() {
         loginView.setPasswordError();
         loginView.hideProgress();
+    }*/
+
+    @Override
+    public void onNetWorkError() {
+        //提示网络不好
+        loginView.setNewWorkDown();
+
+    }
+
+    @Override
+    public void onFailure() {
+        //
+        loginView.setLoginError();
+
     }
 
     @Override public void onSuccess() {
