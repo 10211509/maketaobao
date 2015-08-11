@@ -34,7 +34,8 @@ public class LoginPresenterImpl implements LoginPresenter, OnLoginFinishedListen
         this.loginInteractor = new LoginInteractorImpl();
     }
 
-    @Override public void validateCredentials(String username, String password) {
+    @Override
+    public void validateCredentials(String username, String password) {
         //请求服务器
         loginInteractor.login(username, password, this);
     }
@@ -53,17 +54,15 @@ public class LoginPresenterImpl implements LoginPresenter, OnLoginFinishedListen
     public void onNetWorkError() {
         //提示网络不好
         loginView.setNewWorkDown();
-
     }
 
     @Override
     public void onFailure() {
-        //
         loginView.setLoginError();
-
     }
 
-    @Override public void onSuccess() {
+    @Override
+    public void onSuccess() {
         loginView.navigateToHome();
     }
 }

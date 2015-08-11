@@ -9,6 +9,7 @@ import nobugs.team.shopping.app.base.BaseActivity;
 public class MainPageActivity extends BaseActivity {
 
 
+
     @Override
     protected void initView() {
         setContentView(R.layout.activity_main_page);

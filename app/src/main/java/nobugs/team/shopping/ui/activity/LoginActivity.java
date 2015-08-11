@@ -1,34 +1,39 @@
 package nobugs.team.shopping.ui.activity;
 
 import android.content.Intent;
-import android.view.View;
+import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import nobugs.team.shopping.R;
 import nobugs.team.shopping.app.base.BaseActivity;
-import nobugs.team.shopping.mvp.presenter.LoginPresenterImpl;
 import nobugs.team.shopping.mvp.presenter.LoginPresenter;
+import nobugs.team.shopping.mvp.presenter.LoginPresenterImpl;
 import nobugs.team.shopping.mvp.view.LoginView;
 
-public class LoginActivity extends BaseActivity implements LoginView,View.OnClickListener{
+public class LoginActivity extends BaseActivity implements LoginView{
 
-    private ProgressBar progressBar;
-    private EditText username;
 
-    private EditText password;
+    @Bind(R.id.edit_name)
+    EditText editName;
+    @Bind(R.id.edit_password)
+    EditText editPassword;
+    @Bind(R.id.login_btn)
+    Button loginBtn;
+    @Bind(R.id.progress)
+    ProgressBar progress;
+
     private LoginPresenter presenter;
-    private Button loginbtn;
 
     @Override
     protected void initView() {
         setContentView(R.layout.activity_login);
-        progressBar = (ProgressBar) findViewById(R.id.progress);
-        username = (EditText) findViewById(R.id.edit_name);
-        password = (EditText) findViewById(R.id.edit_password);
-        loginbtn = (Button) findViewById(R.id.login_btn);
+
         presenter = new LoginPresenterImpl(this);
     }
 
@@ -39,8 +44,13 @@ public class LoginActivity extends BaseActivity implements LoginView,View.OnClic
 
     @Override
     protected void initEvent() {
-        loginbtn.setOnClickListener(this);
     }
+
+    @OnClick(R.id.login_btn)
+    void onLoginClick(){
+        presenter.validateCredentials(editName.getText().toString(), editPassword.getText().toString());
+    }
+
 /*
 
     @Override
@@ -66,28 +76,25 @@ public class LoginActivity extends BaseActivity implements LoginView,View.OnClic
 
     @Override
     public void setLoginError() {
-        Toast.makeText(this,"登录错误！",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "登录错误！", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void setNewWorkDown() {
-        Toast.makeText(this,"网路错误！",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "网路错误！", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void navigateToHome() {
         // 跳转到主页面
-        startActivity(new Intent(this,MainPageActivity.class));
+        startActivity(new Intent(this, MainPageActivity.class));
     }
 
+
     @Override
-    public void onClick(View v) {
-        switch(v.getId()){
-            case R.id.login_btn:
-                presenter.validateCredentials(username.getText().toString(), password.getText().toString());
-                break;
-            default:
-                break;
-        }
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }
