@@ -38,6 +38,11 @@ public class LoginInteractorImpl implements LoginInteractor {
            public void onResponse(HttpObject httpObjectObject)
            {
                // Deal with the DummyObject here
+              if( httpObjectObject.getCode() == 2){
+                  listener.onSuccess();
+              }else{
+                  listener.onFailure();
+              }
 
            }
        },new com.android.volley.Response.ErrorListener()
@@ -46,6 +51,7 @@ public class LoginInteractorImpl implements LoginInteractor {
            public void onErrorResponse(VolleyError error)
            {
                // Deal with the error here
+               listener.onNetWorkError();
 
            }
        });
