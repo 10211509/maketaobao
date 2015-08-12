@@ -14,6 +14,7 @@ import org.apache.http.message.BasicNameValuePair;
 import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Handler;
 
 /**
  * Created by xiayong on 2015/8/7.
@@ -155,6 +156,7 @@ public class OkHttpUtil {
     public static void post(String url, String param, Callback responseCallback) {
         RequestBody body = RequestBody.create(mediaType, param);
         Request request = new Request.Builder().url(url).post(body).build();
+//        Handler mainHandler = new Handler()
         enqueue(request, responseCallback);
     }
 }

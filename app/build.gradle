@@ -11,6 +11,10 @@ android {
         versionCode 1
         versionName "1.0"
     }
+    dependencies {
+        compile fileTree(dir: 'libs', include: '*.jar')
+        compile project(':okvolley')
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -23,12 +27,12 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:22.0.0'
-    compile 'com.squareup.okhttp:okhttp:2.4.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'de.greenrobot:greendao:2.0.0'
     compile 'com.google.code.gson:gson:2.3.1'
 
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.afollestad:material-dialogs:0.7.8.1'
-
+    compile 'com.squareup.okhttp:okhttp:2.4.0'
+    //https://medium.com/android-news/android-networking-i-okhttp-volley-and-gson-72004efff196
 }

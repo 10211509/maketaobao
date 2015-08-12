@@ -2,10 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/DaoExampleGenerator/DaoExampleGenerator.iml" filepath="$PROJECT_DIR$/DaoExampleGenerator/DaoExampleGenerator.iml" />
-      <module fileurl="file://$PROJECT_DIR$/DaoGenerator/DaoGenerator.iml" filepath="$PROJECT_DIR$/DaoGenerator/DaoGenerator.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/maketaobao.iml" filepath="$PROJECT_DIR$/maketaobao.iml" />
+      <module fileurl="file://$PROJECT_DIR$/okvolley/okvolley.iml" filepath="$PROJECT_DIR$/okvolley/okvolley.iml" />
     </modules>
   </component>
 </project>
