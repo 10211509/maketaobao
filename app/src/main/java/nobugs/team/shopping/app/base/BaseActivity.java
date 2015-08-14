@@ -11,16 +11,25 @@ public abstract class BaseActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         initView();
         initEvent();
         initData();
         ButterKnife.bind(this);
     }
 
-    protected abstract void initView();
+    @Override
+    protected void onStart() {
+        super.onStart();
+        updateData();
+    }
 
-    protected abstract void initData();
+    protected void initView(){};
 
-    protected abstract void initEvent();
+    protected void initEvent(){};
+
+    protected void initData(){};
+
+    protected void updateData(){};
 
 }

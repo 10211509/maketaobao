@@ -1,14 +1,12 @@
 package nobugs.team.shopping.ui.activity;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import nobugs.team.shopping.R;
 import nobugs.team.shopping.app.base.BaseActivity;
@@ -16,15 +14,17 @@ import nobugs.team.shopping.mvp.presenter.LoginPresenter;
 import nobugs.team.shopping.mvp.presenter.LoginPresenterImpl;
 import nobugs.team.shopping.mvp.view.LoginView;
 
-public class LoginActivity extends BaseActivity implements LoginView{
-
+public class LoginActivity extends BaseActivity implements LoginView {
 
     @Bind(R.id.edit_name)
     EditText editName;
+
     @Bind(R.id.edit_password)
     EditText editPassword;
+
     @Bind(R.id.login_btn)
     Button loginBtn;
+
     @Bind(R.id.progress)
     ProgressBar progress;
 
@@ -39,15 +39,15 @@ public class LoginActivity extends BaseActivity implements LoginView{
 
     @Override
     protected void initData() {
-
     }
 
     @Override
-    protected void initEvent() {
+    protected void updateData() {
     }
 
+
     @OnClick(R.id.login_btn)
-    void onLoginClick(){
+    void onLoginClick() {
         presenter.validateCredentials(editName.getText().toString(), editPassword.getText().toString());
     }
 
@@ -88,13 +88,5 @@ public class LoginActivity extends BaseActivity implements LoginView{
     public void navigateToHome() {
         // 跳转到主页面
         startActivity(new Intent(this, MainPageActivity.class));
-    }
-
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
     }
 }
