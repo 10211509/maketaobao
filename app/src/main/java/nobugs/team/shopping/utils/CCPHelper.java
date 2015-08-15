@@ -74,11 +74,12 @@ import nobugs.team.shopping.ui.activity.CallInActivity;
  * 
  * @version 1.0.0
  */
-public class CCPHelper implements CCPCall.InitListener, DeviceListener 
-															,OnVoIPListener
-															,OnIMListener
-															,OnChatroomListener
-															,OnInterphoneListener{
+public class CCPHelper implements CCPCall.InitListener,
+		                                               DeviceListener
+		                                              ,OnVoIPListener
+		                                              ,OnIMListener
+//													  ,OnChatroomListener
+		                                              /*,OnInterphoneListener*/{
 
 	public static final String DEMO_TAG = "CCP_Demo";
 	// our suggestion this context should be ApplicationContext
@@ -209,8 +210,8 @@ public class CCPHelper implements CCPCall.InitListener, DeviceListener
 		// for SDK version 3.5 above
 		device.setOnVoIPListener(this);
 		device.setOnIMListener(this);
-		device.setOnInterphoneListener(this);
-		device.setOnChatroomListener(this);
+		/*device.setOnInterphoneListener(this);
+		device.setOnChatroomListener(this);*/
 		
 		Log4Util.d(DEMO_TAG, "[onInitialized] sdk init success. done");
 	}
@@ -276,7 +277,7 @@ public class CCPHelper implements CCPCall.InitListener, DeviceListener
 	public static final int WHAT_ON_VERIFY_CODE_FAILED = 0x205B;
 	
 	// Chatroom
-	public static final int WHAT_ON_CHATROOM_SIP_MESSAGE = 0x205C;
+	/*public static final int WHAT_ON_CHATROOM_SIP_MESSAGE = 0x205C;
 	public static final int WHAT_ON_CHATROOM_MEMBERS = 0x205D;
 	public static final int WHAT_ON_CHATROOM_LIST = 0x205E;
 	public static final int WHAT_ON_CHATROOM = 0x206A;
@@ -286,7 +287,7 @@ public class CCPHelper implements CCPCall.InitListener, DeviceListener
 	public static final int WHAT_ON_VERIFY_CODE = 0x206E;
 	public static final int WHAT_ON_CHATROOMING = 0x207A;
 	public static final int WHAT_ON_CHATROOM_KICKMEMBER = 0x207B;
-	public static final int WHAT_ON_SET_MEMBER_SPEAK = 0x207C;
+	public static final int WHAT_ON_SET_MEMBER_SPEAK = 0x207C;*/
 	
 	
 	// IM
@@ -374,7 +375,7 @@ public class CCPHelper implements CCPCall.InitListener, DeviceListener
 			return ;
 		} 
 		
-		this.context.sendBroadcast(new Intent(CCPIntentUtils.INTENT_CONNECT_CCP));
+//		this.context.sendBroadcast(new Intent(CCPIntentUtils.INTENT_CONNECT_CCP));
 	}
 
 	/**
@@ -570,7 +571,7 @@ public class CCPHelper implements CCPCall.InitListener, DeviceListener
 		
 	}
 
-	@Override
+	/*@Override
 	public void onInterphoneState(CloopenReason reason, String confNo) {
 		Log4Util.d(DEMO_TAG , "[onInterphoneState ] oninter phone state  , reason  " +reason.getReasonCode() + " , and confNo " + confNo);
 		if(!reason.isError()){
@@ -687,11 +688,11 @@ public class CCPHelper implements CCPCall.InitListener, DeviceListener
 		b.putSerializable(Device.CHATROOM_LIST, (ArrayList<Chatroom>) chatRoomList);
 		sendTarget(WHAT_ON_CHATROOM_LIST, b);
 		
-	}
+	}*/
 
 	@Override
 	public void onSendInstanceMessage(CloopenReason reason, InstanceMsg data) {
-		Log4Util.d(DEMO_TAG , "[onSendInstanceMessage ] on send Instance Message that reason .. " + reason);
+		/*Log4Util.d(DEMO_TAG , "[onSendInstanceMessage ] on send Instance Message that reason .. " + reason);
 		showToastMessage(reason);
 		if(data == null) {
 			return;
@@ -725,13 +726,13 @@ public class CCPHelper implements CCPCall.InitListener, DeviceListener
 		Bundle b = new Bundle();
 		b.putInt(Device.REASON, reason.getReasonCode());
 		b.putSerializable(Device.MEDIA_MESSAGE, data);
-		sendTarget(WHAT_ON_SEND_MEDIAMSG_RES, b);
+		sendTarget(WHAT_ON_SEND_MEDIAMSG_RES, b);*/
 	}
 
 
 	@Override
 	public void onDownloadAttached(CloopenReason reason, String fileName) {
-		Log4Util.d(DEMO_TAG , "[onDownloadAttachmentFiles ]  reason " + reason.getReasonCode() +  " , fileName= " + fileName);
+		/*Log4Util.d(DEMO_TAG , "[onDownloadAttachmentFiles ]  reason " + reason.getReasonCode() +  " , fileName= " + fileName);
 		showToastMessage(reason);
 		final IMChatMessageDetail rMediaInfo = (IMChatMessageDetail)CCPApplication.getInstance().getMediaData(fileName);
 		try {
@@ -762,12 +763,12 @@ public class CCPHelper implements CCPCall.InitListener, DeviceListener
 			CCPApplication.getInstance().removeMediaData(fileName);
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
+		}*/
 	}
 
 	@Override
 	public void onReceiveInstanceMessage(InstanceMsg msg) {
-		Log4Util.d(DEMO_TAG , "[onReceiveInstanceMessage ] "+msg.getClass().getName());
+		/*Log4Util.d(DEMO_TAG , "[onReceiveInstanceMessage ] "+msg.getClass().getName());
 		try {
 			
 			boolean isNewMessageVibrate = true;
@@ -959,7 +960,7 @@ public class CCPHelper implements CCPCall.InitListener, DeviceListener
 			}		
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
+		}*/
 	}
 
 	@Override
@@ -1002,27 +1003,27 @@ public class CCPHelper implements CCPCall.InitListener, DeviceListener
 		showToastMessage(reason);
 	}
 
-	@Override
+	/*@Override
 	public void onChatroomDismiss(CloopenReason reason, String roomNo) {
 		Intent intent = new Intent(CCPIntentUtils.INTENT_CHAT_ROOM_DISMISS);
 		showToastMessage(reason);
 		intent.putExtra("roomNo", roomNo);
 		context.sendBroadcast(intent);
-	}
+	}*/
 
-	@Override
+	/*@Override
 	public void onChatroomRemoveMember(CloopenReason reason, String member) {
 		showToastMessage(reason);
 		Bundle b = new Bundle();
 		b.putInt(Device.REASON, reason.getReasonCode());
 		b.putString("kick_member", member);
 		sendTarget(WHAT_ON_CHATROOM_KICKMEMBER, b);
-	}
+	}*/
 
 	@Override
 	public void onFirewallPolicyEnabled() {
-		Intent intent = new Intent(CCPIntentUtils.INTENT_P2P_ENABLED);
-		context.sendBroadcast(intent);
+		/*Intent intent = new Intent(CCPIntentUtils.INTENT_P2P_ENABLED);
+		context.sendBroadcast(intent);*/
 	}
 
 	/**
@@ -1108,7 +1109,7 @@ public class CCPHelper implements CCPCall.InitListener, DeviceListener
 	/* (non-Javadoc)
 	 * @see com.hisun.phone.core.voice.listener.OnChatroomListener#onSetMemberSpeakOpt(com.hisun.phone.core.voice.model.CloopenReason, java.lang.String)
 	 */
-	@Override
+	/*@Override
 	public void onSetMemberSpeakOpt(CloopenReason reason, String member) {
 		showToastMessage(reason);
 		Bundle b = new Bundle();
@@ -1116,7 +1117,7 @@ public class CCPHelper implements CCPCall.InitListener, DeviceListener
 		b.putString("kick_member", member);
 		sendTarget(WHAT_ON_SET_MEMBER_SPEAK, b);
 	}
-
+*/
 
 	@Override
 	public void onSwitchCallMediaTypeRequest(String callid, CallType callType) {
