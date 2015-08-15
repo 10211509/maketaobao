@@ -15,6 +15,7 @@ import nobugs.team.shopping.app.base.BaseActivity;
 import nobugs.team.shopping.mvp.presenter.LoginPresenter;
 import nobugs.team.shopping.mvp.presenter.LoginPresenterImpl;
 import nobugs.team.shopping.mvp.view.LoginView;
+import nobugs.team.shopping.ui.service.T9Service;
 import nobugs.team.shopping.utils.CCPHelper;
 
 public class LoginActivity extends BaseActivity implements LoginView,CCPHelper.RegistCallBack {
@@ -109,7 +110,7 @@ public class LoginActivity extends BaseActivity implements LoginView,CCPHelper.R
                         Intent startService = new Intent(LoginActivity.this, T9Service.class);
                         startService(startService);
 
-                        startAction();
+//                        startAction();
                     } else if (reason == CCPHelper.WHAT_ON_DISCONNECT || reason == CCPHelper.WHAT_INIT_ERROR) {
                         // do nothing ...
 //                        showInitErrToast(msg);
