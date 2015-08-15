@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="CCP_REST_SDK_JAVA_v2.6r">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/app/libs/CCP_REST_SDK_JAVA_v2.6r.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
