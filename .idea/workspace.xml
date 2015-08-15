@@ -7,10 +7,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7a3ed879-c1d2-437a-8b56-83d2e90c31b9" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/nobugs/team/shopping/constant/AppConfig.java" afterPath="$PROJECT_DIR$/app/src/main/java/nobugs/team/shopping/constant/AppConfig.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/okvolley/src/main/java/team/nobugs/library/request/phraser/HttpObject.java" afterPath="$PROJECT_DIR$/okvolley/src/main/java/team/nobugs/library/request/phraser/HttpObject.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/nobugs/team/shopping/ui/activity/LoginActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/nobugs/team/shopping/ui/activity/LoginActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/nobugs/team/shopping/mvp/interactor/LoginInteractorImpl.java" afterPath="$PROJECT_DIR$/app/src/main/java/nobugs/team/shopping/mvp/interactor/LoginInteractorImpl.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="maketaobao.iws" />
@@ -96,8 +92,8 @@
       <file leaf-file-name="LoginInteractorImpl.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/nobugs/team/shopping/mvp/interactor/LoginInteractorImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="1.2903225">
-              <caret line="47" column="53" selection-start-line="47" selection-start-column="53" selection-end-line="47" selection-end-column="53" />
+            <state vertical-scroll-proportion="0.47311828">
+              <caret line="33" column="39" selection-start-line="33" selection-start-column="39" selection-end-line="33" selection-end-column="39" />
               <folding>
                 <element signature="e#1029#1430#0" expanded="true" />
                 <element signature="e#1429#1430#0" expanded="true" />
@@ -2699,7 +2695,13 @@
       <option name="project" value="LOCAL" />
       <updated>1439640797271</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="错误也">
+      <created>1439641630547</created>
+      <option name="number" value="00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1439641630547</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -2825,8 +2827,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/nobugs/team/shopping/mvp/interactor/LoginInteractorImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.2903225">
-          <caret line="47" column="53" selection-start-line="47" selection-start-column="53" selection-end-line="47" selection-end-column="53" />
+        <state vertical-scroll-proportion="0.47311828">
+          <caret line="33" column="39" selection-start-line="33" selection-start-column="39" selection-end-line="33" selection-end-column="39" />
           <folding>
             <element signature="e#1029#1430#0" expanded="true" />
             <element signature="e#1429#1430#0" expanded="true" />
