@@ -24,7 +24,7 @@ import nobugs.team.shopping.mvp.interactor.LoginInteractorImpl;
 import nobugs.team.shopping.mvp.interfaces.OnLoginFinishedListener;
 import nobugs.team.shopping.mvp.view.LoginView;
 
-public class LoginPresenterImpl implements LoginPresenter, OnLoginFinishedListener {
+public class LoginPresenterImpl extends BasePresenter<LoginView> implements LoginPresenter, OnLoginFinishedListener {
 
     private LoginView loginView;
     private LoginInteractor loginInteractor;
@@ -64,5 +64,21 @@ public class LoginPresenterImpl implements LoginPresenter, OnLoginFinishedListen
     @Override
     public void onSuccess() {
         loginView.navigateToHome();
+    }
+
+    @Override
+    public void onCreate() {
+    }
+
+    @Override
+    public void onStart() {
+    }
+
+    @Override
+    public void onStop() {
+    }
+
+    @Override
+    public void onDestroy() {
     }
 }

@@ -1,6 +1,5 @@
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:precent="http://schemas.android.com/apk/res-auto"
+<android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -8,16 +7,15 @@
         android:id="@+id/banner_main"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        precent:layout_heightPercent="34%"/>
+        app:layout_heightPercent="34%" />
 
     <EditText
         android:id="@+id/edt_search"
         android:layout_width="0dp"
         android:layout_height="50dp"
-        android:layout_marginTop="20dp"
         android:layout_centerHorizontal="true"
-        android:hint="@string/edt_search_hint"
-        precent:layout_widthPercent="80%"/>
+        android:layout_marginTop="20dp"
+        app:layout_widthPercent="80%" />
 
 
-</RelativeLayout>
+</android.support.percent.PercentRelativeLayout>

@@ -12,7 +12,6 @@ import butterknife.Bind;
 import butterknife.OnClick;
 import nobugs.team.shopping.R;
 import nobugs.team.shopping.app.base.BaseActivity;
-import nobugs.team.shopping.mvp.presenter.LoginPresenter;
 import nobugs.team.shopping.mvp.presenter.LoginPresenterImpl;
 import nobugs.team.shopping.mvp.view.LoginView;
 import nobugs.team.shopping.utils.CCPHelper;
@@ -31,13 +30,11 @@ public class LoginActivity extends BaseActivity implements LoginView,CCPHelper.R
     @Bind(R.id.progress)
     ProgressBar progress;
 
-    private LoginPresenter presenter;
-
     @Override
     protected void initView() {
         setContentView(R.layout.activity_login);
 
-        presenter = new LoginPresenterImpl(this);
+        setPresenter(new LoginPresenterImpl(this));
     }
 
     @Override
@@ -48,10 +45,14 @@ public class LoginActivity extends BaseActivity implements LoginView,CCPHelper.R
     protected void updateData() {
     }
 
+    @Override
+    public LoginPresenterImpl getPresenter() {
+        return (LoginPresenterImpl) super.getPresenter();
+    }
 
     @OnClick(R.id.login_btn)
     void onLoginClick() {
-        presenter.validateCredentials(editName.getText().toString(), editPassword.getText().toString());
+        getPresenter().validateCredentials(editName.getText().toString(), editPassword.getText().toString());
     }
 
 /*
@@ -68,30 +69,30 @@ public class LoginActivity extends BaseActivity implements LoginView,CCPHelper.R
 
     @Override
     public void setUsernameError() {
-        username.setError("用户名错误");
+        username.setError("鐢ㄦ埛鍚嶉敊璇�);
     }
 
     @Override
     public void setPasswordError() {
-        password.setError("密码错误");
+        password.setError("瀵嗙爜閿欒");
     }
 */
 
     @Override
     public void setLoginError() {
-        Toast.makeText(this, "登录错误！", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Sorry, Login Error", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void setNewWorkDown() {
-        Toast.makeText(this, "网路错误！", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Network Error", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void navigateToHome() {
-        // 跳转到主页面
+
         startActivity(new Intent(this, MainPageActivity.class));
-        //注册CCP
+
         CCPHelper.getInstance(this).registerCCP(this);
     }
 

@@ -3,7 +3,6 @@ package nobugs.team.shopping.ui.activity;
 import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.bigkoo.convenientbanner.CBPageAdapter;
 import com.bigkoo.convenientbanner.CBViewHolderCreator;
@@ -85,13 +84,13 @@ public class MainPageActivity extends BaseActivity {
         @Override
         public void UpdateUI(Context context, final int position, Integer resId) {
             imageView.setImageResource(resId);
-            imageView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    //点击事件
-                    Toast.makeText(view.getContext(), "点击了第" + (position + 1) + "图片", Toast.LENGTH_SHORT).show();
-                }
-            });
+//            imageView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    //点击事件
+//                    Toast.makeText(view.getContext(), "点击了第" + (position + 1) + "图片", Toast.LENGTH_SHORT).show();
+//                }
+//            });
         }
     }
 }

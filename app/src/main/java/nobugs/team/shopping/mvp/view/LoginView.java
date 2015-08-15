@@ -21,7 +21,7 @@ package nobugs.team.shopping.mvp.view;
 /**
  * 登录界面展示层
  */
-public interface LoginView {
+public interface LoginView extends IView{
    /* public void showProgress();
 
     public void hideProgress();

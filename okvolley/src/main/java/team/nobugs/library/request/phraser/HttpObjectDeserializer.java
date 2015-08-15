@@ -20,7 +20,7 @@ public class HttpObjectDeserializer implements JsonDeserializer<HttpObject> {
 
         httpObject.setCode(jsonObject.get("code").getAsInt());
         httpObject.setCodeMsg(jsonObject.get("codeMsg").getAsString());
-        httpObject.setData(jsonObject.get("data").getAsJsonArray());//TODO ¸Ã½Ó¿Ú
+        httpObject.setData(jsonObject.get("data").getAsJsonArray());
 
 
         return httpObject;
