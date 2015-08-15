@@ -6,7 +6,7 @@ package team.nobugs.library.request.phraser;
 public class HttpObject {
     private String data;
     private String codeMsg;
-    private int code;
+    private int code;//规定 code=0 成功 ； code != 0 失败
 
     public String getData() {
         return data;
@@ -30,5 +30,9 @@ public class HttpObject {
 
     public void setCode(int code) {
         this.code = code;
+    }
+
+    public boolean isSuccessful(){
+        return this.code == 0;
     }
 }

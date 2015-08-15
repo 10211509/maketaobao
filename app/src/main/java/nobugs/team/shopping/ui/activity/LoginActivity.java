@@ -97,7 +97,7 @@ public class LoginActivity extends BaseActivity implements LoginView,CCPHelper.R
     }
 
     @Override
-    public void onRegistResult(final int reason, String msg) {
+    public void onRegistResult(final int reason,final String msg) {
 
         runOnUiThread(new Runnable() {
 

@@ -7,6 +7,7 @@ import org.apache.http.message.BasicNameValuePair;
 import java.util.ArrayList;
 import java.util.List;
 
+import nobugs.team.shopping.constant.AppConfig;
 import nobugs.team.shopping.mvp.interfaces.OnLoginFinishedListener;
 import team.nobugs.library.request.GsonGetRequest;
 import team.nobugs.library.request.phraser.HttpObject;
@@ -19,15 +20,15 @@ public class LoginInteractorImpl implements LoginInteractor {
     public void login(final String username, final String password, final OnLoginFinishedListener listener) {
 
         List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
-        params.add(new BasicNameValuePair("name",username));
-        params.add(new BasicNameValuePair("password",password));
-       final GsonGetRequest<HttpObject> getRequest = RequestFactory.createGetRequest("http://suyun.58.com/api/guest/order/detail",new com.android.volley.Response.Listener<HttpObject>()
+        params.add(new BasicNameValuePair("username",username));
+        params.add(new BasicNameValuePair("password", password));
+       final GsonGetRequest<HttpObject> getRequest = RequestFactory.createGetRequest(AppConfig.URL.LOGIN,new com.android.volley.Response.Listener<HttpObject>()
        {
            @Override
            public void onResponse(HttpObject httpObjectObject)
            {
                // Deal with the DummyObject here
-              if( httpObjectObject.getCode() == 2){
+              if( httpObjectObject.isSuccessful()){
                   listener.onSuccess();
               }else{
                   listener.onFailure();
@@ -44,6 +45,6 @@ public class LoginInteractorImpl implements LoginInteractor {
 
            }
        });
-        OkVolleyUtils.addRequest(getRequest,"hhhh");
+        OkVolleyUtils.addRequest(getRequest,"login");
     }
 }
