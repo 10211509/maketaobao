@@ -1,5 +1,6 @@
 package team.nobugs.library.request.phraser;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
@@ -19,7 +20,8 @@ public class HttpObjectDeserializer implements JsonDeserializer<HttpObject> {
 
         httpObject.setCode(jsonObject.get("code").getAsInt());
         httpObject.setCodeMsg(jsonObject.get("codeMsg").getAsString());
-        httpObject.setData(jsonObject.get("data").getAsString());
+        httpObject.setData(jsonObject.get("data").getAsJsonArray());//TODO ¸Ã½Ó¿Ú
+
 
         return httpObject;
     }

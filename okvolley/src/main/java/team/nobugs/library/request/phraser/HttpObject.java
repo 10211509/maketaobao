@@ -1,18 +1,23 @@
 package team.nobugs.library.request.phraser;
 
+import com.google.gson.JsonElement;
+
+import org.json.JSONArray;
+
 /**
  * Created by xiayong on 2015/8/12.
  */
 public class HttpObject {
-    private String data;
+//    private String data;
+    private JsonElement data;
     private String codeMsg;
     private int code;
 
-    public String getData() {
+    public JsonElement getData() {
         return data;
     }
 
-    public void setData(String data) {
+    public void setData(JsonElement data) {
         this.data = data;
     }
 

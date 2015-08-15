@@ -9,7 +9,9 @@ import java.util.List;
 
 import nobugs.team.shopping.constant.AppConfig;
 import nobugs.team.shopping.mvp.interfaces.OnLoginFinishedListener;
+import nobugs.team.shopping.utils.CommonTools;
 import team.nobugs.library.request.GsonGetRequest;
+import team.nobugs.library.request.GsonPostRequest;
 import team.nobugs.library.request.phraser.HttpObject;
 import team.nobugs.library.request.utils.OkVolleyUtils;
 import team.nobugs.library.request.utils.RequestFactory;
@@ -22,29 +24,46 @@ public class LoginInteractorImpl implements LoginInteractor {
         List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
         params.add(new BasicNameValuePair("username",username));
         params.add(new BasicNameValuePair("password", password));
-       final GsonGetRequest<HttpObject> getRequest = RequestFactory.createGetRequest(AppConfig.URL.LOGIN,new com.android.volley.Response.Listener<HttpObject>()
-       {
+        /*"http://suyun.58.com/api/guest/order/detail"*/
+        String formatUrl = CommonTools.attachHttpGetParams(AppConfig.URL.LOGIN,params);
+       final GsonGetRequest<HttpObject> getRequest = RequestFactory.createGetRequest(formatUrl, new com.android.volley.Response.Listener<HttpObject>() {
            @Override
-           public void onResponse(HttpObject httpObjectObject)
-           {
+           public void onResponse(HttpObject httpObjectObject) {
                // Deal with the DummyObject here
-              if( httpObjectObject.isSuccessful()){
-                  listener.onSuccess();
-              }else{
-                  listener.onFailure();
-              }
+               if (httpObjectObject.isSuccessful()) {
+                   listener.onSuccess();
+               } else {
+                   listener.onFailure();
+               }
 
            }
-       },new com.android.volley.Response.ErrorListener()
-       {
+       }, new com.android.volley.Response.ErrorListener() {
            @Override
-           public void onErrorResponse(VolleyError error)
-           {
+           public void onErrorResponse(VolleyError error) {
                // Deal with the error here
                listener.onNetWorkError();
 
            }
        });
+/*       final GsonPostRequest<HttpObject> getRequest = RequestFactory.createPostRequest(AppConfig.URL.LOGIN*//*"http://suyun.58.com/api/guest/order/detail"*//*, params, new com.android.volley.Response.Listener<HttpObject>() {
+           @Override
+           public void onResponse(HttpObject httpObjectObject) {
+               // Deal with the DummyObject here
+               if (httpObjectObject.isSuccessful()) {
+                   listener.onSuccess();
+               } else {
+                   listener.onFailure();
+               }
+
+           }
+       }, new com.android.volley.Response.ErrorListener() {
+           @Override
+           public void onErrorResponse(VolleyError error) {
+               // Deal with the error here
+               listener.onNetWorkError();
+
+           }
+       });*/
         OkVolleyUtils.addRequest(getRequest,"login");
     }
 }
