@@ -30,10 +30,11 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'de.greenrobot:greendao:2.0.0'
     compile 'com.google.code.gson:gson:2.3.1'
-
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.afollestad:material-dialogs:0.7.8.1'
     compile 'com.bigkoo:convenientbanner:1.0.3'
-
     compile 'com.android.support:percent:22.2.0'
+    compile files('libs/CCP_REST_SDK_JAVA_v2.6r.jar')
+    compile files('libs/CCP_SDK_Android_3.6.4r.jar')
+    compile files('libs/pinyin4j-2.5.0.jar')
 }
