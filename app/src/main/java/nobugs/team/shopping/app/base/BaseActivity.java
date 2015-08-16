@@ -3,6 +3,7 @@ package nobugs.team.shopping.app.base;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import butterknife.ButterKnife;
+import de.greenrobot.event.EventBus;
 import nobugs.team.shopping.mvp.presenter.BasePresenter;
 
 /**
@@ -29,6 +30,7 @@ public abstract class BaseActivity extends FragmentActivity {
         initData();
 
         ButterKnife.bind(this);
+        EventBus.getDefault().register(this);//register the eventbus
 
         if (mPresenter != null){
             mPresenter.onCreate();
@@ -59,6 +61,7 @@ public abstract class BaseActivity extends FragmentActivity {
         super.onDestroy();
 
         ButterKnife.unbind(this);
+        EventBus.getDefault().unregister(this);
 
         if (mPresenter != null) {
             mPresenter.onDestroy();
