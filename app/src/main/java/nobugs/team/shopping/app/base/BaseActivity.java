@@ -27,6 +27,7 @@ public abstract class BaseActivity extends FragmentActivity {
         initView();
         initEvent();
         initData();
+
         ButterKnife.bind(this);
 
         if (mPresenter != null){
@@ -56,6 +57,8 @@ public abstract class BaseActivity extends FragmentActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+
+        ButterKnife.unbind(this);
 
         if (mPresenter != null) {
             mPresenter.onDestroy();

@@ -1,6 +1,6 @@
 package nobugs.team.shopping.mvp.presenter;
 
-import nobugs.team.shopping.mvp.interfaces.LifeCycleCallback;
+import nobugs.team.shopping.app.base.LifeCycleCallback;
 import nobugs.team.shopping.mvp.view.IView;
 
 /**

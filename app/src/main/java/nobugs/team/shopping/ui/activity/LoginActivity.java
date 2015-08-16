@@ -33,12 +33,11 @@ public class LoginActivity extends BaseActivity implements LoginView,CCPHelper.R
     @Override
     protected void initView() {
         setContentView(R.layout.activity_login);
-
-        setPresenter(new LoginPresenterImpl(this));
     }
 
     @Override
     protected void initData() {
+        setPresenter(new LoginPresenterImpl(this));
     }
 
     @Override
@@ -93,7 +92,7 @@ public class LoginActivity extends BaseActivity implements LoginView,CCPHelper.R
 
         startActivity(new Intent(this, MainPageActivity.class));
 
-        CCPHelper.getInstance(this).registerCCP(this);
+//        CCPHelper.getInstance(this).registerCCP(this);
     }
 
     @Override

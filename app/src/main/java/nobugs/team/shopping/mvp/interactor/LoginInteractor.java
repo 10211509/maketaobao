@@ -18,8 +18,15 @@
 
 package nobugs.team.shopping.mvp.interactor;
 
-import nobugs.team.shopping.mvp.interfaces.OnLoginFinishedListener;
-
 public interface LoginInteractor {
-    public void login(String username, String password, OnLoginFinishedListener listener);
+    void login(String username, String password, Callback listener);
+
+    interface Callback {
+
+        void onNetWorkError();
+
+        void onFailure();
+
+        void onSuccess();
+    }
 }

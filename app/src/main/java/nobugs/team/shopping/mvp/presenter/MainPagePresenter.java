@@ -7,7 +7,7 @@ package nobugs.team.shopping.mvp.presenter;
  */
 public interface MainPagePresenter {
 
-    void onShowAdsBanner();
+//    void onShowAdsBanner();
 
 //    void on
 

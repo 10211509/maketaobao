@@ -1,5 +1,16 @@
 package nobugs.team.shopping.mvp.presenter;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+import nobugs.team.shopping.mvp.interactor.AdsBannerInterator;
+import nobugs.team.shopping.mvp.interactor.AdsBannerInteratorImpl;
+import nobugs.team.shopping.mvp.interactor.LoginInteractor;
+import nobugs.team.shopping.mvp.interactor.LoginInteractorImpl;
+import nobugs.team.shopping.mvp.view.IView;
+import nobugs.team.shopping.mvp.view.LoginView;
 import nobugs.team.shopping.mvp.view.MainPageView;
 
 /**
@@ -9,9 +20,13 @@ import nobugs.team.shopping.mvp.view.MainPageView;
  */
 public class MainPagePresenterImpl extends BasePresenter<MainPageView> implements  MainPagePresenter{
 
-    @Override
-    public void onShowAdsBanner() {
+    public static final int BANNER_TURN_PERIOD = 3000;
 
+    private AdsBannerInterator adsBannerInterator;
+
+    public MainPagePresenterImpl(MainPageView view) {
+        setView(view);
+        this.adsBannerInterator = new AdsBannerInteratorImpl();
     }
 
     @Override
@@ -21,12 +36,29 @@ public class MainPagePresenterImpl extends BasePresenter<MainPageView> implement
 
     @Override
     public void onStart() {
+        getView().showEmptyBanner();
 
+        adsBannerInterator.getAdsBanners(new AdsBannerInterator.Callback() {
+            @Override
+            public void onSuccess(List<Object> urlOrIds) {
+                getView().showAndRunAdsBanner(urlOrIds, BANNER_TURN_PERIOD);
+            }
+
+            @Override
+            public void onNetWorkError() {
+                getView().showErrorBanner();
+            }
+
+            @Override
+            public void onFailure() {
+                getView().showErrorBanner();
+            }
+        });
     }
 
     @Override
     public void onStop() {
-
+        getView().stopRunAdsBanner();
     }
 
     @Override

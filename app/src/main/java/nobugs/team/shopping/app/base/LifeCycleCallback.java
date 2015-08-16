@@ -1,4 +1,4 @@
-package nobugs.team.shopping.mvp.interfaces;
+package nobugs.team.shopping.app.base;
 
 /**
  * Autor: wangyf on 2015/8/15 0015 20:49

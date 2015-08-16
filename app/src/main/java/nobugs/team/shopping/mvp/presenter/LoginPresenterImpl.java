@@ -21,16 +21,14 @@ package nobugs.team.shopping.mvp.presenter;
 
 import nobugs.team.shopping.mvp.interactor.LoginInteractor;
 import nobugs.team.shopping.mvp.interactor.LoginInteractorImpl;
-import nobugs.team.shopping.mvp.interfaces.OnLoginFinishedListener;
 import nobugs.team.shopping.mvp.view.LoginView;
 
-public class LoginPresenterImpl extends BasePresenter<LoginView> implements LoginPresenter, OnLoginFinishedListener {
+public class LoginPresenterImpl extends BasePresenter<LoginView> implements LoginPresenter, LoginInteractor.Callback {
 
-    private LoginView loginView;
     private LoginInteractor loginInteractor;
 
     public LoginPresenterImpl(LoginView loginView) {
-        this.loginView = loginView;
+        setView(loginView);
         this.loginInteractor = new LoginInteractorImpl();
     }
 
@@ -53,17 +51,17 @@ public class LoginPresenterImpl extends BasePresenter<LoginView> implements Logi
     @Override
     public void onNetWorkError() {
         //提示网络不好
-        loginView.setNewWorkDown();
+        getView().setNewWorkDown();
     }
 
     @Override
     public void onFailure() {
-        loginView.setLoginError();
+        getView().setLoginError();
     }
 
     @Override
     public void onSuccess() {
-        loginView.navigateToHome();
+        getView().navigateToHome();
     }
 
     @Override

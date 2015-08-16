@@ -7,20 +7,20 @@ import android.widget.ImageView;
 import com.bigkoo.convenientbanner.CBPageAdapter;
 import com.bigkoo.convenientbanner.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.ConvenientBanner;
+import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
 import nobugs.team.shopping.R;
 import nobugs.team.shopping.app.base.BaseActivity;
+import nobugs.team.shopping.mvp.presenter.MainPagePresenterImpl;
+import nobugs.team.shopping.mvp.view.MainPageView;
 
 /**
  * 选择商家店铺页面
  */
-public class MainPageActivity extends BaseActivity {
-
-    public static final long BANNER_TURN_PERIOD = 3000L;
+public class MainPageActivity extends BaseActivity implements MainPageView {
 
     @Bind(R.id.banner_main)
     ConvenientBanner bannerMain;
@@ -32,46 +32,46 @@ public class MainPageActivity extends BaseActivity {
 
     @Override
     protected void initData() {
+        setPresenter(new MainPagePresenterImpl(this));
     }
 
     @Override
-    protected void updateData() {
-        initBannerPager();
+    public MainPagePresenterImpl getPresenter() {
+        return (MainPagePresenterImpl) super.getPresenter();
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        bannerMain.startTurning(BANNER_TURN_PERIOD);
+    public void showAndRunAdsBanner(List<Object> imgRes, int period) {
+        if (bannerMain != null) {
+            bannerMain.setPages(
+                    new CBViewHolderCreator<ImageViewHolder>() {
+                        @Override
+                        public ImageViewHolder createHolder() {
+                            return new ImageViewHolder();
+                        }
+                    }, imgRes)
+                    .setPageIndicator(new int[]{R.drawable.ic_banner_indicator, R.drawable.ic_banner_indicator_focus})
+                    .setPageTransformer(ConvenientBanner.Transformer.DefaultTransformer);
+            bannerMain.startTurning(period);
+        }
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
-        bannerMain.stopTurning();
+    public void showEmptyBanner() {
     }
 
-    private void initBannerPager() {
-        bannerMain.setPages(
-            new CBViewHolderCreator<LocalImageHolderView>() {
-                @Override
-                public LocalImageHolderView createHolder() {
-                    return new LocalImageHolderView();
-                }
-            }, getTestImage())
-            .setPageIndicator(new int[]{R.drawable.ic_banner_indicator, R.drawable.ic_banner_indicator_focus})
-            .setPageTransformer(ConvenientBanner.Transformer.DefaultTransformer);
+    @Override
+    public void showErrorBanner() {
     }
 
-    private List<Integer> getTestImage() {
-        List<Integer> localImages = new ArrayList<>();
-        localImages.add(R.drawable.iv_banner_1);
-        localImages.add(R.drawable.iv_banner_1);
-        localImages.add(R.drawable.iv_banner_1);
-        return localImages;
+    @Override
+    public void stopRunAdsBanner() {
+        if (bannerMain != null) {
+            bannerMain.stopTurning();
+        }
     }
 
-    public class LocalImageHolderView implements CBPageAdapter.Holder<Integer> {
+    public class ImageViewHolder implements CBPageAdapter.Holder<Object> {
         private ImageView imageView;
 
         @Override
@@ -82,8 +82,16 @@ public class MainPageActivity extends BaseActivity {
         }
 
         @Override
-        public void UpdateUI(Context context, final int position, Integer resId) {
-            imageView.setImageResource(resId);
+        public void UpdateUI(Context context, final int position, Object urlOrId) {
+            if (urlOrId != null) {
+                if (urlOrId instanceof Integer) {
+                    imageView.setImageResource((Integer)urlOrId);
+                } else if (urlOrId instanceof String) {
+                    imageView.setImageResource(android.R.color.white);
+                    Picasso.with(context).load((String) urlOrId).into(imageView);
+                }
+            }
+
 //            imageView.setOnClickListener(new View.OnClickListener() {
 //                @Override
 //                public void onClick(View view) {

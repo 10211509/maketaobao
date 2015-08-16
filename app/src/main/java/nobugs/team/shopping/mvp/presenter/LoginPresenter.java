@@ -19,5 +19,5 @@
 package nobugs.team.shopping.mvp.presenter;
 
 public interface LoginPresenter {
-    public void validateCredentials(String username, String password);
+    void validateCredentials(String username, String password);
 }
