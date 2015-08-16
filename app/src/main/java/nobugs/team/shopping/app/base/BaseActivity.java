@@ -30,7 +30,7 @@ public abstract class BaseActivity extends FragmentActivity {
         initData();
 
         ButterKnife.bind(this);
-        EventBus.getDefault().register(this);//register the eventbus
+
 
         if (mPresenter != null){
             mPresenter.onCreate();
@@ -61,7 +61,6 @@ public abstract class BaseActivity extends FragmentActivity {
         super.onDestroy();
 
         ButterKnife.unbind(this);
-        EventBus.getDefault().unregister(this);
 
         if (mPresenter != null) {
             mPresenter.onDestroy();
