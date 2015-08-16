@@ -8,7 +8,7 @@ import nobugs.team.shopping.mvp.view.IView;
  * Email: zgtjwyftc@gmail.com
  * Description:
  */
-public abstract class BasePresenter<T extends IView> implements LifeCycleCallback {
+public abstract class BasePresenter<T extends IView> {
 
     private T mView;
 

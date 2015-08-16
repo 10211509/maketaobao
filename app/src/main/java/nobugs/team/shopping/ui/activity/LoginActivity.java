@@ -12,11 +12,12 @@ import butterknife.Bind;
 import butterknife.OnClick;
 import nobugs.team.shopping.R;
 import nobugs.team.shopping.app.base.BaseActivity;
+import nobugs.team.shopping.mvp.presenter.LoginPresenter;
 import nobugs.team.shopping.mvp.presenter.LoginPresenterImpl;
 import nobugs.team.shopping.mvp.view.LoginView;
 import nobugs.team.shopping.utils.CCPHelper;
 
-public class LoginActivity extends BaseActivity implements LoginView,CCPHelper.RegistCallBack {
+public class LoginActivity extends BaseActivity <LoginPresenter> implements LoginView,CCPHelper.RegistCallBack {
 
     @Bind(R.id.edit_name)
     EditText editName;
@@ -31,22 +32,13 @@ public class LoginActivity extends BaseActivity implements LoginView,CCPHelper.R
     ProgressBar progress;
 
     @Override
+    protected LoginPresenter initPresenter() {
+        return new LoginPresenterImpl(this);
+    }
+
+    @Override
     protected void initView() {
         setContentView(R.layout.activity_login);
-    }
-
-    @Override
-    protected void initData() {
-        setPresenter(new LoginPresenterImpl(this));
-    }
-
-    @Override
-    protected void updateData() {
-    }
-
-    @Override
-    public LoginPresenterImpl getPresenter() {
-        return (LoginPresenterImpl) super.getPresenter();
     }
 
     @OnClick(R.id.login_btn)

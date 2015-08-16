@@ -14,30 +14,26 @@ import java.util.List;
 import butterknife.Bind;
 import nobugs.team.shopping.R;
 import nobugs.team.shopping.app.base.BaseActivity;
+import nobugs.team.shopping.mvp.presenter.MainPagePresenter;
 import nobugs.team.shopping.mvp.presenter.MainPagePresenterImpl;
 import nobugs.team.shopping.mvp.view.MainPageView;
 
 /**
  * 选择商家店铺页面
  */
-public class MainPageActivity extends BaseActivity implements MainPageView {
+public class MainPageActivity extends BaseActivity <MainPagePresenter> implements MainPageView {
 
     @Bind(R.id.banner_main)
     ConvenientBanner bannerMain;
 
     @Override
+    protected MainPagePresenter initPresenter() {
+        return new MainPagePresenterImpl(this);
+    }
+
+    @Override
     protected void initView() {
         setContentView(R.layout.activity_main_page);
-    }
-
-    @Override
-    protected void initData() {
-        setPresenter(new MainPagePresenterImpl(this));
-    }
-
-    @Override
-    public MainPagePresenterImpl getPresenter() {
-        return (MainPagePresenterImpl) super.getPresenter();
     }
 
     @Override

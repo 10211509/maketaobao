@@ -14,6 +14,7 @@ import de.greenrobot.event.EventBus;
 import nobugs.team.shopping.R;
 import nobugs.team.shopping.app.base.BaseActivity;
 import nobugs.team.shopping.db.entity.User;
+import nobugs.team.shopping.mvp.presenter.IPresenter;
 import nobugs.team.shopping.utils.CCPHelper;
 /**
  * launch a call action
@@ -28,6 +29,12 @@ public class CallOutActivity extends BaseActivity {
     private String mCurrentCallId;
 
     private User mSeller;
+
+    @Override
+    protected IPresenter initPresenter() {
+        return null;
+    }
+
     @Override
     protected void initView() {
         setContentView(R.layout.activity_call_out);

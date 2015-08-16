@@ -5,7 +5,7 @@ package nobugs.team.shopping.mvp.presenter;
  * Email: zgtjwyftc@gmail.com
  * Description:
  */
-public interface MainPagePresenter {
+public interface MainPagePresenter extends IPresenter{
 
 //    void onShowAdsBanner();
 

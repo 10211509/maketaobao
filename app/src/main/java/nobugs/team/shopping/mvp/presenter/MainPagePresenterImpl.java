@@ -1,16 +1,12 @@
 package nobugs.team.shopping.mvp.presenter;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
+import nobugs.team.shopping.db.entity.ProductType;
 import nobugs.team.shopping.mvp.interactor.AdsBannerInterator;
 import nobugs.team.shopping.mvp.interactor.AdsBannerInteratorImpl;
-import nobugs.team.shopping.mvp.interactor.LoginInteractor;
-import nobugs.team.shopping.mvp.interactor.LoginInteractorImpl;
-import nobugs.team.shopping.mvp.view.IView;
-import nobugs.team.shopping.mvp.view.LoginView;
+import nobugs.team.shopping.mvp.interactor.ProductTypeInterator;
+import nobugs.team.shopping.mvp.interactor.ProductTypeInteratorImpl;
 import nobugs.team.shopping.mvp.view.MainPageView;
 
 /**
@@ -22,23 +18,17 @@ public class MainPagePresenterImpl extends BasePresenter<MainPageView> implement
 
     public static final int BANNER_TURN_PERIOD = 3000;
 
-    private AdsBannerInterator adsBannerInterator;
+    private AdsBannerInterator mAdsBannerInterator;
+    private ProductTypeInterator mProductTypeInterator;
 
     public MainPagePresenterImpl(MainPageView view) {
         setView(view);
-        this.adsBannerInterator = new AdsBannerInteratorImpl();
+        this.mAdsBannerInterator = new AdsBannerInteratorImpl();
+        this.mProductTypeInterator = new ProductTypeInteratorImpl();
     }
 
-    @Override
-    public void onCreate() {
-
-    }
-
-    @Override
-    public void onStart() {
-        getView().showEmptyBanner();
-
-        adsBannerInterator.getAdsBanners(new AdsBannerInterator.Callback() {
+    private void showAdsBanner(){
+        mAdsBannerInterator.getAdsBanners(new AdsBannerInterator.Callback() {
             @Override
             public void onSuccess(List<Object> urlOrIds) {
                 getView().showAndRunAdsBanner(urlOrIds, BANNER_TURN_PERIOD);
@@ -54,6 +44,44 @@ public class MainPagePresenterImpl extends BasePresenter<MainPageView> implement
                 getView().showErrorBanner();
             }
         });
+    }
+
+
+    private void showSubProductType() {
+        mProductTypeInterator.getMainProductType(new ProductTypeInterator.Callback() {
+            @Override
+            public void onSuccess(List<ProductType> types) {
+
+            }
+            @Override
+            public void onNetWorkError() {
+
+            }
+            @Override
+            public void onFailure() {
+
+            }
+        });
+    }
+
+    private void showMainProductType() {
+
+    }
+
+    @Override
+    public void onCreate() {
+
+    }
+
+    @Override
+    public void onStart() {
+        getView().showEmptyBanner();
+
+        showAdsBanner();
+
+        showMainProductType();
+
+        showSubProductType();
     }
 
     @Override

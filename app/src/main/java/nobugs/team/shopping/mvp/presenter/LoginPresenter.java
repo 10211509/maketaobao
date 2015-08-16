@@ -18,6 +18,6 @@
 
 package nobugs.team.shopping.mvp.presenter;
 
-public interface LoginPresenter {
+public interface LoginPresenter extends IPresenter {
     void validateCredentials(String username, String password);
 }
