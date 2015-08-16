@@ -11,8 +11,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import nobugs.team.shopping.R;
 import nobugs.team.shopping.app.base.BaseActivity;
+import nobugs.team.shopping.db.entity.User;
 import nobugs.team.shopping.utils.CCPHelper;
-
 /**
  * launch a call action
  */
@@ -25,14 +25,16 @@ public class CallOutActivity extends BaseActivity {
     // call ID
     private String mCurrentCallId;
 
+    private User mSeller;
     @Override
     protected void initView() {
         setContentView(R.layout.activity_call_out);
     }
 
     private void makeCall() {
-        if (CCPHelper.getInstance(this.getApplicationContext()).checkDevice()) {
-            mCurrentCallId = CCPHelper.getInstance(this.getApplicationContext()).getDevice().makeCall(Device.CallType.VIDEO, mVoipAccount);//TODO 发起一个通话，通过mCurrentCallId来主动挂断通话
+        if (CCPHelper.getInstance().checkDevice()) {
+            //发起一个通话，通过mCurrentCallId来主动挂断通话
+            mCurrentCallId = CCPHelper.getInstance().getDevice().makeCall(Device.CallType.VIDEO, mSeller.getVoipAccount());
         }
     }
 

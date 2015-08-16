@@ -119,7 +119,7 @@ public class LoginActivity extends BaseActivity implements LoginView,CCPHelper.R
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                CCPHelper.getInstance(LoginActivity.this).setRegistCallback(null);
+                CCPHelper.getInstance().setRegistCallback(null);
             }
         });
 

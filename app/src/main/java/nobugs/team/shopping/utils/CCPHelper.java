@@ -105,9 +105,13 @@ public class CCPHelper implements CCPCall.InitListener,
 	* @see CCPHelper#init(Context, Handler)
 	* @return
 	 */
-	public static CCPHelper getInstance(Context context) {
-		if(sInstance == null) {
-			sInstance = new CCPHelper(context);
+	public static CCPHelper getInstance() {
+		if(sInstance == null){
+			synchronized (CCPHelper.class){
+				if(sInstance == null) {
+					sInstance = new CCPHelper(MyApplication.getInstance());
+				}
+			}
 		}
 		return sInstance;
 	}
@@ -537,8 +541,10 @@ public class CCPHelper implements CCPCall.InitListener,
 		
 		sInstance = null;
 	}
-	
 
+	public boolean checkDevice(){
+		return getDevice() != null;
+	}
 	
 	/**********************************************************************
 	 *                     voice message                                  *
