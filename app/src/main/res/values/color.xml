@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="tv_sub_type_normal" >#927093</color>
+    <color name="tv_sub_type_pressed" >#281326</color>
+</resources>

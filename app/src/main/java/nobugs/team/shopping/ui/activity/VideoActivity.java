@@ -14,7 +14,7 @@ public class VideoActivity extends BaseActivity {
     }
 
     @Override
-    protected void initView() {
-        setContentView(R.layout.activity_video);
+    protected int getLayoutResId() {
+        return R.layout.activity_video;
     }
 }

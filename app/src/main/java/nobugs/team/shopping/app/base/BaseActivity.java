@@ -28,19 +28,22 @@ public abstract class BaseActivity<PresenterType extends IPresenter> extends Fra
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        initView();
-        initEvent();
-        initData();
-
         setPresenter(initPresenter());
+
+        setContentView(getLayoutResId());
 
         ButterKnife.bind(this);
 
+        initView();
+        initEvent();
+        initData();
 
         if (mPresenter != null) {
             mPresenter.onCreate();
         }
     }
+
+
 
     @Override
     protected void onStart() {
@@ -73,6 +76,8 @@ public abstract class BaseActivity<PresenterType extends IPresenter> extends Fra
     }
 
     protected abstract PresenterType initPresenter();
+
+    protected abstract int getLayoutResId();
 
     protected void initView() {
     }

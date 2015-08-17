@@ -10,4 +10,9 @@ public class CallInActivity extends BaseActivity {
     protected IPresenter initPresenter() {
         return null;
     }
+
+    @Override
+    protected int getLayoutResId() {
+        return 0;
+    }
 }

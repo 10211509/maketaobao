@@ -9,7 +9,7 @@ public interface AdsBannerInterator {
     void getAdsBanners(Callback callback);
 
     interface Callback {
-        void onSuccess(List<Object> urlOrIds);
+        void onSuccess(List<String> urlOrIds);
 
         void onNetWorkError();
 

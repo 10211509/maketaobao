@@ -36,8 +36,12 @@ public class CallOutActivity extends BaseActivity {
     }
 
     @Override
-    protected void initView() {
-        setContentView(R.layout.activity_call_out);
+    protected int getLayoutResId() {
+        return R.layout.activity_call_out;
+    }
+
+    @Override
+    protected void initData() {
         EventBus.getDefault().register(this);//register the eventbus
     }
 

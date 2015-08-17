@@ -1,12 +1,11 @@
 package nobugs.team.shopping.mvp.interactor;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import nobugs.team.shopping.R;
 import nobugs.team.shopping.db.entity.ProductType;
 
 /**
@@ -14,21 +13,25 @@ import nobugs.team.shopping.db.entity.ProductType;
  */
 public class ProductTypeInteratorImpl implements ProductTypeInterator {
 
-    private final static String JSON_TEST = "[{\"id\":1,\"parentId\":0,\"typename\":\"水果\",\"imageurl\":\"\"},{\"id\":2,\"parentId\":0,\"typename\":\"蔬菜\",\"imageurl\":\"\"},{\"id\":3,\"parentId\":0,\"typename\":\"生鲜\",\"imageurl\":\"\"},{\"id\":4,\"parentId\":0,\"typename\":\"调料\",\"imageurl\":\"\"},{\"id\":5,\"parentId\":0,\"typename\":\"米油\",\"imageurl\":\"\"},{\"id\":6,\"parentId\":1,\"typename\":\"苹果\",\"imageurl\":\"\"},{\"id\":7,\"parentId\":1,\"typename\":\"香蕉\",\"imageurl\":\"\"},{\"id\":8,\"parentId\":1,\"typename\":\"菠萝\",\"imageurl\":\"\"},{\"id\":9,\"parentId\":1,\"typename\":\"水蜜桃\",\"imageurl\":\"\"},{\"id\":10,\"parentId\":1,\"typename\":\"西瓜\",\"imageurl\":\"\"},{\"id\":11,\"parentId\":1,\"typename\":\"草莓\",\"imageurl\":\"\"},{\"id\":12,\"parentId\":1,\"typename\":\"葡萄\",\"imageurl\":\"\"},{\"id\":13,\"parentId\":2,\"typename\":\"辣椒\",\"imageurl\":\"\"},{\"id\":14,\"parentId\":2,\"typename\":\"茄子\",\"imageurl\":\"\"},{\"id\":15,\"parentId\":2,\"typename\":\"西兰花\",\"imageurl\":\"\"},{\"id\":16,\"parentId\":2,\"typename\":\"芹菜\",\"imageurl\":\"\"},{\"id\":17,\"parentId\":2,\"typename\":\"土豆\",\"imageurl\":\"\"},{\"id\":18,\"parentId\":3,\"typename\":\"鸡腿\",\"imageurl\":\"\"},{\"id\":19,\"parentId\":3,\"typename\":\"鸡心\",\"imageurl\":\"\"},{\"id\":20,\"parentId\":3,\"typename\":\"海虾\",\"imageurl\":\"\"},{\"id\":21,\"parentId\":3,\"typename\":\"牛腩\",\"imageurl\":\"\"},{\"id\":22,\"parentId\":3,\"typename\":\"猪里脊\",\"imageurl\":\"\"},{\"id\":23,\"parentId\":4,\"typename\":\"花椒\",\"imageurl\":\"\"},{\"id\":24,\"parentId\":4,\"typename\":\"大料\",\"imageurl\":\"\"},{\"id\":25,\"parentId\":4,\"typename\":\"酱油\",\"imageurl\":\"\"},{\"id\":26,\"parentId\":4,\"typename\":\"醋\",\"imageurl\":\"\"},{\"id\":27,\"parentId\":5,\"typename\":\"大米\",\"imageurl\":\"\"},{\"id\":28,\"parentId\":5,\"typename\":\"白面\",\"imageurl\":\"\"},{\"id\":29,\"parentId\":5,\"typename\":\"豆油\",\"imageurl\":\"\"},{\"id\":30,\"parentId\":5,\"typename\":\"绿豆\",\"imageurl\":\"\"}]";
+    private final static String JSON_TEST = "[{\"id\":1,\"parentid\":0,\"name\":\"水果\",\"imgurl\":\"\"},{\"id\":2,\"parentid\":0,\"name\":\"蔬菜\",\"imgurl\":\"\"},{\"id\":3,\"parentid\":0,\"name\":\"生鲜\",\"imgurl\":\"\"},{\"id\":4,\"parentid\":0,\"name\":\"调料\",\"imgurl\":\"\"},{\"id\":5,\"parentid\":0,\"name\":\"米油\",\"imgurl\":\"\"},{\"id\":6,\"parentid\":1,\"name\":\"苹果\",\"imgurl\":\"\"},{\"id\":7,\"parentid\":1,\"name\":\"香蕉\",\"imgurl\":\"\"},{\"id\":8,\"parentid\":1,\"name\":\"菠萝\",\"imgurl\":\"\"},{\"id\":9,\"parentid\":1,\"name\":\"水蜜桃\",\"imgurl\":\"\"},{\"id\":10,\"parentid\":1,\"name\":\"西瓜\",\"imgurl\":\"\"},{\"id\":11,\"parentid\":1,\"name\":\"草莓\",\"imgurl\":\"\"},{\"id\":12,\"parentid\":1,\"name\":\"葡萄\",\"imgurl\":\"\"},{\"id\":13,\"parentid\":2,\"name\":\"辣椒\",\"imgurl\":\"\"},{\"id\":14,\"parentid\":2,\"name\":\"茄子\",\"imgurl\":\"\"},{\"id\":15,\"parentid\":2,\"name\":\"西兰花\",\"imgurl\":\"\"},{\"id\":16,\"parentid\":2,\"name\":\"芹菜\",\"imgurl\":\"\"},{\"id\":17,\"parentid\":2,\"name\":\"土豆\",\"imgurl\":\"\"},{\"id\":18,\"parentid\":3,\"name\":\"鸡腿\",\"imgurl\":\"\"},{\"id\":19,\"parentid\":3,\"name\":\"鸡心\",\"imgurl\":\"\"},{\"id\":20,\"parentid\":3,\"name\":\"海虾\",\"imgurl\":\"\"},{\"id\":21,\"parentid\":3,\"name\":\"牛腩\",\"imgurl\":\"\"},{\"id\":22,\"parentid\":3,\"name\":\"猪里脊\",\"imgurl\":\"\"},{\"id\":23,\"parentid\":4,\"name\":\"花椒\",\"imgurl\":\"\"},{\"id\":24,\"parentid\":4,\"name\":\"大料\",\"imgurl\":\"\"},{\"id\":25,\"parentid\":4,\"name\":\"酱油\",\"imgurl\":\"\"},{\"id\":26,\"parentid\":4,\"name\":\"醋\",\"imgurl\":\"\"},{\"id\":27,\"parentid\":5,\"name\":\"大米\",\"imgurl\":\"\"},{\"id\":28,\"parentid\":5,\"name\":\"白面\",\"imgurl\":\"\"},{\"id\":29,\"parentid\":5,\"name\":\"豆油\",\"imgurl\":\"\"},{\"id\":30,\"parentid\":5,\"name\":\"绿豆\",\"imgurl\":\"\"}]";
     private final static int MAIN_PRODUCT_PARENT_ID = 0;
 
-    private List<ProductType> mProductTypes;
+    private ArrayList<ProductType> mProductTypes;
+
+    public ProductTypeInteratorImpl() {
+        loadProductTypeFromJson(JSON_TEST);
+    }
 
     private void loadProductTypeFromJson(String jsonTest) {
         Gson gson = new Gson();
-        mProductTypes = gson.fromJson(jsonTest, mProductTypes.getClass());
+        mProductTypes = gson.fromJson(jsonTest, new TypeToken<ArrayList<ProductType>>(){}.getType());
     }
 
-    private List<ProductType> findProductTypeByParentId(int parentId) {
+    private List<ProductType> findProductTypeByParentId(int parentid) {
         List<ProductType> result = new ArrayList<>();
         if (mProductTypes != null) {
-            for (int i = 0; i < mProductTypes.size() ; i++) {
-                if (mProductTypes.get(i).getParentid().equals(parentId)){
+            for (int i = 0; i < mProductTypes.size(); i++) {
+                if (mProductTypes.get(i).getParentid().equals(parentid)) {
                     result.add(mProductTypes.get(i));
                 }
             }
@@ -42,7 +45,7 @@ public class ProductTypeInteratorImpl implements ProductTypeInterator {
     }
 
     @Override
-    public void getSubProductType(int parentId, Callback callback) {
-        callback.onSuccess(findProductTypeByParentId(parentId));
+    public void getSubProductType(int parentid, Callback callback) {
+        callback.onSuccess(findProductTypeByParentId(parentid));
     }
 }

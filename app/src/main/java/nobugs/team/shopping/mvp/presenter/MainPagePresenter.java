@@ -9,6 +9,10 @@ public interface MainPagePresenter extends IPresenter{
 
 //    void onShowAdsBanner();
 
-//    void on
+    void onSelectMainProductType(int typeId);
+
+    void onSelectSubProductType(int typeId);
+
+    void onSelectShop(int shopId);
 
 }

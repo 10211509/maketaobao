@@ -37,8 +37,8 @@ public class LoginActivity extends BaseActivity <LoginPresenter> implements Logi
     }
 
     @Override
-    protected void initView() {
-        setContentView(R.layout.activity_login);
+    protected int getLayoutResId() {
+        return R.layout.activity_login;
     }
 
     @OnClick(R.id.login_btn)

@@ -9,5 +9,12 @@
     <string name="action_settings">Settings</string>
     <string name="edt_search_hint">搜索店铺</string>
     <string name="title_activity_call_in">CallInActivity</string>
+    <string name="btn_main_shop">商\t铺</string>
+    <string name="btn_main_order">订\t单</string>
+    <string name="btn_item_shop_look">查看</string>
+    <string name="tv_item_shop_name_default">武汉苹果批发店</string>
+    <string name="tv_item_shop_intro_default">本店主要经营苹果、香蕉等</string>
 
+    <string name="tv_item_main_type_fruit">水果</string>
+    <string name="tv_item_sub_type_apple">苹果</string>
 </resources>
