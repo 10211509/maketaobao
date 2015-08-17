@@ -4,8 +4,6 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
 import butterknife.ButterKnife;
-import de.greenrobot.event.EventBus;
-import nobugs.team.shopping.mvp.presenter.BasePresenter;
 import nobugs.team.shopping.mvp.presenter.IPresenter;
 
 /**

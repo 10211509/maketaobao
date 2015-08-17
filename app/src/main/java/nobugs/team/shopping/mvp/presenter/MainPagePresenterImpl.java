@@ -1,7 +1,11 @@
 package nobugs.team.shopping.mvp.presenter;
 
+import android.content.Intent;
+import android.support.annotation.NonNull;
+
 import java.util.List;
 
+import de.greenrobot.event.EventBus;
 import nobugs.team.shopping.db.entity.ProductType;
 import nobugs.team.shopping.db.entity.Shop;
 import nobugs.team.shopping.mvp.interactor.AdsBannerInterator;
@@ -161,7 +165,9 @@ public class MainPagePresenterImpl extends BasePresenter<MainPageView> implement
     }
 
     @Override
-    public void onSelectShop(int shopId) {
-
+    public void onSelectShop(@NonNull Shop shop) {
+        //start to call the seller
+        EventBus.getDefault().postSticky(shop.getUser());
+        getView().navigateCallOut(shop.getUser());
     }
 }

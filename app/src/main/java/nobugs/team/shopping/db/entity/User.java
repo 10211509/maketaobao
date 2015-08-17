@@ -19,7 +19,7 @@ public class User {
     private String name;
     private String password;
     private String phone;
-    private Integer type;
+    private Integer type;//buyer 1;seller 2
     private String voipAccount;
 
     // KEEP FIELDS - put your custom fields here
@@ -91,4 +91,7 @@ public class User {
 // KEEP METHODS - put your custom methods here
     // KEEP METHODS END
 
+    public boolean isSeller(){
+        return type == 2;
+    }
 }

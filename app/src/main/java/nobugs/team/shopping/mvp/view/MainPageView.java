@@ -1,9 +1,12 @@
 package nobugs.team.shopping.mvp.view;
 
+import android.support.annotation.NonNull;
+
 import java.util.List;
 
 import nobugs.team.shopping.db.entity.ProductType;
 import nobugs.team.shopping.db.entity.Shop;
+import nobugs.team.shopping.db.entity.User;
 
 /**
  * Autor: wangyf on 2015/8/15 0015 20:56
@@ -31,4 +34,6 @@ public interface MainPageView extends IView {
     void showShops(List<Shop> productTypes);
 
     void showEmptyShop();
+
+    void navigateCallOut(@NonNull User user);
 }

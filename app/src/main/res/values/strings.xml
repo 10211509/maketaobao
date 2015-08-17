@@ -17,4 +17,6 @@
 
     <string name="tv_item_main_type_fruit">水果</string>
     <string name="tv_item_sub_type_apple">苹果</string>
+    <string name="tv_calling">正在呼叫...</string>
+
 </resources>

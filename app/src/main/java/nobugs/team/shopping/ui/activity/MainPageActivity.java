@@ -1,6 +1,7 @@
 package nobugs.team.shopping.ui.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -16,10 +17,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
+import de.greenrobot.event.EventBus;
 import nobugs.team.shopping.R;
 import nobugs.team.shopping.app.base.BaseActivity;
 import nobugs.team.shopping.db.entity.ProductType;
 import nobugs.team.shopping.db.entity.Shop;
+import nobugs.team.shopping.db.entity.User;
 import nobugs.team.shopping.mvp.presenter.MainPagePresenter;
 import nobugs.team.shopping.mvp.presenter.MainPagePresenterImpl;
 import nobugs.team.shopping.mvp.view.MainPageView;
@@ -108,7 +111,7 @@ public class MainPageActivity extends BaseActivity<MainPagePresenter> implements
         mShopAdapter.setOnItemClickListener(new ShopAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position, Shop shop) {
-                getPresenter().onSelectShop(shop.getId());
+                getPresenter().onSelectShop(shop);
             }
         });
 
@@ -177,6 +180,13 @@ public class MainPageActivity extends BaseActivity<MainPagePresenter> implements
 
     @Override
     public void showEmptyShop() {
+
+    }
+
+    @Override
+    public void navigateCallOut(User user) {
+        //navigate to CallOutActivity to make a call with the seller
+        startActivity(new Intent(this,CallOutActivity.class));
 
     }
 

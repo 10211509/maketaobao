@@ -14,25 +14,23 @@ import de.greenrobot.event.EventBus;
 import nobugs.team.shopping.R;
 import nobugs.team.shopping.app.base.BaseActivity;
 import nobugs.team.shopping.db.entity.User;
+import nobugs.team.shopping.mvp.presenter.CallOutPresenter;
+import nobugs.team.shopping.mvp.presenter.CallOutPresenterImpl;
 import nobugs.team.shopping.mvp.presenter.IPresenter;
+import nobugs.team.shopping.mvp.view.CallOutView;
 import nobugs.team.shopping.utils.CCPHelper;
 /**
  * launch a call action
  */
-public class CallOutActivity extends BaseActivity {
+public class CallOutActivity extends BaseActivity<CallOutPresenter> implements CallOutView {
 
 
     @Bind(R.id.btn_hangup)
     Button btnHangup;//button to hang up the call
 
-    // call ID
-    private String mCurrentCallId;
-
-    private User mSeller;
-
     @Override
-    protected IPresenter initPresenter() {
-        return null;
+    protected CallOutPresenter initPresenter() {
+        return new CallOutPresenterImpl(this);
     }
 
     @Override
@@ -40,41 +38,31 @@ public class CallOutActivity extends BaseActivity {
         return R.layout.activity_call_out;
     }
 
-    @Override
-    protected void initData() {
-        EventBus.getDefault().register(this);//register the eventbus
-    }
-
-    private void makeCall() {
-        if (CCPHelper.getInstance().checkDevice()) {
-            //发起一个通话，通过mCurrentCallId来主动挂断通话
-            mCurrentCallId = CCPHelper.getInstance().getDevice().makeCall(Device.CallType.VIDEO, mSeller.getVoipAccount());
-        }
-    }
 
     @OnClick(R.id.btn_hangup)
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.btn_hangup:
-                releaseCall();
+//                releaseCall();
+                getPresenter().onHangupBtnClick();
                 break;
         }
     }
 
+
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        EventBus.getDefault().unregister(this);
+    public void hangup() {
+        onBackPressed();
     }
 
-    private void releaseCall(){
-        if(!TextUtils.isEmpty(mCurrentCallId) && CCPHelper.getInstance().checkDevice()){
-            CCPHelper.getInstance().getDevice().releaseCall(mCurrentCallId);
-        }
+    @Override
+    public void showCalledSubscriber(User user) {
+
+
     }
 
-    public void onEventMainThread(User user){
-        this.mSeller = user;
-    }
+    @Override
+    public void showCallProgress() {
 
+    }
 }
