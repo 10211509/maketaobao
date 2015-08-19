@@ -19,11 +19,14 @@
 package nobugs.team.shopping.mvp.presenter;
 
 
+import com.hisun.phone.core.voice.util.Log4Util;
+
 import nobugs.team.shopping.mvp.interactor.LoginInteractor;
 import nobugs.team.shopping.mvp.interactor.LoginInteractorImpl;
 import nobugs.team.shopping.mvp.view.LoginView;
+import nobugs.team.shopping.utils.CCPHelper;
 
-public class LoginPresenterImpl extends BasePresenter<LoginView> implements LoginPresenter, LoginInteractor.Callback {
+public class LoginPresenterImpl extends BasePresenter<LoginView> implements LoginPresenter, LoginInteractor.Callback,CCPHelper.RegistCallBack {
 
     private LoginInteractor loginInteractor;
 
@@ -66,6 +69,7 @@ public class LoginPresenterImpl extends BasePresenter<LoginView> implements Logi
 
     @Override
     public void onCreate() {
+        CCPHelper.getInstance().registerCCP(this);
     }
 
     @Override
@@ -78,5 +82,11 @@ public class LoginPresenterImpl extends BasePresenter<LoginView> implements Logi
 
     @Override
     public void onDestroy() {
+    }
+
+    @Override
+    public void onRegistResult(final int reason,final String msg) {
+
+       getView().onCCPRegistResult(reason,msg);
     }
 }

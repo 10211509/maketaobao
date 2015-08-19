@@ -21,7 +21,7 @@ package nobugs.team.shopping.mvp.view;
 /**
  * 登录界面展示层
  */
-public interface LoginView extends IView{
+public interface LoginView extends IView {
    /* public void showProgress();
 
     public void hideProgress();
@@ -30,9 +30,11 @@ public interface LoginView extends IView{
 
     public void setPasswordError();*/
 
-    public void setLoginError();//有网，登录失败
+    void setLoginError();//有网，登录失败
 
-    public void setNewWorkDown();//无网络
+    void setNewWorkDown();//无网络
 
-    public void navigateToHome();//登录成功，跳转到下一个页面
+    void navigateToHome();//登录成功，跳转到下一个页面
+
+    void onCCPRegistResult(final int reason, final String msg);
 }

@@ -136,12 +136,12 @@ public final class CCPConfig {
 	/**
 	 * Demo test sub account info
 	 */
-	public static String Sub_Account = "";
+	public static String Sub_Account = "aaf98f894ef91b17014ef95b727a0074";
 	
 	/**
 	 * Demo test sub token info
 	 */
-	public static String Sub_Token = "";
+	public static String Sub_Token = "64ec7fd183c344708ca954f5ac67e929";
 	
 	/**
 	 * Demo test sub nikename
@@ -151,12 +151,12 @@ public final class CCPConfig {
 	/**
 	 * Demo test VoIP account
 	 */
-	public static String VoIP_ID = "";
+	public static String VoIP_ID = "88973300000001";
 	
 	/**
 	 * Demo test VoIP password
 	 */
-	public static String VoIP_PWD = "";
+	public static String VoIP_PWD = "uv87smq9";
 	
 	/**
 	 * Demo test app id

@@ -17,7 +17,7 @@ import nobugs.team.shopping.mvp.presenter.LoginPresenterImpl;
 import nobugs.team.shopping.mvp.view.LoginView;
 import nobugs.team.shopping.utils.CCPHelper;
 
-public class LoginActivity extends BaseActivity <LoginPresenter> implements LoginView,CCPHelper.RegistCallBack {
+public class LoginActivity extends BaseActivity <LoginPresenter> implements LoginView {
 
     @Bind(R.id.edit_name)
     EditText editName;
@@ -84,12 +84,10 @@ public class LoginActivity extends BaseActivity <LoginPresenter> implements Logi
 
         startActivity(new Intent(this, MainPageActivity.class));
 
-//        CCPHelper.getInstance(this).registerCCP(this);
     }
 
     @Override
-    public void onRegistResult(final int reason,final String msg) {
-
+    public void onCCPRegistResult(final  int reason,final String msg) {
         runOnUiThread(new Runnable() {
 
             @Override

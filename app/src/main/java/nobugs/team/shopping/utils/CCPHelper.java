@@ -214,6 +214,7 @@ public class CCPHelper implements CCPCall.InitListener,
 		// for SDK version 3.5 above
 		device.setOnVoIPListener(this);
 		device.setOnIMListener(this);
+//		device.setDeviceListener(this);
 		/*device.setOnInterphoneListener(this);
 		device.setOnChatroomListener(this);*/
 		
