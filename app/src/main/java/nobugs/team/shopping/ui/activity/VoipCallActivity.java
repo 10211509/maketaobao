@@ -11,11 +11,11 @@ import nobugs.team.shopping.db.entity.User;
 import nobugs.team.shopping.mvp.presenter.CallOutPresenter;
 import nobugs.team.shopping.mvp.presenter.CallOutPresenterImpl;
 import nobugs.team.shopping.mvp.view.CallOutView;
-import nobugs.team.shopping.utils.CCPHelper;
+
 /**
- * launch a call action
+ * make a call or receive a call.You can answer or hang up the phone here!
  */
-public class CallOutActivity extends BaseActivity<CallOutPresenter> implements CallOutView {
+public class VoipCallActivity extends BaseActivity<CallOutPresenter> implements CallOutView {
 
 
     @Bind(R.id.btn_hangup)
@@ -28,7 +28,7 @@ public class CallOutActivity extends BaseActivity<CallOutPresenter> implements C
 
     @Override
     protected int getLayoutResId() {
-        return R.layout.activity_call_out;
+        return R.layout.activity_voip_call;
     }
 
 

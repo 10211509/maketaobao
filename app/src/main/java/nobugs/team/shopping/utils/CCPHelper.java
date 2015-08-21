@@ -3,24 +3,14 @@ package nobugs.team.shopping.utils;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.text.TextUtils;
 import android.util.Log;
 
 import com.yuntongxun.ecsdk.ECDevice;
 import com.yuntongxun.ecsdk.ECError;
 import com.yuntongxun.ecsdk.ECInitParams;
-import com.yuntongxun.ecsdk.ECMessage;
 import com.yuntongxun.ecsdk.ECVoIPCallManager;
 import com.yuntongxun.ecsdk.ECVoIPSetupManager;
-import com.yuntongxun.ecsdk.OnChatReceiveListener;
-import com.yuntongxun.ecsdk.OnMeetingListener;
 import com.yuntongxun.ecsdk.SdkErrorCode;
-import com.yuntongxun.ecsdk.im.group.ECGroupNoticeMessage;
-import com.yuntongxun.ecsdk.meeting.intercom.ECInterPhoneMeetingMsg;
-import com.yuntongxun.ecsdk.meeting.video.ECVideoMeetingMsg;
-import com.yuntongxun.ecsdk.meeting.voice.ECVoiceMeetingMsg;
-
-import java.util.List;
 
 import nobugs.team.shopping.constant.AppConfig;
 import nobugs.team.shopping.ui.activity.CallInActivity;

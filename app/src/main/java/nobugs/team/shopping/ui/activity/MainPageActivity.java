@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
-import de.greenrobot.event.EventBus;
 import nobugs.team.shopping.R;
 import nobugs.team.shopping.app.base.BaseActivity;
 import nobugs.team.shopping.db.entity.ProductType;
@@ -185,8 +184,8 @@ public class MainPageActivity extends BaseActivity<MainPagePresenter> implements
 
     @Override
     public void navigateCallOut(User user) {
-        //navigate to CallOutActivity to make a call with the seller
-        startActivity(new Intent(this,CallOutActivity.class));
+        //navigate to VoipCallActivity to make a call with the seller
+        startActivity(new Intent(this,VoipCallActivity.class));
 
     }
 

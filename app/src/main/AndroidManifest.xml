@@ -77,10 +77,6 @@
             android:enabled="true"
             android:exported="false" />
 
-        <activity
-            android:name=".ui.activity.CallInActivity"
-            android:label="@string/title_activity_call_in" >
-        </activity>
     </application>
 
 </manifest>
