@@ -2,12 +2,8 @@ package nobugs.team.shopping.mvp.presenter;
 
 import android.text.TextUtils;
 
-import com.hisun.phone.core.voice.Device;
-
 import de.greenrobot.event.EventBus;
 import nobugs.team.shopping.db.entity.User;
-import nobugs.team.shopping.mvp.interactor.UserInteractor;
-import nobugs.team.shopping.mvp.interactor.UserInteractorImpl;
 import nobugs.team.shopping.mvp.view.CallOutView;
 import nobugs.team.shopping.utils.CCPHelper;
 
@@ -59,17 +55,17 @@ public class CallOutPresenterImpl extends BasePresenter<CallOutView> implements 
     }
 
     private void makeCall() {
-        if (CCPHelper.getInstance().checkDevice()) {
+      /*  if (CCPHelper.getInstance().checkDevice()) {
             //发起一个通话，通过mCurrentCallId来主动挂断通话
-            mCurrentCallId = CCPHelper.getInstance().getDevice().makeCall(Device.CallType.VIDEO, mUser.getVoipAccount());
+//            mCurrentCallId = CCPHelper.getInstance().getDevice().makeCall(Device.CallType.VIDEO, mUser.getVoipAccount());
             getView().showCalledSubscriber(mUser);
             getView().showCallProgress();
-        }
+        }*/
     }
 
     private void releaseCall() {
-        if (!TextUtils.isEmpty(mCurrentCallId) && CCPHelper.getInstance().checkDevice()) {
+        /*if (!TextUtils.isEmpty(mCurrentCallId) && CCPHelper.getInstance().checkDevice()) {
             CCPHelper.getInstance().getDevice().releaseCall(mCurrentCallId);
-        }
+        }*/
     }
 }

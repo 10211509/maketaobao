@@ -36,5 +36,5 @@ public interface LoginView extends IView {
 
     void navigateToHome();//登录成功，跳转到下一个页面
 
-    void onCCPRegistResult(final int reason, final String msg);
+//    void onCCPRegistResult(final int reason, final String msg);
 }

@@ -6,8 +6,6 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.hisun.phone.core.voice.util.Log4Util;
-
 import butterknife.Bind;
 import butterknife.OnClick;
 import nobugs.team.shopping.R;
@@ -15,7 +13,6 @@ import nobugs.team.shopping.app.base.BaseActivity;
 import nobugs.team.shopping.mvp.presenter.LoginPresenter;
 import nobugs.team.shopping.mvp.presenter.LoginPresenterImpl;
 import nobugs.team.shopping.mvp.view.LoginView;
-import nobugs.team.shopping.utils.CCPHelper;
 
 public class LoginActivity extends BaseActivity <LoginPresenter> implements LoginView {
 
@@ -86,32 +83,8 @@ public class LoginActivity extends BaseActivity <LoginPresenter> implements Logi
 
     }
 
-    @Override
-    public void onCCPRegistResult(final  int reason,final String msg) {
-        runOnUiThread(new Runnable() {
+    /*@Override
+    public void onCCPRegistResult(int reason, String msg) {
 
-            @Override
-            public void run() {
-                try {
-//                    closeConnectionProgress();
-                    if (reason == CCPHelper.WHAT_ON_CONNECT) {
-
-                       /* Intent startService = new Intent(LoginActivity.this, T9Service.class);
-                        startService(startService);
-*/
-//                        startAction();
-                    } else if (reason == CCPHelper.WHAT_ON_DISCONNECT || reason == CCPHelper.WHAT_INIT_ERROR) {
-                        // do nothing ...
-//                        showInitErrToast(msg);
-                    } else {
-                        Log4Util.d(CCPHelper.DEMO_TAG, "Sorry , can't handle a message " + msg);
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                CCPHelper.getInstance().setRegistCallback(null);
-            }
-        });
-
-    }
+    }*/
 }

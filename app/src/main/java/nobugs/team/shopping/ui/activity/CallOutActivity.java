@@ -1,22 +1,15 @@
 package nobugs.team.shopping.ui.activity;
 
-import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 
-import com.hisun.phone.core.voice.Device;
-
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import de.greenrobot.event.EventBus;
 import nobugs.team.shopping.R;
 import nobugs.team.shopping.app.base.BaseActivity;
 import nobugs.team.shopping.db.entity.User;
 import nobugs.team.shopping.mvp.presenter.CallOutPresenter;
 import nobugs.team.shopping.mvp.presenter.CallOutPresenterImpl;
-import nobugs.team.shopping.mvp.presenter.IPresenter;
 import nobugs.team.shopping.mvp.view.CallOutView;
 import nobugs.team.shopping.utils.CCPHelper;
 /**
