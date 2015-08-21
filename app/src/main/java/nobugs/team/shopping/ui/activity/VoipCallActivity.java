@@ -8,22 +8,22 @@ import butterknife.OnClick;
 import nobugs.team.shopping.R;
 import nobugs.team.shopping.app.base.BaseActivity;
 import nobugs.team.shopping.db.entity.User;
-import nobugs.team.shopping.mvp.presenter.CallOutPresenter;
-import nobugs.team.shopping.mvp.presenter.CallOutPresenterImpl;
-import nobugs.team.shopping.mvp.view.CallOutView;
+import nobugs.team.shopping.mvp.presenter.VoipCallPresenter;
+import nobugs.team.shopping.mvp.presenter.VoipCallPresenterImpl;
+import nobugs.team.shopping.mvp.view.VoipCallView;
 
 /**
  * make a call or receive a call.You can answer or hang up the phone here!
  */
-public class VoipCallActivity extends BaseActivity<CallOutPresenter> implements CallOutView {
+public class VoipCallActivity extends BaseActivity<VoipCallPresenter> implements VoipCallView {
 
 
     @Bind(R.id.btn_hangup)
     Button btnHangup;//button to hang up the call
 
     @Override
-    protected CallOutPresenter initPresenter() {
-        return new CallOutPresenterImpl(this);
+    protected VoipCallPresenter initPresenter() {
+        return new VoipCallPresenterImpl(this);
     }
 
     @Override
@@ -49,13 +49,18 @@ public class VoipCallActivity extends BaseActivity<CallOutPresenter> implements 
     }
 
     @Override
-    public void showCalledSubscriber(User user) {
-
+    public void answer() {
 
     }
 
     @Override
-    public void showCallProgress() {
+    public void showCallInView(User user) {
 
     }
+
+    @Override
+    public void showCallOutView(User user) {
+
+    }
+
 }

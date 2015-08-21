@@ -5,10 +5,12 @@ import nobugs.team.shopping.db.entity.User;
 /**
  * Created by xiayong on 2015/8/17.
  */
-public interface CallOutView extends IView {
+public interface VoipCallView extends IView {
     void hangup();
 
-    void showCalledSubscriber(User user);
+    void answer();
 
-    void showCallProgress();
+    void showCallInView(User user);
+
+    void showCallOutView(User user);
 }

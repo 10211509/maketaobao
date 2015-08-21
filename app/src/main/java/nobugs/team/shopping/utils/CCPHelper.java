@@ -13,7 +13,7 @@ import com.yuntongxun.ecsdk.ECVoIPSetupManager;
 import com.yuntongxun.ecsdk.SdkErrorCode;
 
 import nobugs.team.shopping.constant.AppConfig;
-import nobugs.team.shopping.ui.activity.CallInActivity;
+import nobugs.team.shopping.ui.activity.VoipCallActivity;
 
 /**
  * Created by xiayong on 2015/8/20.
@@ -253,7 +253,7 @@ public class CCPHelper implements ECDevice.InitListener, ECDevice.OnECDeviceConn
         }
         // 设置接收VoIP来电事件通知Intent
         // 呼入界面activity、开发者需修改该类
-        Intent intent = new Intent(mContext, CallInActivity.class);
+        Intent intent = new Intent(mContext, VoipCallActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(mContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         mInitParams.setPendingIntent(pendingIntent);
 
