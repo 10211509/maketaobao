@@ -1,54 +1,54 @@
 package nobugs.team.shopping.mvp.presenter;
 
-import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 
+import com.yuntongxun.ecsdk.ECDevice;
 import com.yuntongxun.ecsdk.ECVoIPCallManager;
-
-import org.w3c.dom.Text;
 
 import de.greenrobot.event.EventBus;
 import nobugs.team.shopping.db.entity.User;
 import nobugs.team.shopping.mvp.view.VoipCallView;
-import nobugs.team.shopping.utils.CCPHelper;
 import nobugs.team.shopping.utils.VoIPCallHelper;
 
 /**
  * Created by xiayong on 2015/8/17.
  */
-public class VoipCallPresenterImpl extends BasePresenter<VoipCallView> implements VoipCallPresenter {
+public class VideoCallPresenterImpl extends BasePresenter<VoipCallView> implements VideoCallPresenter {
 
     public static final String EXTRA_OUTGOING_CALL = "con.yuntongxun.ecdemo.VoIP_OUTGOING_CALL";
     //    private UserInteractor userInteractor;
-    private User mUser;
+    private User mCallee;
     private String mCurrentCallId;
     private boolean isConnect = false;
     private boolean isIncomingCall;
 
-    public VoipCallPresenterImpl(VoipCallView callOutView) {
+    public VideoCallPresenterImpl(VoipCallView callOutView) {
         setView(callOutView);
     }
 
     @Override
     public void onCreate() {
         EventBus.getDefault().registerSticky(this);
-//        makeCall();
+        isIncomingCall = !(getContext().getIntent().getBooleanExtra(EXTRA_OUTGOING_CALL, false));
+
+        if(isIncomingCall){
+            // action to receive a call
+            handleReceiveCall();
+        }
     }
 
 
     public void onEventMainThread(User user) {
-        mUser = user;
-
-        isIncomingCall = !(getContext().getIntent().getBooleanExtra(EXTRA_OUTGOING_CALL, false));
-        if (isIncomingCall){
+        mCallee = user;
+        if (!isIncomingCall){
             //action to launch a call
-            getView().showCallInView(mUser);//show view
-            makeCall();
+            getView().showCallOutView(mCallee);//show view
+            makeCall(ECVoIPCallManager.CallType.VIDEO);
 
-        }else{
-            //action to receive a call
-            getView().showCallOutView(mUser);
-        }
+        }/*else{
+
+            getView().showCallOutView(mCallee);
+        }*/
     }
 
     @Override
@@ -69,8 +69,12 @@ public class VoipCallPresenterImpl extends BasePresenter<VoipCallView> implement
 
     }
 
-    private void makeCall() {
-        mCurrentCallId = VoIPCallHelper.makeCall(ECVoIPCallManager.CallType.VIDEO,mUser.getPhone());
+    private void makeCall(ECVoIPCallManager.CallType callType) {
+        mCurrentCallId = VoIPCallHelper.makeCall(callType, mCallee.getPhone());
+        if(TextUtils.isEmpty(mCurrentCallId)){
+            //call failed
+            getView().contactFailed();
+        }
     }
 
     private void hangupCall() {
@@ -89,5 +93,12 @@ public class VoipCallPresenterImpl extends BasePresenter<VoipCallView> implement
         if (!isConnect) {
             getView().hangup();
         }
+    }
+    private void handleReceiveCall(){
+        mCurrentCallId = getContext().getIntent().getStringExtra(ECDevice.CALLID);
+        String callPhone = getContext().getIntent().getStringExtra(ECDevice.CALLER);
+        mCallee = new User();
+        mCallee.setPhone(callPhone);
+        getView().showCallInView(mCallee);
     }
 }

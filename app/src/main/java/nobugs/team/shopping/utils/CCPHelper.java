@@ -13,7 +13,7 @@ import com.yuntongxun.ecsdk.ECVoIPSetupManager;
 import com.yuntongxun.ecsdk.SdkErrorCode;
 
 import nobugs.team.shopping.constant.AppConfig;
-import nobugs.team.shopping.ui.activity.VoipCallActivity;
+import nobugs.team.shopping.ui.activity.VideoCallActivity;
 
 /**
  * Created by xiayong on 2015/8/20.
@@ -57,155 +57,6 @@ public class CCPHelper implements ECDevice.InitListener, ECDevice.OnECDeviceConn
         }
     }
 
-    //第二步：设置注册参数、设置通知回调监听
-    /*public void register() {
-        ECInitParams params = ECInitParams.createParams();
-        params.setUserid(AppConfig.CCP_ACCOUNT_SID);
-        params.setAppKey(AppConfig.CCP_APP_ID);
-        params.setToken(AppConfig.CCP_APP_TOKEN);
-        *//*
-         params.setUserid("用户的app账号");
-        params.setAppKey("应用ID");
-        params.setToken("应用Token");*//*
-        // 1代表用户名+密码登陆（可以强制上线，踢掉已经在线的设备）
-        // 2代表自动重连注册（如果账号已经在其他设备登录则会提示异地登陆）
-        // 3 LoginMode（FORCE_LOGIN  AUTO）
-        params.setMode(ECInitParams.LoginMode.AUTO);
-        // 设置登陆状态回调
-        params.setOnDeviceConnectListener(new ECDevice.OnECDeviceConnectListener() {
-            public void onConnect() {
-                // 兼容4.0，5.0可不必处理
-            }
-
-            @Override
-            public void onDisconnect(ECError error) {
-                // 兼容4.0，5.0可不必处理
-            }
-
-            @Override
-            public void onConnectState(ECDevice.ECConnectState state, ECError error) {
-                if (state == ECDevice.ECConnectState.CONNECT_FAILED) {
-                    if (error.errorCode == SdkErrorCode.SDK_KICKED_OFF) {
-                        //账号异地登陆
-                    } else {
-                        //连接状态失败
-                    }
-                    return;
-                } else if (state == ECDevice.ECConnectState.CONNECT_SUCCESS) {
-                    // 登陆成功
-                }
-            }
-        });
-
-        // 设置SDK接收消息回调
-        params.setOnChatReceiveListener(new OnChatReceiveListener() {
-            @Override
-            public void OnReceivedMessage(ECMessage msg) {
-                // 收到新消息
-            }
-
-            @Override
-            public void OnReceiveGroupNoticeMessage(ECGroupNoticeMessage notice) {
-                // 收到群组通知消息（有人加入、退出...）
-                // 可以根据ECGroupNoticeMessage.ECGroupMessageType类型区分不同消息类型
-            }
-
-            @Override
-            public void onOfflineMessageCount(int count) {
-                // 登陆成功之后SDK回调该接口通知账号离线消息数
-            }
-
-            @Override
-            public int onGetOfflineMessage() {
-                return 0;
-            }
-
-            @Override
-            public void onReceiveOfflineMessage(List msgs) {
-                // SDK根据应用设置的离线消息拉去规则通知应用离线消息
-            }
-
-            @Override
-            public void onReceiveOfflineMessageCompletion() {
-                // SDK通知应用离线消息拉取完成
-            }
-
-            @Override
-            public void onServicePersonVersion(int version) {
-                // SDK通知应用当前账号的个人信息版本号
-            }
-
-            @Override
-            public void onReceiveDeskMessage(ECMessage ecMessage) {
-
-            }
-
-            @Override
-            public void onSoftVersion(String s, int i) {
-
-            }
-        });
-
-        // 获得SDKVoIP呼叫接口
-        // 注册VoIP呼叫事件回调监听
-        ECVoIPCallManager callInterface = ECDevice.getECVoIPCallManager();
-        if (callInterface != null) {
-            callInterface.setOnVoIPCallListener(new ECVoIPCallManager.OnVoIPListener() {
-                @Override
-                public void onCallEvents(ECVoIPCallManager.VoIPCall voipCall) {
-                    // 处理呼叫事件回调
-                    if (voipCall == null) {
-                        Log.e("SDKCoreHelper", "handle call event error , voipCall null");
-                        return;
-                    }
-                    // 根据不同的事件通知类型来处理不同的业务
-                    ECVoIPCallManager.ECCallState callState = voipCall.callState;
-                    switch (callState) {
-                        case ECCALL_PROCEEDING:
-                            // 正在连接服务器处理呼叫请求
-                            break;
-                        case ECCALL_ALERTING:
-                            // 呼叫到达对方客户端，对方正在振铃
-                            break;
-                        case ECCALL_ANSWERED:
-                            // 对方接听本次呼叫
-                            break;
-                        case ECCALL_FAILED:
-                            // 本次呼叫失败，根据失败原因播放提示音
-                            break;
-                        case ECCALL_RELEASED:
-                            // 通话释放[完成一次呼叫]
-                            break;
-                        default:
-                            Log.e("SDKCoreHelper", "handle call event error , callState " + callState);
-                            break;
-                    }
-                }
-            });
-        }
-
-        // 注册会议消息处理监听
-        if (ECDevice.getECMeetingManager() != null) {
-            ECDevice.getECMeetingManager().setOnMeetingListener(new OnMeetingListener() {
-                @Override
-                public void onReceiveInterPhoneMeetingMsg(ECInterPhoneMeetingMsg msg) {
-                    // 处理实时对讲消息Push
-                }
-
-                @Override
-                public void onReceiveVoiceMeetingMsg(ECVoiceMeetingMsg msg) {
-                    // 处理语音会议消息push
-                }
-
-                @Override
-                public void onReceiveVideoMeetingMsg(ECVideoMeetingMsg msg) {
-                    // 处理视频会议消息Push（暂未提供）
-                }
-            });
-        }
-
-
-    }*/
 
     @Override
     public void onInitialized() {
@@ -253,7 +104,7 @@ public class CCPHelper implements ECDevice.InitListener, ECDevice.OnECDeviceConn
         }
         // 设置接收VoIP来电事件通知Intent
         // 呼入界面activity、开发者需修改该类
-        Intent intent = new Intent(mContext, VoipCallActivity.class);
+        Intent intent = new Intent(mContext, VideoCallActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(mContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         mInitParams.setPendingIntent(pendingIntent);
 
@@ -280,12 +131,12 @@ public class CCPHelper implements ECDevice.InitListener, ECDevice.OnECDeviceConn
 
     @Override
     public void onConnect() {
-
+       // 兼容4.0，5.0可不必处理
     }
 
     @Override
     public void onDisconnect(ECError ecError) {
-
+        // 兼容4.0，5.0可不必处理
     }
 
     @Override
