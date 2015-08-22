@@ -70,6 +70,10 @@
             android:name=".ui.activity.MainPageActivity"
             android:label="@string/title_activity_main_page" >
         </activity>
+        <activity
+            android:name=".ui.activity.VideoCallActivity"
+            android:label="@string/title_activity_main_page" >
+        </activity>
 
         // ECSDK核心服务类
         <service

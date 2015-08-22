@@ -24,6 +24,7 @@ import nobugs.team.shopping.db.entity.Shop;
 import nobugs.team.shopping.db.entity.User;
 import nobugs.team.shopping.mvp.presenter.MainPagePresenter;
 import nobugs.team.shopping.mvp.presenter.MainPagePresenterImpl;
+import nobugs.team.shopping.mvp.presenter.VideoCallPresenterImpl;
 import nobugs.team.shopping.mvp.view.MainPageView;
 import nobugs.team.shopping.ui.adapter.MainProductTypeAdapter;
 import nobugs.team.shopping.ui.adapter.ShopAdapter;
@@ -185,7 +186,9 @@ public class MainPageActivity extends BaseActivity<MainPagePresenter> implements
     @Override
     public void navigateCallOut(User user) {
         //navigate to VideoCallActivity to make a call with the seller
-        startActivity(new Intent(this,VideoCallActivity.class));
+        Intent intent = new Intent(this,VideoCallActivity.class);
+        intent.putExtra(VideoCallPresenterImpl.EXTRA_OUTGOING_CALL, true);
+        startActivity(intent);
 
     }
 

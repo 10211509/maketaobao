@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="李先生"
-            android:id="@+id/txt_callername"
+            android:id="@+id/txt_calleename"
             android:layout_gravity="center_horizontal" />
 
         <TextView
@@ -51,7 +51,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="接听通话"
-        android:id="@+id/button"
+        android:id="@+id/btn_accept"
         android:layout_alignTop="@+id/btn_hangup"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"

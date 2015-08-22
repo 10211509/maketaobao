@@ -18,5 +18,6 @@
     <string name="tv_item_main_type_fruit">水果</string>
     <string name="tv_item_sub_type_apple">苹果</string>
     <string name="tv_calling">正在呼叫...</string>
+    <string name="tv_waiting_accept">请求视频通话</string>
 
 </resources>

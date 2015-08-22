@@ -1,9 +1,14 @@
 package nobugs.team.shopping.ui.activity;
 
+import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import butterknife.Bind;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import nobugs.team.shopping.R;
 import nobugs.team.shopping.app.base.BaseActivity;
@@ -20,6 +25,12 @@ public class VideoCallActivity extends BaseActivity<VideoCallPresenter> implemen
 
     @Bind(R.id.btn_hangup)
     Button btnHangup;//button to hang up the call
+    @Bind(R.id.txt_calleename)
+    TextView txtCalleename;
+    @Bind(R.id.btn_accept)
+    Button btnAccept;
+    @Bind(R.id.tv_calling)
+    TextView tvCalling;
 
     @Override
     protected VideoCallPresenter initPresenter() {
@@ -32,12 +43,14 @@ public class VideoCallActivity extends BaseActivity<VideoCallPresenter> implemen
     }
 
 
-    @OnClick(R.id.btn_hangup)
+    @OnClick({R.id.btn_hangup, R.id.btn_accept})
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.btn_hangup:
-//                releaseCall();
                 getPresenter().onHangupBtnClick();
+                break;
+            case R.id.btn_accept:
+                getPresenter().onAnswerBtnClick();
                 break;
         }
     }
@@ -55,12 +68,16 @@ public class VideoCallActivity extends BaseActivity<VideoCallPresenter> implemen
 
     @Override
     public void showCallInView(User user) {
-
+        txtCalleename.setText(user.getName());
+        btnAccept.setVisibility(View.VISIBLE);
+        tvCalling.setText(getString(R.string.tv_waiting_accept));
     }
 
     @Override
     public void showCallOutView(User user) {
-
+        txtCalleename.setText(user.getName());
+        btnAccept.setVisibility(View.GONE);
+        tvCalling.setText(getString(R.string.tv_calling));
     }
 
     @Override
@@ -68,4 +85,10 @@ public class VideoCallActivity extends BaseActivity<VideoCallPresenter> implemen
 
     }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
 }

@@ -16,7 +16,6 @@ import nobugs.team.shopping.utils.VoIPCallHelper;
 public class VideoCallPresenterImpl extends BasePresenter<VoipCallView> implements VideoCallPresenter {
 
     public static final String EXTRA_OUTGOING_CALL = "con.yuntongxun.ecdemo.VoIP_OUTGOING_CALL";
-    //    private UserInteractor userInteractor;
     private User mCallee;
     private String mCurrentCallId;
     private boolean isConnect = false;
@@ -28,8 +27,8 @@ public class VideoCallPresenterImpl extends BasePresenter<VoipCallView> implemen
 
     @Override
     public void onCreate() {
-        EventBus.getDefault().registerSticky(this);
         isIncomingCall = !(getActivity().getIntent().getBooleanExtra(EXTRA_OUTGOING_CALL, false));
+        EventBus.getDefault().registerSticky(this);
 
         if(isIncomingCall){
             // action to receive a call
