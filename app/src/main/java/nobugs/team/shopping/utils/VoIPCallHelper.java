@@ -22,12 +22,9 @@ public class VoIPCallHelper implements OnMakeCallBackListener {
         return ourInstance;
     }
 
-	/** SDK VoIP呼叫事件通知回调接口 */
 	private ECVoIPCallManager mCallInterface;
 	private ECVoIPSetupManager mCallSetInterface;
-	/** SDK VoIP呼叫接口 */
 	private SubVoIPCallback mVoIPCallback;
-	/** 用户VoIP通话界面通知接口 */
 	private OnCallEventNotifyListener mOnCallEventNotifyListener;
 	/** 当前正在进行的VoIP通话信息 */
 	private ECVoIPCallManager.VoIPCall mCallEntry;

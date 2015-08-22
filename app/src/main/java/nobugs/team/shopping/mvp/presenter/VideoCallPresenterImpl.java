@@ -45,10 +45,7 @@ public class VideoCallPresenterImpl extends BasePresenter<VoipCallView> implemen
             getView().showCallOutView(mCallee);//show view
             makeCall(ECVoIPCallManager.CallType.VIDEO);
 
-        }/*else{
-
-            getView().showCallOutView(mCallee);
-        }*/
+        }
     }
 
     @Override
@@ -65,8 +62,8 @@ public class VideoCallPresenterImpl extends BasePresenter<VoipCallView> implemen
 
     @Override
     public void onAnswerBtnClick() {
-        //TODO navigate to VideoActivity
-
+        //TODO navigate to VideoActivity,send the mCurrentCallId
+        getView().answer();
     }
 
     private void makeCall(ECVoIPCallManager.CallType callType) {
