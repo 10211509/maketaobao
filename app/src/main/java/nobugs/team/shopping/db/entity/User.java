@@ -19,8 +19,7 @@ public class User {
     private String name;
     private String password;
     private String phone;
-    private Integer type;//buyer 1;seller 2
-    private String voipAccount;
+    private Integer type;
 
     // KEEP FIELDS - put your custom fields here
     // KEEP FIELDS END
@@ -32,13 +31,12 @@ public class User {
         this.id = id;
     }
 
-    public User(Integer id, String name, String password, String phone, Integer type,String voipAccount) {
+    public User(Integer id, String name, String password, String phone, Integer type) {
         this.id = id;
         this.name = name;
         this.password = password;
         this.phone = phone;
         this.type = type;
-        this.voipAccount = voipAccount;
     }
 
     public Integer getId() {
@@ -81,14 +79,7 @@ public class User {
         this.type = type;
     }
 
-    public String getVoipAccount() {
-        return voipAccount;
-    }
-
-    public void setVoipAccount(String voipAccount) {
-        this.voipAccount = voipAccount;
-    }
-// KEEP METHODS - put your custom methods here
+    // KEEP METHODS - put your custom methods here
     // KEEP METHODS END
 
     public boolean isSeller(){

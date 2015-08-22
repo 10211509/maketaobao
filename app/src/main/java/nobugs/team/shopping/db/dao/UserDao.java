@@ -30,10 +30,7 @@ public class UserDao extends AbstractDao<User, Integer> {
         public final static Property Password = new Property(2, String.class, "password", false, "PASSWORD");
         public final static Property Phone = new Property(3, String.class, "phone", false, "PHONE");
         public final static Property Type = new Property(4, Integer.class, "type", false, "TYPE");
-        public final static Property VoipAccount = new Property(5, String.class, "voipaccount", false, "VOIPACCOUNT");
-    }
-
-    ;
+    };
 
 
     public UserDao(DaoConfig config) {
@@ -44,31 +41,24 @@ public class UserDao extends AbstractDao<User, Integer> {
         super(config, daoSession);
     }
 
-    /**
-     * Creates the underlying database table.
-     */
+    /** Creates the underlying database table. */
     public static void createTable(SQLiteDatabase db, boolean ifNotExists) {
-        String constraint = ifNotExists ? "IF NOT EXISTS " : "";
+        String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "'USER' (" + //
                 "'ID' INTEGER PRIMARY KEY ," + // 0: id
                 "'NAME' TEXT," + // 1: name
                 "'PASSWORD' TEXT," + // 2: password
                 "'PHONE' TEXT," + // 3: phone
-                "'TYPE' INTEGER)," +// 4: type
-                "'VOIPACCOUNT' TEXT);"); // 5: viopAccount
+                "'TYPE' INTEGER);"); // 4: type
     }
 
-    /**
-     * Drops the underlying database table.
-     */
+    /** Drops the underlying database table. */
     public static void dropTable(SQLiteDatabase db, boolean ifExists) {
         String sql = "DROP TABLE " + (ifExists ? "IF EXISTS " : "") + "'USER'";
         db.execSQL(sql);
     }
 
-    /**
-     * @inheritdoc
-     */
+    /** @inheritdoc */
     @Override
     protected void bindValues(SQLiteStatement stmt, User entity) {
         stmt.clearBindings();
@@ -97,24 +87,15 @@ public class UserDao extends AbstractDao<User, Integer> {
         if (type != null) {
             stmt.bindLong(5, type);
         }
-
-        String viopAccount = entity.getVoipAccount();
-        if (viopAccount != null) {
-            stmt.bindString(6, viopAccount);
-        }
     }
 
-    /**
-     * @inheritdoc
-     */
+    /** @inheritdoc */
     @Override
     public Integer readKey(Cursor cursor, int offset) {
         return cursor.isNull(offset + 0) ? null : cursor.getInt(offset + 0);
     }
 
-    /**
-     * @inheritdoc
-     */
+    /** @inheritdoc */
     @Override
     public User readEntity(Cursor cursor, int offset) {
         User entity = new User( //
@@ -122,15 +103,12 @@ public class UserDao extends AbstractDao<User, Integer> {
                 cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // name
                 cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // password
                 cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // phone
-                cursor.isNull(offset + 4) ? null : cursor.getInt(offset + 4), // type
-                cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5)//voipaccount
+                cursor.isNull(offset + 4) ? null : cursor.getInt(offset + 4) // type
         );
         return entity;
     }
 
-    /**
-     * @inheritdoc
-     */
+    /** @inheritdoc */
     @Override
     public void readEntity(Cursor cursor, User entity, int offset) {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getInt(offset + 0));
@@ -138,35 +116,27 @@ public class UserDao extends AbstractDao<User, Integer> {
         entity.setPassword(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
         entity.setPhone(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
         entity.setType(cursor.isNull(offset + 4) ? null : cursor.getInt(offset + 4));
-        entity.setVoipAccount(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
     }
 
-    /**
-     * @inheritdoc
-     */
+    /** @inheritdoc */
     @Override
     protected Integer updateKeyAfterInsert(User entity, long rowId) {
         return entity.getId();
     }
 
-    /**
-     * @inheritdoc
-     */
+    /** @inheritdoc */
     @Override
     public Integer getKey(User entity) {
-        if (entity != null) {
+        if(entity != null) {
             return entity.getId();
         } else {
             return null;
         }
     }
 
-    /**
-     * @inheritdoc
-     */
+    /** @inheritdoc */
     @Override
     protected boolean isEntityUpdateable() {
         return true;
     }
-
 }

@@ -13,4 +13,6 @@ public interface VoipCallView extends IView {
     void showCallInView(User user);
 
     void showCallOutView(User user);
+
+    void contactFailed();
 }

@@ -40,16 +40,6 @@ public class LoginPresenterImpl extends BasePresenter<LoginView> implements Logi
         loginInteractor.login(username, password, this);
     }
 
-   /* @Override public void on() {
-        loginView.setUsernameError();
-        loginView.hideProgress();
-    }
-
-    @Override public void onPasswordError() {
-        loginView.setPasswordError();
-        loginView.hideProgress();
-    }*/
-
     @Override
     public void onNetWorkError() {
         //提示网络不好
@@ -70,11 +60,4 @@ public class LoginPresenterImpl extends BasePresenter<LoginView> implements Logi
     public void onCreate() {
         CCPHelper.getInstance(MyApplication.getInstance()).init();
     }
-
-
-    /*@Override
-    public void onRegistResult(final int reason,final String msg) {
-
-       getView().onCCPRegistResult(reason,msg);
-    }*/
 }

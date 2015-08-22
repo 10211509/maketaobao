@@ -43,28 +43,6 @@ public class LoginActivity extends BaseActivity <LoginPresenter> implements Logi
         getPresenter().validateCredentials(editName.getText().toString(), editPassword.getText().toString());
     }
 
-/*
-
-    @Override
-    public void showProgress() {
-        progressBar.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void hideProgress() {
-        progressBar.setVisibility(View.GONE);
-    }
-
-    @Override
-    public void setUsernameError() {
-        username.setError("鐢ㄦ埛鍚嶉敊璇�);
-    }
-
-    @Override
-    public void setPasswordError() {
-        password.setError("瀵嗙爜閿欒");
-    }
-*/
 
     @Override
     public void setLoginError() {
@@ -83,8 +61,4 @@ public class LoginActivity extends BaseActivity <LoginPresenter> implements Logi
 
     }
 
-    /*@Override
-    public void onCCPRegistResult(int reason, String msg) {
-
-    }*/
 }

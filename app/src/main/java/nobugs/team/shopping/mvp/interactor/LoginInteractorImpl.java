@@ -23,7 +23,7 @@ public class LoginInteractorImpl implements LoginInteractor {
         List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
         params.add(new BasicNameValuePair("username", username));
         params.add(new BasicNameValuePair("password", password));
-        /*"http://suyun.58.com/api/guest/order/detail"*/
+
         String formatUrl = CommonTools.attachHttpGetParams(AppConfig.URL.LOGIN, params);
         final GsonGetRequest<HttpObject> getRequest = RequestFactory.createGetRequest(formatUrl, new com.android.volley.Response.Listener<HttpObject>() {
             @Override
@@ -44,25 +44,6 @@ public class LoginInteractorImpl implements LoginInteractor {
 
             }
         });
-/*       final GsonPostRequest<HttpObject> getRequest = RequestFactory.createPostRequest(AppConfig.URL.LOGIN*//*"http://suyun.58.com/api/guest/order/detail"*//*, params, new com.android.volley.Response.Listener<HttpObject>() {
-           @Override
-           public void onResponse(HttpObject httpObjectObject) {
-               // Deal with the DummyObject here
-               if (httpObjectObject.isSuccessful()) {
-                   listener.onSuccess();
-               } else {
-                   listener.onFailure();
-               }
-
-           }
-       }, new com.android.volley.Response.ErrorListener() {
-           @Override
-           public void onErrorResponse(VolleyError error) {
-               // Deal with the error here
-               listener.onNetWorkError();
-
-           }
-       });*/
         OkVolleyUtils.addRequest(getRequest, "login");
     }
 

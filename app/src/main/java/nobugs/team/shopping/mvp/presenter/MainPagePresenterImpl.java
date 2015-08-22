@@ -8,6 +8,7 @@ import java.util.List;
 import de.greenrobot.event.EventBus;
 import nobugs.team.shopping.db.entity.ProductType;
 import nobugs.team.shopping.db.entity.Shop;
+import nobugs.team.shopping.db.entity.User;
 import nobugs.team.shopping.mvp.interactor.AdsBannerInterator;
 import nobugs.team.shopping.mvp.interactor.AdsBannerInteratorImpl;
 import nobugs.team.shopping.mvp.interactor.ProductTypeInterator;
@@ -167,6 +168,8 @@ public class MainPagePresenterImpl extends BasePresenter<MainPageView> implement
     @Override
     public void onSelectShop(@NonNull Shop shop) {
         //start to call the seller
+        User user = new User(1,"xiayong","12345","18010035906",2);
+        shop.setUser(user);
         EventBus.getDefault().postSticky(shop.getUser());
         getView().navigateCallOut(shop.getUser());
     }

@@ -184,8 +184,8 @@ public class MainPageActivity extends BaseActivity<MainPagePresenter> implements
 
     @Override
     public void navigateCallOut(User user) {
-        //navigate to VoipCallActivity to make a call with the seller
-        startActivity(new Intent(this,VoipCallActivity.class));
+        //navigate to VideoCallActivity to make a call with the seller
+        startActivity(new Intent(this,VideoCallActivity.class));
 
     }
 
