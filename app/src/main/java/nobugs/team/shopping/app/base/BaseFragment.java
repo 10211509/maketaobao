@@ -9,40 +9,82 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import butterknife.ButterKnife;
+import nobugs.team.shopping.mvp.presenter.IPresenter;
 
 /**
  * Created by Administrator on 2015/8/16 0016.
  */
-public abstract class BaseFragment extends Fragment{
+public abstract class BaseFragment<PresenterType extends IPresenter> extends Fragment {
 
+
+    private PresenterType mPresenter;
+
+    public PresenterType getPresenter() {
+        return mPresenter;
+    }
+
+    public void setPresenter(PresenterType mPresenter) {
+        this.mPresenter = mPresenter;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (mPresenter != null) {
+            mPresenter.onCreate();
+        }
+    }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = initView(inflater);
 
-        initEvent();
+        View v = inflater.inflate(getLayoutResId(), container, false);
+        setPresenter(initPresenter());
         initData();
 
         ButterKnife.bind(this, v);
         return v;
     }
 
-    @Override public void onDestroyView() {
+    @Override
+    public void onDestroyView() {
         super.onDestroyView();
 
         ButterKnife.unbind(this);
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-//        injectDependencies();
+    public void onStart() {
+        super.onStart();
+        updateData();
+
+        if (mPresenter != null) {
+            mPresenter.onStart();
+        }
     }
 
-    protected abstract View initView(LayoutInflater inflater);
+    @Override
+    public void onStop() {
+        super.onStop();
 
-    protected abstract void initEvent();
+        if (mPresenter != null) {
+            mPresenter.onStop();
+        }
+    }
 
-    protected abstract void initData();
+    protected abstract PresenterType initPresenter();
+
+    protected abstract int getLayoutResId();
+
+    protected void initView(){
+
+    }
+
+    protected void initData() {
+    }
+
+
+    protected void updateData() {
+    }
 }

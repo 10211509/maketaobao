@@ -1,10 +1,13 @@
-package nobugs.team.shopping.ui.activity;
+package nobugs.team.shopping.ui.fragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
@@ -18,22 +21,24 @@ import java.util.List;
 
 import butterknife.Bind;
 import nobugs.team.shopping.R;
-import nobugs.team.shopping.app.base.BaseActivity;
+import nobugs.team.shopping.app.base.BaseFragment;
 import nobugs.team.shopping.db.entity.ProductType;
 import nobugs.team.shopping.db.entity.Shop;
 import nobugs.team.shopping.db.entity.User;
-import nobugs.team.shopping.mvp.presenter.MainPagePresenter;
-import nobugs.team.shopping.mvp.presenter.MainPagePresenterImpl;
+import nobugs.team.shopping.mvp.presenter.MainShopPresenter;
+import nobugs.team.shopping.mvp.presenter.MainShopPresenterImpl;
 import nobugs.team.shopping.mvp.presenter.VideoCallPresenterImpl;
-import nobugs.team.shopping.mvp.view.MainPageView;
+import nobugs.team.shopping.mvp.view.MainShopView;
+import nobugs.team.shopping.ui.activity.VideoCallActivity;
 import nobugs.team.shopping.ui.adapter.MainProductTypeAdapter;
 import nobugs.team.shopping.ui.adapter.ShopAdapter;
 import nobugs.team.shopping.ui.adapter.SubProductTypeAdapter;
 
 /**
- * 选择商家店铺页面
+ * Shop
  */
-public class MainPageActivity extends BaseActivity<MainPagePresenter> implements MainPageView {
+public class MainShopFragment extends BaseFragment<MainShopPresenter> implements MainShopView {
+
 
     @Bind(R.id.banner_main)
     ConvenientBanner bannerMain;
@@ -50,18 +55,43 @@ public class MainPageActivity extends BaseActivity<MainPagePresenter> implements
     @Bind(R.id.rv_shops)
     RecyclerView rvShops;
 
+    @Bind(R.id.btn_main_shop)
+    Button btnMainShop;
+
+    @Bind(R.id.btn_main_order)
+    Button btnMainOrder;
+
     private MainProductTypeAdapter mMainProductTypeAdapter;
     private SubProductTypeAdapter mSubProductTypeAdapter;
     private ShopAdapter mShopAdapter;
 
+    /**
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     *
+     * @param param1 Parameter 1.
+     * @param param2 Parameter 2.
+     * @return A new instance of fragment MainShopFragment.
+     */
+    public static MainShopFragment newInstance(String param1, String param2) {
+        MainShopFragment fragment = new MainShopFragment();
+        Bundle args = new Bundle();
+        return fragment;
+    }
+
+    public MainShopFragment() {
+        // Required empty public constructor
+    }
+
+
     @Override
-    protected MainPagePresenter initPresenter() {
-        return new MainPagePresenterImpl(this);
+    protected MainShopPresenter initPresenter() {
+        return new MainShopPresenterImpl(this);
     }
 
     @Override
     protected int getLayoutResId() {
-        return R.layout.activity_main_page;
+        return R.layout.fragment_main_shop;
     }
 
     @Override
@@ -70,9 +100,8 @@ public class MainPageActivity extends BaseActivity<MainPagePresenter> implements
         initSubTypeRecyclerView();
         initShopRecyclerView();
     }
-
-    private void initMainTypeRecyclerView(){
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+    private void initMainTypeRecyclerView() {
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this.getActivity(), LinearLayoutManager.HORIZONTAL, false);
         rvMainTypes.setLayoutManager(layoutManager);
 
         mMainProductTypeAdapter = new MainProductTypeAdapter(new ArrayList<ProductType>());
@@ -87,8 +116,8 @@ public class MainPageActivity extends BaseActivity<MainPagePresenter> implements
         rvMainTypes.setHasFixedSize(true);
     }
 
-    private void initSubTypeRecyclerView(){
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+    private void initSubTypeRecyclerView() {
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this.getActivity(), LinearLayoutManager.VERTICAL, false);
         rvSubTypes.setLayoutManager(layoutManager);
 
         mSubProductTypeAdapter = new SubProductTypeAdapter(new ArrayList<ProductType>());
@@ -103,8 +132,8 @@ public class MainPageActivity extends BaseActivity<MainPagePresenter> implements
         rvSubTypes.setHasFixedSize(true);
     }
 
-    private void initShopRecyclerView(){
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+    private void initShopRecyclerView() {
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this.getActivity(), LinearLayoutManager.VERTICAL, false);
         rvShops.setLayoutManager(layoutManager);
 
         mShopAdapter = new ShopAdapter(new ArrayList<Shop>());
@@ -118,7 +147,6 @@ public class MainPageActivity extends BaseActivity<MainPagePresenter> implements
         rvShops.setAdapter(mShopAdapter);
         rvShops.setHasFixedSize(true);
     }
-
     @Override
     public void showAndRunAdsBanner(List<String> imgUrls, int period) {
         if (bannerMain != null) {
@@ -137,10 +165,12 @@ public class MainPageActivity extends BaseActivity<MainPagePresenter> implements
 
     @Override
     public void showEmptyBanner() {
+
     }
 
     @Override
     public void showErrorBanner() {
+
     }
 
     @Override
@@ -184,14 +214,12 @@ public class MainPageActivity extends BaseActivity<MainPagePresenter> implements
     }
 
     @Override
-    public void navigateCallOut(User user) {
+    public void navigateCallOut(@NonNull User user) {
         //navigate to VideoCallActivity to make a call with the seller
-        Intent intent = new Intent(this,VideoCallActivity.class);
+        Intent intent = new Intent(this.getActivity(), VideoCallActivity.class);
         intent.putExtra(VideoCallPresenterImpl.EXTRA_OUTGOING_CALL, true);
         startActivity(intent);
-
     }
-
 
     public class ImageViewHolder implements CBPageAdapter.Holder<String> {
         private ImageView imageView;
@@ -210,7 +238,7 @@ public class MainPageActivity extends BaseActivity<MainPagePresenter> implements
 //                    imageView.setImageResource((Integer) urlOrId);
 //                } else if (urlOrId instanceof String) {
 //                    imageView.setImageResource(android.R.color.white);
-                    Picasso.with(context).load(url).into(imageView);
+                Picasso.with(context).load(url).into(imageView);
 //                }
             }
 

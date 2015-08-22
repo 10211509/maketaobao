@@ -57,7 +57,7 @@ public class LoginActivity extends BaseActivity <LoginPresenter> implements Logi
     @Override
     public void navigateToHome() {
 
-        startActivity(new Intent(this, MainPageActivity.class));
+        startActivity(new Intent(this, MainShopActivity.class));
 
     }
 

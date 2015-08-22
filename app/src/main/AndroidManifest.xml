@@ -38,16 +38,14 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     // 允许访问振动设备(非必选,由应用选择是否需要)
     <uses-permission android:name="android.permission.VIBRATE" />
-
-
     //** 如果您需要实现实时音视频功能，需要增加以下配置选项**//
 
     // 允许程序访问Wi-Fi网络状态信息
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     // 允许程序禁用键盘锁(非必选,由应用选择是否需要)
-    <uses-permission android:name="android.permission.DISABLE_KEYGUARD"/>
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
     // 允许使用PowerManager的WakeLocks保持进程在休眠时从屏幕消失(非必选,由应用选择是否需要)
-    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
 
@@ -67,20 +65,24 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.activity.MainPageActivity"
-            android:label="@string/title_activity_main_page" >
+            android:name=".ui.activity.MainShopActivity"
+            android:label="@string/title_activity_main_page"
+            android:launchMode="singleTask">
         </activity>
         <activity
             android:name=".ui.activity.VideoCallActivity"
             android:label="@string/title_activity_main_page" >
         </activity>
-
         // ECSDK核心服务类
         <service
             android:name="com.yuntongxun.ecsdk.ECClientService"
             android:enabled="true"
             android:exported="false" />
 
+        <activity
+            android:name=".ui.activity.OrderListActivity"
+            android:label="@string/title_activity_order_list" >
+        </activity>
     </application>
 
 </manifest>
