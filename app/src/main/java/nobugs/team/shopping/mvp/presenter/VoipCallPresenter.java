@@ -5,4 +5,6 @@ package nobugs.team.shopping.mvp.presenter;
  */
 public interface VoipCallPresenter extends IPresenter {
     void onHangupBtnClick();
+
+    void onAnswerBtnClick();
 }

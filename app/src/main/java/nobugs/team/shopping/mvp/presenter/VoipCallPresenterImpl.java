@@ -63,6 +63,12 @@ public class VoipCallPresenterImpl extends BasePresenter<VoipCallView> implement
         hangupCall();
     }
 
+    @Override
+    public void onAnswerBtnClick() {
+        //TODO navigate to VideoActivity
+
+    }
+
     private void makeCall() {
         mCurrentCallId = VoIPCallHelper.makeCall(ECVoIPCallManager.CallType.VIDEO,mUser.getPhone());
     }
