@@ -13,7 +13,7 @@ import nobugs.team.shopping.utils.VoIPCallHelper;
 /**
  * Created by xiayong on 2015/8/17.
  */
-public class VoipCallPresenterImpl extends BasePresenter<VoipCallView> implements VoipCallPresenter {
+public class VideoCallPresenterImpl extends BasePresenter<VoipCallView> implements VideoCallPresenter {
 
     public static final String EXTRA_OUTGOING_CALL = "con.yuntongxun.ecdemo.VoIP_OUTGOING_CALL";
     //    private UserInteractor userInteractor;
@@ -22,14 +22,14 @@ public class VoipCallPresenterImpl extends BasePresenter<VoipCallView> implement
     private boolean isConnect = false;
     private boolean isIncomingCall;
 
-    public VoipCallPresenterImpl(VoipCallView callOutView) {
+    public VideoCallPresenterImpl(VoipCallView callOutView) {
         setView(callOutView);
     }
 
     @Override
     public void onCreate() {
         EventBus.getDefault().registerSticky(this);
-        isIncomingCall = !(getContext().getIntent().getBooleanExtra(EXTRA_OUTGOING_CALL, false));
+        isIncomingCall = !(getActivity().getIntent().getBooleanExtra(EXTRA_OUTGOING_CALL, false));
 
         if(isIncomingCall){
             // action to receive a call
@@ -91,8 +91,8 @@ public class VoipCallPresenterImpl extends BasePresenter<VoipCallView> implement
         }
     }
     private void handleReceiveCall(){
-        mCurrentCallId = getContext().getIntent().getStringExtra(ECDevice.CALLID);
-        String callPhone = getContext().getIntent().getStringExtra(ECDevice.CALLER);
+        mCurrentCallId = getActivity().getIntent().getStringExtra(ECDevice.CALLID);
+        String callPhone = getActivity().getIntent().getStringExtra(ECDevice.CALLER);
         mCallee = new User();
         mCallee.setPhone(callPhone);
         getView().showCallInView(mCallee);

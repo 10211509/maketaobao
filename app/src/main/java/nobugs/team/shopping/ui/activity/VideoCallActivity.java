@@ -63,4 +63,9 @@ public class VideoCallActivity extends BaseActivity<VideoCallPresenter> implemen
 
     }
 
+    @Override
+    public void contactFailed() {
+
+    }
+
 }
