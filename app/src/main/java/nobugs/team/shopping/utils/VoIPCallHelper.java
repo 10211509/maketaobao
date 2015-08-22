@@ -50,7 +50,7 @@ public class VoIPCallHelper implements OnMakeCallBackListener {
 	}
 
     /**
-     * 发起�?��VoIP呼叫
+     * 发起一个VoIP呼叫
      * @param callType 呼叫类型（音视频、落地）
      * @param number 呼叫号码
      */
@@ -84,8 +84,8 @@ public class VoIPCallHelper implements OnMakeCallBackListener {
     }
 
     /**
-     * 返回SDK静音状�?
-     * @return 静音状�?
+     * 返回SDK静音状态
+     * @return 静音状态
      */
     public static boolean getMute(){
         if(getInstance().mCallSetInterface == null) {
@@ -96,8 +96,8 @@ public class VoIPCallHelper implements OnMakeCallBackListener {
     }
 
     /**
-     * 返回SDK免提状�?
-     * @return 免提状�?
+     * 返回SDK免提状态
+     * @return 免提状态
      */
     public static boolean getHandFree(){
         if(getInstance().mCallSetInterface == null) {
@@ -108,7 +108,7 @@ public class VoIPCallHelper implements OnMakeCallBackListener {
     }
 
     /**
-     * 切换SDK静音状�?
+     * 切换SDK静音状态
      */
 	public static void setMute() {
 		initCall();
@@ -120,7 +120,7 @@ public class VoIPCallHelper implements OnMakeCallBackListener {
 	}
 
     /**
-     * 切换SDK免提状�?
+     * 切换SDK免提状态
      */
 	public static void setHandFree() {
 
@@ -219,39 +219,39 @@ public class VoIPCallHelper implements OnMakeCallBackListener {
     }
 
     /**
-     * VoIP通话状�?通知
+     * VoIP通话状态通知
      */
     public interface OnCallEventNotifyListener {
         /**
-         * 正在连接服务�?
-         * @param callId 通话的唯�?���?
+         * 正在连接服务器
+         * @param callId 通话的唯一标识
          */
         void onCallProceeding(String callId);
-        
+
         void onMakeCallback(ECError arg0, String arg1, String arg2);
 
         /**
          * 对方正在振铃
-         * @param callId 通话的唯�?���?
+         * @param callId 通话的唯一标识
          */
         void onCallAlerting(String callId);
 
         /**
-         * 对方应答（�?话完全建立）
-         * @param callId 通话的唯�?���?
+         * 对方应答（通话完全建立）
+         * @param callId 通话的唯一标识
          */
         void onCallAnswered(String callId);
 
         /**
          * 呼叫失败
-         * @param callId 通话的唯�?��识（有可能为Null�?
+         * @param callId 通话的唯一标识（有可能为Null）
          * @param reason 呼叫失败原因
          */
-        void onMakeCallFailed(String callId, int reason);
+        void onMakeCallFailed(String callId , int reason);
 
         /**
          * VoIP通话结束
-         * @param callId 通话的唯�?���?
+         * @param callId 通话的唯一标识
          */
         void onCallReleased(String callId);
     }
@@ -297,17 +297,13 @@ public class VoIPCallHelper implements OnMakeCallBackListener {
         }
     }
 
-	@Override
-	public void onMakeCallback(ECError ecError, String caller, String called) {
-		OnCallEventNotifyListener notifyListener = VoIPCallHelper.this.mOnCallEventNotifyListener;
-		if(notifyListener == null) {
-			return ;
-		}
-		notifyListener.onMakeCallback(ecError, caller, called);
-		
-	}
-	
-	
-	
+    @Override
+    public void onMakeCallback(ECError ecError, String caller, String called) {
+        OnCallEventNotifyListener notifyListener = VoIPCallHelper.this.mOnCallEventNotifyListener;
+        if(notifyListener == null) {
+            return ;
+        }
+        notifyListener.onMakeCallback(ecError, caller, called);
 
+    }
 }

@@ -39,7 +39,7 @@ public class VoipCallPresenterImpl extends BasePresenter<VoipCallView> implement
     public void onEventMainThread(User user) {
         mUser = user;
 
-        isIncomingCall = !(getContext().getIntent().getBooleanExtra(EXTRA_OUTGOING_CALL, false));
+        isIncomingCall = !(getActivity().getIntent().getBooleanExtra(EXTRA_OUTGOING_CALL, false));
         if (isIncomingCall){
             //action to launch a call
             getView().showCallInView(mUser);//show view
