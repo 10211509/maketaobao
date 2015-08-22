@@ -1,6 +1,5 @@
 package nobugs.team.shopping.app.base;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -40,10 +39,12 @@ public abstract class BaseFragment<PresenterType extends IPresenter> extends Fra
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View v = inflater.inflate(getLayoutResId(), container, false);
+        ButterKnife.bind(this, v);
+
         setPresenter(initPresenter());
+        initView();
         initData();
 
-        ButterKnife.bind(this, v);
         return v;
     }
 

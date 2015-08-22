@@ -27,5 +27,7 @@
 
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="tv_main_shop">商铺</string>
+    <string name="tv_main_orderlist">订单</string>
 
 </resources>

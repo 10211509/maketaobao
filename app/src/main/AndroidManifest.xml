@@ -65,7 +65,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.activity.MainShopActivity"
+            android:name=".ui.activity.MainPageActivity"
             android:label="@string/title_activity_main_page"
             android:launchMode="singleTask">
         </activity>
@@ -80,7 +80,7 @@
             android:exported="false" />
 
         <activity
-            android:name=".ui.activity.OrderListActivity"
+            android:name=".ui.activity.OrderDetailsActivity"
             android:label="@string/title_activity_order_list" >
         </activity>
     </application>

@@ -1,88 +1,52 @@
-<android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:precent="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.bigkoo.convenientbanner.ConvenientBanner
-        android:id="@+id/banner_main"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        precent:layout_heightPercent="34.8%" />
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:id="@+id/frame_fragment_content"
+        android:layout_above="@+id/linear_bottom_btns"
+        android:layout_centerHorizontal="true">
+        <!--<fragment
+            android:id="@+id/id_fragment_shop"
+            android:name="nobugs.team.shopping.ui.fragment.MainShopFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <fragment
+            android:id="@+id/id_fragment_order"
+            android:name="nobugs.team.shopping.ui.fragment.MainOrderListFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+-->
+    </FrameLayout>
 
-    <EditText
-        android:id="@+id/edt_search"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        precent:layout_widthPercent="80%" />
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_main_types"
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_below="@+id/banner_main"
-        android:background="@android:color/white"
-        android:scrollbars="horizontal"
-        precent:layout_heightPercent="16%" />
+        android:id="@+id/linear_bottom_btns"
+        android:layout_height="57dp"
+        android:layout_alignParentBottom="true">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_below="@+id/rv_main_types"
-        android:background="#EEEEEE"/>
-
-    <android.support.percent.PercentRelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_below="@+id/rv_main_types"
-        precent:layout_heightPercent="42.1%">
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_sub_types"
+        <Button
             android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_centerVertical="true"
-            android:background="@drawable/bg_rv_sub_type"
-            android:scrollbars="vertical"
-            precent:layout_heightPercent="93%"
-            precent:layout_widthPercent="14.6%" />
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/tv_main_shop"
+            android:background="#0080FF"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:id="@+id/btn_main_shop" />
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_shops"
+        <Button
             android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="10dp"
-            android:scrollbars="vertical"
-            precent:layout_heightPercent="93%"
-            precent:layout_widthPercent="80%" />
-    </android.support.percent.PercentRelativeLayout>
-
-    <Button
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:id="@+id/btn_main_shop"
-        android:layout_alignParentBottom="true"
-        android:background="#0080FF"
-        android:text="@string/btn_main_shop"
-        android:textColor="@android:color/white"
-        android:textSize="18sp"
-        precent:layout_heightPercent="7.1%"
-        precent:layout_widthPercent="50%" />
-
-    <Button
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:id="@+id/btn_main_order"
-        android:background="#FF7F00"
-        android:text="@string/btn_main_order"
-        android:textColor="@android:color/white"
-        android:textSize="18sp"
-        precent:layout_heightPercent="7.1%"
-        precent:layout_widthPercent="50%" />
-
-</android.support.percent.PercentRelativeLayout>
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#FF7F00"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:text="@string/tv_main_orderlist"
+            android:id="@+id/btn_main_order" />
+    </LinearLayout>
+</RelativeLayout>

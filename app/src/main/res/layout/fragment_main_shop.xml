@@ -36,7 +36,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_below="@+id/rv_main_types"
-        precent:layout_heightPercent="42.1%">
+        precent:layout_heightPercent="49.2%">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_sub_types"
@@ -60,10 +60,10 @@
             precent:layout_widthPercent="80%" />
     </android.support.percent.PercentRelativeLayout>
 
-    <Button
+  <!--  <Button
+        android:id="@+id/btn_main_shop"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:id="@+id/btn_main_shop"
         android:layout_alignParentBottom="true"
         android:background="#0080FF"
         android:text="@string/btn_main_shop"
@@ -73,16 +73,16 @@
         precent:layout_widthPercent="50%" />
 
     <Button
+        android:id="@+id/btn_main_order"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:id="@+id/btn_main_order"
         android:background="#FF7F00"
         android:text="@string/btn_main_order"
         android:textColor="@android:color/white"
         android:textSize="18sp"
         precent:layout_heightPercent="7.1%"
-        precent:layout_widthPercent="50%" />
+        precent:layout_widthPercent="50%" />-->
 
 </android.support.percent.PercentRelativeLayout>
