@@ -35,16 +35,6 @@ public class VoipCallPresenterImpl extends BasePresenter<VoipCallView> implement
 //        makeCall();
     }
 
-    @Override
-    public void onStart() {
-
-    }
-
-    @Override
-    public void onStop() {
-
-    }
-
 
     public void onEventMainThread(User user) {
         mUser = user;

@@ -10,7 +10,7 @@ import nobugs.team.shopping.mvp.view.IView;
  * Email: zgtjwyftc@gmail.com
  * Description:
  */
-public abstract class BasePresenter<T extends IView> {
+public  class BasePresenter<T extends IView> implements LifeCycleCallback {
 
     private T mView;
 
@@ -27,5 +27,21 @@ public abstract class BasePresenter<T extends IView> {
             throw new ClassCastException("mView must be the instance of the FragmentActivity!");
         }
         return (FragmentActivity) mView;
+    }
+
+    @Override
+    public void onCreate() {
+    }
+
+    @Override
+    public void onStart() {
+    }
+
+    @Override
+    public void onStop() {
+    }
+
+    @Override
+    public void onDestroy() {
     }
 }

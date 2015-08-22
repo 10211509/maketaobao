@@ -71,17 +71,6 @@ public class LoginPresenterImpl extends BasePresenter<LoginView> implements Logi
         CCPHelper.getInstance(MyApplication.getInstance()).init();
     }
 
-    @Override
-    public void onStart() {
-    }
-
-    @Override
-    public void onStop() {
-    }
-
-    @Override
-    public void onDestroy() {
-    }
 
     /*@Override
     public void onRegistResult(final int reason,final String msg) {
