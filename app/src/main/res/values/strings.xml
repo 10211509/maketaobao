@@ -35,5 +35,9 @@
     <string name="order_price">总价：¥{price}</string>
     <string name="order_place_time">下单时间:{place_time}</string>
     <string name="order_id">订单号：{orderid}</string>
+    <string name="tv_delivered">已发货</string>
+    <string name="tv_payed">已付款</string>
+    <string name="tv_collected">已收款</string>
+    <string name="tv_cancel">取消订单</string>
 
 </resources>

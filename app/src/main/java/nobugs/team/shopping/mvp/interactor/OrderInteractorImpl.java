@@ -56,6 +56,13 @@ public class OrderInteractorImpl implements OrderInteractor {
     public void getOrdersInFinished(User user, int pageCount, int curPage, Callback callback) {
 
     }
+
+    @Override
+    public void updateState(int orderid, Order.State newState) {
+
+    }
+
+
     public List<Order> getFakeDate() {
         List<Order> fakeDate = new ArrayList<>();
         for(int i=0;i<10;i++){

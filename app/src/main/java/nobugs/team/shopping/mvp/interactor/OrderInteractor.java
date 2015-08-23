@@ -17,6 +17,7 @@ public interface OrderInteractor  {
 
     void getOrdersInFinished(User user,int pageCount,int curPage,Callback callback);
 
+    void updateState(int orderid,Order.State newState);
 //    void getOrderByPosition(int position);
 
     interface Callback {
@@ -26,5 +27,7 @@ public interface OrderInteractor  {
         void onFailure();
 
         void onOrderListSuccess(List<Order> orderPoList);
+
+        void onStateUpdateSuccess(Order.State newState);
     }
 }
