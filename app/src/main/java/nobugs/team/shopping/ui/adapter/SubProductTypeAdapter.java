@@ -9,22 +9,20 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
-
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import nobugs.team.shopping.R;
-import nobugs.team.shopping.db.entity.ProductType;
+import nobugs.team.shopping.repo.db.entity.ProductTypePo;
 
 /**
  * Created by Administrator on 2015/8/16 0016.
  */
 public class SubProductTypeAdapter extends RecyclerView.Adapter<SubProductTypeAdapter.ViewHolder> {
 
-    private List<ProductType> mProductTypeList;
+    private List<ProductTypePo> mProductTypePoList;
 
     private int mCurSelectIndex;
 
@@ -32,21 +30,21 @@ public class SubProductTypeAdapter extends RecyclerView.Adapter<SubProductTypeAd
 
     private OnItemClickListener mItemClickListener;
 
-    public SubProductTypeAdapter(List<ProductType> productTypeList) {
-        this.mProductTypeList = productTypeList;
+    public SubProductTypeAdapter(List<ProductTypePo> productTypePoList) {
+        this.mProductTypePoList = productTypePoList;
     }
 
 
-    public List<ProductType> getProductTypeList() {
-        return mProductTypeList;
+    public List<ProductTypePo> getProductTypeList() {
+        return mProductTypePoList;
     }
 
-    public void setProductTypeList(List<ProductType> productTypes) {
-        this.mProductTypeList = productTypes;
+    public void setProductTypeList(List<ProductTypePo> productTypePos) {
+        this.mProductTypePoList = productTypePos;
     }
 
-    public void addProductTypeToList(List<ProductType> collectionToAdd) {
-        mProductTypeList.addAll(collectionToAdd);
+    public void addProductTypeToList(List<ProductTypePo> collectionToAdd) {
+        mProductTypePoList.addAll(collectionToAdd);
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {
@@ -66,7 +64,7 @@ public class SubProductTypeAdapter extends RecyclerView.Adapter<SubProductTypeAd
 
     @Override
     public int getItemCount() {
-        return mProductTypeList.size();
+        return mProductTypePoList.size();
     }
 
 
@@ -81,7 +79,7 @@ public class SubProductTypeAdapter extends RecyclerView.Adapter<SubProductTypeAd
         @Bind(R.id.lyt_sub_type_item)
         RelativeLayout lytSubTypeItem;
 
-        private ProductType mProductType;
+        private ProductTypePo mProductTypePo;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -94,7 +92,7 @@ public class SubProductTypeAdapter extends RecyclerView.Adapter<SubProductTypeAd
             int position = getLayoutPosition();
 
             if (mItemClickListener != null) {
-                mItemClickListener.onItemClick(v, position, mProductType);
+                mItemClickListener.onItemClick(v, position, mProductTypePo);
             }
 
             if (position != mCurSelectIndex) {
@@ -106,9 +104,9 @@ public class SubProductTypeAdapter extends RecyclerView.Adapter<SubProductTypeAd
         }
 
         public void update(int position) {
-            mProductType = mProductTypeList.get(position);
+            mProductTypePo = mProductTypePoList.get(position);
 
-            tvSubTypeName.setText(mProductType.getName());
+            tvSubTypeName.setText(mProductTypePo.getName());
 
             if (position == mCurSelectIndex) {
                 tvSubTypeName.setTextColor(mContex.getResources().getColor(R.color.tv_sub_type_pressed));
@@ -121,6 +119,6 @@ public class SubProductTypeAdapter extends RecyclerView.Adapter<SubProductTypeAd
     }
 
     public interface OnItemClickListener {
-        void onItemClick(View view, int position, ProductType productType);
+        void onItemClick(View view, int position, ProductTypePo productTypePo);
     }
 }

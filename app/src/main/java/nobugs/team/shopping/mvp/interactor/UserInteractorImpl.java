@@ -1,14 +1,14 @@
 package nobugs.team.shopping.mvp.interactor;
 
-import nobugs.team.shopping.db.entity.User;
+import nobugs.team.shopping.repo.db.entity.UserPo;
 
 /**
  * Created by xiayong on 2015/8/17.
  */
 public class UserInteractorImpl implements UserInteractor {
-    private User user;
+    private UserPo userPo;
 
-    public void getUser(User user){
+    public void getUser(UserPo userPo){
 
     }
 }

@@ -13,5 +13,7 @@ import nobugs.team.shopping.mvp.view.IView;
 public interface IPresenter extends LifeCycleCallback {
     Context getContext();
 
+    Fragment getFragment();
+
     FragmentActivity getActivity();
 }

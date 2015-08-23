@@ -17,14 +17,14 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import nobugs.team.shopping.R;
-import nobugs.team.shopping.db.entity.ProductType;
+import nobugs.team.shopping.repo.db.entity.ProductTypePo;
 
 /**
  * Created by Administrator on 2015/8/16 0016.
  */
 public class MainProductTypeAdapter extends RecyclerView.Adapter<MainProductTypeAdapter.ViewHolder> {
 
-    private List<ProductType> mProductTypeList;
+    private List<ProductTypePo> mProductTypePoList;
 
     private int mCurSelectIndex;
 
@@ -32,21 +32,21 @@ public class MainProductTypeAdapter extends RecyclerView.Adapter<MainProductType
 
     private OnItemClickListener mItemClickListener;
 
-    public MainProductTypeAdapter(List<ProductType> productTypeList) {
-        this.mProductTypeList = productTypeList;
+    public MainProductTypeAdapter(List<ProductTypePo> productTypePoList) {
+        this.mProductTypePoList = productTypePoList;
     }
 
 
-    public List<ProductType> getProductTypeList() {
-        return mProductTypeList;
+    public List<ProductTypePo> getProductTypeList() {
+        return mProductTypePoList;
     }
 
-    public void setProductTypeList(List<ProductType> productTypes) {
-        this.mProductTypeList = productTypes;
+    public void setProductTypeList(List<ProductTypePo> productTypePos) {
+        this.mProductTypePoList = productTypePos;
     }
 
-    public void addProductTypeToList(List<ProductType> collectionToAdd) {
-        mProductTypeList.addAll(collectionToAdd);
+    public void addProductTypeToList(List<ProductTypePo> collectionToAdd) {
+        mProductTypePoList.addAll(collectionToAdd);
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {
@@ -66,7 +66,7 @@ public class MainProductTypeAdapter extends RecyclerView.Adapter<MainProductType
 
     @Override
     public int getItemCount() {
-        return mProductTypeList.size();
+        return mProductTypePoList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -80,7 +80,7 @@ public class MainProductTypeAdapter extends RecyclerView.Adapter<MainProductType
         @Bind(R.id.tv_main_type_name)
         TextView tvMainTypeName;
 
-        ProductType mProductType;
+        ProductTypePo mProductTypePo;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -93,7 +93,7 @@ public class MainProductTypeAdapter extends RecyclerView.Adapter<MainProductType
             int position = getLayoutPosition();
 
             if (mItemClickListener != null) {
-                mItemClickListener.onItemClick(v, position, mProductType);
+                mItemClickListener.onItemClick(v, position, mProductTypePo);
             }
 
             if (position != mCurSelectIndex) {
@@ -105,12 +105,12 @@ public class MainProductTypeAdapter extends RecyclerView.Adapter<MainProductType
         }
 
         public void update(int position) {
-            mProductType = mProductTypeList.get(position);
+            mProductTypePo = mProductTypePoList.get(position);
 
-            tvMainTypeName.setText(mProductType.getName());
+            tvMainTypeName.setText(mProductTypePo.getName());
 
-            if (mProductType.getImgurl() != null && !mProductType.getImgurl().equals("")) {
-                Picasso.with(mContex).load(mProductType.getImgurl()).into(ivMainType);
+            if (mProductTypePo.getImgurl() != null && !mProductTypePo.getImgurl().equals("")) {
+                Picasso.with(mContex).load(mProductTypePo.getImgurl()).into(ivMainType);
             }
 
             if (position == mCurSelectIndex) {
@@ -124,6 +124,6 @@ public class MainProductTypeAdapter extends RecyclerView.Adapter<MainProductType
     }
 
     public interface OnItemClickListener {
-        void onItemClick(View view, int position, ProductType productType);
+        void onItemClick(View view, int position, ProductTypePo productTypePo);
     }
 }

@@ -9,41 +9,39 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
-
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import nobugs.team.shopping.R;
-import nobugs.team.shopping.db.entity.Shop;
+import nobugs.team.shopping.repo.db.entity.ShopPo;
 
 /**
  * Created by Administrator on 2015/8/16 0016.
  */
 public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ViewHolder> {
 
-    private List<Shop> mShopList;
+    private List<ShopPo> mShopPoList;
 
     private Context mContex;
 
     private OnItemClickListener mItemClickListener;
 
-    public ShopAdapter(List<Shop> ShopList) {
-        this.mShopList = ShopList;
+    public ShopAdapter(List<ShopPo> shopPoList) {
+        this.mShopPoList = shopPoList;
     }
 
-    public List<Shop> getShopList() {
-        return mShopList;
+    public List<ShopPo> getShopList() {
+        return mShopPoList;
     }
 
-    public void setShopList(List<Shop> Shops) {
-        this.mShopList = Shops;
+    public void setShopList(List<ShopPo> shopPos) {
+        this.mShopPoList = shopPos;
     }
 
-    public void addShopToList(List<Shop> collectionToAdd) {
-        mShopList.addAll(collectionToAdd);
+    public void addShopToList(List<ShopPo> collectionToAdd) {
+        mShopPoList.addAll(collectionToAdd);
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {
@@ -63,7 +61,7 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return mShopList.size();
+        return mShopPoList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -80,7 +78,7 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ViewHolder> {
         @Bind(R.id.btn_shop_open)
         Button btnShopOpen;
 
-        Shop mShop;
+        ShopPo mShopPo;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -93,24 +91,24 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ViewHolder> {
             int position = getLayoutPosition();
 
             if (mItemClickListener != null) {
-                mItemClickListener.onItemClick(v, position, mShop);
+                mItemClickListener.onItemClick(v, position, mShopPo);
             }
         }
 
         public void update(int position) {
-            mShop = mShopList.get(position);
+            mShopPo = mShopPoList.get(position);
 
-            tvShopName.setText(mShop.getName());
-            tvShopIntro.setText(mShop.getIntroduction());
+            tvShopName.setText(mShopPo.getName());
+            tvShopIntro.setText(mShopPo.getIntroduction());
 
-//            if (mShop.getImgurl() != null) {
-//                Picasso.with(mContex).load(mShop.getImgurl()).into(ivAvatarShop);
+//            if (mShopPo.getImgurl() != null) {
+//                Picasso.with(mContex).load(mShopPo.getImgurl()).into(ivAvatarShop);
 //            }
 
         }
     }
 
     public interface OnItemClickListener {
-        void onItemClick(View view, int position, Shop Shop);
+        void onItemClick(View view, int position, ShopPo ShopPo);
     }
 }

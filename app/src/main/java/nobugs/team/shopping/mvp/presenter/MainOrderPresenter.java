@@ -1,6 +1,6 @@
 package nobugs.team.shopping.mvp.presenter;
 
-import nobugs.team.shopping.db.entity.Order;
+import nobugs.team.shopping.repo.db.entity.OrderPo;
 
 /**
  * Created by xiayong on 2015/8/22.
@@ -10,7 +10,7 @@ public interface MainOrderPresenter extends IPresenter {
 
     void showOrderFinished();
 
-    void onOrderSelected(Order order);
+    void onOrderSelected(OrderPo orderPo);
 
 
 }

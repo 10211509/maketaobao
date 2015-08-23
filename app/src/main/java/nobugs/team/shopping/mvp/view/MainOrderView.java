@@ -2,16 +2,16 @@ package nobugs.team.shopping.mvp.view;
 
 import java.util.List;
 
-import nobugs.team.shopping.db.entity.Order;
+import nobugs.team.shopping.repo.db.entity.OrderPo;
 
 /**
  * Created by xiayong on 2015/8/22.
  */
 public interface MainOrderView extends IView  {
-    void navigateToOrderDetailsActivity(Order order);
+    void navigateToOrderDetailsActivity(OrderPo orderPo);
 
-    void showOrdersInProgress(List<Order> orderList);
+    void showOrdersInProgress(List<OrderPo> orderPoList);
 
-    void showOrderFinished(List<Order> orderList);
+    void showOrderFinished(List<OrderPo> orderPoList);
 
 }

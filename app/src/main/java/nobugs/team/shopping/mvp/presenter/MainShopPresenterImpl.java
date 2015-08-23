@@ -5,9 +5,9 @@ import android.support.annotation.NonNull;
 import java.util.List;
 
 import de.greenrobot.event.EventBus;
-import nobugs.team.shopping.db.entity.ProductType;
-import nobugs.team.shopping.db.entity.Shop;
-import nobugs.team.shopping.db.entity.User;
+import nobugs.team.shopping.repo.db.entity.ProductTypePo;
+import nobugs.team.shopping.repo.db.entity.ShopPo;
+import nobugs.team.shopping.repo.db.entity.UserPo;
 import nobugs.team.shopping.mvp.interactor.AdsBannerInterator;
 import nobugs.team.shopping.mvp.interactor.AdsBannerInteratorImpl;
 import nobugs.team.shopping.mvp.interactor.ProductTypeInterator;
@@ -66,7 +66,7 @@ public class MainShopPresenterImpl extends BasePresenter<MainShopView> implement
 
         mProductTypeInterator.getMainProductType(new ProductTypeInterator.Callback() {
             @Override
-            public void onSuccess(List<ProductType> types) {
+            public void onSuccess(List<ProductTypePo> types) {
                 if (types != null && types.size() > 0) {
                     getView().showMainProductTypes(types);
 
@@ -93,7 +93,7 @@ public class MainShopPresenterImpl extends BasePresenter<MainShopView> implement
     private void showSubProductTypes(int typeId) {
         mProductTypeInterator.getSubProductType(typeId, new ProductTypeInterator.Callback() {
             @Override
-            public void onSuccess(List<ProductType> types) {
+            public void onSuccess(List<ProductTypePo> types) {
                 getView().showSubProductTypes(types);
             }
 
@@ -114,8 +114,8 @@ public class MainShopPresenterImpl extends BasePresenter<MainShopView> implement
 
         mShopInterator.getShops(typeId, new ShopInterator.Callback() {
             @Override
-            public void onSuccess(List<Shop> shops) {
-                getView().showShops(shops);
+            public void onSuccess(List<ShopPo> shopPos) {
+                getView().showShops(shopPos);
             }
 
             @Override
@@ -165,11 +165,11 @@ public class MainShopPresenterImpl extends BasePresenter<MainShopView> implement
     }
 
     @Override
-    public void onSelectShop(@NonNull Shop shop) {
+    public void onSelectShop(@NonNull ShopPo shopPo) {
         //start to call the seller
-        User user = new User(1,"xiayong","12345","18010035906",2);
-        shop.setUser(user);
-        EventBus.getDefault().postSticky(shop.getUser());
-        getView().navigateCallOut(shop.getUser());
+        UserPo userPo = new UserPo(1,"xiayong","12345","18010035906",2);
+        shopPo.setUserPo(userPo);
+        EventBus.getDefault().postSticky(shopPo.getUserPo());
+        getView().navigateCallOut(shopPo.getUserPo());
     }
 }

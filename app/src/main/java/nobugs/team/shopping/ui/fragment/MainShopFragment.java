@@ -7,7 +7,6 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
@@ -22,9 +21,9 @@ import java.util.List;
 import butterknife.Bind;
 import nobugs.team.shopping.R;
 import nobugs.team.shopping.app.base.BaseFragment;
-import nobugs.team.shopping.db.entity.ProductType;
-import nobugs.team.shopping.db.entity.Shop;
-import nobugs.team.shopping.db.entity.User;
+import nobugs.team.shopping.repo.db.entity.ProductTypePo;
+import nobugs.team.shopping.repo.db.entity.ShopPo;
+import nobugs.team.shopping.repo.db.entity.UserPo;
 import nobugs.team.shopping.mvp.presenter.MainShopPresenter;
 import nobugs.team.shopping.mvp.presenter.MainShopPresenterImpl;
 import nobugs.team.shopping.mvp.presenter.VideoCallPresenterImpl;
@@ -35,7 +34,7 @@ import nobugs.team.shopping.ui.adapter.ShopAdapter;
 import nobugs.team.shopping.ui.adapter.SubProductTypeAdapter;
 
 /**
- * Shop
+ * ShopPo
  */
 public class MainShopFragment extends BaseFragment<MainShopPresenter> implements MainShopView {
 
@@ -104,11 +103,11 @@ public class MainShopFragment extends BaseFragment<MainShopPresenter> implements
         LinearLayoutManager layoutManager = new LinearLayoutManager(this.getActivity(), LinearLayoutManager.HORIZONTAL, false);
         rvMainTypes.setLayoutManager(layoutManager);
 
-        mMainProductTypeAdapter = new MainProductTypeAdapter(new ArrayList<ProductType>());
+        mMainProductTypeAdapter = new MainProductTypeAdapter(new ArrayList<ProductTypePo>());
         mMainProductTypeAdapter.setOnItemClickListener(new MainProductTypeAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(View view, int position, ProductType productType) {
-                getPresenter().onSelectMainProductType(productType.getId());
+            public void onItemClick(View view, int position, ProductTypePo productTypePo) {
+                getPresenter().onSelectMainProductType(productTypePo.getId());
             }
         });
 
@@ -120,11 +119,11 @@ public class MainShopFragment extends BaseFragment<MainShopPresenter> implements
         LinearLayoutManager layoutManager = new LinearLayoutManager(this.getActivity(), LinearLayoutManager.VERTICAL, false);
         rvSubTypes.setLayoutManager(layoutManager);
 
-        mSubProductTypeAdapter = new SubProductTypeAdapter(new ArrayList<ProductType>());
+        mSubProductTypeAdapter = new SubProductTypeAdapter(new ArrayList<ProductTypePo>());
         mSubProductTypeAdapter.setOnItemClickListener(new SubProductTypeAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(View view, int position, ProductType productType) {
-                getPresenter().onSelectSubProductType(productType.getId());
+            public void onItemClick(View view, int position, ProductTypePo productTypePo) {
+                getPresenter().onSelectSubProductType(productTypePo.getId());
             }
         });
 
@@ -136,11 +135,11 @@ public class MainShopFragment extends BaseFragment<MainShopPresenter> implements
         LinearLayoutManager layoutManager = new LinearLayoutManager(this.getActivity(), LinearLayoutManager.VERTICAL, false);
         rvShops.setLayoutManager(layoutManager);
 
-        mShopAdapter = new ShopAdapter(new ArrayList<Shop>());
+        mShopAdapter = new ShopAdapter(new ArrayList<ShopPo>());
         mShopAdapter.setOnItemClickListener(new ShopAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(View view, int position, Shop shop) {
-                getPresenter().onSelectShop(shop);
+            public void onItemClick(View view, int position, ShopPo shopPo) {
+                getPresenter().onSelectShop(shopPo);
             }
         });
 
@@ -181,8 +180,8 @@ public class MainShopFragment extends BaseFragment<MainShopPresenter> implements
     }
 
     @Override
-    public void showMainProductTypes(List<ProductType> productTypes) {
-        mMainProductTypeAdapter.setProductTypeList(productTypes);
+    public void showMainProductTypes(List<ProductTypePo> productTypePos) {
+        mMainProductTypeAdapter.setProductTypeList(productTypePos);
         mMainProductTypeAdapter.notifyDataSetChanged();
     }
 
@@ -192,8 +191,8 @@ public class MainShopFragment extends BaseFragment<MainShopPresenter> implements
     }
 
     @Override
-    public void showSubProductTypes(List<ProductType> productTypes) {
-        mSubProductTypeAdapter.setProductTypeList(productTypes);
+    public void showSubProductTypes(List<ProductTypePo> productTypePos) {
+        mSubProductTypeAdapter.setProductTypeList(productTypePos);
         mSubProductTypeAdapter.notifyDataSetChanged();
     }
 
@@ -203,7 +202,7 @@ public class MainShopFragment extends BaseFragment<MainShopPresenter> implements
     }
 
     @Override
-    public void showShops(List<Shop> productTypes) {
+    public void showShops(List<ShopPo> productTypes) {
         mShopAdapter.setShopList(productTypes);
         mShopAdapter.notifyDataSetChanged();
     }
@@ -214,7 +213,7 @@ public class MainShopFragment extends BaseFragment<MainShopPresenter> implements
     }
 
     @Override
-    public void navigateCallOut(@NonNull User user) {
+    public void navigateCallOut(@NonNull UserPo userPo) {
         //navigate to VideoCallActivity to make a call with the seller
         Intent intent = new Intent(this.getActivity(), VideoCallActivity.class);
         intent.putExtra(VideoCallPresenterImpl.EXTRA_OUTGOING_CALL, true);

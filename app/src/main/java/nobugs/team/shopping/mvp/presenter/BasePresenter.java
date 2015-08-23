@@ -24,6 +24,7 @@ public class BasePresenter<T extends IView> implements IPresenter {
         return mView;
     }
 
+    @Override
     public Context getContext() {
         if (mView instanceof FragmentActivity) {
             return (FragmentActivity) mView;
@@ -33,8 +34,17 @@ public class BasePresenter<T extends IView> implements IPresenter {
         throw new IllegalArgumentException("mView must be FragmentActivity or Fragment");
     }
 
+    @Override
     public FragmentActivity getActivity() {
         return (FragmentActivity) getContext();
+    }
+
+    @Override
+    public Fragment getFragment() {
+        if (mView instanceof Fragment) {
+            return (Fragment) mView;
+        }
+        return null;
     }
 
     @Override

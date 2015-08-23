@@ -1,18 +1,14 @@
 package nobugs.team.shopping.ui.activity;
 
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import nobugs.team.shopping.R;
 import nobugs.team.shopping.app.base.BaseActivity;
-import nobugs.team.shopping.db.entity.User;
+import nobugs.team.shopping.repo.db.entity.UserPo;
 import nobugs.team.shopping.mvp.presenter.VideoCallPresenter;
 import nobugs.team.shopping.mvp.presenter.VideoCallPresenterImpl;
 import nobugs.team.shopping.mvp.view.VoipCallView;
@@ -67,15 +63,15 @@ public class VideoCallActivity extends BaseActivity<VideoCallPresenter> implemen
     }
 
     @Override
-    public void showCallInView(User user) {
-        txtCalleename.setText(user.getName());
+    public void showCallInView(UserPo userPo) {
+        txtCalleename.setText(userPo.getName());
         btnAccept.setVisibility(View.VISIBLE);
         tvCalling.setText(getString(R.string.tv_waiting_accept));
     }
 
     @Override
-    public void showCallOutView(User user) {
-        txtCalleename.setText(user.getName());
+    public void showCallOutView(UserPo userPo) {
+        txtCalleename.setText(userPo.getName());
         btnAccept.setVisibility(View.GONE);
         tvCalling.setText(getString(R.string.tv_calling));
     }
@@ -83,12 +79,5 @@ public class VideoCallActivity extends BaseActivity<VideoCallPresenter> implemen
     @Override
     public void contactFailed() {
 
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
     }
 }
