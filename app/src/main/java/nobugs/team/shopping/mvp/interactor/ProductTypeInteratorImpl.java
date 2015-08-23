@@ -14,9 +14,9 @@ public class ProductTypeInteratorImpl implements ProductTypeInterator {
 
     @Override
     public void getMainProductType(final Callback callback) {
-        Repository.getInstance().getMainTypeList(new RepoCallback.Get<ProductType>() {
+        Repository.getInstance().getMainTypeList(new RepoCallback.GetList<ProductType>() {
             @Override
-            public void onGotDataSuccess(List<ProductType> productTypes) {
+            public void onGotDataListSuccess(List<ProductType> productTypes) {
                 callback.onSuccess(productTypes);
             }
 
@@ -29,9 +29,9 @@ public class ProductTypeInteratorImpl implements ProductTypeInterator {
 
     @Override
     public void getSubProductType(ProductType parent, final Callback callback) {
-        Repository.getInstance().getSubTypeList(parent, new RepoCallback.Get<ProductType>() {
+        Repository.getInstance().getSubTypeList(parent, new RepoCallback.GetList<ProductType>() {
             @Override
-            public void onGotDataSuccess(List<ProductType> productTypes) {
+            public void onGotDataListSuccess(List<ProductType> productTypes) {
                 callback.onSuccess(productTypes);
             }
 

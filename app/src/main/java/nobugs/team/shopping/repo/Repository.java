@@ -5,12 +5,18 @@ import java.util.List;
 
 import nobugs.team.shopping.mvp.model.ProductType;
 import nobugs.team.shopping.mvp.model.Shop;
+import nobugs.team.shopping.mvp.model.User;
 import nobugs.team.shopping.repo.api.GetShopListApi;
 import nobugs.team.shopping.repo.api.GetTypeListApi;
+import nobugs.team.shopping.repo.api.LoginApi;
 import nobugs.team.shopping.repo.api.mock.GetShopListApiMock;
 import nobugs.team.shopping.repo.api.mock.GetTypeListApiMock;
+import nobugs.team.shopping.repo.api.retrofit.ApiService;
 import nobugs.team.shopping.repo.api.retrofit.GetShopListApiImpl;
 import nobugs.team.shopping.repo.api.retrofit.GetTypeListApiImpl;
+import nobugs.team.shopping.repo.api.retrofit.LoginApiImpl;
+import nobugs.team.shopping.repo.api.retrofit.RetrofitAdapter;
+import retrofit.RestAdapter;
 
 /**
  * Created by Administrator on 2015/8/23 0023.
@@ -28,26 +34,37 @@ public class Repository {
 
     private final static int MAIN_PRODUCT_PARENT_ID = 0;
 
+    private RetrofitAdapter adapter;
+    public RetrofitAdapter getAdapter() {
+        return adapter;
+    }
+
+
+    private LoginApi loginApi;
     private GetTypeListApi getTypeListApi;
     private GetShopListApi getShopListApi;
 
-    /**
-     * 类型缓存
-     */
+
+    /** 类型缓存 */
     private List<ProductType> typeListCache;
 
+    /** 用户信息缓存 */
+    private User userCache;
 
     private Repository() {
-        this.getTypeListApi = new GetTypeListApiImpl();
-        this.getShopListApi = new GetShopListApiImpl(); //测试数据
+        this.adapter = new RetrofitAdapter();
+
+        this.loginApi = new LoginApiImpl(adapter);
+        this.getTypeListApi = new GetTypeListApiImpl(adapter);
+        this.getShopListApi = new GetShopListApiImpl(adapter); //测试数据
     }
 
-    public void getMainTypeList(final RepoCallback.Get<ProductType> callbackGet) {
-        getTypeListApi.getTypeList(new GetTypeListApi.Callback() {
+    public void login(String userName, String password, final RepoCallback.Get<User> callbackGet) {
+        loginApi.login(userName, password, new LoginApi.Callback() {
             @Override
-            public void onFinish(List<ProductType> productTypes) {
-                typeListCache = productTypes;
-                callbackGet.onGotDataSuccess(findMainTypeList(productTypes));
+            public void onFinish(User user) {
+                userCache = user;
+                callbackGet.onGotDataSuccess(user);
             }
 
             @Override
@@ -57,13 +74,28 @@ public class Repository {
         });
     }
 
-    public void getSubTypeList(final ProductType parent, final RepoCallback.Get<ProductType> callbackGet) {
+    public void getMainTypeList(final RepoCallback.GetList<ProductType> callbackGet) {
+        getTypeListApi.getTypeList(new GetTypeListApi.Callback() {
+            @Override
+            public void onFinish(List<ProductType> productTypes) {
+                typeListCache = productTypes;
+                callbackGet.onGotDataListSuccess(findMainTypeList(productTypes));
+            }
+
+            @Override
+            public void onError(int errType, String errMsg) {
+                callbackGet.onError(errType, errMsg);
+            }
+        });
+    }
+
+    public void getSubTypeList(final ProductType parent, final RepoCallback.GetList<ProductType> callbackGet) {
         if (typeListCache == null) {     //缓存为空，重新获取
             getTypeListApi.getTypeList(new GetTypeListApi.Callback() {
                 @Override
                 public void onFinish(List<ProductType> productTypes) {
                     typeListCache = productTypes;
-                    callbackGet.onGotDataSuccess(findSubTypeList(typeListCache, parent));
+                    callbackGet.onGotDataListSuccess(findSubTypeList(typeListCache, parent));
                 }
 
                 @Override
@@ -72,17 +104,17 @@ public class Repository {
                 }
             });
         } else {
-            callbackGet.onGotDataSuccess(findSubTypeList(typeListCache, parent));
+            callbackGet.onGotDataListSuccess(findSubTypeList(typeListCache, parent));
         }
     }
 
-    public void getShopList(final ProductType parent, final String keyword, final RepoCallback.Get<Shop> callbackGet) {
+    public void getShopList(final ProductType parent, final String keyword, final RepoCallback.GetList<Shop> callbackGet) {
         if (parent.getShops() == null) {
             getShopListApi.getShopList(parent, keyword, new GetShopListApi.Callback() {
                 @Override
                 public void onFinish(List<Shop> shops) {
                     parent.setShops(shops);
-                    callbackGet.onGotDataSuccess(shops);
+                    callbackGet.onGotDataListSuccess(shops);
                 }
 
                 @Override
@@ -91,7 +123,7 @@ public class Repository {
                 }
             });
         } else {
-            callbackGet.onGotDataSuccess(parent.getShops());    //TODO 是否需要更新ShopList
+            callbackGet.onGotDataListSuccess(parent.getShops());    //TODO 是否需要更新ShopList
         }
     }
 
