@@ -9,6 +9,7 @@ import nobugs.team.shopping.repo.api.GetShopListApi;
 import nobugs.team.shopping.repo.api.GetTypeListApi;
 import nobugs.team.shopping.repo.api.mock.GetShopListApiMock;
 import nobugs.team.shopping.repo.api.mock.GetTypeListApiMock;
+import nobugs.team.shopping.repo.api.retrofit.GetTypeListApiImpl;
 
 /**
  * Created by Administrator on 2015/8/23 0023.
@@ -36,7 +37,7 @@ public class Repository {
 
 
     private Repository() {
-        this.getTypeListApi = new GetTypeListApiMock(); //测试数据
+        this.getTypeListApi = new GetTypeListApiImpl(); //测试数据
         this.getShopListApi = new GetShopListApiMock(); //测试数据
     }
 

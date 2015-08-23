@@ -11,14 +11,14 @@ public class AppConfig {
     public static final String CCP_APP_TOKEN = "4c7ef1139f829cbd48a80fd54a4b6cdc";//应用Token
 
     public static final class URL {
-        public static final String WEB_HOST = "http://211.149.223.154:8080/JCNet/";//主机address
+        public static final String WEB_HOST = "http://211.149.223.154:8080/JCNet";//主机address
 
-        public static final String LOGIN = WEB_HOST + "web!login.do";
+        public static final String LOGIN            = WEB_HOST + "/web!login.do";
 
-        public static final String GET_ORDER_LIST = "web!orderList.do";
+        public static final String GET_ORDER_LIST   = "/web!orderList.do";
 
-        public static final String GET_TYPE_LIST = "web!typeList.do";
+        public static final String GET_TYPE_LIST    = "/web!typeList.do";
 
-        public static final String GET_SHOP_LIST = "web!searchseller.do";
+        public static final String GET_SHOP_LIST    = "/web!searchseller.do";
     }
 }
