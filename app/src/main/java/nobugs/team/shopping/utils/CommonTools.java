@@ -85,14 +85,4 @@ public class CommonTools {
         }
         return " ";
     }
-    /**
-     * 为HttpGet 的 url 方便的添加多个name value 参数。
-     *
-     * @param url
-     * @param params
-     * @return
-     */
-    public static String attachHttpGetParams(String url, List<BasicNameValuePair> params) {
-        return url + "?" + URLEncodedUtils.format(params, "UTF-8");
-    }
 }

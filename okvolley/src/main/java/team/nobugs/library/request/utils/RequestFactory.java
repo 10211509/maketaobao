@@ -7,7 +7,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
 import org.apache.http.message.BasicNameValuePair;
-
 import java.util.List;
 
 import team.nobugs.library.request.GsonGetRequest;
@@ -30,6 +29,22 @@ public class RequestFactory {
         return new GsonGetRequest<>
                 (
                         url,
+                        new TypeToken<HttpObject>() {}.getType(),
+                        gson,
+                        listener,
+                        errorListener
+                );
+    }
+    public static GsonGetRequest<HttpObject> createGetRequest(final String url, final List<BasicNameValuePair> params, Response.Listener<HttpObject> listener,
+                                                               Response.ErrorListener errorListener){
+        String formatUrl = Utils.attachHttpGetParams(url, params);
+        final Gson gson = new GsonBuilder()
+                .registerTypeAdapter(HttpObject.class, new HttpObjectDeserializer())
+                .create();
+
+        return new GsonGetRequest<>
+                (
+                        formatUrl,
                         new TypeToken<HttpObject>() {}.getType(),
                         gson,
                         listener,

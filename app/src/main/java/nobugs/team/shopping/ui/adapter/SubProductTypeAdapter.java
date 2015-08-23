@@ -109,10 +109,10 @@ public class SubProductTypeAdapter extends RecyclerView.Adapter<SubProductTypeAd
             tvSubTypeName.setText(mProductTypePo.getName());
 
             if (position == mCurSelectIndex) {
-                tvSubTypeName.setTextColor(mContex.getResources().getColor(R.color.tv_sub_type_pressed));
+                tvSubTypeName.setTextColor(mContex.getResources().getColor(R.color.c281326));
                 ivSubTypeChoose.setVisibility(View.VISIBLE);
             } else {
-                tvSubTypeName.setTextColor(mContex.getResources().getColor(R.color.tv_sub_type_normal));
+                tvSubTypeName.setTextColor(mContex.getResources().getColor(R.color.c927093));
                 ivSubTypeChoose.setVisibility(View.GONE);
             }
         }

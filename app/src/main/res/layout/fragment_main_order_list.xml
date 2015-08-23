@@ -1,32 +1,44 @@
-<TabHost
-xmlns:android="http://schemas.android.com/apk/res/android"
-android:id="@android:id/tabhost"
-android:layout_width="match_parent"
-android:layout_height="match_parent">
-
-<LinearLayout
-    android:orientation="vertical"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <TabWidget
-        android:id="@android:id/tabs"
-        android:orientation="horizontal"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0"/>
-
-    <FrameLayout
-        android:id="@android:id/tabcontent"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_weight="0"/>
-
-    <android.support.v4.view.ViewPager
-        android:id="@+id/pager"
+        android:layout_height="55dp"
+        android:text="@string/tv_my_orders"
+        android:background="@color/cff0000"
+        android:gravity="center"
+        android:textColor="@android:color/white"
+        android:id="@+id/tv_title" />
+    <TabHost
+        android:id="@android:id/tabhost"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_height="match_parent">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TabWidget
+                android:id="@android:id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:orientation="horizontal" />
+
+            <FrameLayout
+                android:id="@android:id/tabcontent"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="0" />
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/pager"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+    </TabHost>
 </LinearLayout>
-</TabHost>

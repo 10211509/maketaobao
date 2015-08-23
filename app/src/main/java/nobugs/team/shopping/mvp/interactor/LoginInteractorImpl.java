@@ -24,8 +24,7 @@ public class LoginInteractorImpl implements LoginInteractor {
         params.add(new BasicNameValuePair("username", username));
         params.add(new BasicNameValuePair("password", password));
 
-        String formatUrl = CommonTools.attachHttpGetParams(AppConfig.URL.LOGIN, params);
-        final GsonGetRequest<HttpObject> getRequest = RequestFactory.createGetRequest(formatUrl, new com.android.volley.Response.Listener<HttpObject>() {
+        final GsonGetRequest<HttpObject> getRequest = RequestFactory.createGetRequest(AppConfig.URL.LOGIN, params, new com.android.volley.Response.Listener<HttpObject>() {
             @Override
             public void onResponse(HttpObject httpObjectObject) {
                 // Deal with the DummyObject here
