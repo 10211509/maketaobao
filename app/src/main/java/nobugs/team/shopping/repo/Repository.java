@@ -9,6 +9,7 @@ import nobugs.team.shopping.repo.api.GetShopListApi;
 import nobugs.team.shopping.repo.api.GetTypeListApi;
 import nobugs.team.shopping.repo.api.mock.GetShopListApiMock;
 import nobugs.team.shopping.repo.api.mock.GetTypeListApiMock;
+import nobugs.team.shopping.repo.api.retrofit.GetShopListApiImpl;
 import nobugs.team.shopping.repo.api.retrofit.GetTypeListApiImpl;
 
 /**
@@ -18,8 +19,8 @@ public class Repository {
 
     private static Repository mInstance;
 
-    public static Repository getInstance(){
-        if (mInstance == null){
+    public static Repository getInstance() {
+        if (mInstance == null) {
             mInstance = new Repository();
         }
         return mInstance;
@@ -37,8 +38,8 @@ public class Repository {
 
 
     private Repository() {
-        this.getTypeListApi = new GetTypeListApiImpl(); //测试数据
-        this.getShopListApi = new GetShopListApiMock(); //测试数据
+        this.getTypeListApi = new GetTypeListApiImpl();
+        this.getShopListApi = new GetShopListApiImpl(); //测试数据
     }
 
     public void getMainTypeList(final RepoCallback.Get<ProductType> callbackGet) {
@@ -48,6 +49,7 @@ public class Repository {
                 typeListCache = productTypes;
                 callbackGet.onGotDataSuccess(findMainTypeList(productTypes));
             }
+
             @Override
             public void onError(int errType, String errMsg) {
                 callbackGet.onError(errType, errMsg);
@@ -56,7 +58,7 @@ public class Repository {
     }
 
     public void getSubTypeList(final ProductType parent, final RepoCallback.Get<ProductType> callbackGet) {
-        if (typeListCache == null){     //缓存为空，重新获取
+        if (typeListCache == null) {     //缓存为空，重新获取
             getTypeListApi.getTypeList(new GetTypeListApi.Callback() {
                 @Override
                 public void onFinish(List<ProductType> productTypes) {
@@ -74,9 +76,9 @@ public class Repository {
         }
     }
 
-    public void getShopList(final ProductType parent, final RepoCallback.Get<Shop> callbackGet) {
-        if (parent.getShops() == null){
-            getShopListApi.getShopList(new GetShopListApi.Callback() {
+    public void getShopList(final ProductType parent, final String keyword, final RepoCallback.Get<Shop> callbackGet) {
+        if (parent.getShops() == null) {
+            getShopListApi.getShopList(parent, keyword, new GetShopListApi.Callback() {
                 @Override
                 public void onFinish(List<Shop> shops) {
                     parent.setShops(shops);
@@ -94,29 +96,29 @@ public class Repository {
     }
 
 
-    private List<ProductType> findMainTypeList(List<ProductType> productTypes){ //TODO 直接转成树状存储
-        if (productTypes == null || productTypes.isEmpty()){
+    private List<ProductType> findMainTypeList(List<ProductType> productTypes) { //TODO 直接转成树状存储
+        if (productTypes == null || productTypes.isEmpty()) {
             return null;
         }
         List<ProductType> result = new ArrayList<>();
-        for(ProductType product: productTypes){
-            if (product.getParentId() == MAIN_PRODUCT_PARENT_ID){
+        for (ProductType product : productTypes) {
+            if (product.getParentId() == MAIN_PRODUCT_PARENT_ID) {
                 result.add(product);
             }
         }
         return result;
     }
 
-    private List<ProductType> findSubTypeList(List<ProductType> productTypes, ProductType parent){
-        if (productTypes == null || productTypes.isEmpty() || parent == null){
+    private List<ProductType> findSubTypeList(List<ProductType> productTypes, ProductType parent) {
+        if (productTypes == null || productTypes.isEmpty() || parent == null) {
             return null;
         }
-        if (parent.getSubTypes() != null){
+        if (parent.getSubTypes() != null) {
             return parent.getSubTypes();
         }
         List<ProductType> result = new ArrayList<>();
-        for(ProductType product: productTypes){
-            if (product.getParentId() == parent.getId()){
+        for (ProductType product : productTypes) {
+            if (product.getParentId() == parent.getId()) {
                 result.add(product);
             }
         }
