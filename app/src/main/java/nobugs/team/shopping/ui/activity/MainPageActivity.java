@@ -45,7 +45,7 @@ public class MainPageActivity extends BaseActivity<MainPagePresenter> implements
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         mFragmentShop = new MainShopFragment();
-        mFragmentOrder = new MainOrderListFragment();
+//        mFragmentOrder = new MainOrderListFragment();
         fragmentTransaction.replace(R.id.frame_fragment_content,mFragmentShop);
         fragmentTransaction.commit();
 
