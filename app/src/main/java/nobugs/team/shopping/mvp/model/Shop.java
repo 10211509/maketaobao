@@ -8,10 +8,12 @@ import java.util.List;
  */
 public class Shop {
     private int id;//店家id
+    private int ownerId;//店主id
     private String name;//店铺名称
     private String introduction;//简介
     private User owner;//店主
     private List<Product> products;//商店卖的商品,一家商店可以卖多件商品
+
 
     public int getId() {
         return id;
@@ -43,5 +45,21 @@ public class Shop {
 
     public void setOwner(User owner) {
         this.owner = owner;
+    }
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
+
+    public int getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(int ownerId) {
+        this.ownerId = ownerId;
     }
 }

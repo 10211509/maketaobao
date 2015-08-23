@@ -8,7 +8,7 @@ import butterknife.Bind;
 import butterknife.OnClick;
 import nobugs.team.shopping.R;
 import nobugs.team.shopping.app.base.BaseActivity;
-import nobugs.team.shopping.repo.db.entity.UserPo;
+import nobugs.team.shopping.mvp.model.User;
 import nobugs.team.shopping.mvp.presenter.VideoCallPresenter;
 import nobugs.team.shopping.mvp.presenter.VideoCallPresenterImpl;
 import nobugs.team.shopping.mvp.view.VoipCallView;
@@ -62,16 +62,17 @@ public class VideoCallActivity extends BaseActivity<VideoCallPresenter> implemen
 
     }
 
+
     @Override
-    public void showCallInView(UserPo userPo) {
-        txtCalleename.setText(userPo.getName());
+    public void showCallInView(User user) {
+        txtCalleename.setText(user.getName());
         btnAccept.setVisibility(View.VISIBLE);
         tvCalling.setText(getString(R.string.tv_waiting_accept));
     }
 
     @Override
-    public void showCallOutView(UserPo userPo) {
-        txtCalleename.setText(userPo.getName());
+    public void showCallOutView(User user) {
+        txtCalleename.setText(user.getName());
         btnAccept.setVisibility(View.GONE);
         tvCalling.setText(getString(R.string.tv_calling));
     }

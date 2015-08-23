@@ -5,16 +5,16 @@ package nobugs.team.shopping.mvp.model;
  * Email: zgtjwyftc@gmail.com
  */
 public class User {
+    public enum Type {
+        BUYER,//买家
+        SELLER//卖家
+    }
+
     private int id;
     private String name;
     private String password;
     private String phone;////绑定的视频通话的号码 由SDK注册提供
     private Type type;
-
-    public enum Type{
-        buyer,//买家
-        seller//卖家
-    }
 
     public User(){
 
@@ -52,8 +52,24 @@ public class User {
         this.password = password;
     }
 
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
+    }
+
     public boolean isSeller(){
-        return type == Type.seller;
+        return type != null && type == Type.SELLER;
     }
 
 }

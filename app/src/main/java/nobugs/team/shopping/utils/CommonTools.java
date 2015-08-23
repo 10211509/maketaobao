@@ -10,6 +10,8 @@ import android.text.TextUtils;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.client.utils.URLEncodedUtils;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 /**
@@ -84,5 +86,21 @@ public class CommonTools {
             return macAddress;
         }
         return " ";
+    }
+
+    public static String loadJSONFromAsset(final Context context, final String fileName)
+            throws IOException {
+        String json;
+
+        InputStream is = context.getAssets().open(fileName);
+        int size = is.available();
+        byte[] buffer = new byte[size];
+
+        is.read(buffer);
+        is.close();
+
+        json = new String(buffer, "UTF-8");
+
+        return json;
     }
 }

@@ -1,6 +1,6 @@
 package nobugs.team.shopping.mvp.view;
 
-import nobugs.team.shopping.repo.db.entity.UserPo;
+import nobugs.team.shopping.mvp.model.User;
 
 /**
  * Created by xiayong on 2015/8/17.
@@ -10,9 +10,9 @@ public interface VoipCallView extends IView {
 
     void answer();
 
-    void showCallInView(UserPo userPo);
+    void showCallInView(User user);
 
-    void showCallOutView(UserPo userPo);
+    void showCallOutView(User user);
 
     void contactFailed();
 }

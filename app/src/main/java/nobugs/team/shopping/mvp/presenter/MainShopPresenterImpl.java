@@ -5,15 +5,16 @@ import android.support.annotation.NonNull;
 import java.util.List;
 
 import de.greenrobot.event.EventBus;
-import nobugs.team.shopping.repo.db.entity.ProductTypePo;
-import nobugs.team.shopping.repo.db.entity.ShopPo;
-import nobugs.team.shopping.repo.db.entity.UserPo;
+import nobugs.team.shopping.event.SelectShopEvent;
+import nobugs.team.shopping.mvp.model.ProductType;
 import nobugs.team.shopping.mvp.interactor.AdsBannerInterator;
 import nobugs.team.shopping.mvp.interactor.AdsBannerInteratorImpl;
 import nobugs.team.shopping.mvp.interactor.ProductTypeInterator;
 import nobugs.team.shopping.mvp.interactor.ProductTypeInteratorImpl;
 import nobugs.team.shopping.mvp.interactor.ShopInterator;
 import nobugs.team.shopping.mvp.interactor.ShopInteratorImpl;
+import nobugs.team.shopping.mvp.model.Shop;
+import nobugs.team.shopping.mvp.model.User;
 import nobugs.team.shopping.mvp.view.MainShopView;
 
 /**
@@ -29,7 +30,7 @@ public class MainShopPresenterImpl extends BasePresenter<MainShopView> implement
     private ProductTypeInterator mProductTypeInterator;
     private ShopInterator mShopInterator;
 
-    private int mFirstMainTypeId = -1;
+    private ProductType mFirstMainType;
 
     public MainShopPresenterImpl(MainShopView view) {
         setView(view);
@@ -66,13 +67,13 @@ public class MainShopPresenterImpl extends BasePresenter<MainShopView> implement
 
         mProductTypeInterator.getMainProductType(new ProductTypeInterator.Callback() {
             @Override
-            public void onSuccess(List<ProductTypePo> types) {
+            public void onSuccess(List<ProductType> types) {
                 if (types != null && types.size() > 0) {
                     getView().showMainProductTypes(types);
 
-                    mFirstMainTypeId = types.get(0).getId();
-                    if (mFirstMainTypeId >= 0) {
-                        showSubProductTypes(mFirstMainTypeId);
+                    mFirstMainType = types.get(0);
+                    if (mFirstMainType != null) {
+                        showSubProductTypes(mFirstMainType);
                     }
                 }
             }
@@ -90,10 +91,10 @@ public class MainShopPresenterImpl extends BasePresenter<MainShopView> implement
     }
 
 
-    private void showSubProductTypes(int typeId) {
-        mProductTypeInterator.getSubProductType(typeId, new ProductTypeInterator.Callback() {
+    private void showSubProductTypes(ProductType mainType) {
+        mProductTypeInterator.getSubProductType(mainType, new ProductTypeInterator.Callback() {
             @Override
-            public void onSuccess(List<ProductTypePo> types) {
+            public void onSuccess(List<ProductType> types) {
                 getView().showSubProductTypes(types);
             }
 
@@ -109,13 +110,13 @@ public class MainShopPresenterImpl extends BasePresenter<MainShopView> implement
         });
     }
 
-    private void showShops(int typeId) {
+    private void showShops(ProductType subType) {
         getView().showEmptyShop();
 
-        mShopInterator.getShops(typeId, new ShopInterator.Callback() {
+        mShopInterator.getShops(subType, new ShopInterator.Callback() {
             @Override
-            public void onSuccess(List<ShopPo> shopPos) {
-                getView().showShops(shopPos);
+            public void onSuccess(List<Shop> shops) {
+                getView().showShops(shops);
             }
 
             @Override
@@ -155,21 +156,22 @@ public class MainShopPresenterImpl extends BasePresenter<MainShopView> implement
     }
 
     @Override
-    public void onSelectMainProductType(int typeId) {
-        showSubProductTypes(typeId);
+    public void onSelectMainProductType(ProductType mainType) {
+        showSubProductTypes(mainType);
     }
 
     @Override
-    public void onSelectSubProductType(int typeId) {
-        showShops(typeId);
+    public void onSelectSubProductType(ProductType subType) {
+        showShops(subType);
     }
 
     @Override
-    public void onSelectShop(@NonNull ShopPo shopPo) {
-        //start to call the seller
-        UserPo userPo = new UserPo(1,"xiayong","12345","18010035906",2);
-        shopPo.setUserPo(userPo);
-        EventBus.getDefault().postSticky(shopPo.getUserPo());
-        getView().navigateCallOut(shopPo.getUserPo());
+    public void onSelectShop(@NonNull Shop shop) {
+        //start to call the SELLER
+        User user = new User(1,"xiayong","12345","18010035906", User.Type.SELLER);
+        shop.setOwner(user);
+
+        EventBus.getDefault().postSticky(new SelectShopEvent(shop));
+        getView().navigateCallOut(shop.getOwner());
     }
 }

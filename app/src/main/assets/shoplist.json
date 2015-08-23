@@ -1,0 +1,36 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "name": "武汉水果生鲜店",
+      "userid": 2,
+      "introduction": "批发水果，蔬菜，生鲜和油盐酱醋"
+    },
+    {
+      "id": 2,
+      "name": "北京MM店",
+      "userid": 3,
+      "introduction": "批发各种MM，熟女，素人"
+    },
+    {
+      "id": 3,
+      "name": "上海约炮店",
+      "userid": 4,
+      "introduction": "快来这里约炮哟"
+    },
+    {
+      "id": 4,
+      "name": "四川约炮店",
+      "userid": 4,
+      "introduction": "快来这里约炮哟"
+    },
+    {
+      "id": 5,
+      "name": "南京约炮店",
+      "userid": 4,
+      "introduction": "快来这里约炮哟"
+    }
+  ],
+  "code": 0,
+  "codeMsg": "请求成功！"
+}

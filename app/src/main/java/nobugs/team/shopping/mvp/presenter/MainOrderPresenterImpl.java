@@ -1,6 +1,6 @@
 package nobugs.team.shopping.mvp.presenter;
 
-import nobugs.team.shopping.repo.db.entity.OrderPo;
+import nobugs.team.shopping.mvp.model.Order;
 import nobugs.team.shopping.mvp.view.MainOrderView;
 
 /**
@@ -22,7 +22,7 @@ public class MainOrderPresenterImpl extends BasePresenter<MainOrderView> impleme
     }
 
     @Override
-    public void onOrderSelected(OrderPo orderPo) {
+    public void onOrderSelected(Order order) {
 
     }
 }

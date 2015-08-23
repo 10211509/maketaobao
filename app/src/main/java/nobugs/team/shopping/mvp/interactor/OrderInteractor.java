@@ -5,8 +5,6 @@ import java.util.List;
 
 import nobugs.team.shopping.mvp.model.Order;
 import nobugs.team.shopping.mvp.model.User;
-import nobugs.team.shopping.repo.db.entity.OrderPo;
-import nobugs.team.shopping.repo.db.entity.UserPo;
 
 /**
  * Created by xiayong on 2015/8/22.
@@ -23,6 +21,6 @@ public interface OrderInteractor  {
 
         void onFailure();
 
-        void onOrderListSuccess(List<Order> orderPoList);
+        void onOrderListSuccess(List<Order> orderList);
     }
 }

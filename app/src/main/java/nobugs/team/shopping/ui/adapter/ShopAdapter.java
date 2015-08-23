@@ -15,33 +15,33 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import nobugs.team.shopping.R;
-import nobugs.team.shopping.repo.db.entity.ShopPo;
+import nobugs.team.shopping.mvp.model.Shop;
 
 /**
  * Created by Administrator on 2015/8/16 0016.
  */
 public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ViewHolder> {
 
-    private List<ShopPo> mShopPoList;
+    private List<Shop> mShopList;
 
     private Context mContex;
 
     private OnItemClickListener mItemClickListener;
 
-    public ShopAdapter(List<ShopPo> shopPoList) {
-        this.mShopPoList = shopPoList;
+    public ShopAdapter(List<Shop> shopList) {
+        this.mShopList = shopList;
     }
 
-    public List<ShopPo> getShopList() {
-        return mShopPoList;
+    public List<Shop> getShopList() {
+        return mShopList;
     }
 
-    public void setShopList(List<ShopPo> shopPos) {
-        this.mShopPoList = shopPos;
+    public void setShopList(List<Shop> shops) {
+        this.mShopList = shops;
     }
 
-    public void addShopToList(List<ShopPo> collectionToAdd) {
-        mShopPoList.addAll(collectionToAdd);
+    public void addShopToList(List<Shop> collectionToAdd) {
+        mShopList.addAll(collectionToAdd);
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {
@@ -61,7 +61,7 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return mShopPoList.size();
+        return mShopList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -78,7 +78,7 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ViewHolder> {
         @Bind(R.id.btn_shop_open)
         Button btnShopOpen;
 
-        ShopPo mShopPo;
+        Shop mShop;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -91,24 +91,24 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ViewHolder> {
             int position = getLayoutPosition();
 
             if (mItemClickListener != null) {
-                mItemClickListener.onItemClick(v, position, mShopPo);
+                mItemClickListener.onItemClick(v, position, mShop);
             }
         }
 
         public void update(int position) {
-            mShopPo = mShopPoList.get(position);
+            mShop = mShopList.get(position);
 
-            tvShopName.setText(mShopPo.getName());
-            tvShopIntro.setText(mShopPo.getIntroduction());
+            tvShopName.setText(mShop.getName());
+            tvShopIntro.setText(mShop.getIntroduction());
 
-//            if (mShopPo.getImgurl() != null) {
-//                Picasso.with(mContex).load(mShopPo.getImgurl()).into(ivAvatarShop);
+//            if (mShop.getImgUrl() != null) {
+//                Picasso.with(mContex).load(mShop.getImgUrl()).into(ivAvatarShop);
 //            }
 
         }
     }
 
     public interface OnItemClickListener {
-        void onItemClick(View view, int position, ShopPo ShopPo);
+        void onItemClick(View view, int position, Shop Shop);
     }
 }

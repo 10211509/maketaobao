@@ -6,7 +6,7 @@ import com.yuntongxun.ecsdk.ECDevice;
 import com.yuntongxun.ecsdk.ECVoIPCallManager;
 
 import de.greenrobot.event.EventBus;
-import nobugs.team.shopping.repo.db.entity.UserPo;
+import nobugs.team.shopping.mvp.model.User;
 import nobugs.team.shopping.mvp.view.VoipCallView;
 import nobugs.team.shopping.utils.VoIPCallHelper;
 
@@ -16,7 +16,7 @@ import nobugs.team.shopping.utils.VoIPCallHelper;
 public class VideoCallPresenterImpl extends BasePresenter<VoipCallView> implements VideoCallPresenter {
 
     public static final String EXTRA_OUTGOING_CALL = "con.yuntongxun.ecdemo.VoIP_OUTGOING_CALL";
-    private UserPo mCallee;
+    private User mCallee;
     private String mCurrentCallId;
     private boolean isConnect = false;
     private boolean isIncomingCall;
@@ -37,8 +37,8 @@ public class VideoCallPresenterImpl extends BasePresenter<VoipCallView> implemen
     }
 
 
-    public void onEventMainThread(UserPo userPo) {
-        mCallee = userPo;
+    public void onEventMainThread(User user) {
+        mCallee = user;
         if (!isIncomingCall){
             //action to launch a call            
             getView().showCallOutView(mCallee);//show view
@@ -92,7 +92,7 @@ public class VideoCallPresenterImpl extends BasePresenter<VoipCallView> implemen
     private void handleReceiveCall(){
         mCurrentCallId = getActivity().getIntent().getStringExtra(ECDevice.CALLID);
         String callPhone = getActivity().getIntent().getStringExtra(ECDevice.CALLER);
-        mCallee = new UserPo();
+        mCallee = new User();
         mCallee.setPhone(callPhone);
         getView().showCallInView(mCallee);
     }

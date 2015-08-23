@@ -17,7 +17,7 @@ import java.util.List;
 import butterknife.Bind;
 import nobugs.team.shopping.R;
 import nobugs.team.shopping.app.base.BaseFragment;
-import nobugs.team.shopping.repo.db.entity.OrderPo;
+import nobugs.team.shopping.mvp.model.Order;
 import nobugs.team.shopping.mvp.presenter.MainOrderPresenter;
 import nobugs.team.shopping.mvp.presenter.MainOrderPresenterImpl;
 import nobugs.team.shopping.mvp.view.MainOrderView;
@@ -68,17 +68,17 @@ public class MainOrderListFragment extends BaseFragment<MainOrderPresenter> impl
     }
 
     @Override
-    public void navigateToOrderDetailsActivity(OrderPo orderPo) {
+    public void navigateToOrderDetailsActivity(Order orderPo) {
 
     }
 
     @Override
-    public void showOrdersInProgress(List<OrderPo> orderPoList) {
+    public void showOrdersInProgress(List<Order> orderPoList) {
 
     }
 
     @Override
-    public void showOrderFinished(List<OrderPo> orderPoList) {
+    public void showOrderFinished(List<Order> orderPoList) {
 
     }
 

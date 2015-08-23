@@ -4,9 +4,9 @@ import android.support.annotation.NonNull;
 
 import java.util.List;
 
-import nobugs.team.shopping.repo.db.entity.ProductTypePo;
-import nobugs.team.shopping.repo.db.entity.ShopPo;
-import nobugs.team.shopping.repo.db.entity.UserPo;
+import nobugs.team.shopping.mvp.model.ProductType;
+import nobugs.team.shopping.mvp.model.Shop;
+import nobugs.team.shopping.mvp.model.User;
 
 /**
  * Autor: wangyf on 2015/8/15 0015 20:56
@@ -23,17 +23,17 @@ public interface MainShopView extends IView {
 
     void stopRunAdsBanner();
 
-    void showMainProductTypes(List<ProductTypePo> productTypePos);
+    void showMainProductTypes(List<ProductType> productTypes);
 
     void showEmptyMainProductType();
 
-    void showSubProductTypes(List<ProductTypePo> productTypePos);
+    void showSubProductTypes(List<ProductType> productTypes);
 
     void showEmptySubProductType();
 
-    void showShops(List<ShopPo> productTypes);
+    void showShops(List<Shop> shops);
 
     void showEmptyShop();
 
-    void navigateCallOut(@NonNull UserPo userPo);
+    void navigateCallOut(@NonNull User user);
 }
