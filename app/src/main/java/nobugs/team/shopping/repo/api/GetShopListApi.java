@@ -9,9 +9,9 @@ import nobugs.team.shopping.mvp.model.Shop;
  * Created by Administrator on 2015/8/23 0023.
  */
 public interface GetShopListApi {
-    List<Shop> getShopList();
+    List<Shop> getShopList(ProductType type, String keyword);
 
-    void getShopList(Callback callback);
+    void getShopList(ProductType type, String keyword, Callback callback);
 
     interface Callback {
 

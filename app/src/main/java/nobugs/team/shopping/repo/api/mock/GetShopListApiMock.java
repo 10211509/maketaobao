@@ -45,12 +45,13 @@ public class GetShopListApiMock implements GetShopListApi {
 
 
     @Override
-    public List<Shop> getShopList() {
+    public List<Shop> getShopList(ProductType type, String keyword) {
         return mShops;
     }
 
     @Override
-    public void getShopList(Callback callback) {
+    public void getShopList(ProductType type, String keyword, Callback callback) {
         callback.onFinish(mShops);
     }
+
 }
