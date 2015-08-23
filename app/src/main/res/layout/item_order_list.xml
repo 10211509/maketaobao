@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+    <TextView
+        android:id="@+id/tv_orderid"
+        android:layout_width="match_parent"
+        android:layout_height="43dp"
+        android:textColor="@color/cff7f00"
+        android:gravity="center_vertical"
+        android:text="@string/order_id" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="28dp"
+            android:textColor="@color/c777777"
+            android:gravity="center_vertical"
+            android:text="@string/order_name" />
+
+        <TextView
+            android:id="@+id/tv_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="28dp"
+            android:textColor="@color/c777777"
+            android:gravity="center_vertical"
+            android:text="@string/order_amount"/>
+
+        <TextView
+            android:id="@+id/tv_price"
+            android:layout_width="wrap_content"
+            android:layout_height="28dp"
+            android:textColor="@color/c777777"
+            android:gravity="center_vertical"
+            android:text="@string/order_price" />
+
+        <TextView
+            android:id="@+id/tv_place_time"
+            android:layout_width="wrap_content"
+            android:layout_height="28dp"
+            android:textColor="@color/c777777"
+            android:gravity="center_vertical"
+            android:text="@string/order_place_time" />
+    </LinearLayout>
+</LinearLayout>

@@ -3,6 +3,8 @@ package nobugs.team.shopping.mvp.interactor;
 
 import java.util.List;
 
+import nobugs.team.shopping.mvp.model.Order;
+import nobugs.team.shopping.mvp.model.User;
 import nobugs.team.shopping.repo.db.entity.OrderPo;
 import nobugs.team.shopping.repo.db.entity.UserPo;
 
@@ -11,9 +13,9 @@ import nobugs.team.shopping.repo.db.entity.UserPo;
  */
 public interface OrderInteractor  {
 
-    void getOrdersInProgress(UserPo userPo,int pageCount,int curPage,Callback callback);
+    void getOrdersInProgress(User user,int pageCount,int curPage,Callback callback);
 
-    void getOrdersInFinished(UserPo userPo,int pageCount,int curPage,Callback callback);
+    void getOrdersInFinished(User user,int pageCount,int curPage,Callback callback);
 
     interface Callback {
 
@@ -21,6 +23,6 @@ public interface OrderInteractor  {
 
         void onFailure();
 
-        void onOrderListSuccess(List<OrderPo> orderPoList);
+        void onOrderListSuccess(List<Order> orderPoList);
     }
 }

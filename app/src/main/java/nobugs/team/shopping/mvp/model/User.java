@@ -15,6 +15,19 @@ public class User {
         buyer,//买家
         seller//卖家
     }
+
+    public User(){
+
+    }
+
+    public User(int id, String name, String password, String phone, Type type) {
+        this.id = id;
+        this.name = name;
+        this.password = password;
+        this.phone = phone;
+        this.type = type;
+    }
+
     public int getId() {
         return id;
     }
@@ -38,4 +51,9 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public boolean isSeller(){
+        return type == Type.seller;
+    }
+
 }

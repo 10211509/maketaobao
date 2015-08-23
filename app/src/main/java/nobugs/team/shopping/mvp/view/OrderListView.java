@@ -1,10 +1,9 @@
 package nobugs.team.shopping.mvp.view;
 
-import android.widget.ImageView;
-
 import java.util.List;
 
-import nobugs.team.shopping.db.entity.Order;
+import nobugs.team.shopping.mvp.model.Order;
+
 
 /**
  * Created by xiayong on 2015/8/22.

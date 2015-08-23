@@ -1,6 +1,5 @@
 package nobugs.team.shopping.mvp.presenter;
 
-import nobugs.team.shopping.db.entity.Order;
 import nobugs.team.shopping.mvp.view.OrderListView;
 
 /**

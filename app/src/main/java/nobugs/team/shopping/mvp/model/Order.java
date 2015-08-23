@@ -5,18 +5,91 @@ package nobugs.team.shopping.mvp.model;
  * 订单实体bean
  */
 public class Order {
-    private int id;//主键id
+//    private int id;//主键id
     private int orderid;//订单编号
     private Product product;//用户购买的商品
     private int product_count;//商品数量
     private double price;//总价格
     private Shop shop;//购买商品所在商店
     private User buyer;//买家
+    private String place_time;
 
+    public Order(){
+        //empty constructor
+    }
+
+    public Order(int orderid, Product product, int product_count, double price, Shop shop, User buyer, String place_time) {
+        this.orderid = orderid;
+        this.product = product;
+        this.product_count = product_count;
+        this.price = price;
+        this.shop = shop;
+        this.buyer = buyer;
+        this.place_time = place_time;
+    }
 
     //订单状态
     public enum State{
-
+        placed,
+        payed,
+        collected,
+        delivered,
+        received
     }
 
+    public String getPlace_time() {
+        return place_time;
+    }
+
+    public void setPlace_time(String place_time) {
+        this.place_time = place_time;
+    }
+
+    public int getOrderid() {
+        return orderid;
+    }
+
+    public void setOrderid(int orderid) {
+        this.orderid = orderid;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public int getProduct_count() {
+        return product_count;
+    }
+
+    public void setProduct_count(int product_count) {
+        this.product_count = product_count;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public Shop getShop() {
+        return shop;
+    }
+
+    public void setShop(Shop shop) {
+        this.shop = shop;
+    }
+
+    public User getBuyer() {
+        return buyer;
+    }
+
+    public void setBuyer(User buyer) {
+        this.buyer = buyer;
+    }
 }

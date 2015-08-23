@@ -59,6 +59,7 @@ dependencies {
     //    compile files('libs/CCP_SDK_Android_3.6.4r.jar')
     //    compile files('libs/pinyin4j-2.5.0.jar')
     compile 'de.greenrobot:eventbus:2.4.0'
+    compile 'com.demievil.library:refreshlayout:1.0.0@aar'
     compile project(':okvolley')
     compile files('libs/Yuntx_FullLib_v5.1.5r.jar')
 }

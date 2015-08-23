@@ -30,5 +30,10 @@
     <string name="tv_main_shop">商铺</string>
     <string name="tv_main_orderlist">订单</string>
     <string name="tv_my_orders">我的订单</string>
+    <string name="order_name">名称：{name}</string>
+    <string name="order_amount">数量：{amount}</string>
+    <string name="order_price">总价：¥{price}</string>
+    <string name="order_place_time">下单时间:{place_time}</string>
+    <string name="order_id">订单号：{orderid}</string>
 
 </resources>

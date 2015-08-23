@@ -1,8 +1,6 @@
 package nobugs.team.shopping.mvp.interactor;
 
 import com.android.volley.VolleyError;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import org.apache.http.message.BasicNameValuePair;
 
@@ -10,9 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import nobugs.team.shopping.constant.AppConfig;
-import nobugs.team.shopping.db.entity.Order;
-import nobugs.team.shopping.db.entity.Shop;
-import nobugs.team.shopping.db.entity.User;
+import nobugs.team.shopping.mvp.model.Order;
+import nobugs.team.shopping.mvp.model.Product;
+import nobugs.team.shopping.mvp.model.User;
 import team.nobugs.library.request.GsonGetRequest;
 import team.nobugs.library.request.phraser.HttpObject;
 import team.nobugs.library.request.utils.OkVolleyUtils;
@@ -29,14 +27,15 @@ public class OrderInteractorImpl implements OrderInteractor {
         params.add(new BasicNameValuePair("currentPage", String.valueOf(curPage)));
         params.add(new BasicNameValuePair("isOver", String.valueOf(1)));
         String id = user.isSeller()?"saleid" : "buyid";
-        params.add(new BasicNameValuePair(id, user.getId().toString());
+        params.add(new BasicNameValuePair(id, String.valueOf(user.getId())));
 
         final GsonGetRequest<HttpObject> getRequest = RequestFactory.createGetRequest(AppConfig.URL.LOGIN, params ,new com.android.volley.Response.Listener<HttpObject>() {
             @Override
             public void onResponse(HttpObject httpObjectObject) {
                 // Deal with the DummyObject here
-                if (httpObjectObject.isSuccessful()) {
-                    callback.onOrderListSuccess();
+                if (httpObjectObject.isSuccessful()|| true) {
+                    //TODO
+                    callback.onOrderListSuccess(getFakeDate());
                 } else {
                     callback.onFailure();
                 }
@@ -56,5 +55,13 @@ public class OrderInteractorImpl implements OrderInteractor {
     @Override
     public void getOrdersInFinished(User user, int pageCount, int curPage, Callback callback) {
 
+    }
+    public List<Order> getFakeDate() {
+        List<Order> fakeDate = new ArrayList<>();
+        for(int i=0;i<10;i++){
+            Product product = new Product(i,"苹果"+i,null);
+            fakeDate.add(new Order(1,product,i+2,5.0,null,null,"2015/8/23"));
+        }
+        return fakeDate;
     }
 }
