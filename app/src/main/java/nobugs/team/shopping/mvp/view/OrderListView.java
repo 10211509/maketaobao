@@ -10,7 +10,7 @@ import nobugs.team.shopping.mvp.model.Order;
  * OrderFinishedFragment and OrderInProgressFragment share the same view
  */
 public interface OrderListView extends IView {
-    void navigateToOrderDetailsAvtivity(Order order);
+    void navigateToOrderDetailsAvtivity();
 
     void refreshOrderList(List<Order> orderList);
 

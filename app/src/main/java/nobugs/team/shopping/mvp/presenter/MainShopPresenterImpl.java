@@ -140,6 +140,7 @@ public class MainShopPresenterImpl extends BasePresenter<MainShopView> implement
     @Override
     public void onStart() {
 
+        //TODO
         showAdsBanner();
 
         showProductTypes();

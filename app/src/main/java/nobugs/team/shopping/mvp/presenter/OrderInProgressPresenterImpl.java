@@ -26,8 +26,8 @@ public class OrderInProgressPresenterImpl extends BasePresenter<OrderListView> i
     }
 
     @Override
-    public void navigateToOrderDetailsActivity() {
-
+    public void navigateToOrderDetailsActivity(Order order) {
+        getView().navigateToOrderDetailsAvtivity();
     }
 
     @Override

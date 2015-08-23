@@ -13,6 +13,7 @@ public class Order {
     private Shop shop;//购买商品所在商店
     private User buyer;//买家
     private String place_time;
+    private State orderState = State.payed;
 
     public Order(){
         //empty constructor
@@ -34,7 +35,16 @@ public class Order {
         payed,
         collected,
         delivered,
-        received
+        received,
+        canceled
+    }
+
+    public State getOrderState() {
+        return orderState;
+    }
+
+    public void setOrderState(State orderState) {
+        this.orderState = orderState;
     }
 
     public String getPlace_time() {
