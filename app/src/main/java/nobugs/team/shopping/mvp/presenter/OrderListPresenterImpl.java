@@ -11,11 +11,11 @@ import nobugs.team.shopping.mvp.view.OrderListView;
 /**
  * Created by xiayong on 2015/8/23.
  */
-public class OrderInProgressPresenterImpl extends BasePresenter<OrderListView> implements OrderInProgressPresenter,OrderInteractor.Callback {
+public class OrderListPresenterImpl extends BasePresenter<OrderListView> implements OrderListPresenter,OrderInteractor.Callback {
 
     private OrderInteractor mOrderInteractor;
 
-    public OrderInProgressPresenterImpl(OrderListView orderListView){
+    public OrderListPresenterImpl(OrderListView orderListView){
         setView(orderListView);
         this.mOrderInteractor = new OrderInteractorImpl();
     }
