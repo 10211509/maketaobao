@@ -1,10 +1,12 @@
 package nobugs.team.shopping.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.demievil.library.RefreshLayout;
@@ -20,6 +22,7 @@ import nobugs.team.shopping.mvp.model.Order;
 import nobugs.team.shopping.mvp.presenter.OrderInProgressPresenter;
 import nobugs.team.shopping.mvp.presenter.OrderInProgressPresenterImpl;
 import nobugs.team.shopping.mvp.view.OrderListView;
+import nobugs.team.shopping.ui.activity.OrderDetailsActivity;
 import nobugs.team.shopping.ui.adapter.OrderListAdapter;
 
 /**
@@ -29,7 +32,7 @@ import nobugs.team.shopping.ui.adapter.OrderListAdapter;
  * Use the {@link OrderInprogressFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class OrderInprogressFragment extends BaseFragment<OrderInProgressPresenter> implements OrderListView,RefreshLayout.OnRefreshListener, RefreshLayout.OnLoadListener {
+public class OrderInprogressFragment extends BaseFragment<OrderInProgressPresenter> implements OrderListView,RefreshLayout.OnRefreshListener, RefreshLayout.OnLoadListener ,ListView.OnItemClickListener{
 
     @Bind(R.id.swipe_container)
     RefreshLayout mRefreshLayout;
@@ -79,8 +82,8 @@ public class OrderInprogressFragment extends BaseFragment<OrderInProgressPresent
 
 
     @Override
-    public void navigateToOrderDetailsAvtivity(Order order) {
-
+    public void navigateToOrderDetailsAvtivity() {
+        startActivity(new Intent(this.getActivity(),OrderDetailsActivity.class));
     }
 
     @Override
@@ -107,5 +110,13 @@ public class OrderInprogressFragment extends BaseFragment<OrderInProgressPresent
     @Override
     public void onRefresh() {
         getPresenter().refreshOrderList();
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+       Object object = ((OrderListAdapter) (parent.getAdapter())).getItem(position);
+        if(object instanceof Order){
+            getPresenter().navigateToOrderDetailsActivity((Order) object);
+        }
     }
 }

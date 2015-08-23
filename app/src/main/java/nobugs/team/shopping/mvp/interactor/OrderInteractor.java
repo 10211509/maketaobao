@@ -17,6 +17,8 @@ public interface OrderInteractor  {
 
     void getOrdersInFinished(User user,int pageCount,int curPage,Callback callback);
 
+//    void getOrderByPosition(int position);
+
     interface Callback {
 
         void onNetWorkError();
