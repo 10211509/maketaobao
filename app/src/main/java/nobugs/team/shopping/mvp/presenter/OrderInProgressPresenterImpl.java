@@ -54,4 +54,9 @@ public class OrderInProgressPresenterImpl extends BasePresenter<OrderListView> i
     public void onOrderListSuccess(List<Order> orderPoList) {
         getView().showOrderList(orderPoList);
     }
+
+    @Override
+    public void onStateUpdateSuccess(Order.State newState) {
+
+    }
 }
