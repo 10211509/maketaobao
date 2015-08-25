@@ -25,9 +25,6 @@ public class LoginActivity extends BaseActivity <LoginPresenter> implements Logi
     @Bind(R.id.login_btn)
     Button loginBtn;
 
-    @Bind(R.id.progress)
-    ProgressBar progress;
-
     @Override
     protected LoginPresenter initPresenter() {
         return new LoginPresenterImpl(this);

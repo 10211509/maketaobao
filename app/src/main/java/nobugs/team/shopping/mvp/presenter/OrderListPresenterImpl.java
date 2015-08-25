@@ -2,6 +2,8 @@ package nobugs.team.shopping.mvp.presenter;
 
 import java.util.List;
 
+import de.greenrobot.event.EventBus;
+import nobugs.team.shopping.event.OrderEvent;
 import nobugs.team.shopping.mvp.interactor.OrderInteractor;
 import nobugs.team.shopping.mvp.interactor.OrderInteractorImpl;
 import nobugs.team.shopping.mvp.model.Order;
@@ -27,6 +29,7 @@ public class OrderListPresenterImpl extends BasePresenter<OrderListView> impleme
 
     @Override
     public void navigateToOrderDetailsActivity(Order order) {
+        EventBus.getDefault().postSticky(new OrderEvent(order));
         getView().navigateToOrderDetailsAvtivity();
     }
 

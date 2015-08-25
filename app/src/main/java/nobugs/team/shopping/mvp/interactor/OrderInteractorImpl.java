@@ -29,7 +29,7 @@ public class OrderInteractorImpl implements OrderInteractor {
         String id = user.isSeller()?"saleid" : "buyid";
         params.add(new BasicNameValuePair(id, String.valueOf(user.getId())));
 
-        final GsonGetRequest<HttpObject> getRequest = RequestFactory.createGetRequest(AppConfig.URL.LOGIN, params ,new com.android.volley.Response.Listener<HttpObject>() {
+        final GsonGetRequest<HttpObject> getRequest = RequestFactory.createGetRequest(AppConfig.URL.WEB_HOST+AppConfig.URL.LOGIN, params ,new com.android.volley.Response.Listener<HttpObject>() {
             @Override
             public void onResponse(HttpObject httpObjectObject) {
                 // Deal with the DummyObject here

@@ -38,7 +38,7 @@ public class OrderInprogressFragment extends BaseFragment<OrderListPresenter> im
 
     private View mFooter;
     private OrderListAdapter mOrderListAdapter;
-    private List<Order> fakeDate;
+//    private List<Order> fakeDate;
 
     public static OrderInprogressFragment newInstance() {
         OrderInprogressFragment fragment = new OrderInprogressFragment();
@@ -69,6 +69,7 @@ public class OrderInprogressFragment extends BaseFragment<OrderListPresenter> im
         mRefreshLayout.setChildView(mListOrder);
         mOrderListAdapter = new OrderListAdapter(this.getActivity());
         mListOrder.setAdapter(mOrderListAdapter);
+        mListOrder.setOnItemClickListener(this);
     }
 
     @Override
@@ -111,7 +112,7 @@ public class OrderInprogressFragment extends BaseFragment<OrderListPresenter> im
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-       Object object = ((OrderListAdapter) (parent.getAdapter())).getItem(position);
+       Object object = parent.getItemAtPosition(position);
         if(object instanceof Order){
             getPresenter().navigateToOrderDetailsActivity((Order) object);
         }
