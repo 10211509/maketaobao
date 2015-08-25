@@ -15,21 +15,19 @@ import retrofit.client.Response;
  */
 public class GetTypeListApiImpl extends BaseRetrofitHandler implements GetTypeListApi {
 
-    private final Mapper mapper;
-
-    public GetTypeListApiImpl() {
-        super();
+    public GetTypeListApiImpl(RetrofitAdapter adapter) {
+        super(adapter);
         this.mapper = new TypeListMapper();
     }
 
     @Override
     public List<ProductType> getTypeList() {
-        return baseApiService.getTypeList();
+        return (List<ProductType>) mapper.map(getService().getTypeList());
     }
 
     @Override
     public void getTypeList(final Callback callback) {
-        baseApiService.getTypeList(new retrofit.Callback<TypeListResult>() {
+        getService().getTypeList(new retrofit.Callback<TypeListResult>() {
             @Override
             public void success(TypeListResult typeListResult, Response response) {
                 callback.onFinish((List<ProductType>) mapper.map(typeListResult));

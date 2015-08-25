@@ -13,7 +13,7 @@ public class AppConfig {
     public static final class URL {
         public static final String WEB_HOST = "http://211.149.223.154:8080/JCNet";//主机address
 
-        public static final String LOGIN            = WEB_HOST + "/web!login.do";
+        public static final String LOGIN            = "/web!login.do";
 
         public static final String GET_ORDER_LIST   = "/web!orderList.do";
 

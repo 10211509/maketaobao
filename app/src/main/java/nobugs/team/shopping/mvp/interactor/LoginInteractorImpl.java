@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import nobugs.team.shopping.constant.AppConfig;
+import nobugs.team.shopping.mvp.model.User;
+import nobugs.team.shopping.repo.RepoCallback;
+import nobugs.team.shopping.repo.Repository;
 import nobugs.team.shopping.utils.CommonTools;
 import team.nobugs.library.request.GsonGetRequest;
 import team.nobugs.library.request.phraser.HttpObject;
@@ -19,31 +22,20 @@ public class LoginInteractorImpl implements LoginInteractor {
 
     @Override
     public void login(final String username, final String password, final Callback callback) {
-
-        List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
-        params.add(new BasicNameValuePair("username", username));
-        params.add(new BasicNameValuePair("password", password));
-
-        final GsonGetRequest<HttpObject> getRequest = RequestFactory.createGetRequest(AppConfig.URL.LOGIN, params, new com.android.volley.Response.Listener<HttpObject>() {
+        Repository.getInstance().login(username, password, new RepoCallback.Get<User>(){
             @Override
-            public void onResponse(HttpObject httpObjectObject) {
-                // Deal with the DummyObject here
-                if (httpObjectObject.isSuccessful()) {
+            public void onGotDataSuccess(User user) {
+                if (user != null) {
                     callback.onSuccess();
                 } else {
                     callback.onFailure();
                 }
-
             }
-        }, new com.android.volley.Response.ErrorListener() {
             @Override
-            public void onErrorResponse(VolleyError error) {
-                // Deal with the error here
+            public void onError(int errType, String errMsg) {
                 callback.onNetWorkError();
-
             }
         });
-        OkVolleyUtils.addRequest(getRequest, "login");
     }
 
 }

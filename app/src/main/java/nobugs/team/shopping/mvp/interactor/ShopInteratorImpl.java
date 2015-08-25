@@ -19,9 +19,9 @@ public class ShopInteratorImpl implements ShopInterator {
 
     @Override
     public void getShops(ProductType type, final Callback callback) {
-        Repository.getInstance().getShopList(type, null, new RepoCallback.Get<Shop>() {
+        Repository.getInstance().getShopList(type, null, new RepoCallback.GetList<Shop>() {
             @Override
-            public void onGotDataSuccess(List<Shop> shops) {
+            public void onGotDataListSuccess(List<Shop> shops) {
                 callback.onSuccess(shops);
             }
             @Override

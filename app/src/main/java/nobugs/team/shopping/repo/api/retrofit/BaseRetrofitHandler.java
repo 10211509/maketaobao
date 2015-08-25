@@ -4,6 +4,8 @@ import java.io.IOException;
 
 import nobugs.team.shopping.constant.AppConfig;
 import nobugs.team.shopping.constant.ErrorConsts;
+import nobugs.team.shopping.repo.Repository;
+import nobugs.team.shopping.repo.mapper.Mapper;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 
@@ -11,20 +13,16 @@ import retrofit.RetrofitError;
  * Created by Administrator on 2015/8/23 0023.
  */
 public class BaseRetrofitHandler {
-    String BASE_URL = AppConfig.URL.WEB_HOST;
+    private RetrofitAdapter adapter;
+    protected Mapper mapper;
 
-    protected RestAdapter restAdapter;
-    protected BaseApiService baseApiService;
-
-    public BaseRetrofitHandler() {
-        initDefaultAdapter();
+    public BaseRetrofitHandler(RetrofitAdapter adapter) {
+        this.adapter = adapter;
     }
 
-    protected void initDefaultAdapter() {
-        this.restAdapter = new RestAdapter.Builder()
-                .setEndpoint(BASE_URL)
-                .build();
-        this.baseApiService = restAdapter.create(BaseApiService.class);
+
+    public ApiService getService(){
+        return adapter.getBaseApiService();
     }
 
     protected int getErrorType(RetrofitError error) {
