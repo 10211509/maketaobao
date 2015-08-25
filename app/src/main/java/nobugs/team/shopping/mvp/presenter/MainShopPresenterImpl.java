@@ -30,8 +30,6 @@ public class MainShopPresenterImpl extends BasePresenter<MainShopView> implement
     private ProductTypeInterator mProductTypeInterator;
     private ShopInterator mShopInterator;
 
-    private ProductType mFirstMainType;
-
     public MainShopPresenterImpl(MainShopView view) {
         setView(view);
         this.mAdsBannerInterator = new AdsBannerInteratorImpl();
@@ -63,7 +61,8 @@ public class MainShopPresenterImpl extends BasePresenter<MainShopView> implement
     private void showProductTypes() {
         getView().showEmptyMainProductType();
 
-        getView().showEmptySubProductType();
+//        getView().showEmptySubProductType();
+//        getView().showEmptyShop();
 
         mProductTypeInterator.getMainProductType(new ProductTypeInterator.Callback() {
             @Override
@@ -71,9 +70,9 @@ public class MainShopPresenterImpl extends BasePresenter<MainShopView> implement
                 if (types != null && types.size() > 0) {
                     getView().showMainProductTypes(types);
 
-                    mFirstMainType = types.get(0);
-                    if (mFirstMainType != null) {
-                        showSubProductTypes(mFirstMainType);
+                    ProductType firstMainType = types.get(0);
+                    if (firstMainType != null) {
+                        showSubProductTypes(firstMainType);
                     }
                 }
             }
@@ -92,10 +91,21 @@ public class MainShopPresenterImpl extends BasePresenter<MainShopView> implement
 
 
     private void showSubProductTypes(ProductType mainType) {
+        getView().showEmptySubProductType();
+
+//        getView().showEmptyShop();
+
         mProductTypeInterator.getSubProductType(mainType, new ProductTypeInterator.Callback() {
             @Override
             public void onSuccess(List<ProductType> types) {
-                getView().showSubProductTypes(types);
+                if (types != null && types.size() > 0) {
+                    getView().showSubProductTypes(types);
+
+                    ProductType firstSubType = types.get(0);
+                    if (firstSubType != null) {
+                        showShops(firstSubType);
+                    }
+                }
             }
 
             @Override

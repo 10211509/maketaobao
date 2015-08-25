@@ -1,14 +1,8 @@
 package nobugs.team.shopping.repo.mapper;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import nobugs.team.shopping.mvp.model.ProductType;
 import nobugs.team.shopping.mvp.model.User;
 import nobugs.team.shopping.repo.api.model.LoginResult;
-import nobugs.team.shopping.repo.api.model.TypeListResult;
-import nobugs.team.shopping.repo.api.model.TypePo;
-import nobugs.team.shopping.repo.api.model.UserPo;
+import nobugs.team.shopping.repo.model.UserPo;
 
 /**
  * Created by Administrator on 2015/8/23 0023.

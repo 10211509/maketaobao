@@ -1,13 +1,14 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:precent="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <FrameLayout
+        android:id="@+id/frame_fragment_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:id="@+id/frame_fragment_content"
         android:layout_above="@+id/linear_bottom_btns"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true">
         <!--<fragment
             android:id="@+id/id_fragment_shop"
@@ -23,30 +24,31 @@
     </FrameLayout>
 
     <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
         android:id="@+id/linear_bottom_btns"
-        android:layout_height="57dp"
-        android:layout_alignParentBottom="true">
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        precent:layout_heightPercent="7.1%">
 
         <Button
+            android:id="@+id/btn_main_shop"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="@string/tv_main_shop"
             android:background="#0080FF"
+            android:text="@string/tv_main_shop"
             android:textColor="@android:color/white"
-            android:textSize="18sp"
-            android:id="@+id/btn_main_shop" />
+            android:textSize="18sp" />
 
         <Button
+            android:id="@+id/btn_main_order"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="#FF7F00"
-            android:textColor="@android:color/white"
-            android:textSize="18sp"
             android:text="@string/tv_main_orderlist"
-            android:id="@+id/btn_main_order" />
+            android:textColor="@android:color/white"
+            android:textSize="18sp" />
     </LinearLayout>
-</RelativeLayout>
+</android.support.percent.PercentRelativeLayout>

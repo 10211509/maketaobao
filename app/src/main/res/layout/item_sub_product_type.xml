@@ -9,10 +9,10 @@
         android:id="@+id/tv_sub_type_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="4dp"
         android:layout_centerVertical="true"
         android:text="@string/tv_item_sub_type_apple"
-        android:textSize="13sp"
+        android:textSize="12sp"
         android:textColor="@android:color/black"/>
 
     <ImageView

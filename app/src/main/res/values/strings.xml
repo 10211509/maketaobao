@@ -41,5 +41,6 @@
     <string name="tv_cancel">取消订单</string>
     <string name="tv_forgetpwd">忘记密码</string>
     <string name="tv_version">版本1.0</string>
+    <string name="edt_main_search_hint">搜索店铺</string>
 
 </resources>

@@ -9,13 +9,38 @@
         android:layout_height="0dp"
         precent:layout_heightPercent="34.8%" />
 
-    <EditText
-        android:id="@+id/edt_search"
+    <RelativeLayout
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
-        precent:layout_widthPercent="80%" />
+        precent:layout_widthPercent="86%">
+
+        <EditText
+            android:id="@+id/edt_search"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@drawable/bg_edt_main_search"
+            android:hint="@string/edt_main_search_hint"
+            android:paddingLeft="45dp"
+            android:paddingRight="40dp"
+            android:textColorHint="@android:color/darker_gray" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="26dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="6dp"
+            android:src="@drawable/ic_edt_main_search" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="26dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/ic_edt_main_record" />
+    </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_main_types"
@@ -23,6 +48,8 @@
         android:layout_height="0dp"
         android:layout_below="@+id/banner_main"
         android:background="@android:color/white"
+        android:paddingLeft="2dp"
+        android:paddingRight="2dp"
         android:scrollbars="horizontal"
         precent:layout_heightPercent="16%" />
 
@@ -30,7 +57,7 @@
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:layout_below="@+id/rv_main_types"
-        android:background="#EEEEEE"/>
+        android:background="#EEEEEE" />
 
     <android.support.percent.PercentRelativeLayout
         android:layout_width="match_parent"
@@ -45,7 +72,7 @@
             android:layout_centerVertical="true"
             android:background="@drawable/bg_rv_sub_type"
             android:scrollbars="vertical"
-            precent:layout_heightPercent="93%"
+            precent:layout_heightPercent="95%"
             precent:layout_widthPercent="14.6%" />
 
         <android.support.v7.widget.RecyclerView
@@ -56,33 +83,33 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
             android:scrollbars="vertical"
-            precent:layout_heightPercent="93%"
+            precent:layout_heightPercent="95%"
             precent:layout_widthPercent="80%" />
     </android.support.percent.PercentRelativeLayout>
 
-  <!--  <Button
-        android:id="@+id/btn_main_shop"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_alignParentBottom="true"
-        android:background="#0080FF"
-        android:text="@string/btn_main_shop"
-        android:textColor="@android:color/white"
-        android:textSize="18sp"
-        precent:layout_heightPercent="7.1%"
-        precent:layout_widthPercent="50%" />
+    <!--  <Button
+          android:id="@+id/btn_main_shop"
+          android:layout_width="0dp"
+          android:layout_height="0dp"
+          android:layout_alignParentBottom="true"
+          android:background="#0080FF"
+          android:text="@string/btn_main_shop"
+          android:textColor="@android:color/white"
+          android:textSize="18sp"
+          precent:layout_heightPercent="7.1%"
+          precent:layout_widthPercent="50%" />
 
-    <Button
-        android:id="@+id/btn_main_order"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:background="#FF7F00"
-        android:text="@string/btn_main_order"
-        android:textColor="@android:color/white"
-        android:textSize="18sp"
-        precent:layout_heightPercent="7.1%"
-        precent:layout_widthPercent="50%" />-->
+      <Button
+          android:id="@+id/btn_main_order"
+          android:layout_width="0dp"
+          android:layout_height="0dp"
+          android:layout_alignParentBottom="true"
+          android:layout_alignParentRight="true"
+          android:background="#FF7F00"
+          android:text="@string/btn_main_order"
+          android:textColor="@android:color/white"
+          android:textSize="18sp"
+          precent:layout_heightPercent="7.1%"
+          precent:layout_widthPercent="50%" />-->
 
 </android.support.percent.PercentRelativeLayout>

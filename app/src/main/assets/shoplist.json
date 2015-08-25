@@ -8,27 +8,27 @@
     },
     {
       "id": 2,
-      "name": "北京MM店",
+      "name": "天津水果超市",
       "userid": 3,
-      "introduction": "批发各种MM，熟女，素人"
+      "introduction": "卖各种水果"
     },
     {
       "id": 3,
-      "name": "上海约炮店",
+      "name": "上海水果大卖场",
       "userid": 4,
-      "introduction": "快来这里约炮哟"
+      "introduction": "批发全国各地的水果"
     },
     {
       "id": 4,
-      "name": "四川约炮店",
+      "name": "四川苹果专卖店",
       "userid": 4,
-      "introduction": "快来这里约炮哟"
+      "introduction": "大四川的苹果很甜哦"
     },
     {
       "id": 5,
-      "name": "南京约炮店",
+      "name": "南京苹果体验店",
       "userid": 4,
-      "introduction": "快来这里约炮哟"
+      "introduction": "专卖各种apple"
     }
   ],
   "code": 0,

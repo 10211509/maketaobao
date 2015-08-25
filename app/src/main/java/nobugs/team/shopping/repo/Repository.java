@@ -11,12 +11,8 @@ import nobugs.team.shopping.repo.api.GetTypeListApi;
 import nobugs.team.shopping.repo.api.LoginApi;
 import nobugs.team.shopping.repo.api.mock.GetShopListApiMock;
 import nobugs.team.shopping.repo.api.mock.GetTypeListApiMock;
-import nobugs.team.shopping.repo.api.retrofit.ApiService;
-import nobugs.team.shopping.repo.api.retrofit.GetShopListApiImpl;
-import nobugs.team.shopping.repo.api.retrofit.GetTypeListApiImpl;
 import nobugs.team.shopping.repo.api.retrofit.LoginApiImpl;
 import nobugs.team.shopping.repo.api.retrofit.RetrofitAdapter;
-import retrofit.RestAdapter;
 
 /**
  * Created by Administrator on 2015/8/23 0023.
@@ -51,12 +47,16 @@ public class Repository {
     /** 用户信息缓存 */
     private User userCache;
 
+    public User getUserCache() {
+        return userCache;
+    }
+
     private Repository() {
         this.adapter = new RetrofitAdapter();
 
         this.loginApi = new LoginApiImpl(adapter);
-        this.getTypeListApi = new GetTypeListApiImpl(adapter);
-        this.getShopListApi = new GetShopListApiImpl(adapter); //测试数据
+        this.getTypeListApi = new GetTypeListApiMock();
+        this.getShopListApi = new GetShopListApiMock(); //测试数据
     }
 
     public void login(String userName, String password, final RepoCallback.Get<User> callbackGet) {
@@ -158,4 +158,5 @@ public class Repository {
 
         return result;
     }
+
 }

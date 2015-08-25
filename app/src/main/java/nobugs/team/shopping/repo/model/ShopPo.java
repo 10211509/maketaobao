@@ -1,7 +1,6 @@
-package nobugs.team.shopping.repo.api.model;
+package nobugs.team.shopping.repo.model;
 
 import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by Administrator on 2015/8/23 0023.

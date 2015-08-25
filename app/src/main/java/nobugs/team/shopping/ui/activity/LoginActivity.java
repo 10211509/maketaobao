@@ -3,7 +3,6 @@ package nobugs.team.shopping.ui.activity;
 import android.content.Intent;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import butterknife.Bind;

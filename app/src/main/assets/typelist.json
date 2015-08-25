@@ -4,31 +4,31 @@
       "id": 1,
       "parentId": 0,
       "typename": "水果",
-      "imageurl": ""
+      "imageurl": "file:///android_asset/ic_main_type_fruit.png"
     },
     {
       "id": 2,
       "parentId": 0,
       "typename": "蔬菜",
-      "imageurl": ""
+      "imageurl": "file:///android_asset/ic_main_type_vegetables.png"
     },
     {
       "id": 3,
       "parentId": 0,
       "typename": "生鲜",
-      "imageurl": ""
+      "imageurl": "file:///android_asset/ic_main_type_meat.png"
     },
     {
       "id": 4,
       "parentId": 0,
       "typename": "调料",
-      "imageurl": ""
+      "imageurl": "file:///android_asset/ic_main_type_soy.png"
     },
     {
       "id": 5,
       "parentId": 0,
       "typename": "米油",
-      "imageurl": ""
+      "imageurl": "file:///android_asset/ic_main_type_oil.png"
     },
     {
       "id": 6,

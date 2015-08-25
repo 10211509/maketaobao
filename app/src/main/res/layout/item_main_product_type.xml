@@ -1,28 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/lyt_main_type_item"
-    android:layout_width="60dp"
+    android:layout_width="65dp"
     android:layout_height="match_parent"
-    android:layout_marginTop="5dp"
+    android:layout_marginTop="3dp"
     android:gravity="center"
+    android:layout_marginLeft="2dp"
+    android:layout_marginRight="2dp"
     android:orientation="vertical">
 
     <ImageView
         android:id="@+id/iv_main_type"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="53dp"
+        android:layout_height="53dp"
         android:layout_centerHorizontal="true"
         android:src="@drawable/ic_main_type_fruit"/>
 
     <TextView
         android:id="@+id/tv_main_type_name"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="20dp"
         android:layout_below="@+id/iv_main_type"
         android:layout_marginTop="8dp"
         android:layout_centerHorizontal="true"
         android:text="@string/tv_item_main_type_fruit"
         android:textSize="12sp"
-        android:textColor="@android:color/black"/>
+        android:textColor="@android:color/black"
+        android:gravity="center"/>
 
 </RelativeLayout>
