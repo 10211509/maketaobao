@@ -213,7 +213,7 @@ public final class Phrase {
     Token prev = null;
     Token next;
     while ((next = token(prev)) != null) {
-      // Creates a doubly-linked list of tokens starting with head.
+      // Creates a doubly-linked list of tokens starting with ic_login_head.
       if (head == null) head = next;
       prev = next;
     }

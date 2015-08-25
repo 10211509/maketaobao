@@ -99,6 +99,7 @@ public class MainShopFragment extends BaseFragment<MainShopPresenter> implements
         initSubTypeRecyclerView();
         initShopRecyclerView();
     }
+
     private void initMainTypeRecyclerView() {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this.getActivity(), LinearLayoutManager.HORIZONTAL, false);
         rvMainTypes.setLayoutManager(layoutManager);
@@ -146,6 +147,7 @@ public class MainShopFragment extends BaseFragment<MainShopPresenter> implements
         rvShops.setAdapter(mShopAdapter);
         rvShops.setHasFixedSize(true);
     }
+
     @Override
     public void showAndRunAdsBanner(List<String> imgUrls, int period) {
         if (bannerMain != null) {
@@ -233,21 +235,9 @@ public class MainShopFragment extends BaseFragment<MainShopPresenter> implements
         @Override
         public void UpdateUI(Context context, final int position, String url) {
             if (url != null) {
-//                if (urlOrId instanceof Integer) {
-//                    imageView.setImageResource((Integer) urlOrId);
-//                } else if (urlOrId instanceof String) {
-//                    imageView.setImageResource(android.R.color.white);
                 Picasso.with(context).load(url).into(imageView);
-//                }
             }
 
-//            imageView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    //点击事件
-//                    Toast.makeText(view.getContext(), "点击了第" + (position + 1) + "图片", Toast.LENGTH_SHORT).show();
-//                }
-//            });
         }
     }
 }

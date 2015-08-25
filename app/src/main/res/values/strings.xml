@@ -2,7 +2,7 @@
     <string name="app_name">Shopping</string>
     <string name="login_name">请输入用户名</string>
     <string name="login_password">请输入密码</string>
-    <string name="login_button">请输入密码</string>
+    <string name="login_button">登录</string>
     <string name="title_activity_main_page">MainPageActivity</string>
 
     <string name="hello_world">Hello world!</string>
@@ -39,5 +39,7 @@
     <string name="tv_payed">已付款</string>
     <string name="tv_collected">已收款</string>
     <string name="tv_cancel">取消订单</string>
+    <string name="tv_forgetpwd">忘记密码</string>
+    <string name="tv_version">版本1.0</string>
 
 </resources>
