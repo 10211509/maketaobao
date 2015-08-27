@@ -3,12 +3,15 @@ package nobugs.team.shopping.repo;
 import java.util.ArrayList;
 import java.util.List;
 
+import nobugs.team.shopping.mvp.model.Order;
 import nobugs.team.shopping.mvp.model.ProductType;
 import nobugs.team.shopping.mvp.model.Shop;
 import nobugs.team.shopping.mvp.model.User;
+import nobugs.team.shopping.repo.api.GetOrderListApi;
 import nobugs.team.shopping.repo.api.GetShopListApi;
 import nobugs.team.shopping.repo.api.GetTypeListApi;
 import nobugs.team.shopping.repo.api.LoginApi;
+import nobugs.team.shopping.repo.api.mock.GetOrderListApiMock;
 import nobugs.team.shopping.repo.api.mock.GetShopListApiMock;
 import nobugs.team.shopping.repo.api.mock.GetTypeListApiMock;
 import nobugs.team.shopping.repo.api.retrofit.LoginApiImpl;
@@ -39,7 +42,7 @@ public class Repository {
     private LoginApi loginApi;
     private GetTypeListApi getTypeListApi;
     private GetShopListApi getShopListApi;
-
+    private GetOrderListApi getOrderListApi;
 
     /** 类型缓存 */
     private List<ProductType> typeListCache;
@@ -57,6 +60,7 @@ public class Repository {
         this.loginApi = new LoginApiImpl(adapter);
         this.getTypeListApi = new GetTypeListApiMock();
         this.getShopListApi = new GetShopListApiMock(); //测试数据
+        this.getOrderListApi = new GetOrderListApiMock();//测试数据
     }
 
     public void login(String userName, String password, final RepoCallback.Get<User> callbackGet) {
@@ -127,6 +131,19 @@ public class Repository {
         }
     }
 
+    public void getOrderList(User loginer, int everyPage, int currentPage, boolean isOver,final RepoCallback.GetList<Order> callbackGet){
+     getOrderListApi.getOrderList(loginer, everyPage, currentPage, isOver, new GetOrderListApi.Callback() {
+         @Override
+         public void onFinish(List<Order> orders) {
+             callbackGet.onGotDataListSuccess(orders);
+         }
+
+         @Override
+         public void onError(int errType, String errMsg) {
+             callbackGet.onError(errType,errMsg);
+         }
+     });
+    }
 
     private List<ProductType> findMainTypeList(List<ProductType> productTypes) { //TODO 直接转成树状存储
         if (productTypes == null || productTypes.isEmpty()) {
@@ -158,5 +175,6 @@ public class Repository {
 
         return result;
     }
+
 
 }

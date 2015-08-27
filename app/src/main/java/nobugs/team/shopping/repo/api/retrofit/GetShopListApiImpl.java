@@ -5,12 +5,8 @@ import java.util.List;
 import nobugs.team.shopping.mvp.model.ProductType;
 import nobugs.team.shopping.mvp.model.Shop;
 import nobugs.team.shopping.repo.api.GetShopListApi;
-import nobugs.team.shopping.repo.api.GetTypeListApi;
 import nobugs.team.shopping.repo.api.model.ShopListResult;
-import nobugs.team.shopping.repo.api.model.TypeListResult;
-import nobugs.team.shopping.repo.mapper.Mapper;
 import nobugs.team.shopping.repo.mapper.ShopListMapper;
-import nobugs.team.shopping.repo.mapper.TypeListMapper;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 

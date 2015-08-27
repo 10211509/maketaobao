@@ -10,7 +10,10 @@ import java.util.List;
 import nobugs.team.shopping.constant.AppConfig;
 import nobugs.team.shopping.mvp.model.Order;
 import nobugs.team.shopping.mvp.model.Product;
+import nobugs.team.shopping.mvp.model.ProductType;
 import nobugs.team.shopping.mvp.model.User;
+import nobugs.team.shopping.repo.RepoCallback;
+import nobugs.team.shopping.repo.Repository;
 import team.nobugs.library.request.GsonGetRequest;
 import team.nobugs.library.request.phraser.HttpObject;
 import team.nobugs.library.request.utils.OkVolleyUtils;
@@ -20,7 +23,7 @@ import team.nobugs.library.request.utils.RequestFactory;
  * Created by xiayong on 2015/8/22.
  */
 public class OrderInteractorImpl implements OrderInteractor {
-    @Override
+    /*@Override
     public void getOrdersInProgress(User user, int pageCount, int curPage,final Callback callback) {
         List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
         params.add(new BasicNameValuePair("everyPage", String.valueOf(pageCount)));
@@ -50,6 +53,21 @@ public class OrderInteractorImpl implements OrderInteractor {
             }
         });
         OkVolleyUtils.addRequest(getRequest, "login");
+    }*/
+
+    @Override
+    public void getOrdersInProgress(User user, int pageCount, int curPage, final Callback callback) {
+        Repository.getInstance().getOrderList(user,pageCount,curPage, false ,new RepoCallback.GetList<Order>() {
+            @Override
+            public void onGotDataListSuccess(List<Order> orders) {
+                callback.onOrderListSuccess(orders);
+            }
+
+            @Override
+            public void onError(int errType, String errMsg) {
+                callback.onFailure();
+            }
+        });
     }
 
     @Override
@@ -58,17 +76,17 @@ public class OrderInteractorImpl implements OrderInteractor {
     }
 
     @Override
-    public void updateState(int orderid, Order.State newState) {
+    public void updateState(String orderid, Order.State newState) {
 
     }
 
 
-    public List<Order> getFakeDate() {
+    /*public List<Order> getFakeDate() {
         List<Order> fakeDate = new ArrayList<>();
         for(int i=0;i<10;i++){
             Product product = new Product(i,"苹果"+i,null);
             fakeDate.add(new Order(1,product,i+2,5.0,null,null,"2015/8/23"));
         }
         return fakeDate;
-    }
+    }*/
 }

@@ -36,11 +36,12 @@ public class OrderListPresenterImpl extends BasePresenter<OrderListView> impleme
     @Override
     public void refreshOrderList() {
 
+        getView().refreshOrderList(null);//TODO
     }
 
     @Override
     public void loadMoreOrder() {
-
+        getView().loadMoreOrders(null);
     }
 
     @Override

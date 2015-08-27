@@ -19,4 +19,5 @@ public interface GetShopListApi {
 
         void onError(int errType, String errMsg);
     }
+
 }

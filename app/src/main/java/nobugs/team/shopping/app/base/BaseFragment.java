@@ -44,6 +44,7 @@ public abstract class BaseFragment<PresenterType extends IPresenter> extends Fra
         setPresenter(initPresenter());
         initView();
         initData();
+        initEvent();
 
         return v;
     }
@@ -85,7 +86,9 @@ public abstract class BaseFragment<PresenterType extends IPresenter> extends Fra
     protected void initData() {
     }
 
+    protected void initEvent(){
 
+    }
     protected void updateData() {
     }
 }

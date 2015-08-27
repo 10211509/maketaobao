@@ -6,7 +6,7 @@ package nobugs.team.shopping.mvp.model;
  */
 public class Order {
 //    private int id;//主键id
-    private int orderid;//订单编号
+    private String orderid;//订单编号
     private Product product;//用户购买的商品
     private int product_count;//商品数量
     private double price;//总价格
@@ -19,7 +19,7 @@ public class Order {
         //empty constructor
     }
 
-    public Order(int orderid, Product product, int product_count, double price, Shop shop, User buyer, String place_time) {
+    public Order(String orderid, Product product, int product_count, double price, Shop shop, User buyer, String place_time) {
         this.orderid = orderid;
         this.product = product;
         this.product_count = product_count;
@@ -47,6 +47,31 @@ public class Order {
         this.orderState = orderState;
     }
 
+    public void setOrderState(int orderState){
+        switch (orderState){
+            case 0:
+                this.orderState = State.placed;
+                break;
+            case 1:
+                this.orderState = State.payed;
+                break;
+            case 2:
+                this.orderState = State.collected;
+                break;
+            case 3:
+                this.orderState = State.delivered;
+                break;
+            case 4:
+                this.orderState = State.received;
+                break;
+            case 5:
+                this.orderState = State.canceled;
+                break;
+            default:
+                throw new IllegalStateException("no such order state!");
+        }
+    }
+
     public String getPlace_time() {
         return place_time;
     }
@@ -55,13 +80,6 @@ public class Order {
         this.place_time = place_time;
     }
 
-    public int getOrderid() {
-        return orderid;
-    }
-
-    public void setOrderid(int orderid) {
-        this.orderid = orderid;
-    }
 
     public Product getProduct() {
         return product;
@@ -97,6 +115,14 @@ public class Order {
 
     public User getBuyer() {
         return buyer;
+    }
+
+    public String getOrderid() {
+        return orderid;
+    }
+
+    public void setOrderid(String orderid) {
+        this.orderid = orderid;
     }
 
     public void setBuyer(User buyer) {

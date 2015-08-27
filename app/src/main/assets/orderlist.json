@@ -1,0 +1,26 @@
+{
+  "data": [
+    {
+      "id": 3,
+      "price": 3.8,
+      "ordernum": "JCNET1508478935",
+      "state": 1,
+      "number": 1,
+      "type": "1",
+      "productname": "苹果",
+      "placetime": "2015/8/26"
+    },
+    {
+      "id": 2,
+      "price": 3.2,
+      "ordernum": "JCNET1508188991",
+      "state": 1,
+      "number": 1,
+      "type": "1",
+      "productname": "橘子",
+      "placetime": "2015/8/26"
+    }
+  ],
+  "code": 0,
+  "codeMsg": "请求成功！"
+}

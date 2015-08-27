@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.demievil.library.RefreshLayout;
 
@@ -23,11 +24,7 @@ import nobugs.team.shopping.ui.activity.OrderDetailsActivity;
 import nobugs.team.shopping.ui.adapter.OrderListAdapter;
 
 /**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * to handle interaction events.
- * Use the {@link OrderInprogressFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * Order in progress
  */
 public class OrderInprogressFragment extends BaseFragment<OrderListPresenter> implements OrderListView,RefreshLayout.OnRefreshListener, RefreshLayout.OnLoadListener ,ListView.OnItemClickListener{
 
@@ -72,12 +69,17 @@ public class OrderInprogressFragment extends BaseFragment<OrderListPresenter> im
         mListOrder.setOnItemClickListener(this);
     }
 
+
     @Override
     protected void initData() {
-//        mOrderListAdapter = new OrderListAdapter(this.getActivity(),getFakeDate());
         getPresenter().showOrderInprogressList();
     }
 
+    @Override
+    protected void initEvent() {
+        mRefreshLayout.setOnLoadListener(this);
+        mRefreshLayout.setOnRefreshListener(this);
+    }
 
     @Override
     public void navigateToOrderDetailsAvtivity() {
@@ -86,12 +88,15 @@ public class OrderInprogressFragment extends BaseFragment<OrderListPresenter> im
 
     @Override
     public void refreshOrderList(List<Order> orderList) {
-
+        mRefreshLayout.setRefreshing(false);
+        Toast.makeText(this.getActivity(),"refresh",Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void loadMoreOrders(List<Order> orderList) {
-
+    public void loadMoreOrders(
+            List<Order> orderList) {
+        mRefreshLayout.setLoading(false);
+        Toast.makeText(this.getActivity(),"load",Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -102,6 +107,7 @@ public class OrderInprogressFragment extends BaseFragment<OrderListPresenter> im
 
     @Override
     public void onLoad() {
+
         getPresenter().loadMoreOrder();
     }
 
