@@ -68,11 +68,6 @@ public class MainOrderListFragment extends BaseFragment<MainOrderPresenter> impl
     }
 
     @Override
-    public void navigateToOrderDetailsActivity(Order orderPo) {
-
-    }
-
-    @Override
     public void showOrdersInProgress(List<Order> orderPoList) {
 
     }

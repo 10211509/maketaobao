@@ -7,6 +7,7 @@ import nobugs.team.shopping.mvp.model.Order;
  */
 public interface OrderListPresenter extends IPresenter {
     void showOrderInprogressList();
+    void showOrderFinishList();
     void navigateToOrderDetailsActivity(Order order);
     void refreshOrderList();
     void loadMoreOrder();

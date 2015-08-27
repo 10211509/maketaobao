@@ -28,6 +28,12 @@ public class OrderListPresenterImpl extends BasePresenter<OrderListView> impleme
     }
 
     @Override
+    public void showOrderFinishList() {
+        User user = new User();
+        mOrderInteractor.getOrdersInFinished(user,5,1,this);
+    }
+
+    @Override
     public void navigateToOrderDetailsActivity(Order order) {
         EventBus.getDefault().postSticky(new OrderEvent(order));
         getView().navigateToOrderDetailsAvtivity();
