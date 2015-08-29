@@ -5,7 +5,9 @@ import java.io.IOException;
 import nobugs.team.shopping.constant.AppConfig;
 import nobugs.team.shopping.constant.ErrorConsts;
 import nobugs.team.shopping.repo.Repository;
+import nobugs.team.shopping.repo.api.db.helper.DaoHelper;
 import nobugs.team.shopping.repo.mapper.Mapper;
+import nobugs.team.shopping.repo.model.UserPo;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 
@@ -15,7 +17,15 @@ import retrofit.RetrofitError;
 public class BaseRetrofitHandler {
     private RetrofitAdapter adapter;
     protected Mapper mapper;
+//    protected CacheType cacheType = CacheType.NONE;
+//    protected boolean cleanCache = false;
 
+    /*public enum CacheType{
+        MEMORY_ONLY,
+        MEMORY_DISK,
+        DISK_ONLY,
+        NONE,
+    }*/
     public BaseRetrofitHandler(RetrofitAdapter adapter) {
         this.adapter = adapter;
     }

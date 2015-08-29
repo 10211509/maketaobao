@@ -35,7 +35,6 @@ public class OrderInprogressFragment extends BaseFragment<OrderListPresenter> im
 
     private View mFooter;
     private OrderListAdapter mOrderListAdapter;
-//    private List<Order> fakeDate;
 
     public static OrderInprogressFragment newInstance() {
         OrderInprogressFragment fragment = new OrderInprogressFragment();

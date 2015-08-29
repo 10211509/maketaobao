@@ -27,8 +27,6 @@ import nobugs.team.shopping.mvp.view.MainOrderView;
  */
 public class MainOrderListFragment extends BaseFragment<MainOrderPresenter> implements MainOrderView {
 
-  /*  @Bind(android.R.id.tabcontent)
-    FrameLayout tabcontent;*/
     @Bind(R.id.pager)
     ViewPager mViewPager;
     @Bind(android.R.id.tabhost)

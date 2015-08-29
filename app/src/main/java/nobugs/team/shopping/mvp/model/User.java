@@ -10,7 +10,7 @@ public class User {
         SELLER//卖家
     }
 
-    private int id;
+    private Long id;
     private String name;
     private String password;
     private String phone;////绑定的视频通话的号码 由SDK注册提供
@@ -20,7 +20,7 @@ public class User {
 
     }
 
-    public User(int id, String name, String password, String phone, Type type) {
+    public User(Long id, String name, String password, String phone, Type type) {
         this.id = id;
         this.name = name;
         this.password = password;
@@ -28,11 +28,11 @@ public class User {
         this.type = type;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

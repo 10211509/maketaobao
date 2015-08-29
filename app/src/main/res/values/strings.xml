@@ -11,7 +11,7 @@
     <string name="title_activity_call_in">CallInActivity</string>
     <string name="btn_main_shop">商\t铺</string>
     <string name="btn_main_order">订\t单</string>
-    <string name="btn_item_shop_look">查看</string>
+    <string name="btn_item_shop_look">视频看菜</string>
     <string name="tv_item_shop_name_default">武汉苹果批发店</string>
     <string name="tv_item_shop_intro_default">本店主要经营苹果、香蕉等</string>
 

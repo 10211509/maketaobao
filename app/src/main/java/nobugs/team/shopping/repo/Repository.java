@@ -1,5 +1,7 @@
 package nobugs.team.shopping.repo;
 
+import android.content.Context;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,15 +46,16 @@ public class Repository {
     private GetShopListApi getShopListApi;
     private GetOrderListApi getOrderListApi;
 
+
     /** 类型缓存 */
-    private List<ProductType> typeListCache;
+//    private List<ProductType> typeListCache;
 
     /** 用户信息缓存 */
-    private User userCache;
+//    private User userCache;
 
-    public User getUserCache() {
+    /*public User getUserCache() {
         return userCache;
-    }
+    }*/
 
     private Repository() {
         this.adapter = new RetrofitAdapter();
@@ -67,7 +70,6 @@ public class Repository {
         loginApi.login(userName, password, new LoginApi.Callback() {
             @Override
             public void onFinish(User user) {
-                userCache = user;
                 callbackGet.onGotDataSuccess(user);
             }
 
@@ -82,7 +84,6 @@ public class Repository {
         getTypeListApi.getTypeList(new GetTypeListApi.Callback() {
             @Override
             public void onFinish(List<ProductType> productTypes) {
-                typeListCache = productTypes;
                 callbackGet.onGotDataListSuccess(findMainTypeList(productTypes));
             }
 
@@ -94,12 +95,10 @@ public class Repository {
     }
 
     public void getSubTypeList(final ProductType parent, final RepoCallback.GetList<ProductType> callbackGet) {
-        if (typeListCache == null) {     //缓存为空，重新获取
             getTypeListApi.getTypeList(new GetTypeListApi.Callback() {
                 @Override
                 public void onFinish(List<ProductType> productTypes) {
-                    typeListCache = productTypes;
-                    callbackGet.onGotDataListSuccess(findSubTypeList(typeListCache, parent));
+                    callbackGet.onGotDataListSuccess(findSubTypeList(productTypes, parent));
                 }
 
                 @Override
@@ -107,10 +106,7 @@ public class Repository {
                     callbackGet.onError(errType, errMsg);
                 }
             });
-        } else {
-            callbackGet.onGotDataListSuccess(findSubTypeList(typeListCache, parent));
         }
-    }
 
     public void getShopList(final ProductType parent, final String keyword, final RepoCallback.GetList<Shop> callbackGet) {
         if (parent.getShops() == null) {
@@ -175,6 +171,5 @@ public class Repository {
 
         return result;
     }
-
 
 }

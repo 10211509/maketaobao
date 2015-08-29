@@ -5,9 +5,9 @@ import com.google.gson.annotations.Expose;
 /**
  * Created by Administrator on 2015/8/23 0023.
  */
-public class UserPo {
+public class UserPo extends BasePo{
     @Expose
-    private Integer id;
+    private Long id;
 
     @Expose
     private String username;
@@ -21,12 +21,19 @@ public class UserPo {
     @Expose
     private String password;
 
+    public UserPo(Long id, String username, String type, String phone, String password) {
+        this.id = id;
+        this.username = username;
+        this.type = type;
+        this.phone = phone;
+        this.password = password;
+    }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

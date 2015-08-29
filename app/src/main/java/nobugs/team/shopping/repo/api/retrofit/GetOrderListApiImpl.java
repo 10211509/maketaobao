@@ -10,6 +10,7 @@ import nobugs.team.shopping.repo.api.GetOrderListApi;
  * Created by xiayong on 2015/8/26.
  */
 public class GetOrderListApiImpl extends BaseRetrofitHandler implements GetOrderListApi {
+
     public GetOrderListApiImpl(RetrofitAdapter adapter) {
         super(adapter);
     }

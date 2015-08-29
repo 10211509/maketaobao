@@ -21,7 +21,7 @@ public class LoginMapper implements Mapper<LoginResult, User> {
         return user;
     }
 
-    private User mapUser(UserPo userPo) {
+    public User mapUser(UserPo userPo) {
         User user = new User();
         user.setId(userPo.getId());
         user.setName(userPo.getUsername());

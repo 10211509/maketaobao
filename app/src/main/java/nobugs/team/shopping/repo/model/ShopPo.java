@@ -5,7 +5,7 @@ import com.google.gson.annotations.Expose;
 /**
  * Created by Administrator on 2015/8/23 0023.
  */
-public class ShopPo {
+public class ShopPo extends BasePo{
     @Expose
     private Integer id;
 

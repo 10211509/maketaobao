@@ -53,16 +53,6 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/tv_forgetpwd"
-        android:id="@+id/textView"
-        android:layout_below="@id/login_btn"
-        android:layout_marginTop="20dp"
-        android:layout_centerHorizontal="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/tv_version"
         android:id="@+id/tv_version"

@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 /**
  * Created by Administrator on 2015/8/23 0023.
  */
-public class TypePo {
+public class TypePo extends BasePo{
     @Expose
 //    @SerializedName("id")
     private Integer id;

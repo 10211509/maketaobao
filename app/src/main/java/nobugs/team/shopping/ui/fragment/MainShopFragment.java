@@ -54,12 +54,6 @@ public class MainShopFragment extends BaseFragment<MainShopPresenter> implements
     @Bind(R.id.rv_shops)
     RecyclerView rvShops;
 
-   /* @Bind(R.id.btn_main_shop)
-    Button btnMainShop;
-
-    @Bind(R.id.btn_main_order)
-    Button btnMainOrder;*/
-
     private MainProductTypeAdapter mMainProductTypeAdapter;
     private SubProductTypeAdapter mSubProductTypeAdapter;
     private ShopAdapter mShopAdapter;

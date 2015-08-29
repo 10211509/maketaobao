@@ -179,7 +179,7 @@ public class MainShopPresenterImpl extends BasePresenter<MainShopView> implement
     @Override
     public void onSelectShop(@NonNull Shop shop) {
         //start to call the SELLER
-        User user = new User(1,"xiayong","12345","18010035906", User.Type.SELLER);
+        User user = new User(1L,"xiayong","12345","18010035906", User.Type.SELLER);
         shop.setOwner(user);
 
         EventBus.getDefault().postSticky(new SelectShopEvent(shop));

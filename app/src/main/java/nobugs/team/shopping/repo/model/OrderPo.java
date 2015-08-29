@@ -5,7 +5,7 @@ import com.google.gson.annotations.Expose;
 /**
  * Created by xiayong on 2015/8/26.
  */
-public class OrderPo {
+public class OrderPo extends BasePo{
     @Expose
     private Integer id;
 
