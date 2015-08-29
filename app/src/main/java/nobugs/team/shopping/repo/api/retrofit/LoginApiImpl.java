@@ -43,7 +43,7 @@ public class LoginApiImpl extends BaseRetrofitHandler implements LoginApi {
             public void success(LoginResult loginResult, Response response) {
                 //cache the info
                 userCache = (User) mapper.map(loginResult);
-                ((UserHelper)daoHelper).insert(loginResult.getData().get(0));
+                ((UserHelper)daoHelper).clearAllAndInsert(loginResult.getData().get(0));
 //                List<UserPo> userPos = daoHelper.loadAll();
                 callback.onFinish(userCache);
             }
