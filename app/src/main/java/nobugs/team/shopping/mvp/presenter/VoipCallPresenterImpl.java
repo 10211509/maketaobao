@@ -135,9 +135,11 @@ public class VoipCallPresenterImpl extends BasePresenter<VoipCallView> implement
 
         //navigate to VideoActivity
         User loginUser = Repository.getInstance().getLoginUser();
-        EventBus.getDefault().postSticky(new SelectShopEvent(mSellerShop));
-        getView().showVideoView(loginUser);
+//        EventBus.getDefault().postSticky(new SelectShopEvent(mSellerShop));
+//        getView().showVideoView(loginUser,);
+        getView().showSellerVideoView(loginUser,mSellerShop.getId());
     }
+
 
     @Override
     public void onUIChangeSilence() {
@@ -262,7 +264,8 @@ public class VoipCallPresenterImpl extends BasePresenter<VoipCallView> implement
     public void onCallAnswered(String callId) {
         if (callId != null && callId.equals(mCurrentCallId)) {
             User loginUser = Repository.getInstance().getLoginUser();
-            getView().showVideoView(loginUser);
+//            getView().showVideoView(loginUser);
+            getView().showBuyerVideoView(loginUser);
         }
     }
 

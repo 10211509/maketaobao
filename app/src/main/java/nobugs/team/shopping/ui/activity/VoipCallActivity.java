@@ -116,6 +116,28 @@ public class VoipCallActivity extends BaseActivity<VoipCallPresenter> implements
     }
 
     @Override
+    public void showSellerVideoView(User user, int shopid) {
+        rootVoipCall.setVisibility(View.GONE);
+        rootVoipVideo.setVisibility(View.VISIBLE);
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//        Fragment fragment = user.isSeller()? new AddShoppingCarFragment() : new ShoppingCarFragment();
+        fragmentTransaction.replace(R.id.fl_frag_content, new AddShoppingCarFragment());
+        fragmentTransaction.commit();
+    }
+
+    @Override
+    public void showBuyerVideoView(User user) {
+        rootVoipCall.setVisibility(View.GONE);
+        rootVoipVideo.setVisibility(View.VISIBLE);
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//        Fragment fragment = user.isSeller()? new AddShoppingCarFragment() : new ShoppingCarFragment();
+        fragmentTransaction.replace(R.id.fl_frag_content, new ShoppingCarFragment());
+        fragmentTransaction.commit();
+    }
+
+   /* @Override
     public void showVideoView(User user) {
         rootVoipCall.setVisibility(View.GONE);
         rootVoipVideo.setVisibility(View.VISIBLE);
@@ -125,7 +147,7 @@ public class VoipCallActivity extends BaseActivity<VoipCallPresenter> implements
         Fragment fragment = user.isSeller()? new AddShoppingCarFragment() : new ShoppingCarFragment();
         fragmentTransaction.replace(R.id.fl_frag_content, fragment);
         fragmentTransaction.commit();
-    }
+    }*/
 
     @Override
     public void showCallInView(User user) {

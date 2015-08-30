@@ -8,6 +8,8 @@ import java.util.List;
 import de.greenrobot.event.EventBus;
 import nobugs.team.shopping.R;
 import nobugs.team.shopping.event.SelectShopEvent;
+import nobugs.team.shopping.mvp.interactor.ShopInteractor;
+import nobugs.team.shopping.mvp.interactor.ShopInteractorImpl;
 import nobugs.team.shopping.mvp.interactor.ShoppingCarInteractor;
 import nobugs.team.shopping.mvp.interactor.ShoppingCarInteractorImpl;
 import nobugs.team.shopping.mvp.model.Order;
@@ -21,11 +23,13 @@ public class ShoppingCarSellerPresenterImpl extends BasePresenter<ShoppingCarSel
     private Shop shop;
     private List<Order> orders;
     private ShoppingCarInteractor shoppingCarInteractor;
+    private ShopInteractor shopInteractor;
 
     public ShoppingCarSellerPresenterImpl(ShoppingCarSellerView addShoppingCarView) {
         super(addShoppingCarView);
         orders = Collections.emptyList();
         shoppingCarInteractor = new ShoppingCarInteractorImpl();
+        shopInteractor = new ShopInteractorImpl();
     }
 
     @Override
@@ -35,6 +39,8 @@ public class ShoppingCarSellerPresenterImpl extends BasePresenter<ShoppingCarSel
 
     public void onEventMainThread(SelectShopEvent event) {
         shop = event.getShop();
+        //get product list by shop id
+//        shoppingCarInteractor.
         getView().initViewPager(shop);
     }
 

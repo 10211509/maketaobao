@@ -4,13 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import nobugs.team.shopping.mvp.model.Order;
+import nobugs.team.shopping.mvp.model.Product;
 import nobugs.team.shopping.mvp.model.ProductType;
 import nobugs.team.shopping.mvp.model.Shop;
 import nobugs.team.shopping.mvp.model.User;
 import nobugs.team.shopping.repo.api.GetOrderListApi;
+import nobugs.team.shopping.repo.api.GetProductListApi;
 import nobugs.team.shopping.repo.api.GetShopListApi;
 import nobugs.team.shopping.repo.api.GetTypeListApi;
 import nobugs.team.shopping.repo.api.LoginApi;
+import nobugs.team.shopping.repo.api.mock.GetProductListApiMock;
 import nobugs.team.shopping.repo.api.retrofit.GetOrderListApiImpl;
 import nobugs.team.shopping.repo.api.retrofit.GetShopListApiImpl;
 import nobugs.team.shopping.repo.api.retrofit.GetTypeListApiImpl;
@@ -44,8 +47,7 @@ public class Repository {
     private GetTypeListApi getTypeListApi;
     private GetShopListApi getShopListApi;
     private GetOrderListApi getOrderListApi;
-
-
+    private GetProductListApi getProductListApi;
     /** 类型缓存 */
 //    private List<ProductType> typeListCache;
 
@@ -62,8 +64,9 @@ public class Repository {
 
         this.loginApi = new LoginApiImpl(adapter);
         this.getTypeListApi = new GetTypeListApiImpl(adapter);
-        this.getShopListApi = new GetShopListApiImpl(adapter); //测试数据
-        this.getOrderListApi = new GetOrderListApiImpl(adapter);//测试数据
+        this.getShopListApi = new GetShopListApiImpl(adapter);
+        this.getOrderListApi = new GetOrderListApiImpl(adapter);
+        this.getProductListApi = new GetProductListApiMock();
     }
 
     public User getLoginUser(){
@@ -107,6 +110,21 @@ public class Repository {
             @Override
             public void onError(int errType, String errMsg) {
                 callbackGet.onError(errType, errMsg);
+            }
+        });
+    }
+
+    public void getProductList(String shopid,final RepoCallback.GetList<Product> callbackGet){
+        getProductListApi.getProductList(shopid,new GetProductListApi.Callback(){
+
+            @Override
+            public void onFinish(List<Product> shops) {
+                callbackGet.onGotDataListSuccess(shops);
+            }
+
+            @Override
+            public void onError(int errType, String errMsg) {
+                callbackGet.onError(errType,errMsg);
             }
         });
     }
