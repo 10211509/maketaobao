@@ -61,9 +61,6 @@ public class MainShopPresenterImpl extends BasePresenter<MainShopView> implement
     private void showProductTypes() {
         getView().showEmptyMainProductType();
 
-//        getView().showEmptySubProductType();
-//        getView().showEmptyShop();
-
         mProductTypeInterator.getMainProductType(new ProductTypeInteractor.Callback() {
             @Override
             public void onSuccess(List<ProductType> types) {
@@ -92,8 +89,6 @@ public class MainShopPresenterImpl extends BasePresenter<MainShopView> implement
 
     private void showSubProductTypes(ProductType mainType) {
         getView().showEmptySubProductType();
-
-//        getView().showEmptyShop();
 
         mProductTypeInterator.getSubProductType(mainType, new ProductTypeInteractor.Callback() {
             @Override

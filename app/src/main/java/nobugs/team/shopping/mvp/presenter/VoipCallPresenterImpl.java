@@ -21,6 +21,7 @@ import org.webrtc.videoengine.ViERenderer;
 import java.util.Arrays;
 
 import de.greenrobot.event.EventBus;
+import nobugs.team.shopping.event.Event;
 import nobugs.team.shopping.event.SelectShopEvent;
 import nobugs.team.shopping.mvp.model.Shop;
 import nobugs.team.shopping.mvp.model.User;
@@ -95,6 +96,7 @@ public class VoipCallPresenterImpl extends BasePresenter<VoipCallView> implement
             getView().showCallOutView(mPeerUser);//show view
             doMakeCall(ECVoIPCallManager.CallType.VIDEO);
         }
+
         // remove the sticky event
         EventBus.getDefault().removeStickyEvent(event);
     }
@@ -133,6 +135,7 @@ public class VoipCallPresenterImpl extends BasePresenter<VoipCallView> implement
 
         //navigate to VideoActivity
         User loginUser = Repository.getInstance().getLoginUser();
+        EventBus.getDefault().postSticky(new SelectShopEvent(mSellerShop));
         getView().showVideoView(loginUser);
     }
 

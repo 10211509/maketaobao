@@ -39,6 +39,11 @@ public class ShoppingCarSellerPresenterImpl extends BasePresenter<ShoppingCarSel
     }
 
     @Override
+    public void onDestroy() {
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Override
     public void addOrder(Order order) {
 
         shoppingCarInteractor.addProduct(order, this);

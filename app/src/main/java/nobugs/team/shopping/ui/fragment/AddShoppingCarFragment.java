@@ -49,7 +49,7 @@ public class AddShoppingCarFragment extends BaseFragment<ShoppingCarSellerPresen
         return R.layout.fragment_add_shopping_car;
     }
 
-    @OnClick({R.id.btn_delete, R.id.btn_commitproduct})
+    @OnClick({R.id.btn_deleteproduct, R.id.btn_addproduct})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_addproduct:

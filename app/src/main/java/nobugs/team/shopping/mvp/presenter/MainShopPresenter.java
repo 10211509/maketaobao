@@ -12,8 +12,6 @@ import nobugs.team.shopping.mvp.model.Shop;
  */
 public interface MainShopPresenter extends IPresenter{
 
-//    void onShowAdsBanner();
-
     void onSelectMainProductType(ProductType mainType);
 
     void onSelectSubProductType(ProductType subType);
