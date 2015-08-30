@@ -12,18 +12,17 @@ import nobugs.team.shopping.mvp.interactor.ShoppingCarInteractor;
 import nobugs.team.shopping.mvp.interactor.ShoppingCarInteractorImpl;
 import nobugs.team.shopping.mvp.model.Order;
 import nobugs.team.shopping.mvp.model.Shop;
-import nobugs.team.shopping.mvp.view.AddShoppingCarView;
-import nobugs.team.shopping.ui.adapter.AddShoppingCarAdapter;
+import nobugs.team.shopping.mvp.view.ShoppingCarSellerView;
 
 /**
  * Created by xiayong on 2015/8/30.
  */
-public class AddShoppingCarPresenterImpl extends BasePresenter<AddShoppingCarView> implements AddShoppingCarPresenter, ShoppingCarInteractor.Callback {
+public class ShoppingCarSellerPresenterImpl extends BasePresenter<ShoppingCarSellerView> implements ShoppingCarSellerPresenter, ShoppingCarInteractor.Callback {
     private Shop shop;
     private List<Order> orders;
     private ShoppingCarInteractor shoppingCarInteractor;
 
-    public AddShoppingCarPresenterImpl(AddShoppingCarView addShoppingCarView) {
+    public ShoppingCarSellerPresenterImpl(ShoppingCarSellerView addShoppingCarView) {
         super(addShoppingCarView);
         orders = Collections.emptyList();
         shoppingCarInteractor = new ShoppingCarInteractorImpl();

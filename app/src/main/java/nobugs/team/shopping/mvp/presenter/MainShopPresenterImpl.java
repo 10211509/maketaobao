@@ -9,10 +9,10 @@ import nobugs.team.shopping.event.SelectShopEvent;
 import nobugs.team.shopping.mvp.model.ProductType;
 import nobugs.team.shopping.mvp.interactor.AdsBannerInterator;
 import nobugs.team.shopping.mvp.interactor.AdsBannerInteratorImpl;
-import nobugs.team.shopping.mvp.interactor.ProductTypeInterator;
-import nobugs.team.shopping.mvp.interactor.ProductTypeInteratorImpl;
-import nobugs.team.shopping.mvp.interactor.ShopInterator;
-import nobugs.team.shopping.mvp.interactor.ShopInteratorImpl;
+import nobugs.team.shopping.mvp.interactor.ProductTypeInteractor;
+import nobugs.team.shopping.mvp.interactor.ProductTypeInteractorImpl;
+import nobugs.team.shopping.mvp.interactor.ShopInteractor;
+import nobugs.team.shopping.mvp.interactor.ShopInteractorImpl;
 import nobugs.team.shopping.mvp.model.Shop;
 import nobugs.team.shopping.mvp.model.User;
 import nobugs.team.shopping.mvp.view.MainShopView;
@@ -27,14 +27,14 @@ public class MainShopPresenterImpl extends BasePresenter<MainShopView> implement
     public static final int BANNER_TURN_PERIOD = 3000;
 
     private AdsBannerInterator mAdsBannerInterator;
-    private ProductTypeInterator mProductTypeInterator;
-    private ShopInterator mShopInterator;
+    private ProductTypeInteractor mProductTypeInterator;
+    private ShopInteractor mShopInterator;
 
     public MainShopPresenterImpl(MainShopView view) {
         super(view);
         this.mAdsBannerInterator = new AdsBannerInteratorImpl();
-        this.mProductTypeInterator = new ProductTypeInteratorImpl();
-        this.mShopInterator = new ShopInteratorImpl();
+        this.mProductTypeInterator = new ProductTypeInteractorImpl();
+        this.mShopInterator = new ShopInteractorImpl();
     }
 
     private void showAdsBanner() {
@@ -64,7 +64,7 @@ public class MainShopPresenterImpl extends BasePresenter<MainShopView> implement
 //        getView().showEmptySubProductType();
 //        getView().showEmptyShop();
 
-        mProductTypeInterator.getMainProductType(new ProductTypeInterator.Callback() {
+        mProductTypeInterator.getMainProductType(new ProductTypeInteractor.Callback() {
             @Override
             public void onSuccess(List<ProductType> types) {
                 if (types != null && types.size() > 0) {
@@ -95,7 +95,7 @@ public class MainShopPresenterImpl extends BasePresenter<MainShopView> implement
 
 //        getView().showEmptyShop();
 
-        mProductTypeInterator.getSubProductType(mainType, new ProductTypeInterator.Callback() {
+        mProductTypeInterator.getSubProductType(mainType, new ProductTypeInteractor.Callback() {
             @Override
             public void onSuccess(List<ProductType> types) {
                 if (types != null && types.size() > 0) {
@@ -123,7 +123,7 @@ public class MainShopPresenterImpl extends BasePresenter<MainShopView> implement
     private void showShops(ProductType subType) {
         getView().showEmptyShop();
 
-        mShopInterator.getShops(subType, new ShopInterator.Callback() {
+        mShopInterator.getShops(subType, new ShopInteractor.Callback() {
             @Override
             public void onSuccess(List<Shop> shops) {
                 getView().showShops(shops);

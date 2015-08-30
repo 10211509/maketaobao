@@ -7,7 +7,7 @@ import nobugs.team.shopping.mvp.model.ProductType;
 /**
  * Created by Administrator on 2015/8/16 0016.
  */
-public interface ProductTypeInterator {
+public interface ProductTypeInteractor {
 
     void getMainProductType(Callback callback);
 

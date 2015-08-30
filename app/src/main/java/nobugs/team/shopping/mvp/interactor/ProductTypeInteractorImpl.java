@@ -9,7 +9,7 @@ import nobugs.team.shopping.repo.Repository;
 /**
  * Created by Administrator on 2015/8/16 0016.
  */
-public class ProductTypeInteratorImpl implements ProductTypeInterator {
+public class ProductTypeInteractorImpl implements ProductTypeInteractor {
 
 
     @Override

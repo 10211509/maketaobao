@@ -32,7 +32,7 @@ import java.util.List;
  * @date 2014-12-12
  * @version 4.0
  */
-public class IMChattingHelper implements OnChatReceiveListener, ECChatManager.OnDownloadMessageListener {
+public class IMChattingHelper implements OnChatReceiveListener/*, ECChatManager.OnDownloadMessageListener*/ {
 
     private static final String TAG = "ECSDK.IMChatHelper";
     public static final String INTENT_ACTION_SYNC_MESSAGE = "com.yuntongxun.ecdemo_sync_message";
@@ -468,8 +468,8 @@ public class IMChattingHelper implements OnChatReceiveListener, ECChatManager.On
     /**
      * 下载
      */
-    @Override
-    public void onDownloadMessageComplete(ECError e, ECMessage message) {
+//    @Override
+//    public void onDownloadMessageComplete(ECError e, ECMessage message) {
 //        if(e.errorCode == SdkErrorCode.REQUEST_SUCCESS){
 //            if(message == null) return;
 //            // 处理发送文件IM消息的时候进度回调
@@ -484,33 +484,33 @@ public class IMChattingHelper implements OnChatReceiveListener, ECChatManager.On
 //            LogUtil.d(TAG , "[onDownloadMessageComplete] download fail , retry ：" +remove.retryCount);
 //            retryDownload(remove);
 //        }
-    }
+//    }
 
-    @Override
-    public void onProgress(String msgId, int totalByte, int progressByte) {
-        // 处理发送文件IM消息的时候进度回调
-        Log.d(TAG , "[IMChattingHelper - onProgress] msgId: " +msgId + " , totalByte: "+totalByte+" , progressByte:" + progressByte);
-    }
+//    @Override
+//    public void onProgress(String msgId, int totalByte, int progressByte) {
+//        // 处理发送文件IM消息的时候进度回调
+//        Log.d(TAG , "[IMChattingHelper - onProgress] msgId: " +msgId + " , totalByte: "+totalByte+" , progressByte:" + progressByte);
+//    }
 
-    /**
-     * 重试下载3次
-     * @param entry
-     */
-    private void retryDownload(SyncMsgEntry entry) {
-        if(entry == null || entry.msg == null || entry.isRetryLimit()) {
-            return ;
-        }
-        entry.increase();
-        // download ..
-        if(mChatManager != null) {
-            if(entry.thumbnail) {
-                mChatManager.downloadThumbnailMessage(entry.msg, this);
-            } else {
-                mChatManager.downloadMediaMessage(entry.msg, this);
-            }
-        }
-        syncMessage.put(entry.msg.getMsgId() , entry);
-    }
+//    /**
+//     * 重试下载3次
+//     * @param entry
+//     */
+//    private void retryDownload(SyncMsgEntry entry) {
+//        if(entry == null || entry.msg == null || entry.isRetryLimit()) {
+//            return ;
+//        }
+//        entry.increase();
+//        // download ..
+//        if(mChatManager != null) {
+//            if(entry.thumbnail) {
+//                mChatManager.downloadThumbnailMessage(entry.msg, this);
+//            } else {
+//                mChatManager.downloadMediaMessage(entry.msg, this);
+//            }
+//        }
+//        syncMessage.put(entry.msg.getMsgId() , entry);
+//    }
 
 //    private synchronized void postDowloadMessageResult(ECMessage message) {
 //        if(message == null) {

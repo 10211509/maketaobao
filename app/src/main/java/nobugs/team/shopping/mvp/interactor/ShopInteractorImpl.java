@@ -1,9 +1,5 @@
 package nobugs.team.shopping.mvp.interactor;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import nobugs.team.shopping.mvp.model.ProductType;
@@ -14,7 +10,7 @@ import nobugs.team.shopping.repo.Repository;
 /**
  * Created by Administrator on 2015/8/16 0016.
  */
-public class ShopInteratorImpl implements ShopInterator {
+public class ShopInteractorImpl implements ShopInteractor {
 
 
     @Override

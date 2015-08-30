@@ -324,7 +324,7 @@ public class VoipCallPresenterImpl extends BasePresenter<VoipCallView> implement
         // and set it as the content of our activity.
         SurfaceView localView = ViERenderer.CreateLocalRenderer(getActivity());
         // localView.setLayoutParams(layoutParams);
-        ViewGroup vgLocal = getView().getLocalCameraViewHolder();
+        ViewGroup vgLocal = getView().getLocalCameraView();
         localView.setZOrderOnTop(true);
         vgLocal.removeAllViews();
         vgLocal.setBackgroundColor(getActivity().getResources().getColor(

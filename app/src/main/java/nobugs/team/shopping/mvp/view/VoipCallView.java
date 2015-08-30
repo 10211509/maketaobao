@@ -25,7 +25,7 @@ public interface VoipCallView extends IView {
 
     SurfaceView getRemoteCameraView();
 
-    ViewGroup getLocalCameraViewHolder();
+    ViewGroup getLocalCameraView();
 
     void navigateToOrderListView();
 }

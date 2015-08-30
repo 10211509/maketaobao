@@ -5,7 +5,7 @@ import nobugs.team.shopping.mvp.model.Order;
 /**
  * Created by xiayong on 2015/8/30.
  */
-public interface AddShoppingCarPresenter extends IPresenter{
+public interface ShoppingCarSellerPresenter extends IPresenter{
     void addOrder(Order order);
     void deleteOrder(int index);
 }

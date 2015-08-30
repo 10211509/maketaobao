@@ -41,7 +41,8 @@
         android:layout_marginRight="15dp"
         android:layout_marginTop="20dp"
         android:src="@drawable/ic_action_reload"
-        android:background="@android:color/darker_gray"/>
+        android:background="@android:color/darker_gray"
+        android:visibility="gone"/>
 
     <RelativeLayout
         android:id="@+id/rl_video_local"

@@ -106,7 +106,7 @@ public class VoipCallActivity extends BaseActivity<VoipCallPresenter> implements
     }
     @OnClick(R.id.btn_exit)
     public void onExitClick() {
-        rlVideoLocal.removeAllViews();
+//        svVideoLocal.removeAllViews();
         getPresenter().onUIExit();
     }
 
@@ -162,7 +162,7 @@ public class VoipCallActivity extends BaseActivity<VoipCallPresenter> implements
     }
 
     @Override
-    public ViewGroup getLocalCameraViewHolder() {
+    public ViewGroup getLocalCameraView() {
         return rlVideoLocal;
     }
 
