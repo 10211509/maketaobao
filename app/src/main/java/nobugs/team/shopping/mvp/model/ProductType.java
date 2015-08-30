@@ -11,8 +11,9 @@ public class ProductType {
     private int parentId;//父类id
     private String name;//类别名称，如水果（苹果、香蕉...）
     private String imgUrl;//图片url
+    private String unit;//单位，如”框“，”千克“，”个“
     private List<ProductType> subTypes;//子类别
-    private List<Shop> shops;//分类下的商铺
+//    private List<Shop> shops;//分类下的商铺
 
     public int getId() {
         return id;
@@ -54,13 +55,20 @@ public class ProductType {
         this.subTypes = subTypes;
     }
 
-    public List<Shop> getShops() {
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
+    }
+/* public List<Shop> getShops() {
         return shops;
     }
 
     public void setShops(List<Shop> shops) {
         this.shops = shops;
     }
-
+*/
 
 }

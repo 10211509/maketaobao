@@ -34,6 +34,7 @@ public class Repository {
     private final static int MAIN_PRODUCT_PARENT_ID = 0;
 
     private RetrofitAdapter adapter;
+
     public RetrofitAdapter getAdapter() {
         return adapter;
     }
@@ -48,13 +49,14 @@ public class Repository {
     /** 类型缓存 */
 //    private List<ProductType> typeListCache;
 
-    /** 用户信息缓存 */
+    /**
+     * 用户信息缓存
+     */
 //    private User userCache;
 
     /*public User getUserCache() {
         return userCache;
     }*/
-
     private Repository() {
         this.adapter = new RetrofitAdapter();
 
@@ -94,50 +96,51 @@ public class Repository {
     }
 
     public void getSubTypeList(final ProductType parent, final RepoCallback.GetList<ProductType> callbackGet) {
-            getTypeListApi.getTypeList(new GetTypeListApi.Callback() {
-                @Override
-                public void onFinish(List<ProductType> productTypes) {
-                    callbackGet.onGotDataListSuccess(findSubTypeList(productTypes, parent));
-                }
+        getTypeListApi.getTypeList(new GetTypeListApi.Callback() {
+            @Override
+            public void onFinish(List<ProductType> productTypes) {
+                callbackGet.onGotDataListSuccess(findSubTypeList(productTypes, parent));
+            }
 
-                @Override
-                public void onError(int errType, String errMsg) {
-                    callbackGet.onError(errType, errMsg);
-                }
-            });
-        }
-
-    public void getShopList(final ProductType parent, final String keyword, final RepoCallback.GetList<Shop> callbackGet) {
-        if (parent.getShops() == null) {
-            getShopListApi.getShopList(parent, keyword, new GetShopListApi.Callback() {
-                @Override
-                public void onFinish(List<Shop> shops) {
-                    parent.setShops(shops);
-                    callbackGet.onGotDataListSuccess(shops);
-                }
-
-                @Override
-                public void onError(int errType, String errMsg) {
-                    callbackGet.onError(errType, errMsg);
-                }
-            });
-        } else {
-            callbackGet.onGotDataListSuccess(parent.getShops());    //TODO 是否需要更新ShopList
-        }
+            @Override
+            public void onError(int errType, String errMsg) {
+                callbackGet.onError(errType, errMsg);
+            }
+        });
     }
 
-    public void getOrderList(User loginer, int everyPage, int currentPage, boolean isOver,final RepoCallback.GetList<Order> callbackGet){
-     getOrderListApi.getOrderList(loginer, everyPage, currentPage, isOver, new GetOrderListApi.Callback() {
-         @Override
-         public void onFinish(List<Order> orders) {
-             callbackGet.onGotDataListSuccess(orders);
-         }
+    public void getShopList(final ProductType parent, final String keyword, final RepoCallback.GetList<Shop> callbackGet) {
+//        if (parent.getShops() == null) {
+        //TODO use Map<ProductType,List<Shop>> to cache the data
+        getShopListApi.getShopList(parent, keyword, new GetShopListApi.Callback() {
+            @Override
+            public void onFinish(List<Shop> shops) {
+//                    parent.setShops(shops);
+                callbackGet.onGotDataListSuccess(shops);
+            }
 
-         @Override
-         public void onError(int errType, String errMsg) {
-             callbackGet.onError(errType,errMsg);
-         }
-     });
+            @Override
+            public void onError(int errType, String errMsg) {
+                callbackGet.onError(errType, errMsg);
+            }
+        });
+       /* } else {
+            callbackGet.onGotDataListSuccess(parent.getShops());    //TODO 是否需要更新ShopList
+        }*/
+    }
+
+    public void getOrderList(User loginer, int everyPage, int currentPage, boolean isOver, final RepoCallback.GetList<Order> callbackGet) {
+        getOrderListApi.getOrderList(loginer, everyPage, currentPage, isOver, new GetOrderListApi.Callback() {
+            @Override
+            public void onFinish(List<Order> orders) {
+                callbackGet.onGotDataListSuccess(orders);
+            }
+
+            @Override
+            public void onError(int errType, String errMsg) {
+                callbackGet.onError(errType, errMsg);
+            }
+        });
     }
 
     private List<ProductType> findMainTypeList(List<ProductType> productTypes) { //TODO 直接转成树状存储

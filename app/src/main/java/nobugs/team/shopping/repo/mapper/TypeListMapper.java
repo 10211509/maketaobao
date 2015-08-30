@@ -27,6 +27,7 @@ public class TypeListMapper implements Mapper<TypeListResult, List<ProductType>>
         type.setParentId(typePo.getParentId());
         type.setImgUrl(typePo.getImageurl());
         type.setName(typePo.getTypename());
+        type.setUnit(typePo.getUnit());
         return type;
     }
 

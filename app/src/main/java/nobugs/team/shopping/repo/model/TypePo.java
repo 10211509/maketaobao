@@ -20,6 +20,10 @@ public class TypePo extends BasePo{
     @Expose
     private String imageurl;
 
+    @Expose
+    @SerializedName("type")
+    private String unit;
+
     public int getId() {
         return id;
     }
@@ -50,5 +54,13 @@ public class TypePo extends BasePo{
 
     public void setImageurl(String imageurl) {
         this.imageurl = imageurl;
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
     }
 }

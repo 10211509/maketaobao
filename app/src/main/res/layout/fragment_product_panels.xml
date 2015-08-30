@@ -1,0 +1,59 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical"
+    tools:context="nobugs.team.shopping.ui.fragment.ShoppingCarFragment">
+
+    <TextView
+        android:id="@+id/tv_shoppingcar_title"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/cff0000"
+        android:gravity="center"
+        android:text="@string/tv_shoppingcar_title"
+        android:textColor="@android:color/white" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="31dp"
+        android:gravity="center"
+        android:text="@string/tv_shopping_car_number" />
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vPager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="#000000"
+        android:flipInterval="30"
+        android:persistentDrawingCache="animation" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="卖家张三刚刚添加了商品带鱼，请注意购物车变化"
+        android:id="@+id/textView2" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="删除该商品"
+            android:id="@+id/btn_delete" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="提交购物车"
+            android:id="@+id/btn_commitproduct" />
+    </LinearLayout>
+
+</LinearLayout>
