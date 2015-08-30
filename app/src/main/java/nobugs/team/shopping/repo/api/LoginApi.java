@@ -9,6 +9,8 @@ import nobugs.team.shopping.mvp.model.User;
  * Created by Administrator on 2015/8/23 0023.
  */
 public interface LoginApi {
+    User getUser();
+
     User login(String userName, String password);
 
     void login(String userName, String password, Callback callback);

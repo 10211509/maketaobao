@@ -11,7 +11,7 @@ import nobugs.team.shopping.mvp.model.User;
 public interface VoipCallView extends IView {
     void goBack();
 
-    void showVideoView();
+    void showVideoView(User user);
 
     void showCallInView(User user);
 

@@ -66,7 +66,9 @@ public class Repository {
         this.getOrderListApi = new GetOrderListApiImpl(adapter);//测试数据
     }
 
-
+    public User getLoginUser(){
+        return this.loginApi.getUser();
+    }
     public void login(String userName, String password, final RepoCallback.Get<User> callbackGet) {
         loginApi.login(userName, password, new LoginApi.Callback() {
             @Override

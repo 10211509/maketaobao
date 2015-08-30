@@ -28,6 +28,7 @@ public class LoginApiImpl extends BaseRetrofitHandler implements LoginApi {
         return (User) mapper.map(getService().login(userName, password));
     }
 
+    @Override
     public User getUser(){
         if(userCache != null){
             return userCache;

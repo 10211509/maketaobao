@@ -1,6 +1,9 @@
 package nobugs.team.shopping.ui.activity;
 
 import android.support.percent.PercentRelativeLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +21,9 @@ import nobugs.team.shopping.mvp.model.User;
 import nobugs.team.shopping.mvp.presenter.VoipCallPresenter;
 import nobugs.team.shopping.mvp.presenter.VoipCallPresenterImpl;
 import nobugs.team.shopping.mvp.view.VoipCallView;
+import nobugs.team.shopping.ui.fragment.AddShoppingCarFragment;
+import nobugs.team.shopping.ui.fragment.MainShopFragment;
+import nobugs.team.shopping.ui.fragment.ShoppingCarFragment;
 
 /**
  * make a call or receive a call.You can showVideoView or hang up the phone here!
@@ -110,9 +116,15 @@ public class VoipCallActivity extends BaseActivity<VoipCallPresenter> implements
     }
 
     @Override
-    public void showVideoView() {
+    public void showVideoView(User user) {
         rootVoipCall.setVisibility(View.GONE);
         rootVoipVideo.setVisibility(View.VISIBLE);
+        //add fragment to bottom
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        Fragment fragment = user.isSeller()? new AddShoppingCarFragment() : new ShoppingCarFragment();
+        fragmentTransaction.replace(R.id.fl_frag_content, fragment);
+        fragmentTransaction.commit();
     }
 
     @Override

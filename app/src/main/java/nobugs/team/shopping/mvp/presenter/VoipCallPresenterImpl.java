@@ -25,6 +25,7 @@ import nobugs.team.shopping.event.SelectShopEvent;
 import nobugs.team.shopping.mvp.model.Shop;
 import nobugs.team.shopping.mvp.model.User;
 import nobugs.team.shopping.mvp.view.VoipCallView;
+import nobugs.team.shopping.repo.Repository;
 import nobugs.team.shopping.utils.VoIPCallHelper;
 
 /**
@@ -131,7 +132,8 @@ public class VoipCallPresenterImpl extends BasePresenter<VoipCallView> implement
 //        EventBus.getDefault().postSticky(new CallBeginEvent(isIncomingCall, mPeerUser, mSellerShop, mCurrentCallId));
 
         //navigate to VideoActivity
-        getView().showVideoView();
+        User loginUser = Repository.getInstance().getLoginUser();
+        getView().showVideoView(loginUser);
     }
 
     @Override
@@ -256,7 +258,8 @@ public class VoipCallPresenterImpl extends BasePresenter<VoipCallView> implement
     @Override
     public void onCallAnswered(String callId) {
         if (callId != null && callId.equals(mCurrentCallId)) {
-            getView().showVideoView();
+            User loginUser = Repository.getInstance().getLoginUser();
+            getView().showVideoView(loginUser);
         }
     }
 
