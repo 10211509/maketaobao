@@ -1,4 +1,4 @@
-package nobugs.team.shopping.repo.api.db;
+package nobugs.team.shopping.repo.db;
 
 import android.database.sqlite.SQLiteDatabase;
 
@@ -8,7 +8,7 @@ import de.greenrobot.dao.AbstractDao;
 import de.greenrobot.dao.AbstractDaoSession;
 import de.greenrobot.dao.identityscope.IdentityScopeType;
 import de.greenrobot.dao.internal.DaoConfig;
-import nobugs.team.shopping.repo.api.db.dao.UserDao;
+import nobugs.team.shopping.repo.db.dao.UserDao;
 import nobugs.team.shopping.repo.model.UserPo;
 
 

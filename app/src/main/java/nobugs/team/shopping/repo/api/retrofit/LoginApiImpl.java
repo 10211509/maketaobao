@@ -1,11 +1,9 @@
 package nobugs.team.shopping.repo.api.retrofit;
 
-import java.util.List;
-
 import nobugs.team.shopping.mvp.model.User;
 import nobugs.team.shopping.repo.api.LoginApi;
-import nobugs.team.shopping.repo.api.db.helper.DaoHelper;
-import nobugs.team.shopping.repo.api.db.helper.UserHelper;
+import nobugs.team.shopping.repo.db.helper.DaoHelper;
+import nobugs.team.shopping.repo.db.helper.UserHelper;
 import nobugs.team.shopping.repo.api.model.LoginResult;
 import nobugs.team.shopping.repo.mapper.LoginMapper;
 import nobugs.team.shopping.repo.model.UserPo;
@@ -42,10 +40,13 @@ public class LoginApiImpl extends BaseRetrofitHandler implements LoginApi {
             @Override
             public void success(LoginResult loginResult, Response response) {
                 //cache the info
-                userCache = (User) mapper.map(loginResult);
-                ((UserHelper)daoHelper).clearAllAndInsert(loginResult.getData().get(0));
+                if (loginResult.getData() != null && loginResult.getData().size() > 0){
+                    loginResult.getData().get(0);
+                    userCache = (User) mapper.map(loginResult);
+                    ((UserHelper)daoHelper).clearAllAndInsert(loginResult.getData().get(0));
 //                List<UserPo> userPos = daoHelper.loadAll();
-                callback.onFinish(userCache);
+                    callback.onFinish(userCache);
+                }
             }
 
             @Override

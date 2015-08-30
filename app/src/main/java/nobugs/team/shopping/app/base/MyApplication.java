@@ -2,9 +2,6 @@ package nobugs.team.shopping.app.base;
 
 import android.app.Application;
 
-
-import nobugs.team.shopping.utils.CCPHelper;
-import nobugs.team.shopping.utils.CommonTools;
 import team.nobugs.library.request.utils.OkVolleyUtils;
 
 

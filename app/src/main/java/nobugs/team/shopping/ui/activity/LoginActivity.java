@@ -55,6 +55,7 @@ public class LoginActivity extends BaseActivity <LoginPresenter> implements Logi
 
         startActivity(new Intent(this, MainPageActivity.class));
 
+        finish();
     }
 
 }

@@ -1,0 +1,162 @@
+package nobugs.team.shopping.ui.activity;
+
+import android.support.percent.PercentRelativeLayout;
+import android.view.SurfaceView;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+import butterknife.Bind;
+import butterknife.OnClick;
+import nobugs.team.shopping.R;
+import nobugs.team.shopping.app.base.BaseActivity;
+import nobugs.team.shopping.mvp.model.User;
+import nobugs.team.shopping.mvp.presenter.VoipCallPresenter;
+import nobugs.team.shopping.mvp.presenter.VoipCallPresenterImpl;
+import nobugs.team.shopping.mvp.view.VoipCallView;
+
+/**
+ * make a call or receive a call.You can showVideoView or hang up the phone here!
+ */
+public class VoipCallActivity extends BaseActivity<VoipCallPresenter> implements VoipCallView {
+    @Bind(R.id.root_voip_call)
+    RelativeLayout rootVoipCall;
+
+    @Bind(R.id.root_voip_video)
+    PercentRelativeLayout rootVoipVideo;
+
+    @Bind(R.id.btn_hangup)
+    Button btnHangup;//button to hang up the call
+
+    @Bind(R.id.txt_calleename)
+    TextView txtCalleename;
+
+    @Bind(R.id.imageView)
+    ImageView imageView;
+
+    @Bind(R.id.btn_accept)
+    Button btnAccept;
+
+    @Bind(R.id.tv_calling)
+    TextView tvCalling;
+
+    @Bind(R.id.sv_video_remote)
+    SurfaceView svVideoRemote;
+
+    @Bind(R.id.rl_video_local)
+    RelativeLayout rlVideoLocal;
+
+    @Bind(R.id.btn_silence)
+    Button btnSilence;
+
+    @Bind(R.id.btn_exit)
+    Button btnExit;
+
+    @Bind(R.id.btn_camera_switch)
+    ImageView btnCameraSwitch;
+
+    @Bind(R.id.fl_frag_content)
+    FrameLayout flFragContent;
+
+    @Override
+    protected VoipCallPresenter initPresenter() {
+        return new VoipCallPresenterImpl(this);
+    }
+
+    @Override
+    protected int getLayoutResId() {
+        return R.layout.activity_voip_call;
+    }
+
+    @Override
+    protected void initView() {
+        svVideoRemote.getHolder().setFixedSize(240, 320);
+    }
+
+    @Override
+    public void onBackPressed() {
+        onExitClick();
+    }
+
+    @OnClick(R.id.btn_hangup)
+    public void onHangupClick() {
+        getPresenter().onUIHangupCall();
+    }
+    @OnClick(R.id.btn_accept)
+    public void onAcceptClick() {
+        getPresenter().onUIAnswerCall();
+    }
+    @OnClick(R.id.btn_silence)
+    public void onChangeSilenceClick() {
+        getPresenter().onUIChangeSilence();
+    }
+    @OnClick(R.id.btn_camera_switch)
+    public void onCameraSwitchClick() {
+        getPresenter().onUIChangeCamera();
+    }
+    @OnClick(R.id.btn_exit)
+    public void onExitClick() {
+        rlVideoLocal.removeAllViews();
+        getPresenter().onUIExit();
+    }
+
+    @Override
+    public void goBack() {
+        finish();
+    }
+
+    @Override
+    public void showVideoView() {
+        rootVoipCall.setVisibility(View.GONE);
+        rootVoipVideo.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void showCallInView(User user) {
+        txtCalleename.setText(user.getName());
+        btnAccept.setVisibility(View.VISIBLE);
+        tvCalling.setText(getString(R.string.tv_waiting_accept));
+    }
+
+    @Override
+    public void showCallOutView(User user) {
+        txtCalleename.setText(user.getName());
+        btnAccept.setVisibility(View.GONE);
+        tvCalling.setText(getString(R.string.tv_calling));
+    }
+
+    @Override
+    public void contactFailed() {
+
+    }
+
+    @Override
+    public void showSilence(boolean silence, boolean clickable) {
+
+    }
+
+    @Override
+    public void showChangeCamera(boolean isFront, boolean clickable) {
+        btnSilence.setEnabled(clickable);
+    }
+
+    @Override
+    public SurfaceView getRemoteCameraView() {
+        return svVideoRemote;
+    }
+
+    @Override
+    public ViewGroup getLocalCameraViewHolder() {
+        return rlVideoLocal;
+    }
+
+    @Override
+    public void navigateToOrderListView() {
+
+    }
+
+}

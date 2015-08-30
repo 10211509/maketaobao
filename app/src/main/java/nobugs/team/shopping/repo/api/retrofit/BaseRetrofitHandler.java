@@ -2,13 +2,8 @@ package nobugs.team.shopping.repo.api.retrofit;
 
 import java.io.IOException;
 
-import nobugs.team.shopping.constant.AppConfig;
 import nobugs.team.shopping.constant.ErrorConsts;
-import nobugs.team.shopping.repo.Repository;
-import nobugs.team.shopping.repo.api.db.helper.DaoHelper;
 import nobugs.team.shopping.repo.mapper.Mapper;
-import nobugs.team.shopping.repo.model.UserPo;
-import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 
 /**

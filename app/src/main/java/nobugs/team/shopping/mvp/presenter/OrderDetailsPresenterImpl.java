@@ -14,8 +14,9 @@ public class OrderDetailsPresenterImpl extends BasePresenter<OrderDetailsView> i
 
     private Order order;
     private OrderInteractor orderInteractor;
+
     public OrderDetailsPresenterImpl(OrderDetailsView orderDetailsView) {
-        setView(orderDetailsView);
+        super(orderDetailsView);
         orderInteractor = new OrderInteractorImpl();
     }
 

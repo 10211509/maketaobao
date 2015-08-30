@@ -18,6 +18,8 @@
 
 package nobugs.team.shopping.mvp.interactor;
 
+import nobugs.team.shopping.mvp.model.User;
+
 public interface LoginInteractor {
     void login(String username, String password, Callback listener);
 
@@ -27,6 +29,6 @@ public interface LoginInteractor {
 
         void onFailure();
 
-        void onSuccess();
+        void onSuccess(User user);
     }
 }

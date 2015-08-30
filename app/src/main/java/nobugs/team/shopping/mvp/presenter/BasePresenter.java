@@ -4,7 +4,6 @@ import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 
-import nobugs.team.shopping.app.base.LifeCycleCallback;
 import nobugs.team.shopping.mvp.view.IView;
 
 /**
@@ -22,6 +21,10 @@ public class BasePresenter<T extends IView> implements IPresenter {
 
     public T getView() {
         return mView;
+    }
+
+    public BasePresenter(T mView) {
+        this.mView = mView;
     }
 
     @Override

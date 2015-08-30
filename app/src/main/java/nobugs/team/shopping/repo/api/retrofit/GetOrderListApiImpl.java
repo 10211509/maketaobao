@@ -11,6 +11,7 @@ import nobugs.team.shopping.repo.api.GetOrderListApi;
  */
 public class GetOrderListApiImpl extends BaseRetrofitHandler implements GetOrderListApi {
 
+
     public GetOrderListApiImpl(RetrofitAdapter adapter) {
         super(adapter);
     }

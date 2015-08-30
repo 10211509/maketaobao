@@ -70,7 +70,7 @@
             android:launchMode="singleTask">
         </activity>
         <activity
-            android:name=".ui.activity.VideoCallActivity"
+            android:name=".ui.activity.VoipCallActivity"
             android:label="@string/title_activity_main_page" >
         </activity>
         // ECSDK核心服务类

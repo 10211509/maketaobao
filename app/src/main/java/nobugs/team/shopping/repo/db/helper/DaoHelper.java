@@ -1,4 +1,4 @@
-package nobugs.team.shopping.repo.api.db.helper;
+package nobugs.team.shopping.repo.db.helper;
 
 import android.database.sqlite.SQLiteDatabase;
 
@@ -6,8 +6,8 @@ import java.util.List;
 
 import de.greenrobot.dao.AbstractDao;
 import nobugs.team.shopping.app.base.MyApplication;
-import nobugs.team.shopping.repo.api.db.DaoMaster;
-import nobugs.team.shopping.repo.api.db.DaoSession;
+import nobugs.team.shopping.repo.db.DaoMaster;
+import nobugs.team.shopping.repo.db.DaoSession;
 import nobugs.team.shopping.repo.model.BasePo;
 
 /**

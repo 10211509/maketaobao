@@ -1,62 +1,67 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:background="@color/c4d000000"
-    android:theme="@android:style/Theme.Translucent"
-    tools:context="nobugs.team.shopping.ui.activity.VideoCallActivity">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="结束通话"
-        android:id="@+id/btn_hangup"
-        android:layout_marginBottom="56dp"
-        android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@+id/linearLayout"
-        android:layout_toEndOf="@+id/linearLayout" />
+    <RelativeLayout
+        android:id="@+id/root_voip_call"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/c4d000000">
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:id="@+id/linearLayout">
-
-        <ImageView
+        <Button
+            android:id="@+id/btn_hangup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/imageView"
-            android:src="@drawable/avatar_call_out"
-            android:layout_gravity="center_horizontal" />
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="56dp"
+            android:layout_toEndOf="@+id/linearLayout"
+            android:layout_toRightOf="@+id/linearLayout"
+            android:text="结束通话" />
 
-        <TextView
+        <LinearLayout
+            android:id="@+id/linearLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="李先生"
-            android:id="@+id/txt_calleename"
-            android:layout_gravity="center_horizontal" />
+            android:layout_centerInParent="true"
+            android:orientation="vertical">
 
-        <TextView
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/avatar_call_out" />
+
+            <TextView
+                android:id="@+id/txt_calleename"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="李先生"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <TextView
+                android:id="@+id/tv_calling"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/tv_calling"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_accept"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/tv_calling"
-            android:id="@+id/tv_calling"
-            android:layout_gravity="center_horizontal" />
-    </LinearLayout>
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignTop="@+id/btn_hangup"
+            android:layout_marginLeft="48dp"
+            android:layout_marginStart="48dp"
+            android:text="接听通话" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="接听通话"
-        android:id="@+id/btn_accept"
-        android:layout_alignTop="@+id/btn_hangup"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="48dp"
-        android:layout_marginStart="48dp" />
+
+    </RelativeLayout>
+
+    <include layout="@layout/activity_voip_video" />
 </RelativeLayout>

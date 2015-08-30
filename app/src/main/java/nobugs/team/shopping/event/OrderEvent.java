@@ -5,7 +5,7 @@ import nobugs.team.shopping.mvp.model.Order;
 /**
  * Created by xiayong on 2015/8/25.
  */
-public class OrderEvent extends Event {
+public class OrderEvent implements Event {
     private Order order;
     public OrderEvent(Order order){
         this.order = order;

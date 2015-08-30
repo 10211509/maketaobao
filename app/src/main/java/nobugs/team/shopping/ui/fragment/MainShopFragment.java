@@ -26,9 +26,9 @@ import nobugs.team.shopping.mvp.model.Shop;
 import nobugs.team.shopping.mvp.model.User;
 import nobugs.team.shopping.mvp.presenter.MainShopPresenter;
 import nobugs.team.shopping.mvp.presenter.MainShopPresenterImpl;
-import nobugs.team.shopping.mvp.presenter.VideoCallPresenterImpl;
+import nobugs.team.shopping.mvp.presenter.VoipCallPresenterImpl;
 import nobugs.team.shopping.mvp.view.MainShopView;
-import nobugs.team.shopping.ui.activity.VideoCallActivity;
+import nobugs.team.shopping.ui.activity.VoipCallActivity;
 import nobugs.team.shopping.ui.adapter.MainProductTypeAdapter;
 import nobugs.team.shopping.ui.adapter.ShopAdapter;
 import nobugs.team.shopping.ui.adapter.SubProductTypeAdapter;
@@ -211,8 +211,8 @@ public class MainShopFragment extends BaseFragment<MainShopPresenter> implements
     @Override
     public void navigateCallOut(@NonNull User user) {
         //navigate to VideoCallActivity to make a call with the SELLER
-        Intent intent = new Intent(this.getActivity(), VideoCallActivity.class);
-        intent.putExtra(VideoCallPresenterImpl.EXTRA_OUTGOING_CALL, true);
+        Intent intent = new Intent(this.getActivity(), VoipCallActivity.class);
+        intent.putExtra(VoipCallPresenterImpl.EXTRA_OUTGOING_CALL, true);
         startActivity(intent);
     }
 

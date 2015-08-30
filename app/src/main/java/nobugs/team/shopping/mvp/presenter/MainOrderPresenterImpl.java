@@ -9,8 +9,9 @@ import nobugs.team.shopping.mvp.view.MainOrderView;
 public class MainOrderPresenterImpl extends BasePresenter<MainOrderView> implements MainOrderPresenter {
 
     public MainOrderPresenterImpl(MainOrderView view){
-        setView(view);
+        super(view);
     }
+
     @Override
     public void showOrderInprogess() {
 

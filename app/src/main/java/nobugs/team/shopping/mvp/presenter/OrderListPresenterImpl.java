@@ -18,9 +18,10 @@ public class OrderListPresenterImpl extends BasePresenter<OrderListView> impleme
     private OrderInteractor mOrderInteractor;
 
     public OrderListPresenterImpl(OrderListView orderListView){
-        setView(orderListView);
+        super(orderListView);
         this.mOrderInteractor = new OrderInteractorImpl();
     }
+
     @Override
     public void showOrderInprogressList() {
         User user = new User();

@@ -1,9 +1,8 @@
-package nobugs.team.shopping.repo.api.db.helper;
+package nobugs.team.shopping.repo.db.helper;
 
 import java.util.List;
 
 import de.greenrobot.dao.AbstractDao;
-import nobugs.team.shopping.repo.api.db.dao.UserDao;
 import nobugs.team.shopping.repo.model.UserPo;
 
 /**

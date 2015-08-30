@@ -9,8 +9,9 @@ import nobugs.team.shopping.mvp.view.MainPageView;
 public class MainPagePresenterImpl extends BasePresenter<MainPageView> implements MainPagePresenter{
 
     public MainPagePresenterImpl(MainPageView view){
-        setView(view);
+        super(view);
     }
+
     @Override
     public void navigateToShop() {
         getView().showShop();

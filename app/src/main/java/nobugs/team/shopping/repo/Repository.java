@@ -1,7 +1,5 @@
 package nobugs.team.shopping.repo;
 
-import android.content.Context;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,9 +11,9 @@ import nobugs.team.shopping.repo.api.GetOrderListApi;
 import nobugs.team.shopping.repo.api.GetShopListApi;
 import nobugs.team.shopping.repo.api.GetTypeListApi;
 import nobugs.team.shopping.repo.api.LoginApi;
-import nobugs.team.shopping.repo.api.mock.GetOrderListApiMock;
-import nobugs.team.shopping.repo.api.mock.GetShopListApiMock;
-import nobugs.team.shopping.repo.api.mock.GetTypeListApiMock;
+import nobugs.team.shopping.repo.api.retrofit.GetOrderListApiImpl;
+import nobugs.team.shopping.repo.api.retrofit.GetShopListApiImpl;
+import nobugs.team.shopping.repo.api.retrofit.GetTypeListApiImpl;
 import nobugs.team.shopping.repo.api.retrofit.LoginApiImpl;
 import nobugs.team.shopping.repo.api.retrofit.RetrofitAdapter;
 
@@ -61,10 +59,11 @@ public class Repository {
         this.adapter = new RetrofitAdapter();
 
         this.loginApi = new LoginApiImpl(adapter);
-        this.getTypeListApi = new GetTypeListApiMock();
-        this.getShopListApi = new GetShopListApiMock(); //测试数据
-        this.getOrderListApi = new GetOrderListApiMock();//测试数据
+        this.getTypeListApi = new GetTypeListApiImpl(adapter);
+        this.getShopListApi = new GetShopListApiImpl(adapter); //测试数据
+        this.getOrderListApi = new GetOrderListApiImpl(adapter);//测试数据
     }
+
 
     public void login(String userName, String password, final RepoCallback.Get<User> callbackGet) {
         loginApi.login(userName, password, new LoginApi.Callback() {

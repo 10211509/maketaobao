@@ -31,7 +31,7 @@ public class MainShopPresenterImpl extends BasePresenter<MainShopView> implement
     private ShopInterator mShopInterator;
 
     public MainShopPresenterImpl(MainShopView view) {
-        setView(view);
+        super(view);
         this.mAdsBannerInterator = new AdsBannerInteratorImpl();
         this.mProductTypeInterator = new ProductTypeInteratorImpl();
         this.mShopInterator = new ShopInteratorImpl();
@@ -179,10 +179,11 @@ public class MainShopPresenterImpl extends BasePresenter<MainShopView> implement
     @Override
     public void onSelectShop(@NonNull Shop shop) {
         //start to call the SELLER
-        User user = new User(1L,"xiayong","12345","18010035906", User.Type.SELLER);
+        User user = new User(2L,"test2","123456","13521939540", User.Type.SELLER);
         shop.setOwner(user);
 
         EventBus.getDefault().postSticky(new SelectShopEvent(shop));
+
         getView().navigateCallOut(shop.getOwner());
     }
 }

@@ -16,23 +16,33 @@ import com.yuntongxun.ecsdk.VoIPCallUserInfo;
 public class VoIPCallHelper implements OnMakeCallBackListener {
 
     private static final String TAG = "VoIPCallHelper";
-    private static VoIPCallHelper ourInstance = new VoIPCallHelper();
+    private static VoIPCallHelper mInstance = new VoIPCallHelper();
 
     public static VoIPCallHelper getInstance() {
-        return ourInstance;
+        if (mInstance == null) {
+            synchronized (VoIPCallHelper.class) {
+                if (mInstance == null) {
+                    mInstance = new VoIPCallHelper();
+                }
+            }
+        }
+        return mInstance;
     }
 
-	private ECVoIPCallManager mCallInterface;
-	private ECVoIPSetupManager mCallSetInterface;
-	private SubVoIPCallback mVoIPCallback;
-	private OnCallEventNotifyListener mOnCallEventNotifyListener;
-	/** 当前正在进行的VoIP通话信息 */
-	private ECVoIPCallManager.VoIPCall mCallEntry;
-	/** 是否正在通话 */
-	private boolean isCalling = false;
-	public static boolean mHandlerVideoCall = false;
-	protected VoIPCallUserInfo mUserInfo;
-	
+    /** SDK VoIP呼叫事件通知回调接口 */
+    private ECVoIPCallManager mCallInterface;
+    private ECVoIPSetupManager mCallSetInterface;
+    /** SDK VoIP呼叫接口 */
+    private SubVoIPCallback mVoIPCallback;
+    /** 用户VoIP通话界面通知接口 */
+    private OnCallEventNotifyListener mOnCallEventNotifyListener;
+    /** 当前正在进行的VoIP通话信息 */
+    private ECVoIPCallManager.VoIPCall mCallEntry;
+    /** 是否正在通话 */
+    private boolean isCalling = false;
+    public static boolean mHandlerVideoCall = false;
+    protected VoIPCallUserInfo mUserInfo;
+
 	private VoIPCallHelper() {
 		mVoIPCallback = new SubVoIPCallback();
 
@@ -54,6 +64,7 @@ public class VoIPCallHelper implements OnMakeCallBackListener {
     public static String makeCall(ECVoIPCallManager.CallType callType , String number) {
         initCall();
         if(getInstance().mCallInterface == null) {
+            Log.e(TAG , "make call error : ECVoIPCallManager null");
             return null;
         }
         if(getInstance().mCallSetInterface != null) {
@@ -175,23 +186,20 @@ public class VoIPCallHelper implements OnMakeCallBackListener {
 	 * 初始化呼叫控制器
 	 */
 	private static void initCall() {
-		if (ourInstance == null) {
-			return;
-		}
-        ourInstance.mCallInterface = CCPHelper.getVoIPCallManager();
-        ourInstance.mCallSetInterface = CCPHelper.getVoIPSetManager();
+        getInstance().mCallInterface = CCPHelper.getVoIPCallManager();
+        getInstance().mCallSetInterface = CCPHelper.getVoIPSetManager();
 
-		if (ourInstance.mCallInterface != null) {
-			ourInstance.mCallInterface.setOnVoIPCallListener(getInstance().mVoIPCallback);
+		if (getInstance().mCallInterface != null) {
+            getInstance().mCallInterface.setOnVoIPCallListener(getInstance().mVoIPCallback);
 		}
-        if(ourInstance.mCallSetInterface != null) {
+//        if(getInstance().mCallSetInterface != null) {
 //            ClientUser clientUser = CCPAppManager.getClientUser();
            /* if(clientUser != null) {
                 // 设置呼叫参数信息[呼叫昵称、呼叫手机号]
                 VoIPCallUserInfo info = new VoIPCallUserInfo(clientUser.getUserName() , clientUser.getUserId());
-                //ourInstance.mCallSetInterface.setVoIPCallUserInfo(info);
+                //getInstance().mCallSetInterface.setVoIPCallUserInfo(info);
             }*/
-        }
+//        }
 	}
 
     /**
@@ -212,7 +220,7 @@ public class VoIPCallHelper implements OnMakeCallBackListener {
     }
 
     public void release() {
-        ourInstance = null;
+        mInstance = null;
     }
 
     /**

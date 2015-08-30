@@ -1,15 +1,6 @@
 package nobugs.team.shopping.repo.api.retrofit;
 
-import android.util.Log;
-
-import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.sql.Timestamp;
-import java.util.Date;
-
 import nobugs.team.shopping.constant.AppConfig;
-import retrofit.RequestInterceptor;
 import retrofit.RestAdapter;
 
 /**
@@ -30,6 +21,7 @@ public class RetrofitAdapter {
     public void initDefaultAdapter() {
         this.restAdapter = new RestAdapter.Builder()
                 .setEndpoint(AppConfig.URL.WEB_HOST)
+                .setLogLevel(RestAdapter.LogLevel.BASIC)
                 .build();
         this.baseApiService = restAdapter.create(ApiService.class);
     }

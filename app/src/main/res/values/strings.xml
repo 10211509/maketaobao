@@ -20,6 +20,7 @@
     <string name="tv_calling">正在呼叫...</string>
     <string name="tv_waiting_accept">请求视频通话</string>
     <string name="title_activity_order_list">OrderListActivity</string>
+    <string name="title_activity_video">视频通话</string>
 
     <string name="title_section1">Section 1</string>
     <string name="title_section2">Section 2</string>
@@ -42,5 +43,7 @@
     <string name="tv_forgetpwd">忘记密码</string>
     <string name="tv_version">版本1.0</string>
     <string name="edt_main_search_hint">搜索店铺</string>
+    <string name="btn_video_silent">静音</string>
+    <string name="btn_video_exit">退出</string>
 
 </resources>
