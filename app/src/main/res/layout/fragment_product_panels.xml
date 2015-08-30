@@ -4,12 +4,14 @@
     android:layout_height="match_parent"
     android:background="@android:color/white"
     android:orientation="vertical"
-    tools:context="nobugs.team.shopping.ui.fragment.ShoppingCarFragment">
+    tools:context="nobugs.team.shopping.ui.fragment.ShoppingCarFragment"
+    android:weightSum="1">
 
     <TextView
         android:id="@+id/tv_shoppingcar_title"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="0dp"
+        android:layout_weight="0.13"
         android:background="@color/cff0000"
         android:gravity="center"
         android:text="@string/tv_shoppingcar_title"
@@ -18,40 +20,48 @@
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
-        android:layout_height="31dp"
+        android:layout_height="0dp"
+        android:layout_weight="0.1"
         android:gravity="center"
         android:text="@string/tv_shopping_car_number" />
     <android.support.v4.view.ViewPager
         android:id="@+id/vPager"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="0.53"
         android:layout_gravity="center"
-        android:background="#000000"
+        android:background="@android:color/white"
         android:flipInterval="30"
         android:persistentDrawingCache="animation" />
 
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="0.081"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="卖家张三刚刚添加了商品带鱼，请注意购物车变化"
-        android:id="@+id/textView2" />
+        android:id="@+id/textView2"
+        android:layout_gravity="center"
+        android:gravity="center" />
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="0.159"
         android:gravity="center">
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
             android:text="删除该商品"
             android:id="@+id/btn_delete" />
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
             android:text="提交购物车"
             android:id="@+id/btn_commitproduct" />
     </LinearLayout>
