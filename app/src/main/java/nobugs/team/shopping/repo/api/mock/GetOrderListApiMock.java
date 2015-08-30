@@ -7,12 +7,10 @@ import java.util.List;
 
 import nobugs.team.shopping.app.base.MyApplication;
 import nobugs.team.shopping.mvp.model.Order;
-import nobugs.team.shopping.mvp.model.Shop;
 import nobugs.team.shopping.mvp.model.User;
 import nobugs.team.shopping.repo.api.GetOrderListApi;
 import nobugs.team.shopping.repo.api.model.OrderListResult;
-import nobugs.team.shopping.repo.api.model.ShopListResult;
-import nobugs.team.shopping.repo.mapper.Mapper;
+import nobugs.team.shopping.repo.mapper.IResultMapper;
 import nobugs.team.shopping.repo.mapper.OrderListMapper;
 import nobugs.team.shopping.utils.CommonTools;
 
@@ -23,7 +21,7 @@ public class GetOrderListApiMock implements GetOrderListApi {
     private static final String JSON_TEST_FILEPATH = "orderlist.json";
     private List<Order> mOrders;
 
-    private final Mapper mapper;
+    private final IResultMapper mapper;
 
     public GetOrderListApiMock() {
         mapper = new OrderListMapper();

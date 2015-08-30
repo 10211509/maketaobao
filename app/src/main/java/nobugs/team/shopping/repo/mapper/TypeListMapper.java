@@ -10,26 +10,17 @@ import nobugs.team.shopping.repo.model.TypePo;
 /**
  * Created by Administrator on 2015/8/23 0023.
  */
-public class TypeListMapper implements Mapper<TypeListResult, List<ProductType>>{
+public class TypeListMapper implements IResultMapper<TypeListResult, List<ProductType>> {
+
+    TypeMapper mapper = new TypeMapper();
 
     @Override
     public List<ProductType> map(TypeListResult typeListResult) {
         List<ProductType> productTypes = new ArrayList<>();
         for (TypePo typePo : typeListResult.getData()) {
-            productTypes.add(mapProduct(typePo));
+            productTypes.add(mapper.toModel(typePo));
         }
         return productTypes;
     }
-
-    private ProductType mapProduct(TypePo typePo) {
-        ProductType type = new ProductType();
-        type.setId(typePo.getId());
-        type.setParentId(typePo.getParentId());
-        type.setImgUrl(typePo.getImageurl());
-        type.setName(typePo.getTypename());
-        type.setUnit(typePo.getUnit());
-        return type;
-    }
-
 
 }

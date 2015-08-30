@@ -21,6 +21,9 @@ public class UserPo extends BasePo{
     @Expose
     private String password;
 
+    public UserPo() {
+    }
+
     public UserPo(Long id, String username, String type, String phone, String password) {
         this.id = id;
         this.username = username;

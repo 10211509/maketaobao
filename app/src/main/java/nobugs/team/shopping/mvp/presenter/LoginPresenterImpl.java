@@ -21,7 +21,7 @@ package nobugs.team.shopping.mvp.presenter;
 
 import de.greenrobot.event.EventBus;
 import nobugs.team.shopping.app.base.MyApplication;
-import nobugs.team.shopping.event.LoginEvent;
+import nobugs.team.shopping.event.UserLoginEvent;
 import nobugs.team.shopping.mvp.interactor.LoginInteractor;
 import nobugs.team.shopping.mvp.interactor.LoginInteractorImpl;
 import nobugs.team.shopping.mvp.model.User;
@@ -59,7 +59,7 @@ public class LoginPresenterImpl extends BasePresenter<LoginView> implements Logi
     public void onSuccess(User user) {
         CCPHelper.getInstance(MyApplication.getInstance()).init(user.getPhone());
 
-        EventBus.getDefault().postSticky(new LoginEvent(user));
+        EventBus.getDefault().postSticky(new UserLoginEvent(user));
 
         getView().navigateToHome();
     }

@@ -9,7 +9,7 @@ import nobugs.team.shopping.app.base.MyApplication;
 import nobugs.team.shopping.mvp.model.Product;
 import nobugs.team.shopping.repo.api.GetProductListApi;
 import nobugs.team.shopping.repo.api.model.ProductListResult;
-import nobugs.team.shopping.repo.mapper.Mapper;
+import nobugs.team.shopping.repo.mapper.IResultMapper;
 import nobugs.team.shopping.repo.mapper.ProductListMapper;
 import nobugs.team.shopping.utils.CommonTools;
 
@@ -21,7 +21,7 @@ public class GetProductListApiMock implements GetProductListApi {
     private static final String JSON_TEST_FILEPATH = "productlist_shop.json";
 
     private List<Product> products;
-    private final Mapper mapper;
+    private final IResultMapper mapper;
 
     public GetProductListApiMock(){
         mapper = new ProductListMapper();

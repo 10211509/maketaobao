@@ -7,12 +7,11 @@ import nobugs.team.shopping.mvp.model.Product;
 import nobugs.team.shopping.mvp.model.ProductType;
 import nobugs.team.shopping.repo.api.model.ProductListResult;
 import nobugs.team.shopping.repo.model.ProductPo;
-import nobugs.team.shopping.repo.model.TypePo;
 
 /**
  * Created by xiayong on 2015/8/30.
  */
-public class ProductListMapper implements Mapper<ProductListResult,List<Product>> {
+public class ProductListMapper implements IResultMapper<ProductListResult,List<Product>> {
 
     @Override
     public List<Product> map(ProductListResult productListResult) {

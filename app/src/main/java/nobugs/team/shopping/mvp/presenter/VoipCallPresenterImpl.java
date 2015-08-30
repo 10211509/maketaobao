@@ -8,10 +8,13 @@ import android.view.SurfaceView;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.yuntongxun.ecsdk.CameraCapability;
 import com.yuntongxun.ecsdk.CameraInfo;
+import com.yuntongxun.ecsdk.ECDeskManager;
 import com.yuntongxun.ecsdk.ECDevice;
 import com.yuntongxun.ecsdk.ECError;
+import com.yuntongxun.ecsdk.ECMessage;
 import com.yuntongxun.ecsdk.ECVoIPCallManager;
 import com.yuntongxun.ecsdk.ECVoIPSetupManager;
 import com.yuntongxun.ecsdk.SdkErrorCode;
@@ -21,12 +24,16 @@ import org.webrtc.videoengine.ViERenderer;
 import java.util.Arrays;
 
 import de.greenrobot.event.EventBus;
-import nobugs.team.shopping.event.Event;
-import nobugs.team.shopping.event.SelectShopEvent;
+import nobugs.team.shopping.event.RemoteShopSelectEvent;
+import nobugs.team.shopping.event.ShopSelectEvent;
+import nobugs.team.shopping.im.model.IMBase;
+import nobugs.team.shopping.im.model.IMSelectShop;
 import nobugs.team.shopping.mvp.model.Shop;
 import nobugs.team.shopping.mvp.model.User;
 import nobugs.team.shopping.mvp.view.VoipCallView;
 import nobugs.team.shopping.repo.Repository;
+import nobugs.team.shopping.repo.mapper.UserMapper;
+import nobugs.team.shopping.utils.IMChattingHelper;
 import nobugs.team.shopping.utils.VoIPCallHelper;
 
 /**
@@ -36,6 +43,7 @@ public class VoipCallPresenterImpl extends BasePresenter<VoipCallView> implement
 
     public static final String EXTRA_OUTGOING_CALL = "con.yuntongxun.ecdemo.VoIP_OUTGOING_CALL";
     private static final String TAG = "DEBUG_VOIP";
+    private User mOwnUser;
     private User mPeerUser;
     private Shop mSellerShop;
     private String mCurrentCallId;
@@ -57,6 +65,8 @@ public class VoipCallPresenterImpl extends BasePresenter<VoipCallView> implement
         VoIPCallHelper.mHandlerVideoCall = true;
 
         isIncomingCall = !(getActivity().getIntent().getBooleanExtra(EXTRA_OUTGOING_CALL, false));
+
+        mOwnUser = Repository.getInstance().getLoginUser();
 
         initCameraInfo();
         initCameraSurfaceView();
@@ -86,36 +96,65 @@ public class VoipCallPresenterImpl extends BasePresenter<VoipCallView> implement
         VoIPCallHelper.mHandlerVideoCall = false;
     }
 
-    public void onEventMainThread(SelectShopEvent event) {
+    public void onEventMainThread(ShopSelectEvent event) {
         if (event.getShop() != null) {
             mSellerShop = event.getShop();
             mPeerUser = event.getShop().getOwner();
         }
         if (!isIncomingCall && mPeerUser != null) {
-            //action to launch a call            
+            //action to launch a call
             getView().showCallOutView(mPeerUser);//show view
             doMakeCall(ECVoIPCallManager.CallType.VIDEO);
+            sendIMSelectShop(mSellerShop);
         }
-
         // remove the sticky event
         EventBus.getDefault().removeStickyEvent(event);
+    }
+
+    public void onEventMainThread(RemoteShopSelectEvent event) {
+        mSellerShop = event.getShop();
+        mPeerUser = event.getBuyer();
+    }
+
+    private void sendIMSelectShop(Shop shop) {
+        UserMapper mapper = new UserMapper();
+
+        IMSelectShop selectShop = new IMSelectShop(IMBase.TYPE_SELECT_SHOP, shop.getId(), mapper.fromModel(mOwnUser));
+        Gson gson = new Gson();
+
+        String myPhone = mOwnUser.getPhone();
+        String peerPhone = mPeerUser.getPhone();
+        String json = gson.toJson(selectShop, IMSelectShop.class);
+
+        IMChattingHelper.sendECMessage(myPhone, peerPhone, json, new ECDeskManager.OnSendDeskMessageListener() {
+            @Override
+            public void onSendMessageComplete(ECError ecError, ECMessage ecMessage) {
+                Log.e(TAG, "[onSendMessageComplete] ecError: " + ecError + ", ecMessage:" + ecMessage);
+            }
+
+            @Override
+            public void onProgress(String s, int i, int i1) {
+                Log.e(TAG, "[onProgress] s: " + s + ", i:" + i);
+            }
+        });
     }
 
     private void initCameraSurfaceView() {
         ECDevice.getECVoIPSetupManager().setVideoView(getView().getRemoteCameraView(), null);
         DisplayLocalSurfaceView();
     }
+
     private void initCameraInfo() {
         cameraInfos = ECDevice.getECVoIPSetupManager().getCameraInfos();
         // Find the ID of the default camera
         if (cameraInfos != null) {
             numberOfCameras = cameraInfos.length;
-        }
-        // Find the total number of cameras available
-        for (int i = 0; i < numberOfCameras; i++) {
-            if (cameraInfos[i].index == android.hardware.Camera.CameraInfo.CAMERA_FACING_FRONT) {
-                defaultCameraId = i;
-                comportCapbilityIndex(cameraInfos[i].caps);
+            // Find the total number of cameras available
+            for (int i = 0; i < numberOfCameras; i++) {
+                if (cameraInfos[i].index == android.hardware.Camera.CameraInfo.CAMERA_FACING_FRONT) {
+                    defaultCameraId = i;
+                    comportCapbilityIndex(cameraInfos[i].caps);
+                }
             }
         }
     }
@@ -137,9 +176,8 @@ public class VoipCallPresenterImpl extends BasePresenter<VoipCallView> implement
         User loginUser = Repository.getInstance().getLoginUser();
 //        EventBus.getDefault().postSticky(new SelectShopEvent(mSellerShop));
 //        getView().showVideoView(loginUser,);
-        getView().showSellerVideoView(loginUser,mSellerShop.getId());
+        getView().showSellerVideoView(loginUser, mSellerShop.getId());
     }
-
 
     @Override
     public void onUIChangeSilence() {
@@ -278,12 +316,18 @@ public class VoipCallPresenterImpl extends BasePresenter<VoipCallView> implement
     @Override
     public void onMakeCallFailed(String callId, int reason) {
         if (callId != null && callId.equals(mCurrentCallId)) {
-            if (reason != SdkErrorCode.REMOUNT_CALL_BUSY) {
-                Toast.makeText(getActivity(), "拨号失败，原因：reason" + reason, Toast.LENGTH_SHORT).show();
-                doHandUpCall();
-            } else {
-                Toast.makeText(getActivity(), "拨号失败，对方拒接", Toast.LENGTH_SHORT).show();
+            switch (reason) {
+                case SdkErrorCode.REMOUNT_CALL_BUSY:
+                    Toast.makeText(getActivity(), "拨号失败，对方拒接", Toast.LENGTH_SHORT).show();
+                    break;
+                case 175404:
+                    Toast.makeText(getActivity(), "拨号失败，对方不在线", Toast.LENGTH_SHORT).show();
+                    break;
+                default:
+                    Toast.makeText(getActivity(), "拨号失败，原因：reason" + reason, Toast.LENGTH_SHORT).show();
+                    break;
             }
+            doHandUpCall();
         }
     }
 

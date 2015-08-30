@@ -5,9 +5,9 @@ import nobugs.team.shopping.mvp.model.User;
 /**
  * Created by xiayong on 2015/8/25.
  */
-public class LoginEvent implements Event {
+public class UserLoginEvent implements Event {
     private User myInfo;
-    public LoginEvent(User Info){
+    public UserLoginEvent(User Info){
         this.myInfo = myInfo;
     }
 

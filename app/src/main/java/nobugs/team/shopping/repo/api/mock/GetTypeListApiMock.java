@@ -9,7 +9,7 @@ import nobugs.team.shopping.app.base.MyApplication;
 import nobugs.team.shopping.mvp.model.ProductType;
 import nobugs.team.shopping.repo.api.GetTypeListApi;
 import nobugs.team.shopping.repo.api.model.TypeListResult;
-import nobugs.team.shopping.repo.mapper.Mapper;
+import nobugs.team.shopping.repo.mapper.IResultMapper;
 import nobugs.team.shopping.repo.mapper.TypeListMapper;
 import nobugs.team.shopping.utils.CommonTools;
 
@@ -21,7 +21,7 @@ public class GetTypeListApiMock implements GetTypeListApi {
     private static final String JSON_TEST_FILEPATH = "typelist.json";
     private List<ProductType> mProductTypes;
 
-    private final Mapper mapper;
+    private final IResultMapper mapper;
 
     public GetTypeListApiMock() {
         this.mapper = new TypeListMapper();

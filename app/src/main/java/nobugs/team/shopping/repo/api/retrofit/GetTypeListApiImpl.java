@@ -5,7 +5,6 @@ import java.util.List;
 import nobugs.team.shopping.mvp.model.ProductType;
 import nobugs.team.shopping.repo.api.GetTypeListApi;
 import nobugs.team.shopping.repo.api.model.TypeListResult;
-import nobugs.team.shopping.repo.mapper.Mapper;
 import nobugs.team.shopping.repo.mapper.TypeListMapper;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -17,13 +16,13 @@ public class GetTypeListApiImpl extends BaseRetrofitHandler implements GetTypeLi
 
    /* public static class Builder {
         private RetrofitAdapter adapter;
-        private TypeListMapper mapper;
+        private TypeListMapper modelMapper;
         private CacheType cacheType;
         private boolean cleanCache;
 
         public Builder(RetrofitAdapter adapter) {
             this.adapter = adapter;
-            this.mapper = new TypeListMapper();
+            this.modelMapper = new TypeListMapper();
         }
 
         public Builder cacheType(CacheType cacheType) {
@@ -45,7 +44,7 @@ public class GetTypeListApiImpl extends BaseRetrofitHandler implements GetTypeLi
 //    private DaoHelper<UserPo> daoHelper;
    /* public GetTypeListApiImpl(Builder builder) {
         super(builder.adapter);
-        this.mapper = builder.mapper;
+        this.modelMapper = builder.modelMapper;
         this.cacheType = builder.cacheType;
         this.cleanCache = builder.cleanCache;
     }*/

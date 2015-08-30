@@ -3,7 +3,7 @@ package nobugs.team.shopping.repo.api.retrofit;
 import java.io.IOException;
 
 import nobugs.team.shopping.constant.ErrorConsts;
-import nobugs.team.shopping.repo.mapper.Mapper;
+import nobugs.team.shopping.repo.mapper.IResultMapper;
 import retrofit.RetrofitError;
 
 /**
@@ -11,7 +11,7 @@ import retrofit.RetrofitError;
  */
 public class BaseRetrofitHandler {
     private RetrofitAdapter adapter;
-    protected Mapper mapper;
+    protected IResultMapper mapper;
 //    protected CacheType cacheType = CacheType.NONE;
 //    protected boolean cleanCache = false;
 

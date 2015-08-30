@@ -33,7 +33,7 @@ public class LoginApiImpl extends BaseRetrofitHandler implements LoginApi {
         if(userCache != null){
             return userCache;
         }
-        return ((LoginMapper)mapper).mapUser(((UserHelper)daoHelper).selectUser());
+        return ((LoginMapper)mapper).modelMapper.toModel(((UserHelper)daoHelper).selectUser());
     }
     @Override
     public void login(String userName, String password, final Callback callback) {

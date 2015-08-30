@@ -1,7 +1,7 @@
 package nobugs.team.shopping.mvp.presenter;
 
 import de.greenrobot.event.EventBus;
-import nobugs.team.shopping.event.OrderEvent;
+import nobugs.team.shopping.event.OrderSelectEvent;
 import nobugs.team.shopping.mvp.interactor.OrderInteractor;
 import nobugs.team.shopping.mvp.interactor.OrderInteractorImpl;
 import nobugs.team.shopping.mvp.model.Order;
@@ -24,9 +24,9 @@ public class OrderDetailsPresenterImpl extends BasePresenter<OrderDetailsView> i
     public void onCreate() {
         EventBus.getDefault().registerSticky(this);
     }
-    public void onEventMainThread(OrderEvent orderEvent) {
+    public void onEventMainThread(OrderSelectEvent orderEvent) {
         order = orderEvent.getOrder();
-        if(true||order.getBuyer().isSeller()){
+        if(order.getBuyer().isSeller()){
             getView().showBuyerView(order);
         }else{
             getView().showSellerView(order);

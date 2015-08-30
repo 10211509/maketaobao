@@ -5,7 +5,7 @@ import android.support.annotation.NonNull;
 import java.util.List;
 
 import de.greenrobot.event.EventBus;
-import nobugs.team.shopping.event.SelectShopEvent;
+import nobugs.team.shopping.event.ShopSelectEvent;
 import nobugs.team.shopping.mvp.model.ProductType;
 import nobugs.team.shopping.mvp.interactor.AdsBannerInterator;
 import nobugs.team.shopping.mvp.interactor.AdsBannerInteratorImpl;
@@ -177,7 +177,7 @@ public class MainShopPresenterImpl extends BasePresenter<MainShopView> implement
         User user = new User(2L,"test2","123456","13521939540", User.Type.SELLER);
         shop.setOwner(user);
 
-        EventBus.getDefault().postSticky(new SelectShopEvent(shop));
+        EventBus.getDefault().postSticky(new ShopSelectEvent(shop));
 
         getView().navigateCallOut(shop.getOwner());
     }

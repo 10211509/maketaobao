@@ -7,7 +7,7 @@ import java.util.List;
 
 import de.greenrobot.event.EventBus;
 import nobugs.team.shopping.R;
-import nobugs.team.shopping.event.SelectShopEvent;
+import nobugs.team.shopping.event.RemoteShopSelectEvent;
 import nobugs.team.shopping.mvp.interactor.ShopInteractor;
 import nobugs.team.shopping.mvp.interactor.ShopInteractorImpl;
 import nobugs.team.shopping.mvp.interactor.ShoppingCarInteractor;
@@ -37,11 +37,11 @@ public class ShoppingCarSellerPresenterImpl extends BasePresenter<ShoppingCarSel
         EventBus.getDefault().registerSticky(this);
     }
 
-    public void onEventMainThread(SelectShopEvent event) {
+    public void onEventMainThread(RemoteShopSelectEvent event) {
         shop = event.getShop();
-        //get product list by shop id
-//        shoppingCarInteractor.
         getView().initViewPager(shop);
+
+        EventBus.getDefault().removeStickyEvent(event);
     }
 
     @Override

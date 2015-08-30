@@ -75,7 +75,7 @@ public class CCPHelper implements ECDevice.InitListener, ECDevice.OnECDeviceConn
         mInitParams.setToken(AppConfig.CCP_APP_TOKEN);
         // mInitParams.setToken(/*clientUser.getAppToken()*/"d459711cd14b443487c03b8cc072966e");
         // ECInitParams.LoginMode.FORCE_LOGIN
-        mInitParams.setMode(ECInitParams.LoginMode.AUTO);
+        mInitParams.setMode(ECInitParams.LoginMode.FORCE_LOGIN);
 
         // 如果有密码（VoIP密码，对应的登陆验证模式是 ECInitParams.LoginAuthType.PASSWORD_AUTH）
 //        if (!TextUtils.isEmpty(clientUser.getPassword())) {
@@ -140,7 +140,6 @@ public class CCPHelper implements ECDevice.InitListener, ECDevice.OnECDeviceConn
             }
         } else if (state == ECDevice.ECConnectState.CONNECT_SUCCESS) {
             // 登陆成功
-
             Log.w(TAG,"onConnectState 登录成功");
         }
     }

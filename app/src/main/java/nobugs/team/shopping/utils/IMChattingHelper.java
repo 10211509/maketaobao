@@ -14,25 +14,38 @@ package nobugs.team.shopping.utils;
 
 import android.util.Log;
 
+import com.google.gson.Gson;
 import com.yuntongxun.ecsdk.ECChatManager;
 import com.yuntongxun.ecsdk.ECDevice;
 import com.yuntongxun.ecsdk.ECError;
 import com.yuntongxun.ecsdk.ECMessage;
 import com.yuntongxun.ecsdk.OnChatReceiveListener;
-import com.yuntongxun.ecsdk.im.ECFileMessageBody;
+import com.yuntongxun.ecsdk.im.ECTextMessageBody;
 import com.yuntongxun.ecsdk.im.group.ECGroupNoticeMessage;
 
-import java.util.ArrayList;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.List;
+
+import de.greenrobot.event.EventBus;
+import nobugs.team.shopping.event.IMEvent;
+import nobugs.team.shopping.event.RemoteShopSelectEvent;
+import nobugs.team.shopping.im.model.IMBase;
+import nobugs.team.shopping.im.model.IMSelectShop;
+import nobugs.team.shopping.mvp.model.Shop;
+import nobugs.team.shopping.mvp.model.User;
+import nobugs.team.shopping.repo.mapper.UserMapper;
 
 
 /**
  * @author Jorstin Chan@容联•云通讯
- * @date 2014-12-12
  * @version 4.0
+ * @date 2014-12-12
  */
-public class IMChattingHelper implements OnChatReceiveListener/*, ECChatManager.OnDownloadMessageListener*/ {
+public class IMChattingHelper implements OnChatReceiveListener
+        /*, ECChatManager.OnDownloadMessageListener*/ {
 
     private static final String TAG = "ECSDK.IMChatHelper";
     public static final String INTENT_ACTION_SYNC_MESSAGE = "com.yuntongxun.ecdemo_sync_message";
@@ -40,46 +53,95 @@ public class IMChattingHelper implements OnChatReceiveListener/*, ECChatManager.
     private static HashMap<String, SyncMsgEntry> syncMessage = new HashMap<>();
     private static IMChattingHelper sInstance;
     private boolean isSyncOffline = false;
-    public static IMChattingHelper getInstance(){
-        if(sInstance == null) {
+
+    public static IMChattingHelper getInstance() {
+        if (sInstance == null) {
             sInstance = new IMChattingHelper();
         }
         return sInstance;
     }
 
-    /**云通讯SDK聊天功能接口*/
+    /**
+     * 云通讯SDK聊天功能接口
+     */
     private ECChatManager mChatManager;
-    /**全局处理所有的IM消息发送回调*/
-    private ChatManagerListener mListener;
-    /**是否是同步消息*/
+    /**
+     * 全局处理所有的IM消息发送回调
+     */
+//    private ChatManagerListener mListener;
+    /**
+     * 是否是同步消息
+     */
     private boolean isFirstSync = false;
+
     private IMChattingHelper() {
         mChatManager = CCPHelper.getECChatManager();
-        mListener = new ChatManagerListener();
+//        mListener = new ChatManagerListener();
     }
 
-
-    private void checkChatManager() {
-         mChatManager = CCPHelper.getECChatManager();
+    private ECChatManager getChatManager() {
+        if (mChatManager == null) {
+            mChatManager = CCPHelper.getECChatManager();
+        }
+        return mChatManager;
     }
 
     /**
      * 消息发送报告
      */
+    public interface OnMessageReportCallback {
+        void onMessageReport(ECError error, ECMessage message);
+
+        void onPushMessage(String sessionId, List<ECMessage> msgs);
+    }
+
     private OnMessageReportCallback mOnMessageReportCallback;
+
+    public static void setOnMessageReportCallback(OnMessageReportCallback callback) {
+        getInstance().mOnMessageReportCallback = callback;
+    }
+
+
+    /**
+     * 发送Text 消息
+     *
+     * @param from
+     * @param to
+     * @param txt
+     * @param listener
+     */
+    public static void sendECMessage(String from, String to, String txt, ECChatManager.OnSendMessageListener listener) {
+        // 组建一个待发送的ECMessage
+        ECMessage msg = ECMessage.createECMessage(ECMessage.Type.TXT);
+        //设置消息的属性：发出者，接受者，发送时间等
+        msg.setForm(from);
+        msg.setMsgTime(System.currentTimeMillis());
+        // 设置消息接收者
+        msg.setTo(to);
+        msg.setSessionId(to);
+        // 设置消息发送类型（发送或者接收）
+        msg.setDirection(ECMessage.Direction.SEND);
+
+        // 创建一个文本消息体，并添加到消息对象中
+        ECTextMessageBody msgBody = new ECTextMessageBody(txt);
+
+        // 将消息体存放到ECMessage中
+        msg.setBody(msgBody);
+
+        sendECMessage(msg, listener);
+    }
 
     /**
      * 发送ECMessage 消息
+     *
      * @param msg
      */
-    public static void sendECMessage(ECMessage msg) {
-       getInstance().checkChatManager();
+    public static void sendECMessage(ECMessage msg, ECChatManager.OnSendMessageListener listener) {
         // 获取一个聊天管理器
-        ECChatManager manager = getInstance().mChatManager;
-        if(manager != null) {
+        ECChatManager manager = getInstance().getChatManager();
+        if (manager != null) {
             // 调用接口发送IM消息
-            msg.setMsgTime(System.currentTimeMillis());
-            manager.sendMessage(msg, getInstance().mListener);
+            manager.sendMessage(msg, listener);
             // 保存发送的消息到数据库
         } else {
             msg.setMsgStatus(ECMessage.MessageStatus.FAILED);
@@ -88,10 +150,10 @@ public class IMChattingHelper implements OnChatReceiveListener/*, ECChatManager.
     }
 
     public void destory() {
-        if(syncMessage != null) {
+        if (syncMessage != null) {
             syncMessage.clear();
         }
-        mListener = null;
+//        mListener = null;
         mChatManager = null;
         isFirstSync = false;
         sInstance = null;
@@ -99,6 +161,7 @@ public class IMChattingHelper implements OnChatReceiveListener/*, ECChatManager.
 
     /**
      * 消息重发
+     *
      * @return
      */
 //    public static long reSendECMessage(ECMessage msg) {
@@ -182,76 +245,99 @@ public class IMChattingHelper implements OnChatReceiveListener/*, ECChatManager.
 //    }
 
 
-    private class ChatManagerListener implements ECChatManager.OnSendMessageListener {
-
-        @Override
-        public void onSendMessageComplete(ECError error, ECMessage message) {
-            if(message == null) {
-                return ;
-            }
-            // 处理ECMessage的发送状态
-            if(message != null) {
-                if(message.getType() == ECMessage.Type.VOICE) {
-                    // DemoUtils.playNotifycationMusic(CCPAppManager.getContext(), "sound/voice_message_sent.mp3");
-                }
-//                IMessageSqlManager.setIMessageSendStatus(message.getMsgId(), message.getMsgStatus().ordinal());
-//                IMessageSqlManager.notifyMsgChanged(message.getSessionId());
-                if(mOnMessageReportCallback != null) {
-                    mOnMessageReportCallback.onMessageReport(error , message);
-                }
-                return ;
-            }
-        }
-
-        @Override
-        public void onProgress(String msgId ,int total, int progress) {
-            // 处理发送文件IM消息的时候进度回调
-            Log.d(TAG, "[IMChattingHelper - onProgress] msgId：" + msgId + " ,total：" + total + " ,progress:" + progress);
-        }
-
-    }
-
-
-    public static void setOnMessageReportCallback(OnMessageReportCallback callback) {
-        getInstance().mOnMessageReportCallback = callback;
-    }
+    /**
+     * ----------- 发送回调---------------
+     */
+//    @Override
+//    public void onSendMessageComplete(ECError error, ECMessage message) {
+//        if (message == null) {
+//            return;
+//        }
+//        // 处理ECMessage的发送状态
+//        if (message != null) {
+//            if (message.getType() == ECMessage.Type.VOICE) {
+//                // DemoUtils.playNotifycationMusic(CCPAppManager.getContext(), "sound/voice_message_sent.mp3");
+//            }
+////                IMessageSqlManager.setIMessageSendStatus(message.getMsgId(), message.getMsgStatus().ordinal());
+////                IMessageSqlManager.notifyMsgChanged(message.getSessionId());
+//            if (mOnMessageReportCallback != null) {
+//                mOnMessageReportCallback.onMessageReport(error, message);
+//            }
+//            return;
+//        }
+//    }
+//
+//    @Override
+//    public void onProgress(String msgId, int total, int progress) {
+//        // 处理发送文件IM消息的时候进度回调
+//        Log.d(TAG, "[IMChattingHelper - onProgress] msgId：" + msgId + " ,total：" + total + " ,progress:" + progress);
+//    }
 
 
-    public interface OnMessageReportCallback{
-        void onMessageReport(ECError error, ECMessage message);
-        void onPushMessage(String sessionId, List<ECMessage> msgs);
-    }
 
 //    private int getMaxVersion() {
 //        int maxVersion = IMessageSqlManager.getMaxVersion();
-//        int maxVersion1 = GroupNoticeSqlManager.getMaxVersion();
+//        int maxVersion1 = GroupNoticeSqlManager.getMaxVersio();
 //        return maxVersion > maxVersion1 ? maxVersion : maxVersion1;
 //    }
+
+    /**
+     * ----------- OnChatReceiveListener 回调，在param中注册---------------
+     */
 
     /**
      * 收到新的IM文本和附件消息
      */
     @Override
     public void OnReceivedMessage(ECMessage msg) {
-        Log.d(TAG , "[OnReceivedMessage] show notice true");
-        if(msg == null) {
-            return ;
+        Log.d(TAG, "[OnReceivedMessage] show notice true");
+        if (msg == null) {
+            return;
         }
-        postReceiveMessage(msg, true);
+//        postReceiveMessage(msg, true);
+        EventBus.getDefault().post(new IMEvent(msg));
+
+        handleReceiveMessage(msg);
     }
 
+    public void handleReceiveMessage(ECMessage msg) {
+        if (msg.getType() == ECMessage.Type.TXT) {
+            ECTextMessageBody body = (ECTextMessageBody) msg.getBody();
+            String txt = body.getMessage();
+
+            try {
+                Gson gson = new Gson();
+                JSONObject jsonObject = new JSONObject(txt);
+                String type = jsonObject.getString("type");
+                switch (type){
+                    case IMBase.TYPE_SELECT_SHOP:
+                        final IMSelectShop imshop = gson.fromJson(txt, IMSelectShop.class);
+                        Shop shop = new Shop();
+                        shop.setId(imshop.getShopId());
+                        User user = new UserMapper().toModel(imshop.getBuyer());
+
+                        RemoteShopSelectEvent event = new RemoteShopSelectEvent(shop, user);
+                        EventBus.getDefault().postSticky(event);
+                        break;
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     /**
      * 处理接收消息
+     *
      * @param msg
      * @param showNotice
      */
-    private synchronized void postReceiveMessage(ECMessage msg , boolean showNotice) {
+//    private synchronized void postReceiveMessage(ECMessage msg, boolean showNotice) {
         // 接收到的IM消息，根据IM消息类型做不同的处理
         // IM消息类型：ECMessage.Type
 
-        if(msg.getType() != ECMessage.Type.TXT) {
-            ECFileMessageBody body = (ECFileMessageBody) msg.getBody();
+//        if (msg.getType() != ECMessage.Type.TXT) {
+//            ECFileMessageBody body = (ECFileMessageBody) msg.getBody();
 //            FileAccessor.initFileAccess();
 //            if(!TextUtils.isEmpty(body.getRemoteUrl())) {
 //                boolean thumbnail = false;
@@ -286,22 +372,22 @@ public class IMChattingHelper implements OnChatReceiveListener/*, ECChatManager.
 //            } else {
 //                Log.e(TAG, "ECMessage fileUrl: null");
 //            }
-        }
+//        }
 
 
 //        if(IMessageSqlManager.insertIMessage(msg, msg.getDirection().ordinal()) <= 0) {
 //            return ;
 //        }
 
-        if(mOnMessageReportCallback != null) {
-            ArrayList<ECMessage> msgs = new ArrayList<ECMessage>();
-            msgs.add(msg);
-            mOnMessageReportCallback.onPushMessage(msg.getSessionId(), msgs);
-        }
+//        if (mOnMessageReportCallback != null) {
+//            ArrayList<ECMessage> msgs = new ArrayList<ECMessage>();
+//            msgs.add(msg);
+//            mOnMessageReportCallback.onPushMessage(msg.getSessionId(), msgs);
+//        }
 
         // 是否状态栏提示
 //        if(showNotice) showNotification(msg);
-    }
+//    }
 
 //    private static void showNotification(ECMessage msg) {
 //        if(checkNeedNotification(msg.getSessionId())) {
@@ -364,7 +450,6 @@ public class IMChattingHelper implements OnChatReceiveListener/*, ECChatManager.
 //        }
 //        return true;
 //    }
-
     @Override
     public void OnReceiveGroupNoticeMessage(ECGroupNoticeMessage notice) {
         if (notice == null) {
@@ -403,44 +488,47 @@ public class IMChattingHelper implements OnChatReceiveListener/*, ECChatManager.
         // 获取全部的离线历史消息
         return ECDevice.SYNC_OFFLINE_MSG_ALL;
     }
+
     private ECMessage mOfflineMsg = null;
+
     @Override
     public void onReceiveOfflineMessage(List<ECMessage> msgs) {
         // 离线消息的处理可以参考 void OnReceivedMessage(ECMessage msg)方法
         // 处理逻辑完全一样
         // 参考 IMChattingHelper.java
-        Log.d(TAG , "[onReceiveOfflineMessage] show notice false");
-        if(msgs != null && !msgs.isEmpty() && !isFirstSync)isFirstSync = true;
-        for(ECMessage msg : msgs) {
-            mOfflineMsg = msg;
-            postReceiveMessage(msg, false);
-        }
+        Log.d(TAG, "[onReceiveOfflineMessage] show notice false");
+//        if(msgs != null && !msgs.isEmpty() && !isFirstSync)isFirstSync = true;
+//        for(ECMessage msg : msgs) {
+//            mOfflineMsg = msg;
+//            postReceiveMessage(msg, false);
+//        }
     }
 
     @Override
     public void onReceiveOfflineMessageCompletion() {
-        if(mOfflineMsg == null) {
-            return ;
+        if (mOfflineMsg == null) {
+            return;
         }
         // SDK离线消息拉取完成之后会通过该接口通知应用
         // 应用可以在此做类似于Loading框的关闭，Notification通知等等
         // 如果已经没有需要同步消息的请求时候，则状态栏开始提醒
-        ECMessage lastECMessage = mOfflineMsg;
-        try{
-            if(lastECMessage != null && mHistoryMsgCount > 0 && isFirstSync) {
+//        ECMessage lastECMessage = mOfflineMsg;
+//        try{
+//            if(lastECMessage != null && mHistoryMsgCount > 0 && isFirstSync) {
 //                showNotification(lastECMessage);
-                // lastECMessage.setSessionId(lastECMessage.getTo().startsWith("G")?lastECMessage.getTo():lastECMessage.getForm());
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        isFirstSync = isSyncOffline = false;
+//                 lastECMessage.setSessionId(lastECMessage.getTo().startsWith("G")?lastECMessage.getTo():lastECMessage.getForm());
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        isFirstSync = isSyncOffline = false;
         // 无需要同步的消息
 //        CCPAppManager.getContext().sendBroadcast(new Intent(INTENT_ACTION_SYNC_MESSAGE));
-        mOfflineMsg = null;
+//        mOfflineMsg = null;
     }
 
     public int mServicePersonVersion = 0;
+
     @Override
     public void onServicePersonVersion(int version) {
         mServicePersonVersion = version;
@@ -448,11 +536,12 @@ public class IMChattingHelper implements OnChatReceiveListener/*, ECChatManager.
 
     /**
      * 客服消息
+     *
      * @param msg
      */
     @Override
     public void onReceiveDeskMessage(ECMessage msg) {
-        Log.d(TAG , "[onReceiveDeskMessage] show notice true");
+        Log.d(TAG, "[onReceiveDeskMessage] show notice true");
         OnReceivedMessage(msg);
     }
 
@@ -554,16 +643,16 @@ public class IMChattingHelper implements OnChatReceiveListener/*, ECChatManager.
 
         // 重试下载次数
         private int retryCount = 1;
-        ECMessage msg ;
+        ECMessage msg;
 
-        public SyncMsgEntry( boolean showNotice ,boolean thumbnail, ECMessage message) {
+        public SyncMsgEntry(boolean showNotice, boolean thumbnail, ECMessage message) {
             this.showNotice = showNotice;
             this.msg = message;
             this.thumbnail = thumbnail;
         }
 
         public void increase() {
-            retryCount ++;
+            retryCount++;
         }
 
         public boolean isRetryLimit() {

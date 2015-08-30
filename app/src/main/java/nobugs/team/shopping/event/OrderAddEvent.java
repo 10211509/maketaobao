@@ -1,13 +1,17 @@
 package nobugs.team.shopping.event;
 
+import com.yuntongxun.ecsdk.ECMessage;
+
 import nobugs.team.shopping.mvp.model.Order;
 
 /**
- * Created by xiayong on 2015/8/25.
+ * Created by wangyf on 2015/8/30 0030.
  */
-public class OrderEvent implements Event {
+public class OrderAddEvent extends IMEvent {
     private Order order;
-    public OrderEvent(Order order){
+
+    public OrderAddEvent(Order order, ECMessage msg) {
+        super(msg);
         this.order = order;
     }
 
