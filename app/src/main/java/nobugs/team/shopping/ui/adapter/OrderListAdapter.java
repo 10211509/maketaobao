@@ -31,7 +31,7 @@ public class OrderListAdapter extends BaseAdapter {
 
     public OrderListAdapter(Context context){
         this.context = context;
-        this.orders = Collections.emptyList();
+        this.orders = new ArrayList<>();
     }
 
     public void setOrders(List<Order> orders){

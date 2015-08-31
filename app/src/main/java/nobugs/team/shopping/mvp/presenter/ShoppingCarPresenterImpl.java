@@ -1,5 +1,6 @@
 package nobugs.team.shopping.mvp.presenter;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -18,7 +19,7 @@ public class ShoppingCarPresenterImpl extends BasePresenter<ShoppingCarView> imp
     public ShoppingCarPresenterImpl(ShoppingCarView shoppingCarView) {
         super(shoppingCarView);
         shoppingCarInteractor = new ShoppingCarInteractorImpl();
-        orders = Collections.emptyList();
+        orders = new ArrayList<>();
     }
 
 

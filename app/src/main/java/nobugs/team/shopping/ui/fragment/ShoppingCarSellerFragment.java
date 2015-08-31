@@ -1,12 +1,15 @@
 package nobugs.team.shopping.ui.fragment;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
 import butterknife.Bind;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import nobugs.team.shopping.R;
 import nobugs.team.shopping.app.base.BaseFragment;
@@ -80,13 +83,15 @@ public class ShoppingCarSellerFragment extends BaseFragment<ShoppingCarSellerPre
     @Override
     public void initViewPager(Shop shop) {
         addShoppingCarAdapter = new AddShoppingCarAdapter(getActivity(), shop);
-        vpContainer.setAdapter(addShoppingCarAdapter);
+        if (vpContainer != null) {
+            vpContainer.setAdapter(addShoppingCarAdapter);
+        }
 
     }
 
     @Override
     public void addItemToViewPager(Order order) {
-        addShoppingCarAdapter.addOrder(order);
+        addShoppingCarAdapter.addEmptyOrder();
         addShoppingCarAdapter.notifyDataSetChanged();
     }
 

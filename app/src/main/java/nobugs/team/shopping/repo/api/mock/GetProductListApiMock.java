@@ -25,7 +25,7 @@ public class GetProductListApiMock implements GetProductListApi {
 
     public GetProductListApiMock(){
         mapper = new ProductListMapper();
-
+        loadJsonFromAsset();
     }
     private void loadJsonFromAsset() {
         String jsonTest = null;

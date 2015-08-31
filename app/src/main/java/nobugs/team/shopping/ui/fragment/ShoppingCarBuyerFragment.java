@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -51,7 +52,7 @@ public class ShoppingCarBuyerFragment extends BaseFragment<ShoppingCarPresenter>
 
     @Override
     protected void initView() {
-        List<Order> orders = Collections.emptyList();
+        List<Order> orders = new ArrayList<>();
         shoppingCarAdapter = new ShoppingCarAdapter(orders);
         vpContainer.setAdapter(shoppingCarAdapter);
     }

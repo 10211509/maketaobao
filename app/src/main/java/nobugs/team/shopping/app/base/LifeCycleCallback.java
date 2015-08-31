@@ -9,6 +9,8 @@ package nobugs.team.shopping.app.base;
 public interface LifeCycleCallback {
     void onCreate();
 
+    void onCreateView();
+
     void onStart();
 
     void onStop();

@@ -314,9 +314,9 @@ public class IMChattingHelper implements OnChatReceiveListener
                         final IMSelectShop imshop = gson.fromJson(txt, IMSelectShop.class);
                         Shop shop = new Shop();
                         shop.setId(imshop.getShopId());
-                        User user = new UserMapper().toModel(imshop.getBuyer());
+//                        User user = new UserMapper().toModel(imshop.getBuyer());
 
-                        RemoteShopSelectEvent event = new RemoteShopSelectEvent(shop, user);
+                        RemoteShopSelectEvent event = new RemoteShopSelectEvent(shop, null);
                         EventBus.getDefault().postSticky(event);
                         break;
                 }

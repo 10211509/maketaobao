@@ -2,19 +2,23 @@
   "data": [
     {
       "id": 1,
-      "name": "苹果"
+      "name": "苹果",
+      "typeid":2
     },
     {
       "id": 2,
-      "name": "辣椒"
+      "name": "辣椒",
+      "typeid":3
     },
     {
       "id": 3,
-      "name": "辣椒"
+      "name": "黄瓜",
+      "typeid":4
     },
     {
       "id": 4,
-      "name": "辣椒"
+      "name": "西瓜",
+      "typeid":5
     }
   ],
   "code": 0,

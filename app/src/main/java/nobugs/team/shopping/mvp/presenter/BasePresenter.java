@@ -55,6 +55,10 @@ public class BasePresenter<T extends IView> implements IPresenter {
     }
 
     @Override
+    public void  onCreateView(){
+
+    }
+    @Override
     public void onStart() {
     }
 

@@ -27,9 +27,4 @@ public class ShopInteractorImpl implements ShopInteractor {
         });
 //        callback.onSuccess(findShopByTypeId(typeId));
     }
-
-    @Override
-    public void getProducts(String shopid,final Callback callback) {
-
-    }
 }

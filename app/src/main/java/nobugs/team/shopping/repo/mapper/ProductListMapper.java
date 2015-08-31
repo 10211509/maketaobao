@@ -22,12 +22,12 @@ public class ProductListMapper implements IResultMapper<ProductListResult,List<P
         return products;
     }
     private Product mapProduct(ProductPo productPo) {
-        Product type = new Product();
-        type.setName(productPo.getName());
-        type.setId(productPo.getId());
+        Product product = new Product();
+        product.setName(productPo.getName());
+        product.setId(productPo.getId());
         ProductType productType = new ProductType();
         productType.setId(productPo.getTypeid());
-        type.setType(productType);
-        return type;
+        product.setType(productType);
+        return product;
     }
 }

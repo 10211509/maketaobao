@@ -2,45 +2,48 @@ package nobugs.team.shopping.mvp.presenter;
 
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import de.greenrobot.event.EventBus;
 import nobugs.team.shopping.R;
 import nobugs.team.shopping.event.RemoteShopSelectEvent;
-import nobugs.team.shopping.mvp.interactor.ShopInteractor;
-import nobugs.team.shopping.mvp.interactor.ShopInteractorImpl;
+import nobugs.team.shopping.mvp.interactor.ProductInteractor;
+import nobugs.team.shopping.mvp.interactor.ProductInteractorImpl;
 import nobugs.team.shopping.mvp.interactor.ShoppingCarInteractor;
 import nobugs.team.shopping.mvp.interactor.ShoppingCarInteractorImpl;
 import nobugs.team.shopping.mvp.model.Order;
+import nobugs.team.shopping.mvp.model.Product;
 import nobugs.team.shopping.mvp.model.Shop;
 import nobugs.team.shopping.mvp.view.ShoppingCarSellerView;
 
 /**
  * Created by xiayong on 2015/8/30.
  */
-public class ShoppingCarSellerPresenterImpl extends BasePresenter<ShoppingCarSellerView> implements ShoppingCarSellerPresenter, ShoppingCarInteractor.Callback {
+public class ShoppingCarSellerPresenterImpl extends BasePresenter<ShoppingCarSellerView> implements ShoppingCarSellerPresenter, ShoppingCarInteractor.Callback,ProductInteractor.Callback {
     private Shop shop;
     private List<Order> orders;
     private ShoppingCarInteractor shoppingCarInteractor;
-    private ShopInteractor shopInteractor;
+    private ProductInteractor productInteractor;
 
     public ShoppingCarSellerPresenterImpl(ShoppingCarSellerView addShoppingCarView) {
         super(addShoppingCarView);
-        orders = Collections.emptyList();
+        orders = new ArrayList<>();
         shoppingCarInteractor = new ShoppingCarInteractorImpl();
-        shopInteractor = new ShopInteractorImpl();
+        productInteractor = new ProductInteractorImpl();
     }
 
     @Override
-    public void onCreate() {
+    public void onCreateView() {
         EventBus.getDefault().registerSticky(this);
     }
 
     public void onEventMainThread(RemoteShopSelectEvent event) {
         shop = event.getShop();
-        getView().initViewPager(shop);
-
+        //get product list by shop id
+//        shoppingCarInteractor.
+        productInteractor.getProducts(String.valueOf(shop.getId()), this);
         EventBus.getDefault().removeStickyEvent(event);
     }
 
@@ -61,7 +64,7 @@ public class ShoppingCarSellerPresenterImpl extends BasePresenter<ShoppingCarSel
             Toast.makeText(getContext(),"不能删除该商品！",Toast.LENGTH_SHORT).show();
             return;
         }
-        shoppingCarInteractor.deleteProduct(orders.get(index).getOrderid(),this);
+        shoppingCarInteractor.deleteProduct(orders.get(index).getOrderid(), this);
     }
 
 
@@ -78,6 +81,13 @@ public class ShoppingCarSellerPresenterImpl extends BasePresenter<ShoppingCarSel
     public void onAddSuccess(Order order) {
         orders.add(order);
         getView().addItemToViewPager(order);
+    }
+
+    @Override
+    public void onSuccess(List<Product> products) {
+        Shop shop = new Shop();
+        shop.setProducts(products);
+        getView().initViewPager(shop);
     }
 
     @Override

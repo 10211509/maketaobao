@@ -12,8 +12,6 @@ public interface ShopInteractor {
 
     void getShops(ProductType productType, Callback callback);
 
-    void getProducts(String shopid,Callback callback);
-
     interface Callback {
         void onSuccess(List<Shop> shops);
 

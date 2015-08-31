@@ -1,5 +1,6 @@
 package nobugs.team.shopping.app.base;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -29,7 +30,6 @@ public abstract class BaseFragment<PresenterType extends IPresenter> extends Fra
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         if (mPresenter != null) {
             mPresenter.onCreate();
         }
@@ -42,10 +42,14 @@ public abstract class BaseFragment<PresenterType extends IPresenter> extends Fra
         View v = inflater.inflate(getLayoutResId(), container, false);
         ButterKnife.bind(this, v);
 
+        setPresenter(initPresenter());
         initView();
         initData();
         initEvent();
 
+        if (mPresenter != null) {
+            mPresenter.onCreateView();
+        }
         return v;
     }
 
