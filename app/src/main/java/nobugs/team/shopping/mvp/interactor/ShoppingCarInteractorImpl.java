@@ -10,10 +10,15 @@ public class ShoppingCarInteractorImpl implements ShoppingCarInteractor {
     @Override
     public void addProduct(Order order, Callback callback) {
         //String productId, int number, double price, long sellerId, String units, long buyerId
+        if(callback!=null){
+            callback.onAddSuccess(order);
+        }
     }
 
     @Override
     public void deleteProduct(String produtId,Callback callback) {
-
+        if (callback != null){
+            callback.onDeleteSuccess(produtId);
+        }
     }
 }

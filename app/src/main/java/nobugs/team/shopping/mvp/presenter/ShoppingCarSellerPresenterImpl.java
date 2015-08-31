@@ -80,6 +80,7 @@ public class ShoppingCarSellerPresenterImpl extends BasePresenter<ShoppingCarSel
     @Override
     public void onAddSuccess(Order order) {
         orders.add(order);
+        Toast.makeText(getContext(),"添加成功",Toast.LENGTH_SHORT).show();
         getView().addItemToViewPager(order);
     }
 
