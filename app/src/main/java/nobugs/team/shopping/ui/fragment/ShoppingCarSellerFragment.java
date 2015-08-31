@@ -3,14 +3,10 @@ package nobugs.team.shopping.ui.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import nobugs.team.shopping.R;
 import nobugs.team.shopping.app.base.BaseFragment;
@@ -20,7 +16,7 @@ import nobugs.team.shopping.mvp.model.Shop;
 import nobugs.team.shopping.mvp.presenter.ShoppingCarSellerPresenter;
 import nobugs.team.shopping.mvp.presenter.ShoppingCarSellerPresenterImpl;
 import nobugs.team.shopping.mvp.view.ShoppingCarSellerView;
-import nobugs.team.shopping.ui.adapter.AddShoppingCarAdapter;
+import nobugs.team.shopping.ui.adapter.ShoppingCarSellerAdapter;
 
 public class ShoppingCarSellerFragment extends BaseFragment<ShoppingCarSellerPresenter> implements ShoppingCarSellerView, ViewPager.OnPageChangeListener {
 
@@ -36,7 +32,7 @@ public class ShoppingCarSellerFragment extends BaseFragment<ShoppingCarSellerPre
     @Bind(R.id.btn_deleteorder)
     Button btnDeleteproduct;
 
-    private AddShoppingCarAdapter addShoppingCarAdapter;
+    private ShoppingCarSellerAdapter shoppingCarSellerAdapter;
     private int selectedPageIndex = 0;
 
     public static ShoppingCarSellerFragment newInstance() {
@@ -83,23 +79,23 @@ public class ShoppingCarSellerFragment extends BaseFragment<ShoppingCarSellerPre
 
     @Override
     public void initViewPager(Shop shop) {
-        addShoppingCarAdapter = new AddShoppingCarAdapter(getActivity(), shop);
+        shoppingCarSellerAdapter = new ShoppingCarSellerAdapter(getActivity(), shop);
         if (vpContainer != null) {
-            vpContainer.setAdapter(addShoppingCarAdapter);
+            vpContainer.setAdapter(shoppingCarSellerAdapter);
         }
 
     }
 
     @Override
     public void addItemToViewPager(Order order) {
-        addShoppingCarAdapter.addEmptyOrder();
-        addShoppingCarAdapter.notifyDataSetChanged();
+        shoppingCarSellerAdapter.addEmptyOrder();
+        shoppingCarSellerAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void deleteItemOfViewPager(String orderid) {
-        addShoppingCarAdapter.deleteOrder(orderid);
-        addShoppingCarAdapter.notifyDataSetChanged();
+        shoppingCarSellerAdapter.deleteOrder(orderid);
+        shoppingCarSellerAdapter.notifyDataSetChanged();
     }
 
     @Override

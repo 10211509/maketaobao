@@ -22,12 +22,12 @@ import nobugs.team.shopping.mvp.model.Shop;
 /**
  * Created by xiayong on 2015/8/29.
  */
-public class AddShoppingCarAdapter extends PagerAdapter {
+public class ShoppingCarSellerAdapter extends PagerAdapter {
     private List<Order> orders;
     private Shop shop;
     private Context context;
 
-    public AddShoppingCarAdapter(Context context, Shop shop) {
+    public ShoppingCarSellerAdapter(Context context, Shop shop) {
         this.context = context;
         this.orders = new ArrayList<>();
         this.shop = shop;
