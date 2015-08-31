@@ -1,7 +1,7 @@
 package nobugs.team.shopping.repo.mapper;
 
 import nobugs.team.shopping.mvp.model.User;
-import nobugs.team.shopping.repo.model.UserPo;
+import nobugs.team.shopping.repo.entity.UserPo;
 
 /**
  * Created by wangyf on 2015/8/30 0030.
@@ -10,6 +10,9 @@ public class UserMapper implements IModelMapper<User, UserPo> {
 
     @Override
     public UserPo fromModel(User user) {
+        if (user == null){
+            return null;
+        }
         UserPo po = new UserPo();
         po.setId(user.getId());
         po.setUsername(user.getName());
@@ -21,6 +24,9 @@ public class UserMapper implements IModelMapper<User, UserPo> {
 
     @Override
     public User toModel(UserPo userPo) {
+        if (userPo == null){
+            return null;
+        }
         User user = new User();
         user.setId(userPo.getId());
         user.setName(userPo.getUsername());

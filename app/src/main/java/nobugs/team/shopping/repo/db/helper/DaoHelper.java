@@ -8,7 +8,7 @@ import de.greenrobot.dao.AbstractDao;
 import nobugs.team.shopping.app.base.MyApplication;
 import nobugs.team.shopping.repo.db.DaoMaster;
 import nobugs.team.shopping.repo.db.DaoSession;
-import nobugs.team.shopping.repo.model.BasePo;
+import nobugs.team.shopping.repo.entity.BasePo;
 
 /**
  * Created by xiayong on 2015/8/29.

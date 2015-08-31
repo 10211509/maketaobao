@@ -4,9 +4,9 @@ import nobugs.team.shopping.mvp.model.User;
 import nobugs.team.shopping.repo.api.LoginApi;
 import nobugs.team.shopping.repo.db.helper.DaoHelper;
 import nobugs.team.shopping.repo.db.helper.UserHelper;
-import nobugs.team.shopping.repo.api.model.LoginResult;
+import nobugs.team.shopping.repo.api.entity.LoginResult;
 import nobugs.team.shopping.repo.mapper.LoginMapper;
-import nobugs.team.shopping.repo.model.UserPo;
+import nobugs.team.shopping.repo.entity.UserPo;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 

@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import nobugs.team.shopping.mvp.model.Order;
-import nobugs.team.shopping.repo.api.model.OrderListResult;
-import nobugs.team.shopping.repo.model.OrderPo;
+import nobugs.team.shopping.repo.api.entity.OrderListResult;
+import nobugs.team.shopping.repo.entity.OrderPo;
 
 /**
  * Created by xiayong on 2015/8/26.

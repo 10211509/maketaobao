@@ -9,7 +9,7 @@ import nobugs.team.shopping.app.base.MyApplication;
 import nobugs.team.shopping.mvp.model.Order;
 import nobugs.team.shopping.mvp.model.User;
 import nobugs.team.shopping.repo.api.GetOrderListApi;
-import nobugs.team.shopping.repo.api.model.OrderListResult;
+import nobugs.team.shopping.repo.api.entity.OrderListResult;
 import nobugs.team.shopping.repo.mapper.IResultMapper;
 import nobugs.team.shopping.repo.mapper.OrderListMapper;
 import nobugs.team.shopping.utils.CommonTools;

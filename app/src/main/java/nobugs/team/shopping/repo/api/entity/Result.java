@@ -1,4 +1,4 @@
-package nobugs.team.shopping.repo.api.model;
+package nobugs.team.shopping.repo.api.entity;
 
 import com.google.gson.annotations.Expose;
 

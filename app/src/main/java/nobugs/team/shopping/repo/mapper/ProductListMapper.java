@@ -5,8 +5,8 @@ import java.util.List;
 
 import nobugs.team.shopping.mvp.model.Product;
 import nobugs.team.shopping.mvp.model.ProductType;
-import nobugs.team.shopping.repo.api.model.ProductListResult;
-import nobugs.team.shopping.repo.model.ProductPo;
+import nobugs.team.shopping.repo.api.entity.ProductListResult;
+import nobugs.team.shopping.repo.entity.ProductPo;
 
 /**
  * Created by xiayong on 2015/8/30.

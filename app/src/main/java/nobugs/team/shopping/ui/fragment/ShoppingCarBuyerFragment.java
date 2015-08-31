@@ -1,6 +1,5 @@
 package nobugs.team.shopping.ui.fragment;
 
-import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.Button;
@@ -22,7 +21,7 @@ import nobugs.team.shopping.ui.adapter.ShoppingCarAdapter;
 /**
  * display the products that buyer has chosen
  */
-public class ShoppingCarFragment extends BaseFragment<ShoppingCarPresenter> implements ShoppingCarView,ViewPager.OnPageChangeListener {
+public class ShoppingCarBuyerFragment extends BaseFragment<ShoppingCarPresenter> implements ShoppingCarView,ViewPager.OnPageChangeListener {
 
 
     @Bind(R.id.tv_shoppingcar_title)
@@ -36,12 +35,12 @@ public class ShoppingCarFragment extends BaseFragment<ShoppingCarPresenter> impl
     private ShoppingCarAdapter shoppingCarAdapter;
     private int selectedPageIndex = 0;
 
-    public static ShoppingCarFragment newInstance() {
-        ShoppingCarFragment fragment = new ShoppingCarFragment();
+    public static ShoppingCarBuyerFragment newInstance() {
+        ShoppingCarBuyerFragment fragment = new ShoppingCarBuyerFragment();
         return fragment;
     }
 
-    public ShoppingCarFragment() {
+    public ShoppingCarBuyerFragment() {
         // Required empty public constructor
     }
 
@@ -59,7 +58,7 @@ public class ShoppingCarFragment extends BaseFragment<ShoppingCarPresenter> impl
 
     @Override
     protected int getLayoutResId() {
-        return R.layout.fragment_product_panels;
+        return R.layout.fragment_shoppingcar_buyer;
     }
 
     @OnClick({R.id.btn_delete,R.id.btn_commitproduct})

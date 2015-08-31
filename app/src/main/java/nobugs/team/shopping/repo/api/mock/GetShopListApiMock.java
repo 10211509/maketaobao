@@ -9,7 +9,7 @@ import nobugs.team.shopping.app.base.MyApplication;
 import nobugs.team.shopping.mvp.model.ProductType;
 import nobugs.team.shopping.mvp.model.Shop;
 import nobugs.team.shopping.repo.api.GetShopListApi;
-import nobugs.team.shopping.repo.api.model.ShopListResult;
+import nobugs.team.shopping.repo.api.entity.ShopListResult;
 import nobugs.team.shopping.repo.mapper.IResultMapper;
 import nobugs.team.shopping.repo.mapper.ShopListMapper;
 import nobugs.team.shopping.utils.CommonTools;

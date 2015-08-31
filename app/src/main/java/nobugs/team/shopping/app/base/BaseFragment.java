@@ -16,7 +16,7 @@ import nobugs.team.shopping.mvp.presenter.IPresenter;
 public abstract class BaseFragment<PresenterType extends IPresenter> extends Fragment {
 
 
-    private PresenterType mPresenter;
+    private PresenterType mPresenter = initPresenter();
 
     public PresenterType getPresenter() {
         return mPresenter;
@@ -29,6 +29,7 @@ public abstract class BaseFragment<PresenterType extends IPresenter> extends Fra
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         if (mPresenter != null) {
             mPresenter.onCreate();
         }
@@ -41,7 +42,6 @@ public abstract class BaseFragment<PresenterType extends IPresenter> extends Fra
         View v = inflater.inflate(getLayoutResId(), container, false);
         ButterKnife.bind(this, v);
 
-        setPresenter(initPresenter());
         initView();
         initData();
         initEvent();

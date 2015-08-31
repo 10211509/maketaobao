@@ -1,7 +1,7 @@
 package nobugs.team.shopping.repo.mapper;
 
 import nobugs.team.shopping.mvp.model.Shop;
-import nobugs.team.shopping.repo.model.ShopPo;
+import nobugs.team.shopping.repo.entity.ShopPo;
 
 /**
  * Created by wangyf on 2015/8/30 0030.

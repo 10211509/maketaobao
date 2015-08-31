@@ -55,7 +55,7 @@ public class ShoppingCarAdapter extends PagerAdapter {
     {
         LayoutInflater inflater =
                 (LayoutInflater) view.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View container = inflater.inflate(R.layout.viewpager_item_shoppingcar, null);
+        View container = inflater.inflate(R.layout.viewpager_item_shoppingcar_buyer, null);
         TextView tvName = (TextView) container.findViewById(R.id.tv_name);
         TextView tvAmount = (TextView) container.findViewById(R.id.tv_number);
         TextView tvUnit = (TextView) container.findViewById(R.id.tv_unit);

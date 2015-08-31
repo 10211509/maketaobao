@@ -1,13 +1,9 @@
 package nobugs.team.shopping.repo.api.retrofit;
 
-import java.util.List;
-
 import nobugs.team.shopping.constant.AppConfig;
-import nobugs.team.shopping.mvp.model.ProductType;
-import nobugs.team.shopping.mvp.model.Shop;
-import nobugs.team.shopping.repo.api.model.LoginResult;
-import nobugs.team.shopping.repo.api.model.ShopListResult;
-import nobugs.team.shopping.repo.api.model.TypeListResult;
+import nobugs.team.shopping.repo.api.entity.LoginResult;
+import nobugs.team.shopping.repo.api.entity.ShopListResult;
+import nobugs.team.shopping.repo.api.entity.TypeListResult;
 import retrofit.Callback;
 import retrofit.http.GET;
 import retrofit.http.Query;

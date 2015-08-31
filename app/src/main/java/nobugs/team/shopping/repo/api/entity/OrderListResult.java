@@ -1,6 +1,6 @@
-package nobugs.team.shopping.repo.api.model;
+package nobugs.team.shopping.repo.api.entity;
 
-import nobugs.team.shopping.repo.model.OrderPo;
+import nobugs.team.shopping.repo.entity.OrderPo;
 
 /**
  * Created by xiayong on 2015/8/26.

@@ -244,8 +244,9 @@ public class VoIPCallHelper implements OnMakeCallBackListener {
         /**
          * 对方应答（通话完全建立）
          * @param callId 通话的唯一标识
+         * @param direct
          */
-        void onCallAnswered(String callId);
+        void onCallAnswered(String callId, ECVoIPCallManager.ECCallDirect direct);
 
         /**
          * 呼叫失败
@@ -286,7 +287,7 @@ public class VoIPCallHelper implements OnMakeCallBackListener {
                     break;
                 case ECCALL_ANSWERED:
                     mHandlerVideoCall = false;
-                    notifyListener.onCallAnswered(callId);
+                    notifyListener.onCallAnswered(callId, voipCall.direct);
                     break;
                 case ECCALL_FAILED:
                     notifyListener.onMakeCallFailed(callId , mCallEntry.reason);

@@ -1,11 +1,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
     android:orientation="vertical"
-    android:weightSum="1"
-    tools:context="nobugs.team.shopping.ui.fragment.ShoppingCarFragment">
+    android:weightSum="1">
 
     <TextView
         android:id="@+id/tv_shoppingcar_title"
@@ -15,6 +13,7 @@
         android:background="@color/cff0000"
         android:gravity="center"
         android:text="@string/tv_shoppingcar_title"
+        android:textSize="18sp"
         android:textColor="@android:color/white" />
 
     <TextView
@@ -24,34 +23,40 @@
         android:layout_weight="0.1"
         android:gravity="center"
         android:text="@string/tv_shopping_car_number" />
+
     <android.support.v4.view.ViewPager
         android:id="@+id/vPager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.611"
         android:layout_gravity="center"
+        android:layout_weight="0.611"
         android:background="@android:color/white"
         android:flipInterval="30"
         android:persistentDrawingCache="animation" />
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.159"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="horizontal">
 
         <Button
+            android:id="@+id/btn_addorder"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="添加新商品"
-            android:id="@+id/btn_addproduct" />
+            android:layout_weight="1"
+            android:layout_marginLeft="10dp"
+            android:text="添加新商品" />
 
         <Button
+            android:id="@+id/btn_deleteorder"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="删除该商品"
-            android:id="@+id/btn_deleteproduct" />
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:text="删除该商品" />
     </LinearLayout>
 
 </LinearLayout>

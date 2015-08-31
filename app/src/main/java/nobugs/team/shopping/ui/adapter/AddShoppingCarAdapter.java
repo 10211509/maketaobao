@@ -67,7 +67,7 @@ public class AddShoppingCarAdapter extends PagerAdapter {
     {
         LayoutInflater inflater =
                 (LayoutInflater) view.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View container = inflater.inflate(R.layout.viewpager_item_add_shoppingcar, null);
+        View container = inflater.inflate(R.layout.viewpager_item_shoppingcar_seller, null);
         Spinner spName = (Spinner) container.findViewById(R.id.sp_name);
         EditText etAmount = (EditText) container.findViewById(R.id.et_product_number);
         Spinner spUnit = (Spinner) container.findViewById(R.id.sp_unit);

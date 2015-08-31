@@ -26,8 +26,8 @@ import java.util.Arrays;
 import de.greenrobot.event.EventBus;
 import nobugs.team.shopping.event.RemoteShopSelectEvent;
 import nobugs.team.shopping.event.ShopSelectEvent;
-import nobugs.team.shopping.im.model.IMBase;
-import nobugs.team.shopping.im.model.IMSelectShop;
+import nobugs.team.shopping.im.entity.IMBase;
+import nobugs.team.shopping.im.entity.IMSelectShop;
 import nobugs.team.shopping.mvp.model.Shop;
 import nobugs.team.shopping.mvp.model.User;
 import nobugs.team.shopping.mvp.view.VoipCallView;
@@ -172,11 +172,6 @@ public class VoipCallPresenterImpl extends BasePresenter<VoipCallView> implement
         //send the mCurrentCallId
 //        EventBus.getDefault().postSticky(new CallBeginEvent(isIncomingCall, mPeerUser, mSellerShop, mCurrentCallId));
 
-        //navigate to VideoActivity
-        User loginUser = Repository.getInstance().getLoginUser();
-//        EventBus.getDefault().postSticky(new SelectShopEvent(mSellerShop));
-//        getView().showVideoView(loginUser,);
-        getView().showSellerVideoView(loginUser, mSellerShop.getId());
     }
 
     @Override
@@ -294,16 +289,24 @@ public class VoipCallPresenterImpl extends BasePresenter<VoipCallView> implement
     }
 
     /**
-     * 对端应答，通话计时开始
+     * 应答成功，通话计时开始
      *
      * @param callId 通话的唯一标识
+     * @param direct
      */
     @Override
-    public void onCallAnswered(String callId) {
+    public void onCallAnswered(String callId, ECVoIPCallManager.ECCallDirect direct) {
         if (callId != null && callId.equals(mCurrentCallId)) {
             User loginUser = Repository.getInstance().getLoginUser();
 //            getView().showVideoView(loginUser);
-            getView().showBuyerVideoView(loginUser);
+            switch (direct){
+                case EC_INCOMING:   //打进来，卖家
+                    getView().showSellerVideoView(loginUser, mSellerShop.getId());
+                    break;
+                case EC_OUTGOING:   //打出去，买家
+                    getView().showBuyerVideoView(loginUser);
+                    break;
+            }
         }
     }
 

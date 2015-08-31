@@ -3,7 +3,7 @@ package nobugs.team.shopping.repo.db.helper;
 import java.util.List;
 
 import de.greenrobot.dao.AbstractDao;
-import nobugs.team.shopping.repo.model.UserPo;
+import nobugs.team.shopping.repo.entity.UserPo;
 
 /**
  * Created by xiayong on 2015/8/27.

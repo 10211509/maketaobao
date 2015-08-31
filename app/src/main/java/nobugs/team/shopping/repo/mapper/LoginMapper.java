@@ -1,8 +1,8 @@
 package nobugs.team.shopping.repo.mapper;
 
 import nobugs.team.shopping.mvp.model.User;
-import nobugs.team.shopping.repo.api.model.LoginResult;
-import nobugs.team.shopping.repo.model.UserPo;
+import nobugs.team.shopping.repo.api.entity.LoginResult;
+import nobugs.team.shopping.repo.entity.UserPo;
 
 /**
  * Created by Administrator on 2015/8/23 0023.

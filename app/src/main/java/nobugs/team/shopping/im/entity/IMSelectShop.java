@@ -1,12 +1,17 @@
-package nobugs.team.shopping.im.model;
+package nobugs.team.shopping.im.entity;
 
-import nobugs.team.shopping.repo.model.UserPo;
+import com.google.gson.annotations.Expose;
+
+import nobugs.team.shopping.repo.entity.UserPo;
 
 /**
  * Created by wangyf on 2015/8/30 0030.
  */
 public class IMSelectShop extends IMBase{
+    @Expose
     private int shopId;
+
+    @Expose
     private UserPo buyer;
 
     public IMSelectShop() {

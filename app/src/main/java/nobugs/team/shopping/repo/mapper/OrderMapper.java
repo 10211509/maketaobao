@@ -2,7 +2,7 @@ package nobugs.team.shopping.repo.mapper;
 
 import nobugs.team.shopping.mvp.model.Order;
 import nobugs.team.shopping.mvp.model.Product;
-import nobugs.team.shopping.repo.model.OrderPo;
+import nobugs.team.shopping.repo.entity.OrderPo;
 
 /**
  * Created by wangyf on 2015/8/30 0030.
