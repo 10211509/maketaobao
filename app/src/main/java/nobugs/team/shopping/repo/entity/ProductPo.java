@@ -9,8 +9,8 @@ public class ProductPo extends BasePo {
     @Expose
     private Integer id;
 
-    @Expose
-    private Integer typeid;
+   /* @Expose
+    private Integer typeid;*/
 
     @Expose
     private String name;
@@ -23,13 +23,13 @@ public class ProductPo extends BasePo {
         this.id = id;
     }
 
-    public Integer getTypeid() {
+    /*public Integer getTypeid() {
         return typeid;
     }
 
     public void setTypeid(Integer typeid) {
         this.typeid = typeid;
-    }
+    }*/
 
     public String getName() {
         return name;

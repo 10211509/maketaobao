@@ -29,7 +29,11 @@ public class GetProductListApiImpl extends BaseRetrofitHandler implements GetPro
         getService().getProductList(shopId, new retrofit.Callback<ProductListResult>() {
             @Override
             public void success(ProductListResult shopListResult, Response response) {
-                callback.onFinish((List<Product>) mapper.map(shopListResult));
+                if(shopListResult.getCode() == 0){
+                    callback.onFinish((List<Product>) mapper.map(shopListResult));
+                }else{
+                    callback.onError(0,shopListResult.getCodeMsg());
+                }
             }
 
             @Override

@@ -5,7 +5,9 @@ import nobugs.team.shopping.event.OrderSelectEvent;
 import nobugs.team.shopping.mvp.interactor.OrderInteractor;
 import nobugs.team.shopping.mvp.interactor.OrderInteractorImpl;
 import nobugs.team.shopping.mvp.model.Order;
+import nobugs.team.shopping.mvp.model.User;
 import nobugs.team.shopping.mvp.view.OrderDetailsView;
+import nobugs.team.shopping.repo.Repository;
 
 /**
  * Created by xiayong on 2015/8/23.
@@ -26,7 +28,8 @@ public class OrderDetailsPresenterImpl extends BasePresenter<OrderDetailsView> i
     }
     public void onEventMainThread(OrderSelectEvent orderEvent) {
         order = orderEvent.getOrder();
-        if(order.getBuyer().isSeller()){
+        User loginer = Repository.getInstance().getLoginUser();
+        if(loginer.isSeller()){
             getView().showBuyerView(order);
         }else{
             getView().showSellerView(order);

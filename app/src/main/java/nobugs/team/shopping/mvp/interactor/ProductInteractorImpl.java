@@ -21,7 +21,7 @@ public class ProductInteractorImpl implements ProductInteractor {
 
             @Override
             public void onError(int errType, String errMsg) {
-
+                callback.onFailure();
             }
         });
     }

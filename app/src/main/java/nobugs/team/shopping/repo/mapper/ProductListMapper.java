@@ -25,9 +25,9 @@ public class ProductListMapper implements IResultMapper<ProductListResult,List<P
         Product product = new Product();
         product.setName(productPo.getName());
         product.setId(productPo.getId());
-        ProductType productType = new ProductType();
+       /* ProductType productType = new ProductType();
         productType.setId(productPo.getTypeid());
-        product.setType(productType);
+        product.setType(productType);*/
         return product;
     }
 }

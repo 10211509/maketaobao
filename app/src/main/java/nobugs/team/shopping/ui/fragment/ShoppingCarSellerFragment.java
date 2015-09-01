@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -69,6 +70,7 @@ public class ShoppingCarSellerFragment extends BaseFragment<ShoppingCarSellerPre
     @OnClick(R.id.btn_addorder)
     public void onAddOrderClick() {
         Order order = shoppingCarSellerAdapter.getOrder(selectedPageIndex);
+//        View currentPage = vpContainer.get
         if(TextUtils.isEmpty(order.getProduct().getName())){
             Toast.makeText(this.getActivity(),getActivity().getString(R.string.toast_product_name),Toast.LENGTH_SHORT).show();
             return;

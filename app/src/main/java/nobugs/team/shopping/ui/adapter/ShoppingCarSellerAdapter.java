@@ -6,6 +6,7 @@ import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -100,18 +101,24 @@ public class ShoppingCarSellerAdapter extends PagerAdapter {
         Spinner spUnit = (Spinner) container.findViewById(R.id.sp_unit);
         EditText etTotalPrice = (EditText) container.findViewById(R.id.ed_total_price);
 
-       /* if(position >= orders.size()){
-            initProductName(spName,shop,"");
-            etAmount.setText("");
-            initProductUnit(spUnit, "");
-            etTotalPrice.setText("0");
-        }else {*/
+
         Order order = orders.get(position);
         initProductName(spName, shop, order.getProduct().getName());
         etAmount.setText(String.valueOf(order.getProduct_count()));
         initProductUnit(spUnit, order.getProduct().getType().getUnit());
         etTotalPrice.setText(String.valueOf(order.getPrice()));
-//        }
+
+        /*spName.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                orders.get(position).setPrice(123);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });*/
         ((ViewPager) collection).addView(container, 0);
         return container;
     }
