@@ -6,15 +6,14 @@ import java.util.List;
 
 import de.greenrobot.event.EventBus;
 import nobugs.team.shopping.event.ShopSelectEvent;
-import nobugs.team.shopping.mvp.model.ProductType;
 import nobugs.team.shopping.mvp.interactor.AdsBannerInterator;
 import nobugs.team.shopping.mvp.interactor.AdsBannerInteratorImpl;
 import nobugs.team.shopping.mvp.interactor.ProductTypeInteractor;
 import nobugs.team.shopping.mvp.interactor.ProductTypeInteractorImpl;
 import nobugs.team.shopping.mvp.interactor.ShopInteractor;
 import nobugs.team.shopping.mvp.interactor.ShopInteractorImpl;
+import nobugs.team.shopping.mvp.model.ProductType;
 import nobugs.team.shopping.mvp.model.Shop;
-import nobugs.team.shopping.mvp.model.User;
 import nobugs.team.shopping.mvp.view.MainShopView;
 
 /**
@@ -144,7 +143,6 @@ public class MainShopPresenterImpl extends BasePresenter<MainShopView> implement
 
     @Override
     public void onStart() {
-
         //TODO
         showAdsBanner();
 
@@ -174,8 +172,7 @@ public class MainShopPresenterImpl extends BasePresenter<MainShopView> implement
     @Override
     public void onSelectShop(@NonNull Shop shop) {
         //start to call the SELLER
-        User user = new User(2L,"test2","123456","13521939540", User.Type.SELLER);
-        shop.setOwner(user);
+//        User user = new User(2L,"test2","123456","13521939540", User.Type.SELLER);
 
         EventBus.getDefault().postSticky(new ShopSelectEvent(shop));
 
