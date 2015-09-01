@@ -45,7 +45,7 @@ public interface OrderInteractor {
     }
 
     interface UpdateCallback extends Callback {
-        void onOrderStateUpdateSuccess();
+        void onOrderStateUpdateSuccess(Order.State newState);
     }
 
     interface DeleteCallback extends Callback {

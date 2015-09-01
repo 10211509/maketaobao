@@ -29,7 +29,7 @@ public class OrderDetailsPresenterImpl extends BasePresenter<OrderDetailsView> i
     public void onEventMainThread(OrderSelectEvent orderEvent) {
         order = orderEvent.getOrder();
         User loginer = Repository.getInstance().getLoginUser();
-        if(loginer.isSeller()){
+        if(!loginer.isSeller()){
             getView().showBuyerView(order);
         }else{
             getView().showSellerView(order);
@@ -63,8 +63,15 @@ public class OrderDetailsPresenterImpl extends BasePresenter<OrderDetailsView> i
     }
 
     @Override
-    public void onOrderStateUpdateSuccess() {
-
+    public void onOrderStateUpdateSuccess(Order.State newState) {
+        order.setOrderState(newState);
+//        getView().updateButtonState(Repository.getInstance().getLoginUser(),newState);
+        User loginer = Repository.getInstance().getLoginUser();
+        if(!loginer.isSeller()){
+            getView().showBuyerView(order);
+        }else{
+            getView().showSellerView(order);
+        }
     }
 
     @Override

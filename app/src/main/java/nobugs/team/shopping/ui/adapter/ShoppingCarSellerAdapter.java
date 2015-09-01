@@ -3,13 +3,16 @@ package nobugs.team.shopping.ui.adapter;
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -51,23 +54,24 @@ public class ShoppingCarSellerAdapter extends PagerAdapter {
         }
     }
 
-    public Order getOrder(int index){
-        if(index < 0 || index >= orders.size()){
+    public Order getOrder(int index) {
+        if (index < 0 || index >= orders.size()) {
             throw new IndexOutOfBoundsException("the order is not added into the ViewPager");
         }
         return orders.get(index);
     }
 
-    public boolean orderSuccessfulAdded(int index){
-        if(index < 0 || index >= orders.size()){
+    public boolean orderSuccessfulAdded(int index) {
+        if (index < 0 || index >= orders.size()) {
             throw new IndexOutOfBoundsException("the order is not added into the ViewPager");
         }
         return !TextUtils.isEmpty(orders.get(index).getOrderid());
     }
 
-    public void addEmptyOrder(){
+    public void addEmptyOrder() {
         addOrder(createEmptyOrder());
     }
+
     public void deleteOrder(String orderid) {
         for (Order order : orders) {
             if (order.getOrderid().equals(orderid))
@@ -91,7 +95,7 @@ public class ShoppingCarSellerAdapter extends PagerAdapter {
     }
 
     @Override
-    public Object instantiateItem(View collection, int position)                                //实例化Item
+    public Object instantiateItem(View collection, final int position)                                //实例化Item
     {
         LayoutInflater inflater =
                 (LayoutInflater) collection.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -102,23 +106,69 @@ public class ShoppingCarSellerAdapter extends PagerAdapter {
         EditText etTotalPrice = (EditText) container.findViewById(R.id.ed_total_price);
 
 
-        Order order = orders.get(position);
+        final Order order = orders.get(position);
         initProductName(spName, shop, order.getProduct().getName());
         etAmount.setText(String.valueOf(order.getProduct_count()));
         initProductUnit(spUnit, order.getProduct().getType().getUnit());
         etTotalPrice.setText(String.valueOf(order.getPrice()));
 
-        /*spName.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spName.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                orders.get(position).setPrice(123);
+            public void onItemSelected(AdapterView<?> parent, View view, int index, long id) {
+//                orders.get(position).setPrice(123);
+                String name = ((TextView)view).getText().toString();
+                orders.get(position).getProduct().setName(name);
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
-        });*/
+        });
+        spUnit.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int index, long id) {
+                String unit = ((TextView)view).getText().toString();
+                orders.get(position).getProduct().getType().setUnit(unit);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        etAmount.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                //leave it empty
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//leave it empty
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                orders.get(position).setProduct_count(Integer.valueOf(s.toString()));
+            }
+        });
+        etTotalPrice.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//leave it empty
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//leave it empty
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                orders.get(position).setPrice(Double.valueOf(s.toString()));
+            }
+        });
         ((ViewPager) collection).addView(container, 0);
         return container;
     }

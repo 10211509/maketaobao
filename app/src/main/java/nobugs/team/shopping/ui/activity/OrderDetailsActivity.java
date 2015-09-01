@@ -11,6 +11,7 @@ import butterknife.OnClick;
 import nobugs.team.shopping.R;
 import nobugs.team.shopping.app.base.BaseActivity;
 import nobugs.team.shopping.mvp.model.Order;
+import nobugs.team.shopping.mvp.model.User;
 import nobugs.team.shopping.mvp.presenter.OrderDetailsPresenter;
 import nobugs.team.shopping.mvp.presenter.OrderDetailsPresenterImpl;
 import nobugs.team.shopping.mvp.view.OrderDetailsView;
@@ -88,6 +89,14 @@ public class OrderDetailsActivity extends BaseActivity<OrderDetailsPresenter> im
         }
 
     }
+
+  /*  @Override
+    public void updateButtonState(User loginer, Order.State newState) {
+        if(loginer.isSeller()){
+
+        }
+    }*/
+
     private void updateOrderView(Order order){
         tvOrderid.setText(Phrase.from(this, R.string.order_id).put("orderid",order.getOrderid()).format());
         tvName.setText(Phrase.from(this,R.string.order_name).put("name", order.getProduct().getName()).format());

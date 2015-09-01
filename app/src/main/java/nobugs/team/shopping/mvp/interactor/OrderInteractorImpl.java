@@ -101,7 +101,7 @@ public class OrderInteractorImpl implements OrderInteractor {
     }
 
     @Override
-    public void updateOrderState(String orderId, Order.State state, final UpdateCallback callback) {
+    public void updateOrderState(String orderId, final Order.State state, final UpdateCallback callback) {
         Order order = new Order();
         order.setOrderid(orderId);
         order.setOrderState(state);
@@ -109,7 +109,7 @@ public class OrderInteractorImpl implements OrderInteractor {
         Repository.getInstance().updateOrder(order, new RepoCallback.Update<Order>() {
             @Override
             public void onUpateDataSuccess() {
-                callback.onOrderStateUpdateSuccess();
+                callback.onOrderStateUpdateSuccess(state);
             }
 
             @Override
