@@ -5,7 +5,7 @@ package nobugs.team.shopping.mvp.model;
  * 订单实体bean
  */
 public class Order {
-//    private int id;//主键id
+    //    private int id;//主键id
     private String orderid;//订单编号
     private Product product;//用户购买的商品
     private int product_count;//商品数量
@@ -15,7 +15,7 @@ public class Order {
     private String place_time;
     private State orderState = State.payed;
 
-    public Order(){
+    public Order() {
         //empty constructor
     }
 
@@ -30,7 +30,7 @@ public class Order {
     }
 
     //订单状态
-    public enum State{
+    public enum State {
         placed,
         payed,
         collected,
@@ -43,12 +43,33 @@ public class Order {
         return orderState;
     }
 
+    public int getState() {
+        if (orderState == null)
+            return 0;
+        switch (orderState) {
+            case placed:
+                return 0;
+            case payed:
+                return 1;
+            case collected:
+                return 2;
+            case delivered:
+                return 3;
+            case received:
+                return 4;
+            case canceled:
+                return 5;
+            default:
+                throw new IllegalStateException("no such order state!");
+        }
+    }
+
     public void setOrderState(State orderState) {
         this.orderState = orderState;
     }
 
-    public void setOrderState(int orderState){
-        switch (orderState){
+    public void setOrderState(int orderState) {
+        switch (orderState) {
             case 0:
                 this.orderState = State.placed;
                 break;
@@ -71,6 +92,7 @@ public class Order {
                 throw new IllegalStateException("no such order state!");
         }
     }
+
 
     public String getPlace_time() {
         return place_time;

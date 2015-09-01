@@ -1,14 +1,17 @@
 package nobugs.team.shopping.mvp.presenter;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import de.greenrobot.event.EventBus;
-import nobugs.team.shopping.event.RemoteShopSelectEvent;
+import nobugs.team.shopping.event.CallBeginEvent;
+import nobugs.team.shopping.event.RemoteOrderAddEvent;
+import nobugs.team.shopping.event.RemoteOrderDelEvent;
+import nobugs.team.shopping.im.IMSendHelper;
 import nobugs.team.shopping.mvp.interactor.ShoppingCarInteractor;
 import nobugs.team.shopping.mvp.interactor.ShoppingCarInteractorImpl;
 import nobugs.team.shopping.mvp.model.Order;
+import nobugs.team.shopping.mvp.model.User;
 import nobugs.team.shopping.mvp.view.ShoppingCarView;
 
 /**
@@ -17,6 +20,8 @@ import nobugs.team.shopping.mvp.view.ShoppingCarView;
 public class ShoppingCarPresenterImpl extends BasePresenter<ShoppingCarView> implements ShoppingCarPresenter,ShoppingCarInteractor.Callback {
     private ShoppingCarInteractor shoppingCarInteractor;
     private List<Order> orders;
+    private User mOwnUser;
+    private User mPeerUser;
 
     public ShoppingCarPresenterImpl(ShoppingCarView shoppingCarView) {
         super(shoppingCarView);
@@ -24,25 +29,52 @@ public class ShoppingCarPresenterImpl extends BasePresenter<ShoppingCarView> imp
         orders = new ArrayList<>();
     }
 
+    public void onEventMainThread(CallBeginEvent event) {
+        mOwnUser = event.getMe();
+        mPeerUser = event.getPeer();
+
+        EventBus.getDefault().removeStickyEvent(event);
+    }
+
+    public void onEventMainThread(RemoteOrderAddEvent event) {
+        Order orderAdd = event.getOrder();
+
+        //TODO 卖家增加订单，处理UI
+
+
+        EventBus.getDefault().removeStickyEvent(event);
+    }
+
+    public void onEventMainThread(RemoteOrderDelEvent event) {
+        int orderDel = event.getOrderId();
+
+        //TODO 卖家删除订单，处理UI
+
+
+        EventBus.getDefault().removeStickyEvent(event);
+    }
 
     @Override
     public void commitProduct() {
         //leave it empty
     }
+
     @Override
     public void onCreateView() {
         EventBus.getDefault().registerSticky(this);
     }
 
-    public void onEventMainThread(RemoteShopSelectEvent event) {
-        //addProduct() here !
-    }
     @Override
     public void deleteProduct(int index) {
         if (index < 0 || index > orders.size()) {
             throw new IllegalArgumentException("The product index doesn't exist");
         }
-        shoppingCarInteractor.deleteProduct(orders.get(index).getOrderid(), this);
+        String orderId = orders.get(index).getOrderid();
+
+        shoppingCarInteractor.deleteProduct(orderId, this);
+
+        //TODO 应该移至删除成功的回调中
+        IMSendHelper.sendDelOrder(mOwnUser.getPhone(), mPeerUser.getPhone(), Integer.parseInt(orderId));
     }
 
     @Override

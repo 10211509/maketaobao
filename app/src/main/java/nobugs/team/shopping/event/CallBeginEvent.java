@@ -7,24 +7,24 @@ import nobugs.team.shopping.mvp.model.User;
  * Created by Administrator on 2015/8/26 0026.
  */
 public class CallBeginEvent implements Event{
-    private boolean isIncomingCall;
+    private User me;
     private User peer;
     private Shop shop;
     private String callId;
 
-    public CallBeginEvent(boolean isIncomingCall, User peer, Shop shop, String callId) {
-        this.isIncomingCall = isIncomingCall;
+    public CallBeginEvent(User me,  User peer, Shop shop, String callId) {
+        this.me = me;
         this.peer = peer;
         this.shop = shop;
         this.callId = callId;
     }
 
-    public boolean isIncomingCall() {
-        return isIncomingCall;
+    public User getMe() {
+        return me;
     }
 
-    public void setIsCaller(boolean isIncomingCall) {
-        this.isIncomingCall = isIncomingCall;
+    public void setMe(User me) {
+        this.me = me;
     }
 
     public User getPeer() {

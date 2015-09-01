@@ -17,8 +17,8 @@ public class IMSelectShop extends IMBase{
     public IMSelectShop() {
     }
 
-    public IMSelectShop(String type, int shopId, UserPo buyer) {
-        super(type);
+    public IMSelectShop(int shopId, UserPo buyer) {
+        super(TYPE_SELECT_SHOP);
         this.shopId = shopId;
         this.buyer = buyer;
     }

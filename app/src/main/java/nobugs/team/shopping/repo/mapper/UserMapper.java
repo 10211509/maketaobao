@@ -19,6 +19,8 @@ public class UserMapper implements IModelMapper<User, UserPo> {
         po.setPassword(user.getPassword());
         po.setPhone(user.getPhone());
         po.setType(mapUserType(user.getType()));
+        po.setRealname(user.getNickname());
+        po.setImgurl(user.getImgUrl());
         return po;
     }
 
@@ -33,6 +35,8 @@ public class UserMapper implements IModelMapper<User, UserPo> {
         user.setPassword(userPo.getPassword());
         user.setPhone(userPo.getPhone());
         user.setType(mapUserType(userPo.getType()));
+        user.setNickname(userPo.getRealname());
+        user.setImgUrl(userPo.getImgurl());
         return user;
     }
 

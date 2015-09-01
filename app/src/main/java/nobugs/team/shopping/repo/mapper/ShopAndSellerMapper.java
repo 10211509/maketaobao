@@ -19,7 +19,7 @@ public class ShopAndSellerMapper implements IModelMapper<Shop, ShopAndSeller> {
         User seller = new User();
         seller.setId(Long.valueOf(shopAndSeller.getUserid()));
         seller.setPhone(shopAndSeller.getPhone());
-        seller.setName(shopAndSeller.getUsername());
+        seller.setNickname(shopAndSeller.getUsername());
         seller.setType(User.Type.SELLER);
 
         Shop shop = new Shop();

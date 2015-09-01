@@ -10,7 +10,7 @@
  *  in the file PATENTS.  All contributing project authors may
  *  be found in the AUTHORS file in the root of the source tree.
  */
-package nobugs.team.shopping.utils;
+package nobugs.team.shopping.im;
 
 import android.util.Log;
 
@@ -31,12 +31,19 @@ import java.util.List;
 
 import de.greenrobot.event.EventBus;
 import nobugs.team.shopping.event.IMEvent;
+import nobugs.team.shopping.event.RemoteOrderAddEvent;
+import nobugs.team.shopping.event.RemoteOrderDelEvent;
 import nobugs.team.shopping.event.RemoteShopSelectEvent;
+import nobugs.team.shopping.im.entity.IMAddOrder;
 import nobugs.team.shopping.im.entity.IMBase;
+import nobugs.team.shopping.im.entity.IMDelOrder;
 import nobugs.team.shopping.im.entity.IMSelectShop;
+import nobugs.team.shopping.mvp.model.Order;
 import nobugs.team.shopping.mvp.model.Shop;
 import nobugs.team.shopping.mvp.model.User;
+import nobugs.team.shopping.repo.mapper.OrderMapper;
 import nobugs.team.shopping.repo.mapper.UserMapper;
+import nobugs.team.shopping.utils.CCPHelper;
 
 
 /**
@@ -314,10 +321,20 @@ public class IMChattingHelper implements OnChatReceiveListener
                         final IMSelectShop imshop = gson.fromJson(txt, IMSelectShop.class);
                         Shop shop = new Shop();
                         shop.setId(imshop.getShopId());
-//                        User user = new UserMapper().toModel(imshop.getBuyer());
+                        User user = new UserMapper().toModel(imshop.getBuyer());
 
-                        RemoteShopSelectEvent event = new RemoteShopSelectEvent(shop, null);
-                        EventBus.getDefault().postSticky(event);
+                        EventBus.getDefault().postSticky(new RemoteShopSelectEvent(shop, user));
+                        break;
+                    case IMBase.TYPE_ADD_ORDER:
+                        final IMAddOrder imAddOrder = gson.fromJson(txt, IMAddOrder.class);
+                        Order orderAdd = new OrderMapper().toModel(imAddOrder.getOrder());
+
+                        EventBus.getDefault().postSticky(new RemoteOrderAddEvent(orderAdd, msg));
+                        break;
+                    case IMBase.TYPE_DEL_ORDER:
+                        final IMDelOrder imDelOrder = gson.fromJson(txt, IMDelOrder.class);
+
+                        EventBus.getDefault().postSticky(new RemoteOrderDelEvent(imDelOrder.getOrderId(), msg));
                         break;
                 }
             } catch (JSONException e) {

@@ -4,12 +4,13 @@ import android.text.TextUtils;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import de.greenrobot.event.EventBus;
 import nobugs.team.shopping.R;
-import nobugs.team.shopping.event.RemoteShopSelectEvent;
+import nobugs.team.shopping.event.CallBeginEvent;
+import nobugs.team.shopping.event.RemoteOrderDelEvent;
+import nobugs.team.shopping.im.IMSendHelper;
 import nobugs.team.shopping.mvp.interactor.ProductInteractor;
 import nobugs.team.shopping.mvp.interactor.ProductInteractorImpl;
 import nobugs.team.shopping.mvp.interactor.ShoppingCarInteractor;
@@ -17,16 +18,20 @@ import nobugs.team.shopping.mvp.interactor.ShoppingCarInteractorImpl;
 import nobugs.team.shopping.mvp.model.Order;
 import nobugs.team.shopping.mvp.model.Product;
 import nobugs.team.shopping.mvp.model.Shop;
+import nobugs.team.shopping.mvp.model.User;
 import nobugs.team.shopping.mvp.view.ShoppingCarSellerView;
 
 /**
  * Created by xiayong on 2015/8/30.
  */
 public class ShoppingCarSellerPresenterImpl extends BasePresenter<ShoppingCarSellerView> implements ShoppingCarSellerPresenter, ShoppingCarInteractor.Callback,ProductInteractor.Callback {
+    private static final String TAG = "ShoppingCarSeller";
     private Shop shop;
     private List<Order> orders;
     private ShoppingCarInteractor shoppingCarInteractor;
     private ProductInteractor productInteractor;
+    private User mOwnUser;
+    private User mPeerUser;
 
     public ShoppingCarSellerPresenterImpl(ShoppingCarSellerView addShoppingCarView) {
         super(addShoppingCarView);
@@ -40,10 +45,23 @@ public class ShoppingCarSellerPresenterImpl extends BasePresenter<ShoppingCarSel
         EventBus.getDefault().registerSticky(this);
     }
 
-    public void onEventMainThread(RemoteShopSelectEvent event) {
+    public void onEventMainThread(CallBeginEvent event) {
         shop = event.getShop();
+        mOwnUser = event.getMe();
+        mPeerUser = event.getPeer();
+
         //get product list by shop id
         productInteractor.getProducts(String.valueOf(shop.getId()), this);
+
+        EventBus.getDefault().removeStickyEvent(event);
+    }
+
+    public void onEventMainThread(RemoteOrderDelEvent event) {
+        int orderDel = event.getOrderId();
+
+        //TODO 买家删除订单，处理UI
+
+
         EventBus.getDefault().removeStickyEvent(event);
     }
 
@@ -56,6 +74,9 @@ public class ShoppingCarSellerPresenterImpl extends BasePresenter<ShoppingCarSel
     public void addOrder(Order order) {
         orders.add(order);
         shoppingCarInteractor.addProduct(order, this);
+
+        //TODO 应该移至添加成功的回调中
+        IMSendHelper.sendAddOrder(mOwnUser.getPhone(), mPeerUser.getPhone(), order);
     }
 
     @Override
@@ -64,14 +85,17 @@ public class ShoppingCarSellerPresenterImpl extends BasePresenter<ShoppingCarSel
             Toast.makeText(getContext(),"不能删除该商品！",Toast.LENGTH_SHORT).show();
             return;
         }
-        String orderid = orders.get(index).getOrderid();
-        if(TextUtils.isEmpty(orderid)){
+        String orderId = orders.get(index).getOrderid();
+        if(TextUtils.isEmpty(orderId)){
             //the order has not been added into the database
             orders.remove(index);
             getView().refreshViewPagerWhenDataSetChange(orders);
             return;
         }
-        shoppingCarInteractor.deleteProduct(orderid, this);
+        shoppingCarInteractor.deleteProduct(orderId, this);
+
+        //TODO 应该移至删除成功的回调中
+        IMSendHelper.sendDelOrder(mOwnUser.getPhone(), mPeerUser.getPhone(), Integer.parseInt(orderId));
     }
 
 
@@ -105,11 +129,13 @@ public class ShoppingCarSellerPresenterImpl extends BasePresenter<ShoppingCarSel
 
     @Override
     public void onNetWorkError() {
-        Toast.makeText(getContext(),getContext().getString(R.string.network_failed),Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), getContext().getString(R.string.network_failed), Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onFailure() {
         Toast.makeText(getContext(),getContext().getString(R.string.operation_failed),Toast.LENGTH_SHORT).show();
     }
+
+
 }

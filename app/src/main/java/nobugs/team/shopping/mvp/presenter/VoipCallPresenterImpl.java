@@ -8,13 +8,10 @@ import android.view.SurfaceView;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
 import com.yuntongxun.ecsdk.CameraCapability;
 import com.yuntongxun.ecsdk.CameraInfo;
-import com.yuntongxun.ecsdk.ECDeskManager;
 import com.yuntongxun.ecsdk.ECDevice;
 import com.yuntongxun.ecsdk.ECError;
-import com.yuntongxun.ecsdk.ECMessage;
 import com.yuntongxun.ecsdk.ECVoIPCallManager;
 import com.yuntongxun.ecsdk.ECVoIPSetupManager;
 import com.yuntongxun.ecsdk.SdkErrorCode;
@@ -24,16 +21,14 @@ import org.webrtc.videoengine.ViERenderer;
 import java.util.Arrays;
 
 import de.greenrobot.event.EventBus;
+import nobugs.team.shopping.event.CallBeginEvent;
 import nobugs.team.shopping.event.RemoteShopSelectEvent;
 import nobugs.team.shopping.event.ShopSelectEvent;
-import nobugs.team.shopping.im.entity.IMBase;
-import nobugs.team.shopping.im.entity.IMSelectShop;
+import nobugs.team.shopping.im.IMSendHelper;
 import nobugs.team.shopping.mvp.model.Shop;
 import nobugs.team.shopping.mvp.model.User;
 import nobugs.team.shopping.mvp.view.VoipCallView;
 import nobugs.team.shopping.repo.Repository;
-import nobugs.team.shopping.repo.mapper.UserMapper;
-import nobugs.team.shopping.utils.IMChattingHelper;
 import nobugs.team.shopping.utils.VoIPCallHelper;
 
 /**
@@ -105,7 +100,7 @@ public class VoipCallPresenterImpl extends BasePresenter<VoipCallView> implement
             //action to launch a call
             getView().showCallOutView(mPeerUser);//show view
             doMakeCall(ECVoIPCallManager.CallType.VIDEO);
-            sendIMSelectShop(mSellerShop);
+            IMSendHelper.sendSelectShop(mOwnUser, mPeerUser.getPhone(), mSellerShop);
         }
         // remove the sticky event
         EventBus.getDefault().removeStickyEvent(event);
@@ -114,29 +109,10 @@ public class VoipCallPresenterImpl extends BasePresenter<VoipCallView> implement
     public void onEventMainThread(RemoteShopSelectEvent event) {
         mSellerShop = event.getShop();
         mPeerUser = event.getBuyer();
-    }
 
-    private void sendIMSelectShop(Shop shop) {
-        UserMapper mapper = new UserMapper();
-
-        IMSelectShop selectShop = new IMSelectShop(IMBase.TYPE_SELECT_SHOP, shop.getId(), mapper.fromModel(mOwnUser));
-        Gson gson = new Gson();
-
-        String myPhone = mOwnUser.getPhone();
-        String peerPhone = mPeerUser.getPhone();
-        String json = gson.toJson(selectShop, IMSelectShop.class);
-
-        IMChattingHelper.sendECMessage(myPhone, peerPhone, json, new ECDeskManager.OnSendDeskMessageListener() {
-            @Override
-            public void onSendMessageComplete(ECError ecError, ECMessage ecMessage) {
-                Log.e(TAG, "[onSendMessageComplete] ecError: " + ecError + ", ecMessage:" + ecMessage);
-            }
-
-            @Override
-            public void onProgress(String s, int i, int i1) {
-                Log.e(TAG, "[onProgress] s: " + s + ", i:" + i);
-            }
-        });
+        getView().showCallInView(mPeerUser);
+        // remove the sticky event
+        EventBus.getDefault().removeStickyEvent(event);
     }
 
     private void initCameraSurfaceView() {
@@ -295,11 +271,14 @@ public class VoipCallPresenterImpl extends BasePresenter<VoipCallView> implement
         if (callId != null && callId.equals(mCurrentCallId)) {
             User loginUser = Repository.getInstance().getLoginUser();
 //            getView().showVideoView(loginUser);
-            switch (direct){
+            EventBus.getDefault().postSticky(new CallBeginEvent(mOwnUser, mPeerUser, mSellerShop, mCurrentCallId));
+
+            switch (direct) {
                 case EC_INCOMING:   //打进来，卖家
                     getView().showSellerVideoView(loginUser, mSellerShop.getId());
                     break;
                 case EC_OUTGOING:   //打出去，买家
+                default:
                     getView().showBuyerVideoView(loginUser);
                     break;
             }

@@ -11,8 +11,8 @@ public class IMDelOrder extends IMBase{
 
     public IMDelOrder() {
     }
-    public IMDelOrder(String type, int orderId) {
-        super(type);
+    public IMDelOrder(int orderId) {
+        super(TYPE_DEL_ORDER);
         this.orderId = orderId;
     }
 

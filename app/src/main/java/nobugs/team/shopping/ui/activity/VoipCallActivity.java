@@ -149,14 +149,14 @@ public class VoipCallActivity extends BaseActivity<VoipCallPresenter> implements
 
     @Override
     public void showCallInView(User user) {
-        txtCalleename.setText(user.getName());
+        txtCalleename.setText(user.getNickname());
         btnAccept.setVisibility(View.VISIBLE);
         tvCalling.setText(getString(R.string.tv_waiting_accept));
     }
 
     @Override
     public void showCallOutView(User user) {
-        txtCalleename.setText(user.getName());
+        txtCalleename.setText(user.getNickname());
         btnAccept.setVisibility(View.GONE);
         tvCalling.setText(getString(R.string.tv_calling));
     }

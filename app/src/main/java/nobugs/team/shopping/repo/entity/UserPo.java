@@ -21,6 +21,12 @@ public class UserPo extends BasePo{
     @Expose
     private String password;
 
+    @Expose
+    private String realname;
+
+    @Expose
+    private String imgurl;
+
     public UserPo() {
     }
 
@@ -70,5 +76,21 @@ public class UserPo extends BasePo{
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getRealname() {
+        return realname;
+    }
+
+    public void setRealname(String realname) {
+        this.realname = realname;
+    }
+
+    public String getImgurl() {
+        return imgurl;
+    }
+
+    public void setImgurl(String imgurl) {
+        this.imgurl = imgurl;
     }
 }

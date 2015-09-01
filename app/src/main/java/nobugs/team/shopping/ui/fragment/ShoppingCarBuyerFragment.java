@@ -33,6 +33,7 @@ public class ShoppingCarBuyerFragment extends BaseFragment<ShoppingCarPresenter>
     Button btnDelete;
     @Bind(R.id.btn_commitproduct)
     Button btnCommitPruduct;
+
     private ShoppingCarAdapter shoppingCarAdapter;
     private int selectedPageIndex = 0;
     private FragmentActionListener fragmentActionListener;

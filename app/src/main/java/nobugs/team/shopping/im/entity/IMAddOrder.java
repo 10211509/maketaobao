@@ -14,8 +14,8 @@ public class IMAddOrder extends IMBase{
     public IMAddOrder() {
     }
 
-    public IMAddOrder(String type, OrderPo order) {
-        super(type);
+    public IMAddOrder(OrderPo order) {
+        super(TYPE_ADD_ORDER);
         this.order = order;
     }
 

@@ -4,6 +4,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.yuntongxun.ecsdk.ECChatManager;
 import com.yuntongxun.ecsdk.ECDevice;
@@ -14,6 +15,8 @@ import com.yuntongxun.ecsdk.ECVoIPSetupManager;
 import com.yuntongxun.ecsdk.SdkErrorCode;
 
 import nobugs.team.shopping.constant.AppConfig;
+import nobugs.team.shopping.im.IMChattingHelper;
+import nobugs.team.shopping.ui.activity.LoginActivity;
 import nobugs.team.shopping.ui.activity.VoipCallActivity;
 
 /**
@@ -133,7 +136,13 @@ public class CCPHelper implements ECDevice.InitListener, ECDevice.OnECDeviceConn
         if (state == ECDevice.ECConnectState.CONNECT_FAILED) {
             if (error.errorCode == SdkErrorCode.SDK_KICKED_OFF) {
                 //账号异地登陆
-                Log.w(TAG,"onConnectState 账号异地登录");
+                Log.w(TAG, "onConnectState 账号异地登录");
+
+                Toast.makeText(mContext, "账号异地登录,请重新登录", Toast.LENGTH_SHORT).show();
+
+                Intent i = new Intent(mContext, LoginActivity.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                mContext.startActivity(i);
             } else {
                 //连接状态失败
                 Log.w(TAG,"onConnectState 连接状态失败");

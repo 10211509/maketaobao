@@ -12,21 +12,11 @@ public class User {
 
     private Long id;
     private String name;
+    private String nickname;
+    private String imgUrl;
     private String password;
     private String phone;////绑定的视频通话的号码 由SDK注册提供
     private Type type;
-
-    public User(){
-
-    }
-
-    public User(Long id, String name, String password, String phone, Type type) {
-        this.id = id;
-        this.name = name;
-        this.password = password;
-        this.phone = phone;
-        this.type = type;
-    }
 
     public Long getId() {
         return id;
@@ -72,4 +62,19 @@ public class User {
         return type != null && type == Type.SELLER;
     }
 
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
+    }
 }
