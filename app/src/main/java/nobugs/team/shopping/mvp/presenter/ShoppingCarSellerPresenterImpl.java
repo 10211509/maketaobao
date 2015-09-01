@@ -42,7 +42,6 @@ public class ShoppingCarSellerPresenterImpl extends BasePresenter<ShoppingCarSel
     public void onEventMainThread(RemoteShopSelectEvent event) {
         shop = event.getShop();
         //get product list by shop id
-//        shoppingCarInteractor.
         productInteractor.getProducts(String.valueOf(shop.getId()), this);
         EventBus.getDefault().removeStickyEvent(event);
     }
