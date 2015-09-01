@@ -22,12 +22,12 @@ public class GetShopListApiImpl extends BaseRetrofitHandler implements GetShopLi
 
     @Override
     public List<Shop> getShopList(ProductType type, String keyword) {
-        return (List<Shop>) mapper.map(getService().getShopList(type.getId() + "", keyword));
+        return (List<Shop>) mapper.map(getService().getShopList(type.getId(), keyword));
     }
 
     @Override
     public void getShopList(ProductType type, String keyword, final Callback callback) {
-        getService().getShopList(type.getId() + "", keyword, new retrofit.Callback<ShopListResult>() {
+        getService().getShopList(type.getId(), keyword, new retrofit.Callback<ShopListResult>() {
             @Override
             public void success(ShopListResult shopListResult, Response response) {
                 callback.onFinish((List<Shop>) mapper.map(shopListResult));

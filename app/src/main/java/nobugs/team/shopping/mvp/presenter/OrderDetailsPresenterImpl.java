@@ -41,21 +41,21 @@ public class OrderDetailsPresenterImpl extends BasePresenter<OrderDetailsView> i
 
     @Override
     public void updateToDelivered() {
-        orderInteractor.updateState(order.getOrderid(),Order.State.delivered);
+        orderInteractor.updateOrderState(order.getOrderid(), Order.State.delivered);
     }
 
     @Override
     public void updateToPayed() {
-        orderInteractor.updateState(order.getOrderid(),Order.State.payed);
+        orderInteractor.updateOrderState(order.getOrderid(), Order.State.payed);
     }
 
     @Override
     public void updateToCollected() {
-        orderInteractor.updateState(order.getOrderid(),Order.State.collected);
+        orderInteractor.updateOrderState(order.getOrderid(), Order.State.collected);
     }
 
     @Override
     public void cancelOrder() {
-        orderInteractor.updateState(order.getOrderid(),Order.State.canceled);
+        orderInteractor.updateOrderState(order.getOrderid(), Order.State.canceled);
     }
 }

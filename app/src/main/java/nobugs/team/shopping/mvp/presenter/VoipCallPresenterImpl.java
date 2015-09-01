@@ -168,10 +168,6 @@ public class VoipCallPresenterImpl extends BasePresenter<VoipCallView> implement
     @Override
     public void onUIAnswerCall() {
         VoIPCallHelper.acceptCall(mCurrentCallId);
-
-        //send the mCurrentCallId
-//        EventBus.getDefault().postSticky(new CallBeginEvent(isIncomingCall, mPeerUser, mSellerShop, mCurrentCallId));
-
     }
 
     @Override

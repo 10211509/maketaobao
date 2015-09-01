@@ -8,17 +8,26 @@ import nobugs.team.shopping.mvp.model.Product;
 import nobugs.team.shopping.mvp.model.ProductType;
 import nobugs.team.shopping.mvp.model.Shop;
 import nobugs.team.shopping.mvp.model.User;
+import nobugs.team.shopping.repo.api.AddOrderApi;
+import nobugs.team.shopping.repo.api.DeleteOrderApi;
+import nobugs.team.shopping.repo.api.GetOrderApi;
 import nobugs.team.shopping.repo.api.GetOrderListApi;
 import nobugs.team.shopping.repo.api.GetProductListApi;
 import nobugs.team.shopping.repo.api.GetShopListApi;
 import nobugs.team.shopping.repo.api.GetTypeListApi;
 import nobugs.team.shopping.repo.api.LoginApi;
-import nobugs.team.shopping.repo.api.mock.GetProductListApiMock;
+import nobugs.team.shopping.repo.api.UpdateOrderApi;
+import nobugs.team.shopping.repo.api.retrofit.AddOrderApiImpl;
+import nobugs.team.shopping.repo.api.retrofit.DeleteOrderApiImpl;
+import nobugs.team.shopping.repo.api.retrofit.GetOrderApiImpl;
 import nobugs.team.shopping.repo.api.retrofit.GetOrderListApiImpl;
+import nobugs.team.shopping.repo.api.retrofit.GetProductListApiImpl;
 import nobugs.team.shopping.repo.api.retrofit.GetShopListApiImpl;
 import nobugs.team.shopping.repo.api.retrofit.GetTypeListApiImpl;
 import nobugs.team.shopping.repo.api.retrofit.LoginApiImpl;
 import nobugs.team.shopping.repo.api.retrofit.RetrofitAdapter;
+import nobugs.team.shopping.repo.api.retrofit.UpdateOrderApiImpl;
+import nobugs.team.shopping.repo.mapper.OrderMapper;
 
 /**
  * Created by Administrator on 2015/8/23 0023.
@@ -48,6 +57,11 @@ public class Repository {
     private GetShopListApi getShopListApi;
     private GetOrderListApi getOrderListApi;
     private GetProductListApi getProductListApi;
+    private GetOrderApi getOrderApi;
+    private AddOrderApi addOrderApi;
+    private DeleteOrderApi deleteOrderApi;
+    private UpdateOrderApi updateOrderApi;
+
     /** 类型缓存 */
 //    private List<ProductType> typeListCache;
 
@@ -66,12 +80,17 @@ public class Repository {
         this.getTypeListApi = new GetTypeListApiImpl(adapter);
         this.getShopListApi = new GetShopListApiImpl(adapter);
         this.getOrderListApi = new GetOrderListApiImpl(adapter);
-        this.getProductListApi = new GetProductListApiMock();
+        this.getProductListApi = new GetProductListApiImpl(adapter);
+        this.getOrderApi = new GetOrderApiImpl(adapter);
+        this.addOrderApi = new AddOrderApiImpl(adapter);
+        this.deleteOrderApi = new DeleteOrderApiImpl(adapter);
+        this.updateOrderApi = new UpdateOrderApiImpl(adapter);
     }
 
-    public User getLoginUser(){
+    public User getLoginUser() {
         return this.loginApi.getUser();
     }
+
     public void login(String userName, String password, final RepoCallback.Get<User> callbackGet) {
         loginApi.login(userName, password, new LoginApi.Callback() {
             @Override
@@ -114,9 +133,8 @@ public class Repository {
         });
     }
 
-
-    public void getProductList(String shopid,final RepoCallback.GetList<Product> callbackGet){
-        getProductListApi.getProductList(shopid,new GetProductListApi.Callback(){
+    public void getProductList(int shopId, final RepoCallback.GetList<Product> callbackGet) {
+        getProductListApi.getProductList(shopId, new GetProductListApi.Callback() {
 
             @Override
             public void onFinish(List<Product> shops) {
@@ -125,7 +143,7 @@ public class Repository {
 
             @Override
             public void onError(int errType, String errMsg) {
-                callbackGet.onError(errType,errMsg);
+                callbackGet.onError(errType, errMsg);
             }
         });
     }
@@ -150,11 +168,83 @@ public class Repository {
         }*/
     }
 
-    public void getOrderList(User loginer, int everyPage, int currentPage, boolean isOver, final RepoCallback.GetList<Order> callbackGet) {
-        getOrderListApi.getOrderList(loginer, everyPage, currentPage, isOver, new GetOrderListApi.Callback() {
+    public void getOrderListBuyer(int buyerId, int everyPage, int currentPage, boolean isOver, final RepoCallback.GetList<Order> callbackGet) {
+        getOrderListApi.getOrderListBuyer(buyerId, everyPage, currentPage, isOver, new GetOrderListApi.Callback() {
             @Override
             public void onFinish(List<Order> orders) {
                 callbackGet.onGotDataListSuccess(orders);
+            }
+
+            @Override
+            public void onError(int errType, String errMsg) {
+                callbackGet.onError(errType, errMsg);
+            }
+        });
+    }
+
+    public void getOrderListSeller(int sellerId, int everyPage, int currentPage, boolean isOver, final RepoCallback.GetList<Order> callbackGet) {
+        getOrderListApi.getOrderListSeller(sellerId, everyPage, currentPage, isOver, new GetOrderListApi.Callback() {
+            @Override
+            public void onFinish(List<Order> orders) {
+                callbackGet.onGotDataListSuccess(orders);
+            }
+
+            @Override
+            public void onError(int errType, String errMsg) {
+                callbackGet.onError(errType, errMsg);
+            }
+        });
+    }
+
+    public void getOrder(int orderId, final RepoCallback.Get<Order> callbackGet) {
+        getOrderApi.getOrder(orderId, new GetOrderApi.Callback() {
+            @Override
+            public void onFinish(Order order) {
+                callbackGet.onGotDataSuccess(order);
+            }
+
+            @Override
+            public void onError(int errType, String errMsg) {
+                callbackGet.onError(errType, errMsg);
+            }
+        });
+    }
+
+    public void addOrder(Order order, final RepoCallback.Add<Order> callbackGet) {
+        OrderMapper mapper = new OrderMapper();
+        addOrderApi.addOrder(mapper.fromModel(order), new AddOrderApi.Callback() {
+            @Override
+            public void onFinish(int orderId) {
+                callbackGet.onAddDataSuccess(orderId);
+            }
+
+            @Override
+            public void onError(int errType, String errMsg) {
+                callbackGet.onError(errType, errMsg);
+            }
+        });
+    }
+
+    public void removeOrder(int orderId, final RepoCallback.Remove<Order> callbackGet) {
+        deleteOrderApi.deleteOrder(orderId, new DeleteOrderApi.Callback() {
+            @Override
+            public void onFinish() {
+                callbackGet.onRemoveDataSuccess();
+            }
+
+            @Override
+            public void onError(int errType, String errMsg) {
+                callbackGet.onError(errType, errMsg);
+            }
+        });
+    }
+
+    public void updateOrder(Order order, final RepoCallback.Update<Order> callbackGet) {
+        OrderMapper mapper = new OrderMapper();
+        updateOrderApi.updateOrder(mapper.fromModel(order), new UpdateOrderApi.Callback() {
+            @Override
+            public void onFinish() {
+                callbackGet.onUpateDataSuccess();
             }
 
             @Override

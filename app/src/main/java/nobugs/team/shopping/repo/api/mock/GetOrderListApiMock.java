@@ -7,7 +7,6 @@ import java.util.List;
 
 import nobugs.team.shopping.app.base.MyApplication;
 import nobugs.team.shopping.mvp.model.Order;
-import nobugs.team.shopping.mvp.model.User;
 import nobugs.team.shopping.repo.api.GetOrderListApi;
 import nobugs.team.shopping.repo.api.entity.OrderListResult;
 import nobugs.team.shopping.repo.mapper.IResultMapper;
@@ -37,17 +36,18 @@ public class GetOrderListApiMock implements GetOrderListApi {
             e.printStackTrace();
         }
     }
-    @Override
-    public List<Order> getOrderList(User loginer, int everyPage, int currentPage, boolean isOver) {
-        //synchronize
-        return mOrders;
-    }
 
     @Override
-    public void getOrderList(User loginer, int everyPage, int currentPage, boolean isOver, Callback callback) {
+    public void getOrderListBuyer(int buyerId, int everyPage, int currentPage, boolean isOver, Callback callback) {
         if (callback != null){
             callback.onFinish(mOrders);
         }
     }
 
+    @Override
+    public void getOrderListSeller(int sellerId, int everyPage, int currentPage, boolean isOver, Callback callback) {
+        if (callback != null){
+            callback.onFinish(mOrders);
+        }
+    }
 }

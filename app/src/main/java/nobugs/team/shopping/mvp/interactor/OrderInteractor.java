@@ -9,23 +9,45 @@ import nobugs.team.shopping.mvp.model.User;
 /**
  * Created by xiayong on 2015/8/22.
  */
-public interface OrderInteractor  {
+public interface OrderInteractor {
 
-    void getOrdersInProgress(User user,int pageCount,int curPage,Callback callback);
+    void getOrdersInProgress(User user, int pageCount, int curPage, GetListCallback callback);
 
-    void getOrdersInFinished(User user,int pageCount,int curPage,Callback callback);
+    void getOrdersInFinished(User user, int pageCount, int curPage, GetListCallback callback);
 
-    void updateState(String orderid,Order.State newState);
+    void getOrder(String orderId, GetCallback callback);
+
+    void addOrder(Order order, AddCallback callback);
+
+    void updateOrderState(String orderId, Order.State state, UpdateCallback callback);
+
+    void removeOrder(String orderId, DeleteCallback callback);
+
 //    void getOrderByPosition(int position);
 
     interface Callback {
-
         void onNetWorkError();
 
         void onFailure();
+    }
 
-        void onOrderListSuccess(List<Order> orderList);
+    interface GetListCallback extends Callback {
+        void onGetOrderListSuccess(List<Order> orderList);
+    }
 
-        void onStateUpdateSuccess(Order.State newState);
+    interface GetCallback extends Callback {
+        void onGetOrderSuccess(Order order);
+    }
+
+    interface AddCallback extends Callback {
+        void onAddOrderSuccess(int orderId);
+    }
+
+    interface UpdateCallback extends Callback {
+        void onOrderStateUpdateSuccess();
+    }
+
+    interface DeleteCallback extends Callback {
+        void onDeleteSuccess();
     }
 }

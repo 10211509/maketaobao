@@ -17,10 +17,20 @@ public class AppConfig {
 
         public static final String LOGIN            = "/web!login.do";
 
-        public static final String GET_ORDER_LIST   = "/web!orderList.do";
-
         public static final String GET_TYPE_LIST    = "/web!typeList.do";
 
         public static final String GET_SHOP_LIST    = "/web!searchseller.do";
+
+        public static final String GET_PRODUCT_LIST = "/web!queryProductList.do";
+
+        public static final String GET_ORDER_LIST   = "/web!orderList.do";
+
+        public static final String ADD_ORDER   = "/web!addOrder.do";
+
+        public static final String DEL_ORDER   = "/web!delOrder.do";
+
+        public static final String GET_ORDER  = "/web!queryOrderByid.do";
+
+        public static final String UPDATE_ORDER  = "/web!updateOrderState.do";
     }
 }

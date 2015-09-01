@@ -11,8 +11,8 @@ import nobugs.team.shopping.repo.Repository;
  */
 public class ProductInteractorImpl implements ProductInteractor {
     @Override
-    public void getProducts(String shopid, final Callback callback) {
-        Repository.getInstance().getProductList(shopid,new RepoCallback.GetList<Product>(){
+    public void getProducts(String shopId, final Callback callback) {
+        Repository.getInstance().getProductList(Integer.parseInt(shopId),new RepoCallback.GetList<Product>(){
 
             @Override
             public void onGotDataListSuccess(List<Product> products) {

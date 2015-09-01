@@ -17,12 +17,12 @@ public interface RepoCallback<DATA> {
         void onError(int errType, String errMsg);
     }
     interface Add<DATA> {
-        void onAddDataSuccess();
+        void onAddDataSuccess(int id);
 
         void onError(int errType, String errMsg);
     }
     interface AddList<DATA> {
-        void onAddDataListSuccess();
+        void onAddDataListSuccess(int[] ids);
 
         void onError(List<DATA> addFailed, int errType, String errMsg);
     }
