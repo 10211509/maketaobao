@@ -7,10 +7,10 @@ import nobugs.team.shopping.mvp.model.Order;
 /**
  * Created by wangyf on 2015/8/30 0030.
  */
-public class OrderAddEvent extends IMEvent {
+public class RemoteOrderAddEvent extends IMEvent {
     private Order order;
 
-    public OrderAddEvent(Order order, ECMessage msg) {
+    public RemoteOrderAddEvent(Order order, ECMessage msg) {
         super(msg);
         this.order = order;
     }

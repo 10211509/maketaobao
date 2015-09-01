@@ -1,49 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AndroidLayouts">
+    <shared>
+      <config />
+    </shared>
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="aa539061-faa7-468d-a71d-64b8c4ac531e" name="Default" comment="add all api and repo and interactor">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/nobugs/team/shopping/repo/api/AddOrderApi.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/nobugs/team/shopping/repo/api/retrofit/AddOrderApiImpl.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/nobugs/team/shopping/repo/api/DeleteOrderApi.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/nobugs/team/shopping/repo/api/retrofit/DeleteOrderApiImpl.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/nobugs/team/shopping/repo/mapper/EmptyMapper.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/nobugs/team/shopping/repo/api/entity/EmptyResult.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/nobugs/team/shopping/repo/api/GetOrderApi.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/nobugs/team/shopping/repo/api/retrofit/GetOrderApiImpl.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/nobugs/team/shopping/repo/api/retrofit/GetProductListApiImpl.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/nobugs/team/shopping/repo/api/UpdateOrderApi.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/nobugs/team/shopping/repo/api/retrofit/UpdateOrderApiImpl.java" />
-      <change type="DELETED" beforePath="C:\workspace\android\OTHER\maketaobao\.idea\dictionaries\Administrator.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\workspace\android\OTHER\maketaobao\app\src\main\java\nobugs\team\shopping\repo\api\retrofit\GetOrderListAPI.java" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/nobugs/team/shopping/repo/api/retrofit/ApiService.java" afterPath="$PROJECT_DIR$/app/src/main/java/nobugs/team/shopping/repo/api/retrofit/ApiService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/nobugs/team/shopping/constant/AppConfig.java" afterPath="$PROJECT_DIR$/app/src/main/java/nobugs/team/shopping/constant/AppConfig.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/nobugs/team/shopping/repo/api/GetOrderListApi.java" afterPath="$PROJECT_DIR$/app/src/main/java/nobugs/team/shopping/repo/api/GetOrderListApi.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/nobugs/team/shopping/repo/api/retrofit/GetOrderListApiImpl.java" afterPath="$PROJECT_DIR$/app/src/main/java/nobugs/team/shopping/repo/api/retrofit/GetOrderListApiImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/nobugs/team/shopping/repo/api/mock/GetOrderListApiMock.java" afterPath="$PROJECT_DIR$/app/src/main/java/nobugs/team/shopping/repo/api/mock/GetOrderListApiMock.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/nobugs/team/shopping/repo/api/GetProductListApi.java" afterPath="$PROJECT_DIR$/app/src/main/java/nobugs/team/shopping/repo/api/GetProductListApi.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/nobugs/team/shopping/repo/api/retrofit/GetShopListApiImpl.java" afterPath="$PROJECT_DIR$/app/src/main/java/nobugs/team/shopping/repo/api/retrofit/GetShopListApiImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/nobugs/team/shopping/repo/api/retrofit/GetTypeListApiImpl.java" afterPath="$PROJECT_DIR$/app/src/main/java/nobugs/team/shopping/repo/api/retrofit/GetTypeListApiImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/LICENSE" afterPath="$PROJECT_DIR$/LICENSE" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/nobugs/team/shopping/mvp/presenter/OrderDetailsPresenterImpl.java" afterPath="$PROJECT_DIR$/app/src/main/java/nobugs/team/shopping/mvp/presenter/OrderDetailsPresenterImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/nobugs/team/shopping/mvp/interactor/OrderInteractor.java" afterPath="$PROJECT_DIR$/app/src/main/java/nobugs/team/shopping/mvp/interactor/OrderInteractor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/nobugs/team/shopping/mvp/interactor/OrderInteractorImpl.java" afterPath="$PROJECT_DIR$/app/src/main/java/nobugs/team/shopping/mvp/interactor/OrderInteractorImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/nobugs/team/shopping/mvp/interactor/ProductInteractorImpl.java" afterPath="$PROJECT_DIR$/app/src/main/java/nobugs/team/shopping/mvp/interactor/ProductInteractorImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/nobugs/team/shopping/repo/RepoCallback.java" afterPath="$PROJECT_DIR$/app/src/main/java/nobugs/team/shopping/repo/RepoCallback.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/nobugs/team/shopping/repo/Repository.java" afterPath="$PROJECT_DIR$/app/src/main/java/nobugs/team/shopping/repo/Repository.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/nobugs/team/shopping/mvp/presenter/VoipCallPresenterImpl.java" afterPath="$PROJECT_DIR$/app/src/main/java/nobugs/team/shopping/mvp/presenter/VoipCallPresenterImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/app.iml" afterPath="$PROJECT_DIR$/app/app.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/appcompat_v7_22_2_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/appcompat_v7_22_2_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/convenientbanner_1_0_5.xml" afterPath="$PROJECT_DIR$/.idea/libraries/convenientbanner_1_0_5.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/material_dialogs_0_7_8_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/material_dialogs_0_7_8_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/okvolley/okvolley.iml" afterPath="$PROJECT_DIR$/okvolley/okvolley.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/percent_22_2_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/percent_22_2_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/proguard-rules.pro" afterPath="$PROJECT_DIR$/app/proguard-rules.pro" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/okvolley/proguard-rules.pro" afterPath="$PROJECT_DIR$/okvolley/proguard-rules.pro" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/recyclerview_v7_22_2_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/recyclerview_v7_22_2_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/refreshlayout_1_0_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/refreshlayout_1_0_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/support_annotations_22_2_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/support_annotations_22_2_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/support_v4_22_2_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/support_v4_22_2_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+    <list default="true" id="aa539061-faa7-468d-a71d-64b8c4ac531e" name="Default" comment="">
+      <change type="MOVED" beforePath="C:\workspace\android\OTHER\maketaobao\app\src\main\java\nobugs\team\shopping\event\OrderAddEvent.java" afterPath="$PROJECT_DIR$/app/src/main/java/nobugs/team/shopping/event/RemoteOrderDelEvent.java" />
+      <change type="MOVED" beforePath="C:\workspace\android\OTHER\maketaobao\app\src\main\java\nobugs\team\shopping\event\OrderDelEvent.java" afterPath="$PROJECT_DIR$/app/src/main/java/nobugs/team/shopping/event/RemoteOrderAddEvent.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="maketaobao.iws" />
@@ -102,11 +67,41 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ProductInteractorImpl.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ProductInteractorImpl.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/nobugs/team/shopping/mvp/interactor/ProductInteractorImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.77978337">
+            <state vertical-scroll-proportion="0.0">
               <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RemoteOrderAddEvent.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/nobugs/team/shopping/event/RemoteOrderAddEvent.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.22743683">
+              <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RemoteOrderDelEvent.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/nobugs/team/shopping/event/RemoteOrderDelEvent.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RemoteShopSelectEvent.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/nobugs/team/shopping/event/RemoteShopSelectEvent.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -2385,6 +2380,7 @@
         <option value="$PROJECT_DIR$/app/src/main/java/nobugs/team/shopping/mvp/model/User.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/nobugs/team/shopping/mvp/interactor/OrderInteractor.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/nobugs/team/shopping/mvp/interactor/OrderInteractorImpl.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/nobugs/team/shopping/event/RemoteOrderDelEvent.java" />
       </list>
     </option>
   </component>
@@ -2468,7 +2464,7 @@
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="interactor" />
+              <option name="myItemId" value="event" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -2815,6 +2811,13 @@
       <option name="number" value="Default" />
       <updated>1441115065161</updated>
     </task>
+    <task id="LOCAL-00001" summary="add all api and repo and interactor">
+      <created>1441122048431</created>
+      <option name="number" value="00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1441122048431</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -2853,6 +2856,10 @@
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="add all api and repo and interactor" />
+    <option name="LAST_COMMIT_MESSAGE" value="add all api and repo and interactor" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -3154,8 +3161,32 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/nobugs/team/shopping/mvp/interactor/ProductInteractorImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.77978337">
+        <state vertical-scroll-proportion="0.0">
           <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/nobugs/team/shopping/event/RemoteOrderDelEvent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/nobugs/team/shopping/event/RemoteShopSelectEvent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/nobugs/team/shopping/event/RemoteOrderAddEvent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.22743683">
+          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
           <folding />
         </state>
       </provider>
