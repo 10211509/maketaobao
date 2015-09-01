@@ -26,7 +26,7 @@ import nobugs.team.shopping.ui.fragment.ShoppingCarBuyerFragment;
 /**
  * make a call or receive a call.You can showVideoView or hang up the phone here!
  */
-public class VoipCallActivity extends BaseActivity<VoipCallPresenter> implements VoipCallView {
+public class VoipCallActivity extends BaseActivity<VoipCallPresenter> implements VoipCallView,ShoppingCarBuyerFragment.FragmentActionListener {
     @Bind(R.id.root_voip_call)
     RelativeLayout rootVoipCall;
 
@@ -191,4 +191,10 @@ public class VoipCallActivity extends BaseActivity<VoipCallPresenter> implements
 
     }
 
+    @Override
+    public void onFragmentChange(View view) {
+        if(view.getId() == R.id.btn_commitproduct){
+            btnHangup.performClick();
+        }
+    }
 }

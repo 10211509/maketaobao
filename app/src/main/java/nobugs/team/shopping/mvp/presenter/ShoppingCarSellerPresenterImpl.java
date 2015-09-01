@@ -90,6 +90,12 @@ public class ShoppingCarSellerPresenterImpl extends BasePresenter<ShoppingCarSel
         getView().refreshViewPagerWhenDataSetChange(orders);
     }
 
+   /* @Override
+    public void onAddSuccess(List<Order> order) {
+        Toast.makeText(getContext(),"添加成功",Toast.LENGTH_SHORT).show();
+        getView().refreshViewPagerWhenDataSetChange(orders);
+    }*/
+
     @Override
     public void onSuccess(List<Product> products) {
         Shop shop = new Shop();

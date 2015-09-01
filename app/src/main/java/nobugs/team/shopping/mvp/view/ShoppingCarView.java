@@ -8,7 +8,7 @@ import nobugs.team.shopping.mvp.model.Order;
  * Created by xiayong on 2015/8/29.
  */
 public interface ShoppingCarView extends IView{
-    void addOrder(Order order);
+    void addOrder(List<Order> orders);
 
    /* void removeOrder(Order order);*/
 

@@ -29,7 +29,7 @@ public class ShoppingCarAdapter extends PagerAdapter {
             orders.add(order);
         }
     }
-    public void addOrders(List<Order> orders){
+    public void replaceOrders(List<Order> orders){
         if(orders != null){
             //we don't expect to add null into the list
           this.orders = orders;

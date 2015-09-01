@@ -10,7 +10,8 @@ public interface ShoppingCarInteractor {
 
     void deleteProduct(String orderid,Callback callback);
 
-    //    void commitAllProduct(long sellerId,long buyerId );
+//    void commitAllProduct(long sellerId,long buyerId );
+
     interface Callback {
         void onDeleteSuccess(String id);
 

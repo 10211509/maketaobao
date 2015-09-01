@@ -1,12 +1,12 @@
 package nobugs.team.shopping.ui.fragment;
 
+import android.app.Activity;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import butterknife.Bind;
@@ -35,6 +35,7 @@ public class ShoppingCarBuyerFragment extends BaseFragment<ShoppingCarPresenter>
     Button btnCommitPruduct;
     private ShoppingCarAdapter shoppingCarAdapter;
     private int selectedPageIndex = 0;
+    private FragmentActionListener fragmentActionListener;
 
     public static ShoppingCarBuyerFragment newInstance() {
         ShoppingCarBuyerFragment fragment = new ShoppingCarBuyerFragment();
@@ -43,6 +44,16 @@ public class ShoppingCarBuyerFragment extends BaseFragment<ShoppingCarPresenter>
 
     public ShoppingCarBuyerFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        try {
+            fragmentActionListener = (FragmentActionListener) activity;
+        } catch (ClassCastException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -69,19 +80,20 @@ public class ShoppingCarBuyerFragment extends BaseFragment<ShoppingCarPresenter>
                 getPresenter().deleteProduct(selectedPageIndex);
                 break;
             case R.id.btn_commitproduct:
-                getPresenter().commitProduct();
+//                getPresenter().commitProduct();
+                fragmentActionListener.onFragmentChange(btnCommitPruduct);
                 break;
         }
     }
     @Override
-    public void addOrder(Order order) {
-        shoppingCarAdapter.addOrder(order);
+    public void addOrder(List<Order> orders) {
+        shoppingCarAdapter.replaceOrders(orders);
         shoppingCarAdapter.notifyDataSetChanged();//refresh UI
     }
 
     @Override
     public void loadCar(List<Order> orders) {
-        shoppingCarAdapter.addOrders(orders);
+        shoppingCarAdapter.replaceOrders(orders);
         shoppingCarAdapter.notifyDataSetChanged();//refresh UI
     }
 
@@ -98,5 +110,9 @@ public class ShoppingCarBuyerFragment extends BaseFragment<ShoppingCarPresenter>
     @Override
     public void onPageScrollStateChanged(int state) {
         //empty
+    }
+
+    public interface FragmentActionListener{
+        void onFragmentChange(View view);
     }
 }
