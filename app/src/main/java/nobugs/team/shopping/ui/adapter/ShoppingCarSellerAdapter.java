@@ -3,6 +3,7 @@ package nobugs.team.shopping.ui.adapter;
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -41,12 +42,28 @@ public class ShoppingCarSellerAdapter extends PagerAdapter {
         }
     }
 
-    public void addOrders(List<Order> orders) {
+    public void replaceOrders(List<Order> orders) {
         if (orders != null) {
             //we don't expect to add null into the list
             this.orders = orders;
+            this.orders.add(createEmptyOrder());
         }
     }
+
+    public Order getOrder(int index){
+        if(index < 0 || index >= orders.size()){
+            throw new IndexOutOfBoundsException("the order is not added into the ViewPager");
+        }
+        return orders.get(index);
+    }
+
+    public boolean orderSuccessfulAdded(int index){
+        if(index < 0 || index >= orders.size()){
+            throw new IndexOutOfBoundsException("the order is not added into the ViewPager");
+        }
+        return !TextUtils.isEmpty(orders.get(index).getOrderid());
+    }
+
     public void addEmptyOrder(){
         addOrder(createEmptyOrder());
     }
@@ -127,7 +144,7 @@ public class ShoppingCarSellerAdapter extends PagerAdapter {
         spName.setSelection(position, true);
     }
 
-    private Order createEmptyOrder() {
+    public Order createEmptyOrder() {
         Order order = new Order();
         order.setShop(shop);
         ProductType productType = new ProductType();

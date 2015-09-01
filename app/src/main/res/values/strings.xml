@@ -53,5 +53,9 @@
     <string name="tv_total_price">总价：¥{price}元</string>
     <string name="network_failed">连接服务器失败，请检查您的网络</string>
     <string name="operation_failed">操作失败，请稍后再试</string>
+    <string name="toast_product_name">请填写商品名称！</string>
+    <string name="toast_product_amount">请填写商品数量！</string>
+    <string name="toast_product_unit">请填写商品单位！</string>
+    <string name="toast_product_price">请填写商品总价！</string>
 
 </resources>

@@ -1,5 +1,7 @@
 package nobugs.team.shopping.mvp.view;
 
+import java.util.List;
+
 import nobugs.team.shopping.mvp.model.Order;
 import nobugs.team.shopping.mvp.model.Shop;
 
@@ -8,6 +10,7 @@ import nobugs.team.shopping.mvp.model.Shop;
  */
 public interface ShoppingCarSellerView extends IView {
     void initViewPager(Shop shop);
-    void addItemToViewPager(Order order);
-    void deleteItemOfViewPager(String orderid);
+    void refreshViewPagerWhenDataSetChange(List<Order> orders);
+//    void addItemToViewPager(Order order);
+//    void deleteItemOfViewPager(String orderid);
 }

@@ -3,15 +3,18 @@ package nobugs.team.shopping.ui.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
 import nobugs.team.shopping.R;
 import nobugs.team.shopping.app.base.BaseFragment;
 import nobugs.team.shopping.mvp.model.Order;
-import nobugs.team.shopping.mvp.model.Product;
 import nobugs.team.shopping.mvp.model.Shop;
 import nobugs.team.shopping.mvp.presenter.ShoppingCarSellerPresenter;
 import nobugs.team.shopping.mvp.presenter.ShoppingCarSellerPresenterImpl;
@@ -65,10 +68,27 @@ public class ShoppingCarSellerFragment extends BaseFragment<ShoppingCarSellerPre
 
     @OnClick(R.id.btn_addorder)
     public void onAddOrderClick() {
-        Product product = new Product();
-        Order order = new Order();
-        order.setProduct_count(5);
-        order.setPrice(3000);
+        Order order = shoppingCarSellerAdapter.getOrder(selectedPageIndex);
+        if(TextUtils.isEmpty(order.getProduct().getName())){
+            Toast.makeText(this.getActivity(),getActivity().getString(R.string.toast_product_name),Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(order.getProduct_count() <= 0){
+            Toast.makeText(this.getActivity(),getActivity().getString(R.string.toast_product_amount),Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(TextUtils.isEmpty(order.getProduct().getType().getUnit())){
+            Toast.makeText(this.getActivity(),getActivity().getString(R.string.toast_product_unit),Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(TextUtils.isEmpty(order.getProduct().getType().getUnit())){
+            Toast.makeText(this.getActivity(),getActivity().getString(R.string.toast_product_unit),Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(order.getPrice()<=0){
+            Toast.makeText(this.getActivity(),getActivity().getString(R.string.toast_product_price),Toast.LENGTH_SHORT).show();
+            return;
+        }
         getPresenter().addOrder(order);
     }
 
@@ -87,7 +107,14 @@ public class ShoppingCarSellerFragment extends BaseFragment<ShoppingCarSellerPre
     }
 
     @Override
+    public void refreshViewPagerWhenDataSetChange(List<Order> orders) {
+        shoppingCarSellerAdapter.replaceOrders(orders);
+        shoppingCarSellerAdapter.notifyDataSetChanged();
+    }
+
+   /* @Override
     public void addItemToViewPager(Order order) {
+        //TODO
         shoppingCarSellerAdapter.addEmptyOrder();
         shoppingCarSellerAdapter.notifyDataSetChanged();
     }
@@ -96,7 +123,7 @@ public class ShoppingCarSellerFragment extends BaseFragment<ShoppingCarSellerPre
     public void deleteItemOfViewPager(String orderid) {
         shoppingCarSellerAdapter.deleteOrder(orderid);
         shoppingCarSellerAdapter.notifyDataSetChanged();
-    }
+    }*/
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -106,6 +133,9 @@ public class ShoppingCarSellerFragment extends BaseFragment<ShoppingCarSellerPre
     @Override
     public void onPageSelected(int position) {
         selectedPageIndex = position;
+        boolean enable = shoppingCarSellerAdapter.orderSuccessfulAdded(selectedPageIndex);
+        //if the order successfully added,then should not add it again!
+        btnAddproduct.setEnabled(!enable);
     }
 
     @Override

@@ -114,6 +114,7 @@ public class Repository {
         });
     }
 
+
     public void getProductList(String shopid,final RepoCallback.GetList<Product> callbackGet){
         getProductListApi.getProductList(shopid,new GetProductListApi.Callback(){
 

@@ -1,6 +1,7 @@
 package nobugs.team.shopping.mvp.interactor;
 
 import nobugs.team.shopping.mvp.model.Order;
+import nobugs.team.shopping.repo.Repository;
 
 /**
  * Created by xiayong on 2015/8/29.

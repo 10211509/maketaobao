@@ -1,5 +1,6 @@
 package nobugs.team.shopping.mvp.presenter;
 
+import android.text.TextUtils;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -53,7 +54,7 @@ public class ShoppingCarSellerPresenterImpl extends BasePresenter<ShoppingCarSel
 
     @Override
     public void addOrder(Order order) {
-
+        orders.add(order);
         shoppingCarInteractor.addProduct(order, this);
     }
 
@@ -63,7 +64,14 @@ public class ShoppingCarSellerPresenterImpl extends BasePresenter<ShoppingCarSel
             Toast.makeText(getContext(),"不能删除该商品！",Toast.LENGTH_SHORT).show();
             return;
         }
-        shoppingCarInteractor.deleteProduct(orders.get(index).getOrderid(), this);
+        String orderid = orders.get(index).getOrderid();
+        if(TextUtils.isEmpty(orderid)){
+            //the order has not been added into the database
+            orders.remove(index);
+            getView().refreshViewPagerWhenDataSetChange(orders);
+            return;
+        }
+        shoppingCarInteractor.deleteProduct(orderid, this);
     }
 
 
@@ -73,14 +81,13 @@ public class ShoppingCarSellerPresenterImpl extends BasePresenter<ShoppingCarSel
             if(order.getOrderid().equals(id))
                 orders.remove(order);
         }
-        getView().deleteItemOfViewPager(id);
+        getView().refreshViewPagerWhenDataSetChange(orders);
     }
 
     @Override
     public void onAddSuccess(Order order) {
-        orders.add(order);
         Toast.makeText(getContext(),"添加成功",Toast.LENGTH_SHORT).show();
-        getView().addItemToViewPager(order);
+        getView().refreshViewPagerWhenDataSetChange(orders);
     }
 
     @Override
