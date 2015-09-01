@@ -57,5 +57,7 @@
     <string name="toast_product_amount">请填写商品数量！</string>
     <string name="toast_product_unit">请填写商品单位！</string>
     <string name="toast_product_price">请填写商品总价！</string>
+    <string name="toast_no_orders">没有更多订单了</string>
+    <string name="load_more">加载更多...</string>
 
 </resources>

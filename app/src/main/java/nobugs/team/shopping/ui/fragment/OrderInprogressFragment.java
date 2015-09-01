@@ -88,25 +88,26 @@ public class OrderInprogressFragment extends BaseFragment<OrderListPresenter> im
     @Override
     public void refreshOrderList(List<Order> orderList) {
         mRefreshLayout.setRefreshing(false);
-        Toast.makeText(this.getActivity(),"refresh",Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this.getActivity(),"refresh",Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void loadMoreOrders(
             List<Order> orderList) {
         mRefreshLayout.setLoading(false);
-        Toast.makeText(this.getActivity(),"load",Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this.getActivity(),"load",Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void showOrderList(List<Order> orderList) {
         mOrderListAdapter.setOrders(orderList);
         mOrderListAdapter.notifyDataSetChanged();
+        mRefreshLayout.setLoading(false);
+        mRefreshLayout.setRefreshing(false);
     }
 
     @Override
     public void onLoad() {
-
         getPresenter().loadMoreOrder();
     }
 

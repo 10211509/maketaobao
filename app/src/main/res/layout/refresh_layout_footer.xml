@@ -13,7 +13,7 @@
         android:layout_height="40dp"
         android:layout_gravity="center|top"
         android:gravity="center"
-        android:text="more..."
+        android:text="@string/load_more"
         android:textSize="16sp" />
 
     <ProgressBar

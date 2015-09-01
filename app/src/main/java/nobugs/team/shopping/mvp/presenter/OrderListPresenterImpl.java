@@ -1,14 +1,19 @@
 package nobugs.team.shopping.mvp.presenter;
 
+import android.widget.Toast;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import de.greenrobot.event.EventBus;
+import nobugs.team.shopping.R;
 import nobugs.team.shopping.event.OrderSelectEvent;
 import nobugs.team.shopping.mvp.interactor.OrderInteractor;
 import nobugs.team.shopping.mvp.interactor.OrderInteractorImpl;
 import nobugs.team.shopping.mvp.model.Order;
 import nobugs.team.shopping.mvp.model.User;
 import nobugs.team.shopping.mvp.view.OrderListView;
+import nobugs.team.shopping.repo.Repository;
 
 /**
  * Created by xiayong on 2015/8/23.
@@ -16,22 +21,23 @@ import nobugs.team.shopping.mvp.view.OrderListView;
 public class OrderListPresenterImpl extends BasePresenter<OrderListView> implements OrderListPresenter,OrderInteractor.Callback ,OrderInteractor.GetListCallback {
 
     private OrderInteractor mOrderInteractor;
-
+    private List<Order> orders;
     public OrderListPresenterImpl(OrderListView orderListView){
         super(orderListView);
         this.mOrderInteractor = new OrderInteractorImpl();
+        orders = new ArrayList<>();
     }
 
     @Override
     public void showOrderInprogressList() {
-        User user = new User();
-        mOrderInteractor.getOrdersInProgress(user, 5, 1, this);
+        User loginer = Repository.getInstance().getLoginUser();
+        mOrderInteractor.getOrdersInProgress(loginer, 5, 1, this);
     }
 
     @Override
     public void showOrderFinishList() {
-        User user = new User();
-        mOrderInteractor.getOrdersInFinished(user, 5, 1, this);
+        User loginer = Repository.getInstance().getLoginUser();
+        mOrderInteractor.getOrdersInFinished(loginer, 5, 1, this);
     }
 
     @Override
@@ -42,23 +48,25 @@ public class OrderListPresenterImpl extends BasePresenter<OrderListView> impleme
 
     @Override
     public void refreshOrderList() {
-
-        getView().refreshOrderList(null);//TODO
+        orders.clear();
+        showOrderInprogressList();
     }
 
     @Override
     public void loadMoreOrder() {
-        getView().loadMoreOrders(null);
+        User loginer = Repository.getInstance().getLoginUser();
+        double currentIndex = ((double)orders.size())/5;
+        mOrderInteractor.getOrdersInFinished(loginer, 5, (int)Math.ceil(currentIndex)+1, this);
     }
 
     @Override
     public void onNetWorkError() {
-
+        Toast.makeText(getContext(),getActivity().getString(R.string.network_failed),Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onFailure() {
-
+        Toast.makeText(getContext(),getActivity().getString(R.string.operation_failed),Toast.LENGTH_SHORT).show();
     }
 
    /* @Override
@@ -73,6 +81,11 @@ public class OrderListPresenterImpl extends BasePresenter<OrderListView> impleme
 
     @Override
     public void onGetOrderListSuccess(List<Order> orderList) {
-        getView().showOrderList(orderList);
+        if(orderList == null || orderList.size()<=0){
+            Toast.makeText(getContext(),getActivity().getString(R.string.toast_no_orders),Toast.LENGTH_SHORT).show();
+            return;
+        }
+        orders.addAll(orderList);
+        getView().showOrderList(orders);
     }
 }

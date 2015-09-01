@@ -186,6 +186,7 @@ public class Repository {
         getOrderListApi.getOrderListSeller(sellerId, everyPage, currentPage, isOver, new GetOrderListApi.Callback() {
             @Override
             public void onFinish(List<Order> orders) {
+
                 callbackGet.onGotDataListSuccess(orders);
             }
 

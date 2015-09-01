@@ -106,18 +106,20 @@ public class OrderFinishedFragment extends BaseFragment<OrderListPresenter> impl
     @Override
     public void refreshOrderList(List<Order> orderList) {
         mRefreshLayout.setRefreshing(false);
-        Toast.makeText(this.getActivity(), "refresh", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this.getActivity(), "refresh", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void loadMoreOrders(List<Order> orderList) {
         mRefreshLayout.setLoading(false);
-        Toast.makeText(this.getActivity(),"load",Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this.getActivity(),"load",Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void showOrderList(List<Order> orderList) {
         mOrderListAdapter.setOrders(orderList);
         mOrderListAdapter.notifyDataSetChanged();
+        mRefreshLayout.setLoading(false);
+        mRefreshLayout.setRefreshing(false);
     }
 }
