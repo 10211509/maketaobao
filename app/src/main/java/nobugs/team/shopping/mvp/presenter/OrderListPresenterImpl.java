@@ -13,7 +13,7 @@ import nobugs.team.shopping.mvp.view.OrderListView;
 /**
  * Created by xiayong on 2015/8/23.
  */
-public class OrderListPresenterImpl extends BasePresenter<OrderListView> implements OrderListPresenter,OrderInteractor.Callback {
+public class OrderListPresenterImpl extends BasePresenter<OrderListView> implements OrderListPresenter,OrderInteractor.Callback ,OrderInteractor.GetListCallback {
 
     private OrderInteractor mOrderInteractor;
 
@@ -25,13 +25,13 @@ public class OrderListPresenterImpl extends BasePresenter<OrderListView> impleme
     @Override
     public void showOrderInprogressList() {
         User user = new User();
-        mOrderInteractor.getOrdersInProgress(user,5,1,this);
+        mOrderInteractor.getOrdersInProgress(user, 5, 1, this);
     }
 
     @Override
     public void showOrderFinishList() {
         User user = new User();
-        mOrderInteractor.getOrdersInFinished(user,5,1,this);
+        mOrderInteractor.getOrdersInFinished(user, 5, 1, this);
     }
 
     @Override
@@ -61,13 +61,18 @@ public class OrderListPresenterImpl extends BasePresenter<OrderListView> impleme
 
     }
 
-    @Override
+   /* @Override
     public void onOrderListSuccess(List<Order> orderPoList) {
         getView().showOrderList(orderPoList);
     }
-
-    @Override
+*/
+   /* @Override
     public void onStateUpdateSuccess(Order.State newState) {
 
+    }*/
+
+    @Override
+    public void onGetOrderListSuccess(List<Order> orderList) {
+        getView().showOrderList(orderList);
     }
 }

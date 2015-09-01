@@ -10,7 +10,7 @@ import nobugs.team.shopping.mvp.view.OrderDetailsView;
 /**
  * Created by xiayong on 2015/8/23.
  */
-public class OrderDetailsPresenterImpl extends BasePresenter<OrderDetailsView> implements OrderDetailsPresenter {
+public class OrderDetailsPresenterImpl extends BasePresenter<OrderDetailsView> implements OrderDetailsPresenter,OrderInteractor.UpdateCallback {
 
     private Order order;
     private OrderInteractor orderInteractor;
@@ -41,21 +41,36 @@ public class OrderDetailsPresenterImpl extends BasePresenter<OrderDetailsView> i
 
     @Override
     public void updateToDelivered() {
-        orderInteractor.updateOrderState(order.getOrderid(), Order.State.delivered);
+        orderInteractor.updateOrderState(order.getOrderid(), Order.State.delivered,this);
     }
 
     @Override
     public void updateToPayed() {
-        orderInteractor.updateOrderState(order.getOrderid(), Order.State.payed);
+        orderInteractor.updateOrderState(order.getOrderid(), Order.State.payed,this);
     }
 
     @Override
     public void updateToCollected() {
-        orderInteractor.updateOrderState(order.getOrderid(), Order.State.collected);
+        orderInteractor.updateOrderState(order.getOrderid(), Order.State.collected,this);
     }
 
     @Override
     public void cancelOrder() {
-        orderInteractor.updateOrderState(order.getOrderid(), Order.State.canceled);
+        orderInteractor.updateOrderState(order.getOrderid(), Order.State.canceled,this);
+    }
+
+    @Override
+    public void onOrderStateUpdateSuccess() {
+
+    }
+
+    @Override
+    public void onNetWorkError() {
+
+    }
+
+    @Override
+    public void onFailure() {
+
     }
 }

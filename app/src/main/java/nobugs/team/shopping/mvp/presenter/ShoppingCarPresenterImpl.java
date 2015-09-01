@@ -35,6 +35,7 @@ public class ShoppingCarPresenterImpl extends BasePresenter<ShoppingCarView> imp
     }
 
     public void onEventMainThread(RemoteShopSelectEvent event) {
+        //addProduct() here !
     }
     @Override
     public void deleteProduct(int index) {

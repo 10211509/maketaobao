@@ -23,6 +23,7 @@ public interface OrderInteractor {
 
     void removeOrder(String orderId, DeleteCallback callback);
 
+
 //    void getOrderByPosition(int position);
 
     interface Callback {

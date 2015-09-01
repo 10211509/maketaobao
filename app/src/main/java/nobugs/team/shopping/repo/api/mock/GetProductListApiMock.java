@@ -37,8 +37,13 @@ public class GetProductListApiMock implements GetProductListApi {
             e.printStackTrace();
         }
     }
-    @Override
+  /*  @Override
     public void getProductList(String shopid, Callback callback) {
         callback.onFinish(products);
+    }*/
+
+    @Override
+    public void getProductList(int shopId, Callback callback) {
+
     }
 }
