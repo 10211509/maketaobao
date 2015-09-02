@@ -73,9 +73,6 @@ public class ShoppingCarSellerPresenterImpl extends BasePresenter<ShoppingCarSel
     public void addOrder(Order order) {
         orders.add(order);
         shoppingCarInteractor.addProduct(order, this);
-
-        //TODO 应该移至添加成功的回调中
-        IMSendHelper.sendAddOrder(mOwnUser.getPhone(), mPeerUser.getPhone(), order);
     }
 
     @Override
@@ -92,14 +89,13 @@ public class ShoppingCarSellerPresenterImpl extends BasePresenter<ShoppingCarSel
             return;
         }
         shoppingCarInteractor.deleteProduct(orderId, this);
-
-        //TODO 应该移至删除成功的回调中
-        IMSendHelper.sendDelOrder(mOwnUser.getPhone(), mPeerUser.getPhone(), Integer.parseInt(orderId));
     }
 
 
     @Override
     public void onDeleteSuccess(String id) {
+        //TODO 应该移至删除成功的回调中
+        IMSendHelper.sendDelOrder(mOwnUser.getPhone(), mPeerUser.getPhone(), Integer.parseInt(id));
         for (Order order:orders){
             if(order.getOrderid().equals(id))
                 orders.remove(order);
@@ -110,6 +106,7 @@ public class ShoppingCarSellerPresenterImpl extends BasePresenter<ShoppingCarSel
     @Override
     public void onAddSuccess(Order order) {
         Toast.makeText(getContext(),"添加成功",Toast.LENGTH_SHORT).show();
+        IMSendHelper.sendAddOrder(mOwnUser.getPhone(), mPeerUser.getPhone(), order);
         getView().refreshViewPagerWhenDataSetChange(orders);
     }
 

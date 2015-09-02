@@ -150,6 +150,10 @@ public class ShoppingCarSellerAdapter extends PagerAdapter {
 
             @Override
             public void afterTextChanged(Editable s) {
+                if(TextUtils.isEmpty(s)){
+                    orders.get(position).setProduct_count(0);
+                    return;
+                }
                 orders.get(position).setProduct_count(Integer.valueOf(s.toString()));
             }
         });
@@ -166,6 +170,10 @@ public class ShoppingCarSellerAdapter extends PagerAdapter {
 
             @Override
             public void afterTextChanged(Editable s) {
+                if(TextUtils.isEmpty(s)){
+                    orders.get(position).setPrice(0.0);
+                    return;
+                }
                 orders.get(position).setPrice(Double.valueOf(s.toString()));
             }
         });
