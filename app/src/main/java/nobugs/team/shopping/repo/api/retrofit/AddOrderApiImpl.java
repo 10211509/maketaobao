@@ -19,8 +19,8 @@ public class AddOrderApiImpl extends BaseRetrofitHandler implements AddOrderApi 
     }
 
     @Override
-    public void addOrder(OrderPo orderPo, final Callback callback) {
-        getService().addOrder(orderPo, new retrofit.Callback<OrderListResult>() {
+    public void addOrder(String sellerId,OrderPo orderPo, final Callback callback) {
+        getService().addOrder(sellerId,orderPo, new retrofit.Callback<OrderListResult>() {
             @Override
             public void success(OrderListResult orderListResult, Response response) {
                 List<Order> orders = (List<Order>) mapper.map(orderListResult);
