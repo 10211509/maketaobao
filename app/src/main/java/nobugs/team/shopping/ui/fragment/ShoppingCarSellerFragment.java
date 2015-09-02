@@ -27,7 +27,7 @@ public class ShoppingCarSellerFragment extends BaseFragment<ShoppingCarSellerPre
     @Bind(R.id.tv_product_index)
     TextView tvProductIndex;
 
-    @Bind(R.id.vPager)
+    @Bind(R.id.vPager_seller)
     ViewPager vpContainer;
 
     @Bind(R.id.btn_addorder)
@@ -49,10 +49,17 @@ public class ShoppingCarSellerFragment extends BaseFragment<ShoppingCarSellerPre
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Bundle bundle = getArguments();
-        if (bundle != null) {
+    protected void initView() {
+        super.initView();
+        if (vpContainer == null) {
+
+        }
+    }
+
+    @Override
+    protected void initEvent() {
+        super.initEvent();
+        if (vpContainer == null) {
 
         }
     }
@@ -70,25 +77,24 @@ public class ShoppingCarSellerFragment extends BaseFragment<ShoppingCarSellerPre
     @OnClick(R.id.btn_addorder)
     public void onAddOrderClick() {
         Order order = shoppingCarSellerAdapter.getOrder(selectedPageIndex);
-//        View currentPage = vpContainer.get
-        if(TextUtils.isEmpty(order.getProduct().getName())){
-            Toast.makeText(this.getActivity(),getActivity().getString(R.string.toast_product_name),Toast.LENGTH_SHORT).show();
+        if (TextUtils.isEmpty(order.getProduct().getName())) {
+            Toast.makeText(this.getActivity(), getActivity().getString(R.string.toast_product_name), Toast.LENGTH_SHORT).show();
             return;
         }
-        if(order.getProduct_count() <= 0){
-            Toast.makeText(this.getActivity(),getActivity().getString(R.string.toast_product_amount),Toast.LENGTH_SHORT).show();
+        if (order.getProduct_count() <= 0) {
+            Toast.makeText(this.getActivity(), getActivity().getString(R.string.toast_product_amount), Toast.LENGTH_SHORT).show();
             return;
         }
-        if(TextUtils.isEmpty(order.getProduct().getType().getUnit())){
-            Toast.makeText(this.getActivity(),getActivity().getString(R.string.toast_product_unit),Toast.LENGTH_SHORT).show();
+        if (TextUtils.isEmpty(order.getProduct().getType().getUnit())) {
+            Toast.makeText(this.getActivity(), getActivity().getString(R.string.toast_product_unit), Toast.LENGTH_SHORT).show();
             return;
         }
-        if(TextUtils.isEmpty(order.getProduct().getType().getUnit())){
-            Toast.makeText(this.getActivity(),getActivity().getString(R.string.toast_product_unit),Toast.LENGTH_SHORT).show();
+        if (TextUtils.isEmpty(order.getProduct().getType().getUnit())) {
+            Toast.makeText(this.getActivity(), getActivity().getString(R.string.toast_product_unit), Toast.LENGTH_SHORT).show();
             return;
         }
-        if(order.getPrice()<=0){
-            Toast.makeText(this.getActivity(),getActivity().getString(R.string.toast_product_price),Toast.LENGTH_SHORT).show();
+        if (order.getPrice() <= 0) {
+            Toast.makeText(this.getActivity(), getActivity().getString(R.string.toast_product_price), Toast.LENGTH_SHORT).show();
             return;
         }
         getPresenter().addOrder(order);
@@ -101,6 +107,7 @@ public class ShoppingCarSellerFragment extends BaseFragment<ShoppingCarSellerPre
 
     @Override
     public void initViewPager(Shop shop) {
+
         shoppingCarSellerAdapter = new ShoppingCarSellerAdapter(getActivity(), shop);
         if (vpContainer != null) {
             vpContainer.setAdapter(shoppingCarSellerAdapter);
@@ -114,18 +121,6 @@ public class ShoppingCarSellerFragment extends BaseFragment<ShoppingCarSellerPre
         shoppingCarSellerAdapter.notifyDataSetChanged();
     }
 
-   /* @Override
-    public void addItemToViewPager(Order order) {
-        //TODO
-        shoppingCarSellerAdapter.addEmptyOrder();
-        shoppingCarSellerAdapter.notifyDataSetChanged();
-    }
-
-    @Override
-    public void deleteItemOfViewPager(String orderid) {
-        shoppingCarSellerAdapter.deleteOrder(orderid);
-        shoppingCarSellerAdapter.notifyDataSetChanged();
-    }*/
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {

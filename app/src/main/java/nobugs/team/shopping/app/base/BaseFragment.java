@@ -79,6 +79,14 @@ public abstract class BaseFragment<PresenterType extends IPresenter> extends Fra
         }
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if(mPresenter != null){
+            mPresenter.onDestroy();
+        }
+    }
+
     protected abstract PresenterType initPresenter();
 
     protected abstract int getLayoutResId();

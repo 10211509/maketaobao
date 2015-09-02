@@ -40,7 +40,6 @@ public class OrderMapper implements IModelMapper<Order, OrderPo> {
         order.setPlace_time(orderPo.getPlacetime());
 
         Product product = new Product();
-        product.setId(orderPo.getProductid());
         product.setName(orderPo.getProductname());
 
         ProductType productType = new ProductType();

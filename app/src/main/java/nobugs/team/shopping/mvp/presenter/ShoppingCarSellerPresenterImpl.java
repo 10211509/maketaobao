@@ -52,7 +52,6 @@ public class ShoppingCarSellerPresenterImpl extends BasePresenter<ShoppingCarSel
 
         //get product list by shop id
         productInteractor.getProducts(String.valueOf(shop.getId()), this);
-
         EventBus.getDefault().removeStickyEvent(event);
     }
 

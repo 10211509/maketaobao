@@ -25,7 +25,7 @@
         android:text="@string/tv_shopping_car_number" />
 
     <android.support.v4.view.ViewPager
-        android:id="@+id/vPager"
+        android:id="@+id/vPager_seller"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_gravity="center"
