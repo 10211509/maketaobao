@@ -1,5 +1,7 @@
 package nobugs.team.shopping.repo.mapper;
 
+import android.text.TextUtils;
+
 import nobugs.team.shopping.mvp.model.Order;
 import nobugs.team.shopping.mvp.model.Product;
 import nobugs.team.shopping.mvp.model.ProductType;
@@ -13,17 +15,19 @@ public class OrderMapper implements IModelMapper<Order, OrderPo> {
     @Override
     public OrderPo fromModel(Order order) {
         OrderPo po = new OrderPo();
-        po.setId(Integer.valueOf(order.getOrderid()));
+        if (!TextUtils.isEmpty(order.getOrderid())) {
+            po.setId(Integer.valueOf(order.getOrderid()));
+        }
         po.setPrice(order.getPrice());
         po.setNumber(order.getProduct_count());
         po.setState(order.getState());
         po.setPlacetime(order.getPlace_time());
 
-        if (order.getProduct() != null){
+        if (order.getProduct() != null) {
             po.setProductname(order.getProduct().getName());
             po.setProductid(order.getProduct().getId());
 
-            if (order.getProduct().getType() != null){
+            if (order.getProduct().getType() != null) {
                 po.setType(order.getProduct().getType().getUnit());
             }
         }
@@ -32,7 +36,7 @@ public class OrderMapper implements IModelMapper<Order, OrderPo> {
 
     @Override
     public Order toModel(OrderPo orderPo) {
-        Order order =  new Order();
+        Order order = new Order();
         order.setOrderid(String.valueOf(orderPo.getId()));
         order.setPrice(orderPo.getPrice());
         order.setProduct_count(orderPo.getNumber());
