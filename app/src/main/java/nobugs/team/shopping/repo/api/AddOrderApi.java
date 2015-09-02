@@ -6,7 +6,7 @@ import nobugs.team.shopping.repo.entity.OrderPo;
  * Created by xiayong on 2015/8/26.
  */
 public interface AddOrderApi {
-    void addOrder(OrderPo orderPo, Callback callback);
+    void addOrder(String sellerId,OrderPo orderPo, Callback callback);
 
     interface Callback {
 
