@@ -8,8 +8,7 @@
     <SurfaceView
         android:id="@+id/sv_video_remote"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        precent:layout_heightPercent="55%"/>
+        android:layout_height="match_parent" />
 
     <Button
         android:id="@+id/btn_silence"
