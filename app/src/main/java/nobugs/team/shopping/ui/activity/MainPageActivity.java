@@ -42,8 +42,11 @@ public class MainPageActivity extends BaseActivity<MainPagePresenter> implements
 
     @Override
     protected void initView() {
+        mFragmentShop = (MainShopFragment) getSupportFragmentManager().findFragmentById(R.id.id_fragment_shop);
+        mFragmentOrder = (MainOrderListFragment) getSupportFragmentManager().findFragmentById(R.id.id_fragment_order);
         getPresenter().initView();
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
+        /////
     }
 
     @Override
@@ -69,10 +72,11 @@ public class MainPageActivity extends BaseActivity<MainPagePresenter> implements
         FragmentManager fm = getSupportFragmentManager();
         // 开启Fragment事务
         FragmentTransaction transaction = fm.beginTransaction();
-        if (mFragmentShop == null) {
+        transaction.hide(mFragmentOrder).show(mFragmentShop).commit();
+       /* if (mFragmentShop == null) {
             mFragmentShop = new MainShopFragment();
         }
-        transaction.replace(R.id.frame_fragment_content, mFragmentShop).commit();
+        transaction.replace(R.id.frame_fragment_content, mFragmentShop).commit();*/
     }
 
     @Override
@@ -80,10 +84,11 @@ public class MainPageActivity extends BaseActivity<MainPagePresenter> implements
         FragmentManager fm = getSupportFragmentManager();
         // 开启Fragment事务
         FragmentTransaction transaction = fm.beginTransaction();
-        if (mFragmentOrder == null) {
+        transaction.hide(mFragmentShop).show(mFragmentOrder).commit();
+        /*if (mFragmentOrder == null) {
             mFragmentOrder = new MainOrderListFragment();
         }
-        transaction.replace(R.id.frame_fragment_content, mFragmentOrder).commit();
+        transaction.replace(R.id.frame_fragment_content, mFragmentOrder).commit();*/
     }
 
     @Override

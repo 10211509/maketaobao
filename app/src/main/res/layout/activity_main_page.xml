@@ -10,7 +10,7 @@
         android:layout_above="@+id/linear_bottom_btns"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true">
-        <!--<fragment
+        <fragment
             android:id="@+id/id_fragment_shop"
             android:name="nobugs.team.shopping.ui.fragment.MainShopFragment"
             android:layout_width="match_parent"
@@ -20,7 +20,6 @@
             android:name="nobugs.team.shopping.ui.fragment.MainOrderListFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
--->
     </FrameLayout>
 
     <LinearLayout
