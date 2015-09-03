@@ -1,4 +1,4 @@
-<android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.zhy.android.percent.support.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:precent="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -51,4 +51,4 @@
             android:textColor="@android:color/white"
             android:textSize="18sp" />
     </LinearLayout>
-</android.support.percent.PercentRelativeLayout>
+</com.zhy.android.percent.support.PercentRelativeLayout>

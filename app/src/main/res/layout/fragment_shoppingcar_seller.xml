@@ -1,11 +1,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linear_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
     android:orientation="vertical"
-    android:id="@+id/linear_container"
-    android:weightSum="1"
-    android:visibility="invisible">
+    android:visibility="invisible"
+    android:weightSum="1">
 
     <TextView
         android:id="@+id/tv_shoppingcar_title"
@@ -15,8 +15,8 @@
         android:background="@color/cff0000"
         android:gravity="center"
         android:text="@string/tv_shoppingcar_title"
-        android:textSize="18sp"
-        android:textColor="@android:color/white" />
+        android:textColor="@android:color/white"
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/tv_product_index"
@@ -52,11 +52,11 @@
             android:id="@+id/btn_addorder"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_marginLeft="10dp"
+            android:layout_weight="1"
             android:background="@drawable/bg_btn_green_shape"
-            android:textColor="@android:color/white"
-            android:text="添加新商品" />
+            android:text="添加新商品"
+            android:textColor="@android:color/white" />
 
         <Button
             android:id="@+id/btn_deleteorder"
@@ -66,8 +66,8 @@
             android:layout_marginRight="10dp"
             android:layout_weight="1"
             android:background="@drawable/bg_btn_red_shape"
-            android:textColor="@android:color/white"
-            android:text="删除该商品" />
+            android:text="删除该商品"
+            android:textColor="@android:color/white" />
     </LinearLayout>
 
 </LinearLayout>

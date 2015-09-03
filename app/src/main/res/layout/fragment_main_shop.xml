@@ -1,4 +1,4 @@
-<android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.zhy.android.percent.support.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:precent="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -61,7 +61,7 @@
         android:layout_below="@+id/rv_main_types"
         android:background="#EEEEEE" />
 
-    <android.support.percent.PercentRelativeLayout
+    <com.zhy.android.percent.support.PercentRelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_below="@+id/rv_main_types"
@@ -87,7 +87,7 @@
             android:scrollbars="vertical"
             precent:layout_heightPercent="95%"
             precent:layout_widthPercent="80%" />
-    </android.support.percent.PercentRelativeLayout>
+    </com.zhy.android.percent.support.PercentRelativeLayout>
 
     <!--  <Button
           android:id="@+id/btn_main_shop"
@@ -114,4 +114,4 @@
           precent:layout_heightPercent="7.1%"
           precent:layout_widthPercent="50%" />-->
 
-</android.support.percent.PercentRelativeLayout>
+</com.zhy.android.percent.support.PercentRelativeLayout>

@@ -19,7 +19,7 @@ import nobugs.team.shopping.mvp.view.ShoppingCarView;
 /**
  * Created by xiayong on 2015/8/29.
  */
-public class ShoppingCarPresenterImpl extends BasePresenter<ShoppingCarView> implements ShoppingCarPresenter,ShoppingCarInteractor.Callback {
+public class ShoppingCarPresenterImpl extends BasePresenter<ShoppingCarView> implements ShoppingCarPresenter, ShoppingCarInteractor.Callback {
     private ShoppingCarInteractor shoppingCarInteractor;
     private List<Order> orders;
     private User mOwnUser;
@@ -40,6 +40,7 @@ public class ShoppingCarPresenterImpl extends BasePresenter<ShoppingCarView> imp
 
     public void onEventMainThread(RemoteOrderAddEvent event) {
         Order orderAdd = event.getOrder();
+        Toast.makeText(getContext(), "卖家添加了订单，id:" + orderAdd, Toast.LENGTH_SHORT).show();
 
         orders.add(orderAdd);
         getView().refreshViewPager(orders);
@@ -50,8 +51,9 @@ public class ShoppingCarPresenterImpl extends BasePresenter<ShoppingCarView> imp
     public void onEventMainThread(RemoteOrderDelEvent event) {
         String orderDel = String.valueOf(event.getOrderId());
 
-        for (Order order:orders){
-            if(order.getOrderid().equals(orderDel))
+        Toast.makeText(getContext(), "卖家删除了订单，id:" + orderDel, Toast.LENGTH_SHORT).show();
+        for (Order order : orders) {
+            if (order.getOrderid() != null && order.getOrderid().equals(orderDel))
                 orders.remove(order);
         }
         getView().refreshViewPager(orders);
@@ -94,8 +96,8 @@ public class ShoppingCarPresenterImpl extends BasePresenter<ShoppingCarView> imp
 
     @Override
     public void onDeleteSuccess(String id) {
-        for (Order order:orders){
-            if(order.getOrderid().equals(id))
+        for (Order order : orders) {
+            if (order.getOrderid().equals(id))
                 orders.remove(order);
         }
         getView().refreshViewPager(orders);

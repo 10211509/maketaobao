@@ -1,15 +1,14 @@
 package nobugs.team.shopping.ui.activity;
 
-import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import nobugs.team.shopping.R;
 import nobugs.team.shopping.app.base.BaseActivity;
@@ -43,8 +42,8 @@ public class MainPageActivity extends BaseActivity<MainPagePresenter> implements
 
     @Override
     protected void initView() {
-       getPresenter().initView();
-
+        getPresenter().initView();
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
     }
 
     @Override
@@ -70,7 +69,7 @@ public class MainPageActivity extends BaseActivity<MainPagePresenter> implements
         FragmentManager fm = getSupportFragmentManager();
         // 开启Fragment事务
         FragmentTransaction transaction = fm.beginTransaction();
-        if(mFragmentShop == null){
+        if (mFragmentShop == null) {
             mFragmentShop = new MainShopFragment();
         }
         transaction.replace(R.id.frame_fragment_content, mFragmentShop).commit();
@@ -81,23 +80,26 @@ public class MainPageActivity extends BaseActivity<MainPagePresenter> implements
         FragmentManager fm = getSupportFragmentManager();
         // 开启Fragment事务
         FragmentTransaction transaction = fm.beginTransaction();
-        if(mFragmentOrder == null){
+        if (mFragmentOrder == null) {
             mFragmentOrder = new MainOrderListFragment();
         }
-        transaction.replace(R.id.frame_fragment_content, mFragmentOrder).commit();    }
+        transaction.replace(R.id.frame_fragment_content, mFragmentOrder).commit();
+    }
 
     @Override
     public void initView(User user) {
 
-        if(user.isSeller()){
+        if (user.isSeller()) {
             showOrderList();
             mBtnMainShop.setVisibility(View.GONE);
             mBtnMainOrder.setVisibility(View.GONE);
-        }else{
+        } else {
             showShop();
             mBtnMainShop.setVisibility(View.VISIBLE);
             mBtnMainOrder.setVisibility(View.VISIBLE);
         }
+
+
         /*FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         mFragmentShop = new MainShopFragment();

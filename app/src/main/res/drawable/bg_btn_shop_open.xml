@@ -4,9 +4,9 @@
 
     <solid android:color="#6EC8E2" />
 
-    <padding
+<!--    <padding
         android:bottom="10px"
-        android:top="10px" />
+        android:top="10px" />-->
 
     <corners android:radius="4dp" />
 

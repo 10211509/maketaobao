@@ -1,49 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.zhy.android.percent.support.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="50dp"
     android:layout_marginBottom="5dp"
-    android:background="@drawable/bg_rv_main_shop_item"
-    android:orientation="vertical">
+    android:background="@drawable/bg_rv_main_shop_item">
 
     <ImageView
         android:id="@+id/iv_avatar_shop"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginLeft="6dp"
-        android:src="@drawable/avatar_main_shop_default"/>
+        android:src="@drawable/avatar_main_shop_default" />
 
     <TextView
         android:id="@+id/tv_shop_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
         android:layout_marginLeft="6dp"
+        android:layout_marginTop="2dp"
         android:layout_toRightOf="@+id/iv_avatar_shop"
         android:text="@string/tv_item_shop_name_default"
-        android:textSize="13sp"
-        android:textColor="@android:color/black"/>
+        android:textColor="@android:color/black"
+        app:layout_textSizePercent="28%h" />
 
     <TextView
         android:id="@+id/tv_shop_intro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:layout_below="@+id/tv_shop_name"
         android:layout_alignLeft="@+id/tv_shop_name"
+        android:layout_below="@+id/tv_shop_name"
+        android:layout_marginTop="4dp"
         android:text="@string/tv_item_shop_intro_default"
-        android:textSize="11sp"
-        android:textColor="#757575"/>
+        android:textColor="#757575"
+        app:layout_textSizePercent="21%h"/>
 
     <Button
         android:id="@+id/btn_shop_open"
-        android:layout_width="43dp"
+        android:layout_width="0dp"
         android:layout_height="25dp"
-        android:layout_marginRight="6dp"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
+        android:layout_marginRight="6dp"
         android:background="@drawable/bg_btn_shop_open"
-        android:textColor="@android:color/white"
         android:text="@string/btn_item_shop_look"
-        android:textSize="13sp"/>
-</RelativeLayout>
+        android:textColor="@android:color/white"
+        app:layout_textSizePercent="25%"
+        app:layout_widthPercent="120%h"/>
+</com.zhy.android.percent.support.PercentRelativeLayout>

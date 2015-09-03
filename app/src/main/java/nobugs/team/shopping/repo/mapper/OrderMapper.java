@@ -62,6 +62,8 @@ public class OrderMapper implements IModelMapper<Order, OrderPo> {
         }
         order.setPlace_time(orderPo.getPlacetime());
 
+        //TODO 买家卖家信息
+
         Product product = new Product();
         if (orderPo.getProductid() != null){
             product.setId(orderPo.getProductid());

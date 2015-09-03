@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.zhy.android.percent.support.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/lyt_sub_type_item"
     android:layout_width="match_parent"
-    android:layout_height="30dp"
-    android:orientation="vertical">
+    android:layout_height="30dp">
 
     <TextView
         android:id="@+id/tv_sub_type_name"
@@ -12,8 +12,8 @@
         android:layout_marginLeft="4dp"
         android:layout_centerVertical="true"
         android:text="@string/tv_item_sub_type_apple"
-        android:textSize="12sp"
-        android:textColor="@android:color/black"/>
+        android:textColor="@android:color/black"
+        app:layout_textSizePercent="40%h"/>
 
     <ImageView
         android:id="@+id/iv_sub_type_choose"
@@ -23,4 +23,4 @@
         android:layout_alignParentRight="true"
         android:src="@drawable/ic_rv_sub_type_choose"/>
 
-</RelativeLayout>
+</com.zhy.android.percent.support.PercentRelativeLayout>

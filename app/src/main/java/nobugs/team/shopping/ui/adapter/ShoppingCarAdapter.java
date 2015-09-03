@@ -3,7 +3,6 @@ package nobugs.team.shopping.ui.adapter;
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -83,6 +82,7 @@ public class ShoppingCarAdapter extends PagerAdapter {
         TextView tvTotalPrice = (TextView) container.findViewById(R.id.tv_total_price);
 
         Order order = orders.get(position);
+        order.getProduct().setName("xxx苹果");
         tvName.setText(Phrase.from(container, R.string.tv_product_name).put("name", order.getProduct().getName()).format());
         tvAmount.setText(Phrase.from(container, R.string.tv_number).put("number", order.getProduct_count()).format());
         tvUnit.setText(order.getProduct().getType().getUnit());

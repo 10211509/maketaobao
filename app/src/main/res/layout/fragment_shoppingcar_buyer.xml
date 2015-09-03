@@ -1,9 +1,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linear_buyer_shoppingcar_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
     android:orientation="vertical"
-    android:id="@+id/linear_buyer_shoppingcar_container"
     android:visibility="invisible"
     android:weightSum="1">
 
@@ -39,40 +39,41 @@
         android:persistentDrawingCache="animation" />
 
     <TextView
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_weight="0.081"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="卖家张三刚刚添加了商品带鱼，请注意购物车变化"
-        android:id="@+id/textView2"
         android:layout_gravity="center"
         android:gravity="center" />
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.159"
         android:layout_marginBottom="10dp"
         android:gravity="center">
+        android:gravity="center"
+        android:orientation="horizontal">
 
         <Button
+            android:id="@+id/btn_delete"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_weight="1"
             android:background="@drawable/bg_btn_red_shape"
-            android:textColor="@android:color/white"
             android:text="删除该商品"
-            android:id="@+id/btn_delete" />
+            android:textColor="@android:color/white" />
 
         <Button
+            android:id="@+id/btn_commitproduct"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_weight="1"
             android:background="@drawable/bg_btn_orange_shape"
             android:textColor="@android:color/white"
-            android:text="提交购物车"
-            android:id="@+id/btn_commitproduct" />
+            android:text="提交购物车"/>
     </LinearLayout>
     <include android:id="@+id/layout_commit" layout="@layout/layout_commit_orders_successful"/>
 </LinearLayout>

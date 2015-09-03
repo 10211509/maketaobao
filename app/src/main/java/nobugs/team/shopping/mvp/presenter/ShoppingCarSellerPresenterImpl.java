@@ -61,7 +61,7 @@ public class ShoppingCarSellerPresenterImpl extends BasePresenter<ShoppingCarSel
         int orderDel = event.getOrderId();
 
         //TODO 买家删除订单，处理UI
-
+        Toast.makeText(getContext(), "买家删除了订单，id:" + orderDel, Toast.LENGTH_SHORT).show();
 
         EventBus.getDefault().removeStickyEvent(event);
     }

@@ -1,6 +1,5 @@
 package nobugs.team.shopping.ui.activity;
 
-import android.support.percent.PercentRelativeLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.SurfaceView;
@@ -20,8 +19,8 @@ import nobugs.team.shopping.mvp.model.User;
 import nobugs.team.shopping.mvp.presenter.VoipCallPresenter;
 import nobugs.team.shopping.mvp.presenter.VoipCallPresenterImpl;
 import nobugs.team.shopping.mvp.view.VoipCallView;
-import nobugs.team.shopping.ui.fragment.ShoppingCarSellerFragment;
 import nobugs.team.shopping.ui.fragment.ShoppingCarBuyerFragment;
+import nobugs.team.shopping.ui.fragment.ShoppingCarSellerFragment;
 
 /**
  * make a call or receive a call.You can showVideoView or hang up the phone here!
@@ -31,7 +30,7 @@ public class VoipCallActivity extends BaseActivity<VoipCallPresenter> implements
     RelativeLayout rootVoipCall;
 
     @Bind(R.id.root_voip_video)
-    PercentRelativeLayout rootVoipVideo;
+    RelativeLayout rootVoipVideo;
 
     @Bind(R.id.btn_hangup)
     Button btnHangup;//button to hang up the call
