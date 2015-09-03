@@ -61,14 +61,27 @@ public class ShoppingCarPresenterImpl extends BasePresenter<ShoppingCarView> imp
         EventBus.getDefault().removeStickyEvent(event);
     }
 
+
     @Override
-    public void commitProduct(int index) {
+    public void commitShoppingCart(int index) {
         if (index < 0 || index > orders.size()) {
             Toast.makeText(getContext(),"请选择正确的商品提交",Toast.LENGTH_SHORT).show();
         }
         Order order = orders.get(index);
         getView().showCommitView(order.getProduct_count(),order.getPrice());
-        //TODO 将商品信息推送给卖家
+
+        int productTotal = 0;
+        double priceTotal = 0;
+
+        for (int i = 0; i < orders.size(); i++) {
+            if (orders.get(i) != null){
+                productTotal += orders.get(i).getProduct_count();
+                priceTotal +=  orders.get(i).getPrice();
+            }
+        }
+
+        // 将提交购物车推送给卖家
+        IMSendHelper.sendShoppingCartCommit(mOwnUser.getPhone(), mPeerUser.getPhone(), productTotal, priceTotal);
     }
 
     @Override

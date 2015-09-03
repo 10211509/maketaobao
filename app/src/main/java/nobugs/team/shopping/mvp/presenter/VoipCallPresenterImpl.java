@@ -65,6 +65,7 @@ public class VoipCallPresenterImpl extends BasePresenter<VoipCallView> implement
 
         initCameraInfo();
         initCameraSurfaceView();
+        initSpeaker();
         isConnect = true;
 
         if (isIncomingCall) {
@@ -116,8 +117,8 @@ public class VoipCallPresenterImpl extends BasePresenter<VoipCallView> implement
     }
 
     private void initCameraSurfaceView() {
-        ECDevice.getECVoIPSetupManager().setVideoView(getView().getRemoteCameraView(), null);
-        DisplayLocalSurfaceView();
+//        ECDevice.getECVoIPSetupManager().setVideoView(getView().getRemoteCameraView(), null);
+//        DisplayLocalSurfaceView();
     }
 
     private void initCameraInfo() {
@@ -135,6 +136,10 @@ public class VoipCallPresenterImpl extends BasePresenter<VoipCallView> implement
         }
     }
 
+    private void initSpeaker() {
+        ECDevice. getECVoIPSetupManager().enableLoudSpeaker(true);
+    }
+
     @Override
     public void onUIHangupCall() {
         //hang up the phone
@@ -148,7 +153,8 @@ public class VoipCallPresenterImpl extends BasePresenter<VoipCallView> implement
 
     @Override
     public void onUIChangeSilence() {
-
+        boolean isMute = ECDevice. getECVoIPSetupManager().getMuteStatus();
+        ECDevice. getECVoIPSetupManager().setMute(!isMute);
     }
 
     @Override

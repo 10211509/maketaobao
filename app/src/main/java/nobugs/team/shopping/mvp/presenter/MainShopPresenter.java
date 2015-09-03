@@ -18,4 +18,5 @@ public interface MainShopPresenter extends IPresenter{
 
     void onSelectShop(@NonNull Shop shop);
 
+    void onSearchShop(@NonNull String keyword);
 }

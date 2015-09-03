@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Created by Administrator on 2015/8/16 0016.
  */
-public interface AdsBannerInterator {
+public interface AdsBannerInteractor {
     void getAdsBanners(Callback callback);
 
     interface Callback {

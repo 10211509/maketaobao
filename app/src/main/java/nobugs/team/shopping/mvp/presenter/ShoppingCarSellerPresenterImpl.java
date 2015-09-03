@@ -10,6 +10,7 @@ import de.greenrobot.event.EventBus;
 import nobugs.team.shopping.R;
 import nobugs.team.shopping.event.CallBeginEvent;
 import nobugs.team.shopping.event.RemoteOrderDelEvent;
+import nobugs.team.shopping.event.RemoteShoppingCartSubmitEvent;
 import nobugs.team.shopping.im.IMSendHelper;
 import nobugs.team.shopping.mvp.interactor.OrderInteractor;
 import nobugs.team.shopping.mvp.interactor.OrderInteractorImpl;
@@ -65,6 +66,17 @@ public class ShoppingCarSellerPresenterImpl extends BasePresenter<ShoppingCarSel
 
         EventBus.getDefault().removeStickyEvent(event);
     }
+
+    public void onEventMainThread(RemoteShoppingCartSubmitEvent event) {
+        int orderCount = event.getProductTotal();
+        double priceTotal = event.getPriceTotal();
+
+        //TODO 买家提交购物车，处理UI
+        Toast.makeText(getContext(), "买家提交购物车，商品数量：" + orderCount + "，总价格：" + priceTotal, Toast.LENGTH_SHORT).show();
+
+        EventBus.getDefault().removeStickyEvent(event);
+    }
+
 
     @Override
     public void onDestroy() {

@@ -67,7 +67,7 @@
             android:textColor="@android:color/white" />
 
         <Button
-            android:id="@+id/btn_commitproduct"
+            android:id="@+id/btn_commit_shopping_cart"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_weight="1"

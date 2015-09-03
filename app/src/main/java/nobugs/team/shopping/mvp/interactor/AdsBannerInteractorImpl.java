@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Created by Administrator on 2015/8/16 0016.
  */
-public class AdsBannerInteratorImpl implements AdsBannerInterator{
+public class AdsBannerInteractorImpl implements AdsBannerInteractor {
 
     @Override
     public void getAdsBanners(Callback callback) {

@@ -6,9 +6,13 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bigkoo.convenientbanner.CBPageAdapter;
 import com.bigkoo.convenientbanner.CBViewHolderCreator;
@@ -19,6 +23,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
+import butterknife.OnClick;
+import butterknife.OnEditorAction;
 import nobugs.team.shopping.R;
 import nobugs.team.shopping.app.base.BaseFragment;
 import nobugs.team.shopping.mvp.model.ProductType;
@@ -53,6 +59,9 @@ public class MainShopFragment extends BaseFragment<MainShopPresenter> implements
 
     @Bind(R.id.rv_shops)
     RecyclerView rvShops;
+
+    @Bind(R.id.iv_search)
+    ImageView ivSearch;
 
     private MainProductTypeAdapter mMainProductTypeAdapter;
     private SubProductTypeAdapter mSubProductTypeAdapter;
@@ -142,6 +151,25 @@ public class MainShopFragment extends BaseFragment<MainShopPresenter> implements
         rvShops.setHasFixedSize(true);
     }
 
+    @OnClick(R.id.iv_search)
+    public void onSearchClick() {
+        String keyword = edtSearch.getText().toString();
+        getPresenter().onSearchShop(keyword);
+        edtSearch.clearFocus();
+        InputMethodManager ime = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        ime.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+    }
+
+    @OnEditorAction(R.id.edt_search)
+    public boolean onSearchPress(TextView v, int actionId, KeyEvent event) {
+        if (actionId == KeyEvent.ACTION_DOWN || actionId == EditorInfo.IME_ACTION_DONE || actionId == EditorInfo.IME_ACTION_SEARCH) {
+            String keyword = v.getText().toString();
+            getPresenter().onSearchShop(keyword);
+            v.clearFocus();
+        }
+        return true;
+    }
+
     @Override
     public void showAndRunAdsBanner(List<String> imgUrls, int period) {
         if (bannerMain != null) {
@@ -215,6 +243,7 @@ public class MainShopFragment extends BaseFragment<MainShopPresenter> implements
         intent.putExtra(VoipCallPresenterImpl.EXTRA_OUTGOING_CALL, true);
         startActivity(intent);
     }
+
 
     public class ImageViewHolder implements CBPageAdapter.Holder<String> {
         private ImageView imageView;

@@ -10,7 +10,7 @@ import nobugs.team.shopping.mvp.model.Shop;
  */
 public interface ShopInteractor {
 
-    void getShops(ProductType productType, Callback callback);
+    void getShops(ProductType productType, String keyword, Callback callback);
 
     interface Callback {
         void onSuccess(List<Shop> shops);

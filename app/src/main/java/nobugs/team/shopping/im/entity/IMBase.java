@@ -7,6 +7,7 @@ public class IMBase {
     public static final String TYPE_SELECT_SHOP = "selectShop";
     public static final String TYPE_ADD_ORDER = "refreshViewPager";
     public static final String TYPE_DEL_ORDER = "delOrder";
+    public static final String TYPE_SHOPPING_CART_COMMIT = "shoppingCartCommit";
 
     private String type;
 

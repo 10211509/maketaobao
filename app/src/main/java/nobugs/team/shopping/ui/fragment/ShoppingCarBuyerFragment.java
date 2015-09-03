@@ -1,11 +1,8 @@
 package nobugs.team.shopping.ui.fragment;
 
 import android.app.Activity;
-import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -14,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import nobugs.team.shopping.R;
 import nobugs.team.shopping.app.base.BaseFragment;
@@ -38,7 +34,7 @@ public class ShoppingCarBuyerFragment extends BaseFragment<ShoppingCarPresenter>
     ViewPager vpContainer;
     @Bind(R.id.btn_delete)
     Button btnDelete;
-    @Bind(R.id.btn_commitproduct)
+    @Bind(R.id.btn_commit_shopping_cart)
     Button btnCommitPruduct;
     @Bind(R.id.tv_buyer_product_index)
     TextView tvBuyerProductIndex;
@@ -101,14 +97,14 @@ public class ShoppingCarBuyerFragment extends BaseFragment<ShoppingCarPresenter>
         return R.layout.fragment_shoppingcar_buyer;
     }
 
-    @OnClick({R.id.btn_delete, R.id.btn_commitproduct,R.id.btn_sure})
+    @OnClick({R.id.btn_delete, R.id.btn_commit_shopping_cart,R.id.btn_sure})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_delete:
                 getPresenter().deleteProduct(selectedPageIndex);
                 break;
-            case R.id.btn_commitproduct:
-                getPresenter().commitProduct(selectedPageIndex);
+            case R.id.btn_commit_shopping_cart:
+                getPresenter().commitShoppingCart(selectedPageIndex);
                 break;
             case R.id.btn_sure:
 //                fragmentActionListener.onFragmentChange(btnCommitPruduct);

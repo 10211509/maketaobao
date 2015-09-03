@@ -6,8 +6,8 @@ import java.util.List;
 
 import de.greenrobot.event.EventBus;
 import nobugs.team.shopping.event.ShopSelectEvent;
-import nobugs.team.shopping.mvp.interactor.AdsBannerInterator;
-import nobugs.team.shopping.mvp.interactor.AdsBannerInteratorImpl;
+import nobugs.team.shopping.mvp.interactor.AdsBannerInteractor;
+import nobugs.team.shopping.mvp.interactor.AdsBannerInteractorImpl;
 import nobugs.team.shopping.mvp.interactor.ProductTypeInteractor;
 import nobugs.team.shopping.mvp.interactor.ProductTypeInteractorImpl;
 import nobugs.team.shopping.mvp.interactor.ShopInteractor;
@@ -25,21 +25,23 @@ public class MainShopPresenterImpl extends BasePresenter<MainShopView> implement
 
     public static final int BANNER_TURN_PERIOD = 3000;
 
-    private AdsBannerInterator mAdsBannerInterator;
-    private ProductTypeInteractor mProductTypeInterator;
-    private ShopInteractor mShopInterator;
+    private AdsBannerInteractor mAdsBannerInteractor;
+    private ProductTypeInteractor mProductTypeInteractor;
+    private ShopInteractor mShopInteractor;
+
+    private ProductType mCurSubType;
 
     public MainShopPresenterImpl(MainShopView view) {
         super(view);
-        this.mAdsBannerInterator = new AdsBannerInteratorImpl();
-        this.mProductTypeInterator = new ProductTypeInteractorImpl();
-        this.mShopInterator = new ShopInteractorImpl();
+        this.mAdsBannerInteractor = new AdsBannerInteractorImpl();
+        this.mProductTypeInteractor = new ProductTypeInteractorImpl();
+        this.mShopInteractor = new ShopInteractorImpl();
     }
 
     private void showAdsBanner() {
         getView().showEmptyBanner();
 
-        mAdsBannerInterator.getAdsBanners(new AdsBannerInterator.Callback() {
+        mAdsBannerInteractor.getAdsBanners(new AdsBannerInteractor.Callback() {
             @Override
             public void onSuccess(List<String> imgUrls) {
                 getView().showAndRunAdsBanner(imgUrls, BANNER_TURN_PERIOD);
@@ -60,7 +62,7 @@ public class MainShopPresenterImpl extends BasePresenter<MainShopView> implement
     private void showProductTypes() {
         getView().showEmptyMainProductType();
 
-        mProductTypeInterator.getMainProductType(new ProductTypeInteractor.Callback() {
+        mProductTypeInteractor.getMainProductType(new ProductTypeInteractor.Callback() {
             @Override
             public void onSuccess(List<ProductType> types) {
                 if (types != null && types.size() > 0) {
@@ -89,7 +91,7 @@ public class MainShopPresenterImpl extends BasePresenter<MainShopView> implement
     private void showSubProductTypes(ProductType mainType) {
         getView().showEmptySubProductType();
 
-        mProductTypeInterator.getSubProductType(mainType, new ProductTypeInteractor.Callback() {
+        mProductTypeInteractor.getSubProductType(mainType, new ProductTypeInteractor.Callback() {
             @Override
             public void onSuccess(List<ProductType> types) {
                 if (types != null && types.size() > 0) {
@@ -115,9 +117,11 @@ public class MainShopPresenterImpl extends BasePresenter<MainShopView> implement
     }
 
     private void showShops(ProductType subType) {
+        mCurSubType = subType;
+
         getView().showEmptyShop();
 
-        mShopInterator.getShops(subType, new ShopInteractor.Callback() {
+        mShopInteractor.getShops(subType, null, new ShopInteractor.Callback() {
             @Override
             public void onSuccess(List<Shop> shops) {
                 getView().showShops(shops);
@@ -177,5 +181,27 @@ public class MainShopPresenterImpl extends BasePresenter<MainShopView> implement
         EventBus.getDefault().postSticky(new ShopSelectEvent(shop));
 
         getView().navigateCallOut(shop.getOwner());
+    }
+
+    @Override
+    public void onSearchShop(@NonNull String keyword) {
+//        getView().showEmptyShop();
+
+        mShopInteractor.getShops(mCurSubType, keyword, new ShopInteractor.Callback() {
+            @Override
+            public void onSuccess(List<Shop> shops) {
+                getView().showShops(shops);
+            }
+
+            @Override
+            public void onNetWorkError() {
+                getView().showEmptyShop();
+            }
+
+            @Override
+            public void onFailure() {
+                getView().showEmptyShop();
+            }
+        });
     }
 }

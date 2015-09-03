@@ -34,10 +34,12 @@ import nobugs.team.shopping.event.IMEvent;
 import nobugs.team.shopping.event.RemoteOrderAddEvent;
 import nobugs.team.shopping.event.RemoteOrderDelEvent;
 import nobugs.team.shopping.event.RemoteShopSelectEvent;
+import nobugs.team.shopping.event.RemoteShoppingCartSubmitEvent;
 import nobugs.team.shopping.im.entity.IMAddOrder;
 import nobugs.team.shopping.im.entity.IMBase;
 import nobugs.team.shopping.im.entity.IMDelOrder;
 import nobugs.team.shopping.im.entity.IMSelectShop;
+import nobugs.team.shopping.im.entity.IMShoppingCartCommit;
 import nobugs.team.shopping.mvp.model.Order;
 import nobugs.team.shopping.mvp.model.Shop;
 import nobugs.team.shopping.mvp.model.User;
@@ -335,6 +337,11 @@ public class IMChattingHelper implements OnChatReceiveListener
                         final IMDelOrder imDelOrder = gson.fromJson(txt, IMDelOrder.class);
 
                         EventBus.getDefault().postSticky(new RemoteOrderDelEvent(imDelOrder.getOrderId(), msg));
+                        break;
+                    case IMBase.TYPE_SHOPPING_CART_COMMIT:
+                        final IMShoppingCartCommit imShoppingCartCommit = gson.fromJson(txt, IMShoppingCartCommit.class);
+
+                        EventBus.getDefault().postSticky(new RemoteShoppingCartSubmitEvent(imShoppingCartCommit.getProductTotal(), imShoppingCartCommit.getPriceTotal(), msg));
                         break;
                 }
             } catch (JSONException e) {

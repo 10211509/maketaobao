@@ -10,6 +10,7 @@ import com.yuntongxun.ecsdk.ECMessage;
 import nobugs.team.shopping.im.entity.IMAddOrder;
 import nobugs.team.shopping.im.entity.IMDelOrder;
 import nobugs.team.shopping.im.entity.IMSelectShop;
+import nobugs.team.shopping.im.entity.IMShoppingCartCommit;
 import nobugs.team.shopping.mvp.model.Order;
 import nobugs.team.shopping.mvp.model.Shop;
 import nobugs.team.shopping.mvp.model.User;
@@ -72,6 +73,26 @@ public class IMSendHelper {
         Gson gson = new Gson();
 
         String json = gson.toJson(imDelOrder, IMDelOrder.class);
+
+        IMChattingHelper.sendECMessage(myPhone, peerPhone, json, new ECDeskManager.OnSendDeskMessageListener() {
+            @Override
+            public void onSendMessageComplete(ECError ecError, ECMessage ecMessage) {
+                Log.e(TAG, "[onSendMessageComplete] ecError: " + ecError + ", ecMessage:" + ecMessage);
+            }
+
+            @Override
+            public void onProgress(String s, int i, int i1) {
+                Log.e(TAG, "[onProgress] s: " + s + ", i:" + i);
+            }
+        });
+    }
+
+    public static void sendShoppingCartCommit(String myPhone, String peerPhone, int productTotal, double priceTotal) {
+
+        IMShoppingCartCommit imShoppingCartCommit = new IMShoppingCartCommit(productTotal, priceTotal);
+        Gson gson = new Gson();
+
+        String json = gson.toJson(imShoppingCartCommit, IMShoppingCartCommit.class);
 
         IMChattingHelper.sendECMessage(myPhone, peerPhone, json, new ECDeskManager.OnSendDeskMessageListener() {
             @Override
