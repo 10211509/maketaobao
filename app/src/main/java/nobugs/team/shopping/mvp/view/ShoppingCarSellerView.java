@@ -11,6 +11,7 @@ import nobugs.team.shopping.mvp.model.Shop;
 public interface ShoppingCarSellerView extends IView {
     void initViewPager(Shop shop);
     void refreshViewPagerWhenDataSetChange(List<Order> orders);
+    void showPagerLast();
 //    void addItemToViewPager(Order order);
 //    void deleteItemOfViewPager(String orderid);
 }

@@ -1,7 +1,7 @@
 package nobugs.team.shopping.ui.adapter;
 
 import android.content.Context;
-import android.support.v4.widget.ViewDragHelper;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +9,6 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import nobugs.team.shopping.R;
@@ -24,19 +23,20 @@ public class OrderListAdapter extends BaseAdapter {
     private List<Order> orders;
     private Context context;
 
-    public OrderListAdapter(Context context,List<Order> orders){
+    public OrderListAdapter(Context context, List<Order> orders) {
         this.context = context;
         this.orders = orders;
     }
 
-    public OrderListAdapter(Context context){
+    public OrderListAdapter(Context context) {
         this.context = context;
         this.orders = new ArrayList<>();
     }
 
-    public void setOrders(List<Order> orders){
+    public void setOrders(List<Order> orders) {
         this.orders = orders;
     }
+
     @Override
     public int getCount() {
         return orders.size();
@@ -55,7 +55,7 @@ public class OrderListAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder = null;
-        if(convertView == null){
+        if (convertView == null) {
             viewHolder = new ViewHolder();
             convertView = LayoutInflater.from(context).inflate(R.layout.item_order_list, null);
             viewHolder.tvOrderId = (TextView) convertView.findViewById(R.id.tv_orderid);
@@ -64,15 +64,25 @@ public class OrderListAdapter extends BaseAdapter {
             viewHolder.tvPrice = (TextView) convertView.findViewById(R.id.tv_price);
             viewHolder.tvPlaceTime = (TextView) convertView.findViewById(R.id.tv_place_time);
             convertView.setTag(viewHolder);
-        }else{
+        } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         Order order = orders.get(position);
-        viewHolder.tvOrderId.setText(Phrase.from(context,R.string.order_id).put("orderid",order.getOrderid()).format());
-        viewHolder.tvName.setText(Phrase.from(context,R.string.order_name).put("name", order.getProduct().getName()).format());
-        viewHolder.tvAmount.setText(Phrase.from(context,R.string.order_amount).put("amount",order.getProduct_count()).format());
-        viewHolder.tvPrice.setText(Phrase.from(context,R.string.order_price).put("price",String.valueOf(order.getPrice())).format());
-        viewHolder.tvPlaceTime.setText(Phrase.from(context,R.string.order_place_time).put("place_time",order.getPlace_time()).format());
+        String orderId = order.getOrderid();
+        String orderName = order.getProduct() != null ? order.getProduct().getName() : "";
+        int productCount = order.getProduct_count();
+        String price = String.valueOf(order.getPrice());
+        String placeTime = String.valueOf(order.getPrice());
+
+        if (!TextUtils.isEmpty(orderId)) {
+            viewHolder.tvOrderId.setText(Phrase.from(context, R.string.order_id).put("orderid", orderId).format());
+        }
+        if (!TextUtils.isEmpty(orderName)){
+            viewHolder.tvName.setText(Phrase.from(context, R.string.order_name).put("name", orderName).format());
+        }
+        viewHolder.tvAmount.setText(Phrase.from(context, R.string.order_amount).put("amount", productCount).format());
+        viewHolder.tvPrice.setText(Phrase.from(context, R.string.order_price).put("price", price).format());
+        viewHolder.tvPlaceTime.setText(Phrase.from(context, R.string.order_place_time).put("place_time", placeTime).format());
         return convertView;
     }
 

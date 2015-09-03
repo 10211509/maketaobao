@@ -1,11 +1,7 @@
 package nobugs.team.shopping.ui.fragment;
 
-import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -14,7 +10,6 @@ import android.widget.Toast;
 import java.util.List;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import nobugs.team.shopping.R;
 import nobugs.team.shopping.app.base.BaseFragment;
@@ -115,6 +110,12 @@ public class ShoppingCarSellerFragment extends BaseFragment<ShoppingCarSellerPre
     public void refreshViewPagerWhenDataSetChange(List<Order> orders) {
         shoppingCarSellerAdapter.replaceOrders(orders);
         shoppingCarSellerAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void showPagerLast() {
+        int lastIndex = vpContainer.getChildCount();
+        vpContainer.setCurrentItem(lastIndex);
     }
 
 

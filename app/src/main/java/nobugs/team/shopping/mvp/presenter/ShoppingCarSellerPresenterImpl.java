@@ -102,6 +102,7 @@ public class ShoppingCarSellerPresenterImpl extends BasePresenter<ShoppingCarSel
         Toast.makeText(getContext(), "添加成功", Toast.LENGTH_SHORT).show();
         IMSendHelper.sendAddOrder(mOwnUser.getPhone(), mPeerUser.getPhone(), order);
         getView().refreshViewPagerWhenDataSetChange(orders);
+        getView().showPagerLast();
     }
 
     @Override
