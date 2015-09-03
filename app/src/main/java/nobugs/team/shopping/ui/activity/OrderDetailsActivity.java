@@ -58,7 +58,7 @@ public class OrderDetailsActivity extends BaseActivity<OrderDetailsPresenter> im
         btnDelivered.setVisibility(View.GONE);
         btnCollected.setVisibility(View.GONE);
 
-        if(order.getOrderState() == Order.State.payed){
+        if(order.getOrderState() == Order.State.placed){
             btnPayed.setEnabled(true);
             btnCanceled.setEnabled(true);
         }else{

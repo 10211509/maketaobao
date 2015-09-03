@@ -10,8 +10,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/white"
+        android:layout_marginLeft="10dp"
         android:dividerHeight="0.5dp"
         android:footerDividersEnabled="false"
-        tools:listitem="@layout/list_item" />
+        tools:listitem="@layout/list_item"
+        android:choiceMode="singleChoice"
+        android:longClickable="true" />
 
 </com.demievil.library.RefreshLayout>
