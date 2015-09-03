@@ -119,7 +119,6 @@ public class VoipCallActivity extends BaseActivity<VoipCallPresenter> implements
         rootVoipVideo.setVisibility(View.VISIBLE);
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//        Fragment fragment = user.isSeller()? new AddShoppingCarFragment() : new ShoppingCarFragment();
         fragmentTransaction.replace(R.id.fl_frag_content, new ShoppingCarSellerFragment());
         fragmentTransaction.commit();
     }
@@ -130,7 +129,6 @@ public class VoipCallActivity extends BaseActivity<VoipCallPresenter> implements
         rootVoipVideo.setVisibility(View.VISIBLE);
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//        Fragment fragment = user.isSeller()? new AddShoppingCarFragment() : new ShoppingCarFragment();
         fragmentTransaction.replace(R.id.fl_frag_content, new ShoppingCarBuyerFragment());
         fragmentTransaction.commit();
     }

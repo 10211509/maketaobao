@@ -24,18 +24,20 @@ public class ShoppingCarAdapter extends PagerAdapter {
         this.orders = orders;
     }
 
-    public void addOrder(Order order){
-        if(order != null){
+    public void addOrder(Order order) {
+        if (order != null) {
             //we don't expect to add null into the list
             orders.add(order);
         }
     }
-    public void replaceOrders(List<Order> orders){
-        if(orders != null){
+
+    public void replaceOrders(List<Order> orders) {
+        if (orders != null) {
             //we don't expect to add null into the list
-          this.orders = orders;
+            this.orders = orders;
         }
     }
+
     @Override
     public int getCount() {
         return orders.size();
@@ -70,10 +72,11 @@ public class ShoppingCarAdapter extends PagerAdapter {
         TextView tvTotalPrice = (TextView) container.findViewById(R.id.tv_total_price);
 
         Order order = orders.get(position);
-        tvName.setText(Phrase.from(container,R.string.tv_product_name).put("name",order.getProduct().getName()).format());
+        tvName.setText(Phrase.from(container, R.string.tv_product_name).put("name", order.getProduct().getName()).format());
         tvAmount.setText(Phrase.from(container, R.string.tv_number).put("number", order.getProduct_count()).format());
-        tvUnit.setText("框");
+        tvUnit.setText(order.getProduct().getType().getUnit());
         tvTotalPrice.setText(Phrase.from(container, R.string.tv_total_price).put("price", String.valueOf(order.getPrice())).format());
+        ((ViewPager) view).addView(container, 0);
         return container;
     }
 }
