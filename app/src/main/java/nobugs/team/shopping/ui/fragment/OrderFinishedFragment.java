@@ -90,17 +90,17 @@ public class OrderFinishedFragment extends BaseFragment<OrderListPresenter> impl
 
     @Override
     public void onLoad() {
-        getPresenter().loadMoreOrder();
+        getPresenter().loadMoreOrder(true);
     }
 
     @Override
     public void onRefresh() {
-        getPresenter().refreshOrderList();
+        getPresenter().refreshOrderList(true);
     }
 
     @Override
     public void navigateToOrderDetailsAvtivity() {
-        startActivity(new Intent(this.getActivity(),OrderDetailsActivity.class));
+        startActivity(new Intent(this.getActivity(), OrderDetailsActivity.class));
     }
 
     @Override
@@ -119,7 +119,17 @@ public class OrderFinishedFragment extends BaseFragment<OrderListPresenter> impl
     public void showOrderList(List<Order> orderList) {
         mOrderListAdapter.setOrders(orderList);
         mOrderListAdapter.notifyDataSetChanged();
+        stopRefreshing();
+        stopLoading();
+    }
+
+    @Override
+    public void stopLoading() {
         mRefreshLayout.setLoading(false);
+    }
+
+    @Override
+    public void stopRefreshing() {
         mRefreshLayout.setRefreshing(false);
     }
 }

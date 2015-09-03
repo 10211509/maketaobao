@@ -47,16 +47,24 @@ public class OrderListPresenterImpl extends BasePresenter<OrderListView> impleme
     }
 
     @Override
-    public void refreshOrderList() {
+    public void refreshOrderList(boolean finished) {
         orders.clear();
-        showOrderInprogressList();
+        if(finished){
+            showOrderFinishList();
+        }else{
+            showOrderInprogressList();
+        }
     }
 
     @Override
-    public void loadMoreOrder() {
+    public void loadMoreOrder(boolean finished) {
         User loginer = Repository.getInstance().getLoginUser();
         double currentIndex = ((double)orders.size())/5;
-        mOrderInteractor.getOrdersInFinished(loginer, 5, (int)Math.ceil(currentIndex)+1, this);
+        if(finished){
+            mOrderInteractor.getOrdersInFinished(loginer, 5, (int)Math.ceil(currentIndex)+1, this);
+        }else{
+            mOrderInteractor.getOrdersInProgress(loginer, 5, (int)Math.ceil(currentIndex)+1, this);
+        }
     }
 
     @Override
@@ -83,6 +91,8 @@ public class OrderListPresenterImpl extends BasePresenter<OrderListView> impleme
     public void onGetOrderListSuccess(List<Order> orderList) {
         if(orderList == null || orderList.size()<=0){
             Toast.makeText(getContext(),getActivity().getString(R.string.toast_no_orders),Toast.LENGTH_SHORT).show();
+            getView().stopLoading();
+            getView().stopRefreshing();
             return;
         }
         orders.addAll(orderList);

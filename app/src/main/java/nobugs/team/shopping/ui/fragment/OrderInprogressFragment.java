@@ -102,18 +102,28 @@ public class OrderInprogressFragment extends BaseFragment<OrderListPresenter> im
     public void showOrderList(List<Order> orderList) {
         mOrderListAdapter.setOrders(orderList);
         mOrderListAdapter.notifyDataSetChanged();
+        stopLoading();
+        stopRefreshing();
+    }
+
+    @Override
+    public void stopLoading() {
         mRefreshLayout.setLoading(false);
+    }
+
+    @Override
+    public void stopRefreshing() {
         mRefreshLayout.setRefreshing(false);
     }
 
     @Override
     public void onLoad() {
-        getPresenter().loadMoreOrder();
+        getPresenter().loadMoreOrder(false);
     }
 
     @Override
     public void onRefresh() {
-        getPresenter().refreshOrderList();
+        getPresenter().refreshOrderList(false);
     }
 
     @Override

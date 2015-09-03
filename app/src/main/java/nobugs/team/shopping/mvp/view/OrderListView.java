@@ -17,4 +17,7 @@ public interface OrderListView extends IView {
     void loadMoreOrders(List<Order> orderList);
 
     void showOrderList(List<Order> orderList);
+
+    void stopLoading();
+    void stopRefreshing();
 }

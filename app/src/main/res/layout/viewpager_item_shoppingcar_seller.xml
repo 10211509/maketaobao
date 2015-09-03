@@ -14,6 +14,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="品名："
+            android:textColor="@android:color/black"
             android:id="@+id/tv_name" />
 
         <Spinner
@@ -35,6 +36,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="数量："
+            android:textColor="@android:color/black"
             android:id="@+id/tv_number_str" />
 
         <EditText
@@ -43,6 +45,7 @@
             android:inputType="number"
             android:ems="10"
             android:id="@+id/et_product_number"
+            android:textColor="@android:color/black"
             android:layout_weight="1"
             android:text="5" />
 
@@ -63,6 +66,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="总价：¥"
+            android:textColor="@android:color/black"
             android:id="@+id/tv_price_title" />
 
         <EditText
@@ -79,6 +83,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="元"
+            android:textColor="@android:color/black"
             android:id="@+id/tv_yuan" />
     </LinearLayout>
 
