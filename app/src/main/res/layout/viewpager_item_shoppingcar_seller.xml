@@ -12,7 +12,6 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="品名："
             android:textColor="@android:color/black"
             android:id="@+id/tv_name" />
@@ -34,7 +33,6 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="数量："
             android:textColor="@android:color/black"
             android:id="@+id/tv_number_str" />
@@ -64,7 +62,6 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="总价：¥"
             android:textColor="@android:color/black"
             android:id="@+id/tv_price_title" />
@@ -81,7 +78,6 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="元"
             android:textColor="@android:color/black"
             android:id="@+id/tv_yuan" />
