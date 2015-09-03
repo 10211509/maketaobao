@@ -213,7 +213,7 @@ public class Repository {
 
     public void addOrder(Order order, final RepoCallback.Add<Order> callbackGet) {
         OrderMapper mapper = new OrderMapper();
-        addOrderApi.addOrder(mapper.fromModel(order), new AddOrderApi.Callback() {
+      /*  addOrderApi.addOrder(mapper.fromModel(order), new AddOrderApi.Callback() {
             @Override
             public void onFinish(int orderId) {
                 callbackGet.onAddDataSuccess(orderId);
@@ -223,7 +223,7 @@ public class Repository {
             public void onError(int errType, String errMsg) {
                 callbackGet.onError(errType, errMsg);
             }
-        });
+        });*/
     }
 
     public void removeOrder(int orderId, final RepoCallback.Remove<Order> callbackGet) {

@@ -6,4 +6,5 @@ package nobugs.team.shopping.mvp.presenter;
 public interface MainPagePresenter extends IPresenter {
     void navigateToShop();
     void navigateToOrderList();
+    void initView();
 }

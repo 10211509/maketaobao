@@ -1,7 +1,9 @@
 package nobugs.team.shopping.mvp.presenter;
 
 
+import nobugs.team.shopping.mvp.model.User;
 import nobugs.team.shopping.mvp.view.MainPageView;
+import nobugs.team.shopping.repo.Repository;
 
 /**
  * Created by xiayong on 2015/8/22.
@@ -21,4 +23,11 @@ public class MainPagePresenterImpl extends BasePresenter<MainPageView> implement
     public void navigateToOrderList() {
         getView().showOrderList();
     }
+
+    public void initView(){
+        //if the user is seller then only show the order list
+        User loginer = Repository.getInstance().getLoginUser();
+        getView().initView(loginer);
+    }
+
 }

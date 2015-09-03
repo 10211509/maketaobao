@@ -12,6 +12,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import nobugs.team.shopping.R;
 import nobugs.team.shopping.app.base.BaseActivity;
+import nobugs.team.shopping.mvp.model.User;
 import nobugs.team.shopping.mvp.presenter.MainPagePresenter;
 import nobugs.team.shopping.mvp.presenter.MainPagePresenterImpl;
 import nobugs.team.shopping.mvp.view.MainPageView;
@@ -42,12 +43,7 @@ public class MainPageActivity extends BaseActivity<MainPagePresenter> implements
 
     @Override
     protected void initView() {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        mFragmentShop = new MainShopFragment();
-//        mFragmentOrder = new MainOrderListFragment();
-        fragmentTransaction.replace(R.id.frame_fragment_content,mFragmentShop);
-        fragmentTransaction.commit();
+       getPresenter().initView();
 
     }
 
@@ -89,4 +85,23 @@ public class MainPageActivity extends BaseActivity<MainPagePresenter> implements
             mFragmentOrder = new MainOrderListFragment();
         }
         transaction.replace(R.id.frame_fragment_content, mFragmentOrder).commit();    }
+
+    @Override
+    public void initView(User user) {
+
+        if(user.isSeller()){
+            showOrderList();
+            mBtnMainShop.setVisibility(View.GONE);
+            mBtnMainOrder.setVisibility(View.GONE);
+        }else{
+            showShop();
+            mBtnMainShop.setVisibility(View.VISIBLE);
+            mBtnMainOrder.setVisibility(View.VISIBLE);
+        }
+        /*FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        mFragmentShop = new MainShopFragment();
+        fragmentTransaction.replace(R.id.frame_fragment_content,mFragmentShop);
+        fragmentTransaction.commit();*/
+    }
 }
