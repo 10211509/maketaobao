@@ -56,6 +56,16 @@
             android:text="@string/tv_collected"
             android:visibility="gone"/>
         <Button
+            android:id="@+id/btn_accepted"
+            android:layout_width="0dp"
+            android:layout_height="45dp"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/bg_btn_red_shape"
+            android:textColor="@android:color/white"
+            android:text="@string/tv_accept_product"
+            android:visibility="gone"/>
+        <Button
             android:id="@+id/btn_canceled"
             android:layout_width="0dp"
             android:layout_height="45dp"

@@ -63,5 +63,6 @@
     <string name="tv_commit_amout">商品数量：{amount}</string>
     <string name="tv_commit_totalprice">总价格：¥{price}</string>
     <string name="tv_index_initdata">共1件,当前第1件</string>
+    <string name="tv_accept_product">已收货</string>
 
 </resources>

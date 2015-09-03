@@ -3,6 +3,7 @@ package nobugs.team.shopping.mvp.presenter;
 import android.widget.Toast;
 
 import de.greenrobot.event.EventBus;
+import nobugs.team.shopping.R;
 import nobugs.team.shopping.event.OrderSelectEvent;
 import nobugs.team.shopping.mvp.interactor.OrderInteractor;
 import nobugs.team.shopping.mvp.interactor.OrderInteractorImpl;
@@ -46,30 +47,33 @@ public class OrderDetailsPresenterImpl extends BasePresenter<OrderDetailsView> i
 
     @Override
     public void updateToDelivered() {
-        orderInteractor.updateOrderState(order.getOrderid(), Order.State.delivered,this);
-        Toast.makeText(getContext(),"订单状态修改成功",Toast.LENGTH_SHORT).show();
+        orderInteractor.updateOrderState(order.getOrderid(), Order.State.delivered, this);
     }
 
     @Override
     public void updateToPayed() {
-        orderInteractor.updateOrderState(order.getOrderid(), Order.State.payed,this);
-        Toast.makeText(getContext(),"订单状态修改成功",Toast.LENGTH_SHORT).show();
+        orderInteractor.updateOrderState(order.getOrderid(), Order.State.payed, this);
     }
 
     @Override
     public void updateToCollected() {
-        orderInteractor.updateOrderState(order.getOrderid(), Order.State.collected,this);
-        Toast.makeText(getContext(),"订单状态修改成功",Toast.LENGTH_SHORT).show();
+        orderInteractor.updateOrderState(order.getOrderid(), Order.State.collected, this);
+
+    }
+
+    @Override
+    public void updateToAccept() {
+        orderInteractor.updateOrderState(order.getOrderid(), Order.State.received, this);
     }
 
     @Override
     public void cancelOrder() {
-        orderInteractor.updateOrderState(order.getOrderid(), Order.State.canceled,this);
-        Toast.makeText(getContext(),"订单状态修改成功",Toast.LENGTH_SHORT).show();
+        orderInteractor.updateOrderState(order.getOrderid(), Order.State.canceled, this);
     }
 
     @Override
     public void onOrderStateUpdateSuccess(Order.State newState) {
+        Toast.makeText(getContext(),"订单状态修改成功",Toast.LENGTH_SHORT).show();
         order.setOrderState(newState);
 //        getView().updateButtonState(Repository.getInstance().getLoginUser(),newState);
         User loginer = Repository.getInstance().getLoginUser();
@@ -82,11 +86,12 @@ public class OrderDetailsPresenterImpl extends BasePresenter<OrderDetailsView> i
 
     @Override
     public void onNetWorkError() {
-
+        Toast.makeText(getContext(),getContext().getString(R.string.network_failed),Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onFailure() {
+        Toast.makeText(getContext(),getContext().getString(R.string.operation_failed),Toast.LENGTH_SHORT).show();
 
     }
 }

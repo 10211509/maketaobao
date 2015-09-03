@@ -11,7 +11,6 @@ import butterknife.OnClick;
 import nobugs.team.shopping.R;
 import nobugs.team.shopping.app.base.BaseActivity;
 import nobugs.team.shopping.mvp.model.Order;
-import nobugs.team.shopping.mvp.model.User;
 import nobugs.team.shopping.mvp.presenter.OrderDetailsPresenter;
 import nobugs.team.shopping.mvp.presenter.OrderDetailsPresenterImpl;
 import nobugs.team.shopping.mvp.view.OrderDetailsView;
@@ -38,6 +37,8 @@ public class OrderDetailsActivity extends BaseActivity<OrderDetailsPresenter> im
     Button btnCollected;
     @Bind(R.id.btn_canceled)
     Button btnCanceled;
+    @Bind(R.id.btn_accepted)
+    Button btnAccepted;
 
     @Override
     protected OrderDetailsPresenter initPresenter() {
@@ -58,10 +59,10 @@ public class OrderDetailsActivity extends BaseActivity<OrderDetailsPresenter> im
         btnDelivered.setVisibility(View.GONE);
         btnCollected.setVisibility(View.GONE);
 
-        if(order.getOrderState() == Order.State.placed){
+        if (order.getOrderState() == Order.State.placed) {
             btnPayed.setEnabled(true);
             btnCanceled.setEnabled(true);
-        }else{
+        } else {
             btnPayed.setEnabled(false);
             btnCanceled.setEnabled(false);
         }
@@ -77,13 +78,13 @@ public class OrderDetailsActivity extends BaseActivity<OrderDetailsPresenter> im
         btnDelivered.setVisibility(View.VISIBLE);
         btnCollected.setVisibility(View.VISIBLE);
 
-        if(order.getOrderState() == Order.State.payed){
+        if (order.getOrderState() == Order.State.payed) {
             btnDelivered.setEnabled(false);
             btnCollected.setEnabled(true);
-        }else if(order.getOrderState() == Order.State.collected){
+        } else if (order.getOrderState() == Order.State.collected) {
             btnDelivered.setEnabled(true);
             btnCollected.setEnabled(false);
-        }else{
+        } else {
             btnDelivered.setEnabled(false);
             btnCollected.setEnabled(false);
         }
@@ -97,16 +98,17 @@ public class OrderDetailsActivity extends BaseActivity<OrderDetailsPresenter> im
         }
     }*/
 
-    private void updateOrderView(Order order){
-        tvOrderid.setText(Phrase.from(this, R.string.order_id).put("orderid",order.getOrderid()).format());
-        tvName.setText(Phrase.from(this,R.string.order_name).put("name", order.getProduct().getName()).format());
-        tvAmount.setText(Phrase.from(this,R.string.order_amount).put("amount",order.getProduct_count()).format());
-        tvPrice.setText(Phrase.from(this,R.string.order_price).put("price",String.valueOf(order.getPrice())).format());
-        tvPlaceTime.setText(Phrase.from(this,R.string.order_place_time).put("place_time",order.getPlace_time()).format());
+    private void updateOrderView(Order order) {
+        tvOrderid.setText(Phrase.from(this, R.string.order_id).put("orderid", order.getOrderid()).format());
+        tvName.setText(Phrase.from(this, R.string.order_name).put("name", order.getProduct().getName()).format());
+        tvAmount.setText(Phrase.from(this, R.string.order_amount).put("amount", order.getProduct_count()).format());
+        tvPrice.setText(Phrase.from(this, R.string.order_price).put("price", String.valueOf(order.getPrice())).format());
+        tvPlaceTime.setText(Phrase.from(this, R.string.order_place_time).put("place_time", order.getPlace_time()).format());
     }
-    @OnClick({R.id.btn_delivered,R.id.btn_payed,R.id.btn_collected,R.id.btn_canceled})
+
+    @OnClick({R.id.btn_delivered, R.id.btn_payed, R.id.btn_collected, R.id.btn_canceled,R.id.btn_accepted})
     void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.btn_payed:
                 getPresenter().updateToPayed();
                 break;
@@ -119,6 +121,10 @@ public class OrderDetailsActivity extends BaseActivity<OrderDetailsPresenter> im
             case R.id.btn_canceled:
                 getPresenter().cancelOrder();
                 break;
+            case R.id.btn_accepted:
+                getPresenter().updateToAccept();
+                break;
         }
     }
+
 }

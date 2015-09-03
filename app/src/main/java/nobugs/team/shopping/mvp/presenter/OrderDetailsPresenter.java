@@ -7,5 +7,6 @@ public interface OrderDetailsPresenter extends IPresenter {
     void updateToDelivered();
     void updateToPayed();
     void updateToCollected();
+    void updateToAccept();
     void cancelOrder();
 }
