@@ -23,13 +23,17 @@
         android:layout_height="0dp"
         android:layout_weight="0.1"
         android:gravity="center"
-        android:text="@string/tv_shopping_car_number" />
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:text="@string/tv_index_initdata" />
     <android.support.v4.view.ViewPager
         android:id="@+id/vPager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.53"
         android:layout_gravity="center"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:background="@android:color/white"
         android:flipInterval="30"
         android:persistentDrawingCache="animation" />
@@ -49,6 +53,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.159"
+        android:layout_marginBottom="10dp"
         android:gravity="center">
 
         <Button

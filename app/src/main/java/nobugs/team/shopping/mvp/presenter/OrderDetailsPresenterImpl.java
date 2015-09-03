@@ -1,5 +1,7 @@
 package nobugs.team.shopping.mvp.presenter;
 
+import android.widget.Toast;
+
 import de.greenrobot.event.EventBus;
 import nobugs.team.shopping.event.OrderSelectEvent;
 import nobugs.team.shopping.mvp.interactor.OrderInteractor;
@@ -45,21 +47,25 @@ public class OrderDetailsPresenterImpl extends BasePresenter<OrderDetailsView> i
     @Override
     public void updateToDelivered() {
         orderInteractor.updateOrderState(order.getOrderid(), Order.State.delivered,this);
+        Toast.makeText(getContext(),"订单状态修改成功",Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void updateToPayed() {
         orderInteractor.updateOrderState(order.getOrderid(), Order.State.payed,this);
+        Toast.makeText(getContext(),"订单状态修改成功",Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void updateToCollected() {
         orderInteractor.updateOrderState(order.getOrderid(), Order.State.collected,this);
+        Toast.makeText(getContext(),"订单状态修改成功",Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void cancelOrder() {
         orderInteractor.updateOrderState(order.getOrderid(), Order.State.canceled,this);
+        Toast.makeText(getContext(),"订单状态修改成功",Toast.LENGTH_SHORT).show();
     }
 
     @Override

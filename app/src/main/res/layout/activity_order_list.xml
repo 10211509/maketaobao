@@ -23,6 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_margin="10dp"
         android:gravity="center">
 
         <Button
@@ -31,6 +32,7 @@
             android:layout_height="45dp"
             android:layout_weight="1"
             android:background="@drawable/bg_btn_red_shape"
+            android:textColor="@android:color/white"
             android:text="@string/tv_delivered"
             android:visibility="gone"/>
         <Button
@@ -38,7 +40,9 @@
             android:layout_width="0dp"
             android:layout_height="45dp"
             android:layout_weight="1"
+            android:layout_marginLeft="5dp"
             android:background="@drawable/bg_btn_red_shape"
+            android:textColor="@android:color/white"
             android:text="@string/tv_payed"
             android:visibility="gone"/>
         <Button
@@ -46,7 +50,9 @@
             android:layout_width="0dp"
             android:layout_height="45dp"
             android:layout_weight="1"
+            android:layout_marginLeft="5dp"
             android:background="@drawable/bg_btn_red_shape"
+            android:textColor="@android:color/white"
             android:text="@string/tv_collected"
             android:visibility="gone"/>
         <Button
@@ -54,7 +60,9 @@
             android:layout_width="0dp"
             android:layout_height="45dp"
             android:layout_weight="1"
+            android:layout_marginLeft="5dp"
             android:background="@drawable/bg_btn_red_shape"
+            android:textColor="@android:color/white"
             android:text="@string/tv_cancel"
             android:visibility="gone"/>
     </LinearLayout>

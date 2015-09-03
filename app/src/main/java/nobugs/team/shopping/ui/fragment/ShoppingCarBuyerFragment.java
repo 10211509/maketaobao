@@ -23,12 +23,13 @@ import nobugs.team.shopping.mvp.presenter.ShoppingCarPresenter;
 import nobugs.team.shopping.mvp.presenter.ShoppingCarPresenterImpl;
 import nobugs.team.shopping.mvp.view.ShoppingCarView;
 import nobugs.team.shopping.ui.adapter.ShoppingCarAdapter;
+import nobugs.team.shopping.ui.interfaces.CountChangeListener;
 import nobugs.team.shopping.utils.Phrase;
 
 /**
  * display the products that buyer has chosen
  */
-public class ShoppingCarBuyerFragment extends BaseFragment<ShoppingCarPresenter> implements ShoppingCarView, ViewPager.OnPageChangeListener {
+public class ShoppingCarBuyerFragment extends BaseFragment<ShoppingCarPresenter> implements ShoppingCarView, ViewPager.OnPageChangeListener,CountChangeListener {
 
 
     @Bind(R.id.tv_shoppingcar_title)
@@ -90,6 +91,9 @@ public class ShoppingCarBuyerFragment extends BaseFragment<ShoppingCarPresenter>
         List<Order> orders = new ArrayList<>();
         shoppingCarAdapter = new ShoppingCarAdapter(orders);
         vpContainer.setAdapter(shoppingCarAdapter);
+        shoppingCarAdapter.setCountChangeListener(this);
+       /* CharSequence charSequence = Phrase.from(this.getActivity(), R.string.tv_shopping_car_number).put("number", shoppingCarAdapter.getCount()).put("index", selectedPageIndex).format();
+        tvBuyerProductIndex.setText(charSequence);*/
     }
 
     @Override
@@ -154,6 +158,12 @@ public class ShoppingCarBuyerFragment extends BaseFragment<ShoppingCarPresenter>
     @Override
     public void onPageScrollStateChanged(int state) {
         //empty
+    }
+
+    @Override
+    public void onCountChange(int newCount) {
+        CharSequence charSequence = Phrase.from(this.getActivity(), R.string.tv_shopping_car_number).put("number",newCount).put("index", selectedPageIndex+1).format();
+        tvBuyerProductIndex.setText(charSequence);
     }
 
     public interface FragmentActionListener {

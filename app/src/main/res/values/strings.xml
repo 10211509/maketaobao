@@ -46,7 +46,7 @@
     <string name="btn_video_silent">静音</string>
     <string name="btn_video_exit">退出</string>
     <string name="tv_shoppingcar_title">购物车</string>
-    <string name="tv_shopping_car_number">共{number},当前第{index}件</string>
+    <string name="tv_shopping_car_number">共{number}件,当前第{index}件</string>
     <string name="tv_product_name">品名：{name}</string>
     <string name="tv_number">数量：{number}</string>
     <string name="tv_unit">框</string>
@@ -62,5 +62,6 @@
     <string name="tv_commit_who">买方{buyer_name}已经提交购物车</string>
     <string name="tv_commit_amout">商品数量：{amount}</string>
     <string name="tv_commit_totalprice">总价格：¥{price}</string>
+    <string name="tv_index_initdata">共1件,当前第1件</string>
 
 </resources>

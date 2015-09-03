@@ -45,6 +45,7 @@ public class Order {
         collected,
         delivered,
         received,
+        complete,
         canceled
     }
 
@@ -57,17 +58,19 @@ public class Order {
             return 0;
         switch (orderState) {
             case placed:
-                return 0;
-            case payed:
                 return 1;
-            case collected:
+            case payed:
                 return 2;
-            case delivered:
+            case collected:
                 return 3;
-            case received:
+            case delivered:
                 return 4;
-            case canceled:
+            case received:
                 return 5;
+            case complete:
+                return 6;
+            case canceled:
+                return 7;
             default:
                 throw new IllegalStateException("no such order state!");
         }
@@ -79,22 +82,25 @@ public class Order {
 
     public void setOrderState(int orderState) {
         switch (orderState) {
-            case 0:
+            case 1:
                 this.orderState = State.placed;
                 break;
-            case 1:
+            case 2:
                 this.orderState = State.payed;
                 break;
-            case 2:
+            case 3:
                 this.orderState = State.collected;
                 break;
-            case 3:
+            case 4:
                 this.orderState = State.delivered;
                 break;
-            case 4:
+            case 5:
                 this.orderState = State.received;
                 break;
-            case 5:
+            case 6:
+                this.orderState = State.complete;
+                break;
+            case 7:
                 this.orderState = State.canceled;
                 break;
             default:
@@ -158,5 +164,9 @@ public class Order {
 
     public void setBuyer(User buyer) {
         this.buyer = buyer;
+    }
+
+    public boolean isCompleted(){
+        return orderState ==  State.canceled||orderState == State.complete;
     }
 }

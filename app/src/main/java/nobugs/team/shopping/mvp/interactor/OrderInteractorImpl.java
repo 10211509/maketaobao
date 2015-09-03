@@ -1,5 +1,6 @@
 package nobugs.team.shopping.mvp.interactor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import nobugs.team.shopping.mvp.model.Order;
@@ -13,11 +14,20 @@ import nobugs.team.shopping.repo.Repository;
 public class OrderInteractorImpl implements OrderInteractor {
 
 
-    private void getOrdersBuyer(int buyerId, int pageCount, int curPage, boolean isOver, final GetListCallback callback) {
+    private void getOrdersBuyer(int buyerId, int pageCount, int curPage, final  boolean isOver, final GetListCallback callback) {
         Repository.getInstance().getOrderListSeller(buyerId, pageCount, curPage, isOver, new RepoCallback.GetList<Order>() {
             @Override
             public void onGotDataListSuccess(List<Order> orders) {
-                callback.onGetOrderListSuccess(orders);
+                List<Order> orderList = new ArrayList<Order>();
+                for(Order order : orders){
+                    if(isOver && order.isCompleted()){
+
+                        orderList.add(order);
+                    }else if(!isOver && !order.isCompleted()){
+                        orderList.add(order);
+                    }
+                }
+                callback.onGetOrderListSuccess(orderList);
             }
 
             @Override
@@ -27,11 +37,20 @@ public class OrderInteractorImpl implements OrderInteractor {
         });
     }
 
-    private void getOrdersSeller(int sellerId, int pageCount, int curPage, boolean isOver, final GetListCallback callback) {
+    private void getOrdersSeller(int sellerId, int pageCount, int curPage, final boolean isOver, final GetListCallback callback) {
         Repository.getInstance().getOrderListBuyer(sellerId, pageCount, curPage, isOver, new RepoCallback.GetList<Order>() {
             @Override
             public void onGotDataListSuccess(List<Order> orders) {
-                callback.onGetOrderListSuccess(orders);
+                List<Order> orderList = new ArrayList<Order>();
+                for(Order order : orders){
+                    if(isOver && order.isCompleted()){
+
+                        orderList.add(order);
+                    }else if(!isOver && !order.isCompleted()){
+                        orderList.add(order);
+                    }
+                }
+                callback.onGetOrderListSuccess(orderList);
             }
 
             @Override

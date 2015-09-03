@@ -20,9 +20,10 @@ import nobugs.team.shopping.mvp.presenter.ShoppingCarSellerPresenter;
 import nobugs.team.shopping.mvp.presenter.ShoppingCarSellerPresenterImpl;
 import nobugs.team.shopping.mvp.view.ShoppingCarSellerView;
 import nobugs.team.shopping.ui.adapter.ShoppingCarSellerAdapter;
+import nobugs.team.shopping.ui.interfaces.CountChangeListener;
 import nobugs.team.shopping.utils.Phrase;
 
-public class ShoppingCarSellerFragment extends BaseFragment<ShoppingCarSellerPresenter> implements ShoppingCarSellerView, ViewPager.OnPageChangeListener {
+public class ShoppingCarSellerFragment extends BaseFragment<ShoppingCarSellerPresenter> implements ShoppingCarSellerView, ViewPager.OnPageChangeListener ,CountChangeListener {
 
     @Bind(R.id.tv_product_index)
     TextView tvProductIndex;
@@ -72,11 +73,11 @@ public class ShoppingCarSellerFragment extends BaseFragment<ShoppingCarSellerPre
     @OnClick(R.id.btn_addorder)
     public void onAddOrderClick() {
         Order order = shoppingCarSellerAdapter.getOrder(selectedPageIndex);
-        /////////TODO 测试数据
-        order.getProduct().setName("苹果");
+        /////////测试数据
+       /* order.getProduct().setName("苹果");
         order.setProduct_count(3);
         order.getProduct().getType().setUnit("框");
-        order.setPrice(300);
+        order.setPrice(300);*/
         /////////////////
         if (TextUtils.isEmpty(order.getProduct().getName())) {
             Toast.makeText(this.getActivity(), getActivity().getString(R.string.toast_product_name), Toast.LENGTH_SHORT).show();
@@ -106,6 +107,9 @@ public class ShoppingCarSellerFragment extends BaseFragment<ShoppingCarSellerPre
     public void initViewPager(Shop shop) {
         linearContainer.setVisibility(View.VISIBLE);
         shoppingCarSellerAdapter = new ShoppingCarSellerAdapter(getActivity(), shop);
+        shoppingCarSellerAdapter.setCountChangeListener(this);
+       /* CharSequence charSequence = Phrase.from(this.getActivity(), R.string.tv_shopping_car_number).put("number", shoppingCarSellerAdapter.getCount()).put("index", selectedPageIndex+1).format();
+        tvProductIndex.setText(charSequence);*/
         if (vpContainer != null) {
             vpContainer.setAdapter(shoppingCarSellerAdapter);
         }
@@ -136,12 +140,18 @@ public class ShoppingCarSellerFragment extends BaseFragment<ShoppingCarSellerPre
         boolean enable = shoppingCarSellerAdapter.orderSuccessfulAdded(selectedPageIndex);
         //if the order successfully added,then should not add it again!
         btnAddproduct.setEnabled(!enable);
-        CharSequence charSequence = Phrase.from(this.getActivity(), R.string.tv_shopping_car_number).put("number", shoppingCarSellerAdapter.getCount()).put("index", selectedPageIndex).format();
+        CharSequence charSequence = Phrase.from(this.getActivity(), R.string.tv_shopping_car_number).put("number", shoppingCarSellerAdapter.getCount()).put("index", selectedPageIndex+1).format();
         tvProductIndex.setText(charSequence);
     }
 
     @Override
     public void onPageScrollStateChanged(int state) {
 
+    }
+
+    @Override
+    public void onCountChange(int newCount) {
+        CharSequence charSequence = Phrase.from(this.getActivity(), R.string.tv_shopping_car_number).put("number",newCount).put("index", selectedPageIndex+1).format();
+        tvProductIndex.setText(charSequence);
     }
 }

@@ -12,6 +12,7 @@ import java.util.List;
 
 import nobugs.team.shopping.R;
 import nobugs.team.shopping.mvp.model.Order;
+import nobugs.team.shopping.ui.interfaces.CountChangeListener;
 import nobugs.team.shopping.utils.Phrase;
 
 /**
@@ -19,15 +20,22 @@ import nobugs.team.shopping.utils.Phrase;
  */
 public class ShoppingCarAdapter extends PagerAdapter {
     private List<Order> orders;
+    private CountChangeListener countChangeListener;
 
     public ShoppingCarAdapter(List<Order> orders) {
         this.orders = orders;
     }
 
+    public void setCountChangeListener(CountChangeListener countChangeListener){
+        this.countChangeListener = countChangeListener;
+    }
     public void addOrder(Order order) {
         if (order != null) {
             //we don't expect to add null into the list
             orders.add(order);
+            if(countChangeListener != null){
+                countChangeListener.onCountChange(orders.size());
+            }
         }
     }
 
@@ -35,6 +43,9 @@ public class ShoppingCarAdapter extends PagerAdapter {
         if (orders != null) {
             //we don't expect to add null into the list
             this.orders = orders;
+            if(countChangeListener != null){
+                countChangeListener.onCountChange(orders.size());
+            }
         }
     }
 

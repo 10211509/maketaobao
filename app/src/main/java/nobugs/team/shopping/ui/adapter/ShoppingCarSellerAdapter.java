@@ -22,6 +22,7 @@ import nobugs.team.shopping.mvp.model.Order;
 import nobugs.team.shopping.mvp.model.Product;
 import nobugs.team.shopping.mvp.model.ProductType;
 import nobugs.team.shopping.mvp.model.Shop;
+import nobugs.team.shopping.ui.interfaces.CountChangeListener;
 
 /**
  * Created by xiayong on 2015/8/29.
@@ -30,7 +31,7 @@ public class ShoppingCarSellerAdapter extends PagerAdapter {
     private List<Order> orders;
     private Shop shop;
     private Context context;
-
+    private CountChangeListener countChangeListener;
     public ShoppingCarSellerAdapter(Context context, Shop shop) {
         this.context = context;
         this.orders = new ArrayList<>();
@@ -38,10 +39,16 @@ public class ShoppingCarSellerAdapter extends PagerAdapter {
         orders.add(createEmptyOrder());
     }
 
+    public void setCountChangeListener(CountChangeListener countChangeListener){
+        this.countChangeListener = countChangeListener;
+    }
     public void addOrder(Order order) {
         if (order != null) {
             //we don't expect to add null into the list
             orders.add(order);
+            if(countChangeListener != null){
+                countChangeListener.onCountChange(orders.size());
+            }
         }
     }
 
@@ -50,6 +57,9 @@ public class ShoppingCarSellerAdapter extends PagerAdapter {
             //we don't expect to add null into the list
             this.orders = orders;
             this.orders.add(createEmptyOrder());
+            if(countChangeListener != null){
+                countChangeListener.onCountChange(orders.size());
+            }
         }
     }
 
@@ -108,9 +118,9 @@ public class ShoppingCarSellerAdapter extends PagerAdapter {
         final Order order = orders.get(position);
 
 
-        initProductName(spName, shop, order.getProduct().getName());
+        initProductName(spName, shop, order);
         etAmount.setText(String.valueOf(order.getProduct_count()));
-        initProductUnit(spUnit, order.getProduct().getType().getUnit());
+        initProductUnit(spUnit, order);
         etTotalPrice.setText(String.valueOf(order.getPrice()));
 
         spName.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -183,8 +193,9 @@ public class ShoppingCarSellerAdapter extends PagerAdapter {
         return container;
     }
 
-    private void initProductUnit(Spinner spUnit, String selectedUnit) {
+    private void initProductUnit(Spinner spUnit, Order currentOrder) {
         String[] productUnit = context.getResources().getStringArray(R.array.product_unit);
+        String selectedUnit = currentOrder.getProduct().getType().getUnit();
         ArrayAdapter<String> spProductUnit = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, productUnit);
         spUnit.setAdapter(spProductUnit);
         int position = 0;
@@ -194,10 +205,14 @@ public class ShoppingCarSellerAdapter extends PagerAdapter {
             }
         }
         spUnit.setSelection(position, true);
+        if(position == 0){
+            currentOrder.getProduct().getType().setUnit(spProductUnit.getItem(position));
+        }
     }
 
-    private void initProductName(Spinner spName, Shop shop, String selectedProductName) {
+    private void initProductName(Spinner spName, Shop shop, Order currentOrder) {
         int position = 0;
+        String selectedProductName = currentOrder.getProduct().getName();
         List<String> productNames = new ArrayList<>();
         for (int i = 0, count = shop.getProducts().size(); i < count; i++) {
             String productName = shop.getProducts().get(i).getName();
@@ -209,6 +224,10 @@ public class ShoppingCarSellerAdapter extends PagerAdapter {
         ArrayAdapter<String> spNameAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, productNames);
         spName.setAdapter(spNameAdapter);
         spName.setSelection(position, true);
+        if(position == 0){
+            currentOrder.getProduct().setName(shop.getProducts().get(position).getName());
+            currentOrder.getProduct().setId(shop.getProducts().get(position).getId());
+        }
     }
 
     public Order createEmptyOrder() {
