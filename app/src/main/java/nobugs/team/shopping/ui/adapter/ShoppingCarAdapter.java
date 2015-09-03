@@ -3,6 +3,7 @@ package nobugs.team.shopping.ui.adapter;
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -44,6 +45,13 @@ public class ShoppingCarAdapter extends PagerAdapter {
     public boolean isViewFromObject(View arg0, Object arg1) {
         return arg0 == arg1;
     }
+
+  /*  public boolean orderSuccessfulAdded(int index) {
+        if (index < 0 || index >= orders.size()) {
+            throw new IndexOutOfBoundsException("the order is not added into the ViewPager");
+        }
+        return !TextUtils.isEmpty(orders.get(index).getOrderid());
+    }*/
 
     @Override
     public void destroyItem(View view, int position, Object object) {

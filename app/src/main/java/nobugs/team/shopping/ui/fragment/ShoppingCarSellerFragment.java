@@ -1,7 +1,11 @@
 package nobugs.team.shopping.ui.fragment;
 
+import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -9,6 +13,7 @@ import android.widget.Toast;
 import java.util.List;
 
 import butterknife.Bind;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import nobugs.team.shopping.R;
 import nobugs.team.shopping.app.base.BaseFragment;
@@ -18,6 +23,7 @@ import nobugs.team.shopping.mvp.presenter.ShoppingCarSellerPresenter;
 import nobugs.team.shopping.mvp.presenter.ShoppingCarSellerPresenterImpl;
 import nobugs.team.shopping.mvp.view.ShoppingCarSellerView;
 import nobugs.team.shopping.ui.adapter.ShoppingCarSellerAdapter;
+import nobugs.team.shopping.utils.Phrase;
 
 public class ShoppingCarSellerFragment extends BaseFragment<ShoppingCarSellerPresenter> implements ShoppingCarSellerView, ViewPager.OnPageChangeListener {
 
@@ -32,6 +38,9 @@ public class ShoppingCarSellerFragment extends BaseFragment<ShoppingCarSellerPre
 
     @Bind(R.id.btn_deleteorder)
     Button btnDeleteproduct;
+
+    @Bind(R.id.tv_shoppingcar_title)
+    TextView tvShoppingcarTitle;
 
     private ShoppingCarSellerAdapter shoppingCarSellerAdapter;
     private int selectedPageIndex = 0;
@@ -126,6 +135,8 @@ public class ShoppingCarSellerFragment extends BaseFragment<ShoppingCarSellerPre
         boolean enable = shoppingCarSellerAdapter.orderSuccessfulAdded(selectedPageIndex);
         //if the order successfully added,then should not add it again!
         btnAddproduct.setEnabled(!enable);
+        CharSequence charSequence = Phrase.from(this.getActivity(),R.string.tv_shopping_car_number).put("number",shoppingCarSellerAdapter.getCount()).put("index",selectedPageIndex).format();
+        tvProductIndex.setText(charSequence);
     }
 
     @Override
