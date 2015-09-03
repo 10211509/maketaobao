@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -34,8 +35,7 @@ public class MainPageActivity extends BaseActivity<MainPagePresenter> implements
 
     private MainShopFragment mFragmentShop;
     private MainOrderListFragment mFragmentOrder;
-
-
+    private long mExitTime;
     @Override
     protected MainPagePresenter initPresenter() {
         return new MainPagePresenterImpl(this);
@@ -103,5 +103,15 @@ public class MainPageActivity extends BaseActivity<MainPagePresenter> implements
         mFragmentShop = new MainShopFragment();
         fragmentTransaction.replace(R.id.frame_fragment_content,mFragmentShop);
         fragmentTransaction.commit();*/
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(System.currentTimeMillis() - mExitTime >1500){
+            Toast.makeText(this,"再按一次退出程序", Toast.LENGTH_SHORT).show();
+            mExitTime = System.currentTimeMillis();
+        }else{
+            super.onBackPressed();
+        }
     }
 }
