@@ -3,12 +3,13 @@
     android:id="@+id/root_voip_video"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:visibility="gone">
+    android:visibility="visible">
 
     <SurfaceView
         android:id="@+id/sv_video_remote"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        precent:layout_heightPercent="55%"/>
 
     <Button
         android:id="@+id/btn_silence"
@@ -62,17 +63,5 @@
         precent:layout_heightPercent="45%">
 
     </FrameLayout>
-    <!--
-        <TextView
-            android:id="@+id/call_status"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left|top"
-            android:layout_marginLeft="7.0dip"
-            android:layout_marginTop="7.0dip"
-            android:background="@null"
-            android:text="@string/str_call_status"
-            android:textColor="@android:color/white"
-            android:textSize="16.0sp" />-->
 
 </android.support.percent.PercentRelativeLayout>
