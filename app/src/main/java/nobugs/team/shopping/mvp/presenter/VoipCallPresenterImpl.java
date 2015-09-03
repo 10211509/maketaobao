@@ -116,8 +116,9 @@ public class VoipCallPresenterImpl extends BasePresenter<VoipCallView> implement
     }
 
     private void initCameraSurfaceView() {
-        ECDevice.getECVoIPSetupManager().setVideoView(getView().getRemoteCameraView(), null);
-        DisplayLocalSurfaceView();
+        //TODO
+//        ECDevice.getECVoIPSetupManager().setVideoView(getView().getRemoteCameraView(), null);
+//        DisplayLocalSurfaceView();
     }
 
     private void initCameraInfo() {

@@ -84,7 +84,7 @@ public class ShoppingCarSellerPresenterImpl extends BasePresenter<ShoppingCarSel
     @Override
     public void deleteOrder(int index) {
         if (index < 0 || index >= orders.size()) {
-            Toast.makeText(getContext(), "不能删除该商品！", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "该商品尚未添加至购物车！", Toast.LENGTH_SHORT).show();
             return;
         }
         String orderId = orders.get(index).getOrderid();

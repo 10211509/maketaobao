@@ -79,6 +79,10 @@ public class ShoppingCarSellerFragment extends BaseFragment<ShoppingCarSellerPre
         order.getProduct().getType().setUnit("框");
         order.setPrice(300);*/
         /////////////////
+        if(!TextUtils.isEmpty(order.getOrderid())){
+            Toast.makeText(this.getActivity(), getActivity().getString(R.string.tv_product_already_added), Toast.LENGTH_SHORT).show();
+            return;
+        }
         if (TextUtils.isEmpty(order.getProduct().getName())) {
             Toast.makeText(this.getActivity(), getActivity().getString(R.string.toast_product_name), Toast.LENGTH_SHORT).show();
             return;
@@ -137,9 +141,9 @@ public class ShoppingCarSellerFragment extends BaseFragment<ShoppingCarSellerPre
     @Override
     public void onPageSelected(int position) {
         selectedPageIndex = position;
-        boolean enable = shoppingCarSellerAdapter.orderSuccessfulAdded(selectedPageIndex);
+//        boolean enable = shoppingCarSellerAdapter.orderSuccessfulAdded(selectedPageIndex);
         //if the order successfully added,then should not add it again!
-        btnAddproduct.setEnabled(!enable);
+//        btnAddproduct.setEnabled(!enable);
         CharSequence charSequence = Phrase.from(this.getActivity(), R.string.tv_shopping_car_number).put("number", shoppingCarSellerAdapter.getCount()).put("index", selectedPageIndex+1).format();
         tvProductIndex.setText(charSequence);
     }

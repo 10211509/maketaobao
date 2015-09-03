@@ -55,7 +55,7 @@ public class ShoppingCarSellerAdapter extends PagerAdapter {
     public void replaceOrders(List<Order> orders) {
         if (orders != null) {
             //we don't expect to add null into the list
-            this.orders = orders;
+            this.orders = new ArrayList<>(orders);
             this.orders.add(createEmptyOrder());
             if(countChangeListener != null){
                 countChangeListener.onCountChange(orders.size());

@@ -64,5 +64,6 @@
     <string name="tv_commit_totalprice">总价格：¥{price}</string>
     <string name="tv_index_initdata">共1件,当前第1件</string>
     <string name="tv_accept_product">已收货</string>
+    <string name="tv_product_already_added">该商品已添加！</string>
 
 </resources>
