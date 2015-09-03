@@ -2,6 +2,7 @@ package nobugs.team.shopping.ui.fragment;
 
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -115,7 +116,7 @@ public class ShoppingCarSellerFragment extends BaseFragment<ShoppingCarSellerPre
     @Override
     public void showPagerLast() {
         int lastIndex = vpContainer.getChildCount();
-        vpContainer.setCurrentItem(lastIndex);
+        vpContainer.setCurrentItem(lastIndex,true);
     }
 
 

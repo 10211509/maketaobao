@@ -3,8 +3,8 @@ package nobugs.team.shopping.mvp.presenter;
 import android.text.TextUtils;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import de.greenrobot.event.EventBus;
 import nobugs.team.shopping.R;
@@ -27,7 +27,7 @@ import nobugs.team.shopping.mvp.view.ShoppingCarSellerView;
 public class ShoppingCarSellerPresenterImpl extends BasePresenter<ShoppingCarSellerView> implements ShoppingCarSellerPresenter,/* ShoppingCarInteractor.Callback, */ProductInteractor.Callback, OrderInteractor.AddCallback, OrderInteractor.DeleteCallback {
     private static final String TAG = "ShoppingCarSeller";
     private Shop shop;
-    private List<Order> orders;
+    private CopyOnWriteArrayList<Order> orders;
     //    private ShoppingCarInteractor shoppingCarInteractor;
     private ProductInteractor productInteractor;
     private OrderInteractor orderInteractor;
@@ -36,7 +36,7 @@ public class ShoppingCarSellerPresenterImpl extends BasePresenter<ShoppingCarSel
 
     public ShoppingCarSellerPresenterImpl(ShoppingCarSellerView addShoppingCarView) {
         super(addShoppingCarView);
-        orders = new ArrayList<>();
+        orders = new CopyOnWriteArrayList<>();
 //        shoppingCarInteractor = new ShoppingCarInteractorImpl();
         productInteractor = new ProductInteractorImpl();
         orderInteractor = new OrderInteractorImpl();
@@ -102,14 +102,15 @@ public class ShoppingCarSellerPresenterImpl extends BasePresenter<ShoppingCarSel
         Toast.makeText(getContext(), "添加成功", Toast.LENGTH_SHORT).show();
         IMSendHelper.sendAddOrder(mOwnUser.getPhone(), mPeerUser.getPhone(), order);
         getView().refreshViewPagerWhenDataSetChange(orders);
-        getView().showPagerLast();
+//        getView().showPagerLast();
     }
 
     @Override
     public void onDeleteSuccess(String orderId) {
+        Toast.makeText(getContext(), "删除成功", Toast.LENGTH_SHORT).show();
         IMSendHelper.sendDelOrder(mOwnUser.getPhone(), mPeerUser.getPhone(), Integer.parseInt(orderId));
         for (Order order : orders) {
-            if (order.getOrderid().equals(orderId))
+            if (order.getOrderid() != null && order.getOrderid().equals(orderId))
                 orders.remove(order);
         }
         getView().refreshViewPagerWhenDataSetChange(orders);

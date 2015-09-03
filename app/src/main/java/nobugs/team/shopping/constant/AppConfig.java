@@ -25,7 +25,7 @@ public class AppConfig {
 
         public static final String GET_ORDER_LIST   = "/web!orderList.do";
 
-        public static final String ADD_ORDER   = "/web!refreshViewPager.do";
+        public static final String ADD_ORDER   = "/web!addOrder.do";
 
         public static final String DEL_ORDER   = "/web!delOrder.do";
 
