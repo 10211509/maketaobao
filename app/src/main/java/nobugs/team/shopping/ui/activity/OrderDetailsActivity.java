@@ -56,6 +56,7 @@ public class OrderDetailsActivity extends BaseActivity<OrderDetailsPresenter> im
 
         btnPayed.setVisibility(View.VISIBLE);
         btnCanceled.setVisibility(View.VISIBLE);
+        btnAccepted.setVisibility(View.VISIBLE);
         btnDelivered.setVisibility(View.GONE);
         btnCollected.setVisibility(View.GONE);
 
@@ -75,6 +76,7 @@ public class OrderDetailsActivity extends BaseActivity<OrderDetailsPresenter> im
 
         btnPayed.setVisibility(View.GONE);
         btnCanceled.setVisibility(View.GONE);
+        btnAccepted.setVisibility(View.GONE);
         btnDelivered.setVisibility(View.VISIBLE);
         btnCollected.setVisibility(View.VISIBLE);
 
