@@ -41,7 +41,7 @@ public interface OrderInteractor {
     }
 
     interface AddCallback extends Callback {
-        void onAddOrderSuccess(int orderId);
+        void onAddOrderSuccess(Order order);
     }
 
     interface UpdateCallback extends Callback {
@@ -49,6 +49,6 @@ public interface OrderInteractor {
     }
 
     interface DeleteCallback extends Callback {
-        void onDeleteSuccess();
+        void onDeleteSuccess(String orderId);
     }
 }

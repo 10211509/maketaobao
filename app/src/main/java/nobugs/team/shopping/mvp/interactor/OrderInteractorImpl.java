@@ -90,13 +90,16 @@ public class OrderInteractorImpl implements OrderInteractor {
 //        RequestFactory.createPostRequest()
 //        OkVolleyUtils.addRequest(new GsonGetRequest<Object>());
 
+        order.setOrderid(null);
         if (order.getProduct() != null) {
             order.getProduct().setName(null);
         }
+        final Order retOrder = order;
         Repository.getInstance().addOrder(order, new RepoCallback.Add<Order>() {
             @Override
             public void onAddDataSuccess(int id) {
-                callback.onAddOrderSuccess(id);
+                retOrder.setOrderid(String.valueOf(id));
+                callback.onAddOrderSuccess(retOrder);
             }
 
             @Override
@@ -114,7 +117,7 @@ public class OrderInteractorImpl implements OrderInteractor {
 
         Repository.getInstance().updateOrder(order, new RepoCallback.Update<Order>() {
             @Override
-            public void onUpateDataSuccess() {
+            public void onUpdateDataSuccess() {
                 callback.onOrderStateUpdateSuccess(state);
             }
 
@@ -126,11 +129,11 @@ public class OrderInteractorImpl implements OrderInteractor {
     }
 
     @Override
-    public void removeOrder(String orderId, final DeleteCallback callback) {
+    public void removeOrder(final String orderId, final DeleteCallback callback) {
         Repository.getInstance().removeOrder(Integer.parseInt(orderId), new RepoCallback.Remove<Order>() {
             @Override
             public void onRemoveDataSuccess() {
-                callback.onDeleteSuccess();
+                callback.onDeleteSuccess(orderId);
             }
 
             @Override

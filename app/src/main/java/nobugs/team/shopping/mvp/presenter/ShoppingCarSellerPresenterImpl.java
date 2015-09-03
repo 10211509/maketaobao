@@ -15,8 +15,6 @@ import nobugs.team.shopping.mvp.interactor.OrderInteractor;
 import nobugs.team.shopping.mvp.interactor.OrderInteractorImpl;
 import nobugs.team.shopping.mvp.interactor.ProductInteractor;
 import nobugs.team.shopping.mvp.interactor.ProductInteractorImpl;
-import nobugs.team.shopping.mvp.interactor.ShoppingCarInteractor;
-import nobugs.team.shopping.mvp.interactor.ShoppingCarInteractorImpl;
 import nobugs.team.shopping.mvp.model.Order;
 import nobugs.team.shopping.mvp.model.Product;
 import nobugs.team.shopping.mvp.model.Shop;
@@ -26,11 +24,11 @@ import nobugs.team.shopping.mvp.view.ShoppingCarSellerView;
 /**
  * Created by xiayong on 2015/8/30.
  */
-public class ShoppingCarSellerPresenterImpl extends BasePresenter<ShoppingCarSellerView> implements ShoppingCarSellerPresenter, ShoppingCarInteractor.Callback,ProductInteractor.Callback, OrderInteractor.AddCallback {
+public class ShoppingCarSellerPresenterImpl extends BasePresenter<ShoppingCarSellerView> implements ShoppingCarSellerPresenter,/* ShoppingCarInteractor.Callback, */ProductInteractor.Callback, OrderInteractor.AddCallback, OrderInteractor.DeleteCallback {
     private static final String TAG = "ShoppingCarSeller";
     private Shop shop;
     private List<Order> orders;
-    private ShoppingCarInteractor shoppingCarInteractor;
+    //    private ShoppingCarInteractor shoppingCarInteractor;
     private ProductInteractor productInteractor;
     private OrderInteractor orderInteractor;
     private User mOwnUser;
@@ -39,7 +37,7 @@ public class ShoppingCarSellerPresenterImpl extends BasePresenter<ShoppingCarSel
     public ShoppingCarSellerPresenterImpl(ShoppingCarSellerView addShoppingCarView) {
         super(addShoppingCarView);
         orders = new ArrayList<>();
-        shoppingCarInteractor = new ShoppingCarInteractorImpl();
+//        shoppingCarInteractor = new ShoppingCarInteractorImpl();
         productInteractor = new ProductInteractorImpl();
         orderInteractor = new OrderInteractorImpl();
     }
@@ -85,39 +83,34 @@ public class ShoppingCarSellerPresenterImpl extends BasePresenter<ShoppingCarSel
 
     @Override
     public void deleteOrder(int index) {
-        if(index < 0 || index >= orders.size()){
-            Toast.makeText(getContext(),"不能删除该商品！",Toast.LENGTH_SHORT).show();
+        if (index < 0 || index >= orders.size()) {
+            Toast.makeText(getContext(), "不能删除该商品！", Toast.LENGTH_SHORT).show();
             return;
         }
         String orderId = orders.get(index).getOrderid();
-        if(TextUtils.isEmpty(orderId)){
+        if (TextUtils.isEmpty(orderId)) {
             //the order has not been added into the database
             orders.remove(index);
             getView().refreshViewPagerWhenDataSetChange(orders);
             return;
         }
-        shoppingCarInteractor.deleteProduct(orderId, this);
+        orderInteractor.removeOrder(orderId, this);
     }
 
     @Override
-    public void onAddOrderSuccess(int orderId) {
-
-    }
-    @Override
-    public void onDeleteSuccess(String id) {
-        //TODO 应该移至删除成功的回调中
-        IMSendHelper.sendDelOrder(mOwnUser.getPhone(), mPeerUser.getPhone(), Integer.parseInt(id));
-        for (Order order:orders){
-            if(order.getOrderid().equals(id))
-                orders.remove(order);
-        }
+    public void onAddOrderSuccess(Order order) {
+        Toast.makeText(getContext(), "添加成功", Toast.LENGTH_SHORT).show();
+        IMSendHelper.sendAddOrder(mOwnUser.getPhone(), mPeerUser.getPhone(), order);
         getView().refreshViewPagerWhenDataSetChange(orders);
     }
 
     @Override
-    public void onAddSuccess(Order order) {
-        Toast.makeText(getContext(),"添加成功",Toast.LENGTH_SHORT).show();
-        IMSendHelper.sendAddOrder(mOwnUser.getPhone(), mPeerUser.getPhone(), order);
+    public void onDeleteSuccess(String orderId) {
+        IMSendHelper.sendDelOrder(mOwnUser.getPhone(), mPeerUser.getPhone(), Integer.parseInt(orderId));
+        for (Order order : orders) {
+            if (order.getOrderid().equals(orderId))
+                orders.remove(order);
+        }
         getView().refreshViewPagerWhenDataSetChange(orders);
     }
 
@@ -141,9 +134,8 @@ public class ShoppingCarSellerPresenterImpl extends BasePresenter<ShoppingCarSel
 
     @Override
     public void onFailure() {
-        Toast.makeText(getContext(),getContext().getString(R.string.operation_failed),Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), getContext().getString(R.string.operation_failed), Toast.LENGTH_SHORT).show();
     }
-
 
 
 }

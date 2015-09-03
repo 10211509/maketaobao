@@ -245,7 +245,7 @@ public class Repository {
         updateOrderApi.updateOrder(mapper.fromModel(order), new UpdateOrderApi.Callback() {
             @Override
             public void onFinish() {
-                callbackGet.onUpateDataSuccess();
+                callbackGet.onUpdateDataSuccess();
             }
 
             @Override

@@ -1,5 +1,7 @@
 package nobugs.team.shopping.repo.api.retrofit;
 
+import java.util.Map;
+
 import nobugs.team.shopping.constant.AppConfig;
 import nobugs.team.shopping.repo.api.entity.EmptyResult;
 import nobugs.team.shopping.repo.api.entity.LoginResult;
@@ -13,6 +15,7 @@ import retrofit.http.Body;
 import retrofit.http.GET;
 import retrofit.http.POST;
 import retrofit.http.Query;
+import retrofit.http.QueryMap;
 
 /**
  * Created by Administrator on 2015/8/23 0023.

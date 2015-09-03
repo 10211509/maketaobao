@@ -48,10 +48,18 @@ public class OrderMapper implements IModelMapper<Order, OrderPo> {
     @Override
     public Order toModel(OrderPo orderPo) {
         Order order = new Order();
-        order.setOrderid(String.valueOf(orderPo.getId()));
-        order.setPrice(orderPo.getPrice());
-        order.setProduct_count(orderPo.getNumber());
-        order.setOrderState(orderPo.getState());
+        if (orderPo.getId() != null) {
+            order.setOrderid(String.valueOf(orderPo.getId()));
+        }
+        if (orderPo.getPrice() != null){
+            order.setPrice(orderPo.getPrice());
+        }
+        if (orderPo.getNumber() != null){
+            order.setProduct_count(orderPo.getNumber());
+        }
+        if (orderPo.getState() != null){
+            order.setOrderState(orderPo.getState());
+        }
         order.setPlace_time(orderPo.getPlacetime());
 
         Product product = new Product();

@@ -27,7 +27,7 @@ public interface RepoCallback<DATA> {
         void onError(List<DATA> addFailed, int errType, String errMsg);
     }
     interface Update<DATA> {
-        void onUpateDataSuccess();
+        void onUpdateDataSuccess();
 
         void onError(int errType, String errMsg);
     }
