@@ -10,6 +10,7 @@ import nobugs.team.shopping.mvp.model.Order;
 public interface ShoppingCarView extends IView{
     void refreshViewPager(List<Order> orders);
 
+    void showCommitView(int amount,double totalPrice);
    /* void removeOrder(Order order);*/
 
 //    void loadCar(List<Order> orders);

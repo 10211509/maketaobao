@@ -55,6 +55,11 @@ public class ShoppingCarSellerFragment extends BaseFragment<ShoppingCarSellerPre
     }
 
     @Override
+    protected void initEvent() {
+        vpContainer.addOnPageChangeListener(this);
+    }
+
+    @Override
     protected ShoppingCarSellerPresenterImpl initPresenter() {
         return new ShoppingCarSellerPresenterImpl(this);
     }

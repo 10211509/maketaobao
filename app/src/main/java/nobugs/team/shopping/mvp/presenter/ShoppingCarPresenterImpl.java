@@ -1,5 +1,7 @@
 package nobugs.team.shopping.mvp.presenter;
 
+import android.widget.Toast;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,8 +60,13 @@ public class ShoppingCarPresenterImpl extends BasePresenter<ShoppingCarView> imp
     }
 
     @Override
-    public void commitProduct() {
-        //leave it empty
+    public void commitProduct(int index) {
+        if (index < 0 || index > orders.size()) {
+            Toast.makeText(getContext(),"请选择正确的商品提交",Toast.LENGTH_SHORT).show();
+        }
+        Order order = orders.get(index);
+        getView().showCommitView(order.getProduct_count(),order.getPrice());
+        //TODO 将商品信息推送给卖家
     }
 
     @Override

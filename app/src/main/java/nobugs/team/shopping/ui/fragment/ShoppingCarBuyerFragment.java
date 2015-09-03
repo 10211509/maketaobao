@@ -43,7 +43,17 @@ public class ShoppingCarBuyerFragment extends BaseFragment<ShoppingCarPresenter>
     TextView tvBuyerProductIndex;
     @Bind(R.id.linear_buyer_shoppingcar_container)
     LinearLayout linearBuyerShoppingcarContainer;
+    @Bind(R.id.tv_who)
+    TextView tvCommitTitle;
+    @Bind(R.id.tv_amount)
+    TextView tvCommitAmount;
+    @Bind(R.id.tv_totalprice)
+    TextView tvCommitTotalprice;
+    @Bind(R.id.layout_commit)
+    View layoutCommit;
 
+    @Bind(R.id.btn_sure)
+    Button btnCommitSure;
     private ShoppingCarAdapter shoppingCarAdapter;
     private int selectedPageIndex = 0;
     private FragmentActionListener fragmentActionListener;
@@ -66,7 +76,10 @@ public class ShoppingCarBuyerFragment extends BaseFragment<ShoppingCarPresenter>
             e.printStackTrace();
         }
     }
-
+    @Override
+    protected void initEvent() {
+        vpContainer.addOnPageChangeListener(this);
+    }
     @Override
     protected ShoppingCarPresenter initPresenter() {
         return new ShoppingCarPresenterImpl(this);
@@ -84,14 +97,18 @@ public class ShoppingCarBuyerFragment extends BaseFragment<ShoppingCarPresenter>
         return R.layout.fragment_shoppingcar_buyer;
     }
 
-    @OnClick({R.id.btn_delete, R.id.btn_commitproduct})
+    @OnClick({R.id.btn_delete, R.id.btn_commitproduct,R.id.btn_sure})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_delete:
                 getPresenter().deleteProduct(selectedPageIndex);
                 break;
             case R.id.btn_commitproduct:
-                fragmentActionListener.onFragmentChange(btnCommitPruduct);
+                getPresenter().commitProduct(selectedPageIndex);
+                break;
+            case R.id.btn_sure:
+//                fragmentActionListener.onFragmentChange(btnCommitPruduct);
+                layoutCommit.setVisibility(View.GONE);
                 break;
         }
     }
@@ -100,11 +117,19 @@ public class ShoppingCarBuyerFragment extends BaseFragment<ShoppingCarPresenter>
     public void refreshViewPager(List<Order> orders) {
         shoppingCarAdapter.replaceOrders(orders);
         shoppingCarAdapter.notifyDataSetChanged();//refresh UI
-        if (orders == null || orders.size() <=0 ){
+        if (orders == null || orders.size() <= 0) {
             linearBuyerShoppingcarContainer.setVisibility(View.INVISIBLE);
-        }else{
+        } else {
             linearBuyerShoppingcarContainer.setVisibility(View.VISIBLE);
         }
+    }
+
+    @Override
+    public void showCommitView(int amount, double totalPrice) {
+        layoutCommit.setVisibility(View.VISIBLE);
+        tvCommitAmount.setText(Phrase.from(this.getActivity(), R.string.tv_commit_amout).put("amount", amount).format());
+        tvCommitTitle.setText("购物车提交成功！");
+        tvCommitTotalprice.setText(Phrase.from(this.getActivity(),R.string.tv_commit_totalprice).put("price",String.valueOf(totalPrice)).format());
     }
 
     /*@Override
@@ -130,21 +155,6 @@ public class ShoppingCarBuyerFragment extends BaseFragment<ShoppingCarPresenter>
     public void onPageScrollStateChanged(int state) {
         //empty
     }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        ButterKnife.bind(this, rootView);
-        return rootView;
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        ButterKnife.unbind(this);
-    }
-
 
     public interface FragmentActionListener {
         void onFragmentChange(View view);

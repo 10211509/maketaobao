@@ -69,5 +69,5 @@
             android:text="提交购物车"
             android:id="@+id/btn_commitproduct" />
     </LinearLayout>
-
+    <include android:id="@+id/layout_commit" layout="@layout/layout_commit_orders_successful"/>
 </LinearLayout>

@@ -59,5 +59,8 @@
     <string name="toast_product_price">请填写商品总价！</string>
     <string name="toast_no_orders">没有更多订单了</string>
     <string name="load_more">加载更多...</string>
+    <string name="tv_commit_who">买方{buyer_name}已经提交购物车</string>
+    <string name="tv_commit_amout">商品数量：{amount}</string>
+    <string name="tv_commit_totalprice">总价格：¥{price}</string>
 
 </resources>
