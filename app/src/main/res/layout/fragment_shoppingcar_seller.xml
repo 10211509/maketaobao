@@ -3,7 +3,9 @@
     android:layout_height="match_parent"
     android:background="@android:color/white"
     android:orientation="vertical"
-    android:weightSum="1">
+    android:id="@+id/linear_container"
+    android:weightSum="1"
+    android:visibility="invisible">
 
     <TextView
         android:id="@+id/tv_shoppingcar_title"
@@ -47,6 +49,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginLeft="10dp"
+            android:background="@drawable/bg_btn_green_shape"
+            android:textColor="@android:color/white"
             android:text="添加新商品" />
 
         <Button
@@ -56,6 +60,8 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
+            android:background="@drawable/bg_btn_red_shape"
+            android:textColor="@android:color/white"
             android:text="删除该商品" />
     </LinearLayout>
 

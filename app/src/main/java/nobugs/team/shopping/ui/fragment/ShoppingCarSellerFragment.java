@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,6 +43,9 @@ public class ShoppingCarSellerFragment extends BaseFragment<ShoppingCarSellerPre
     @Bind(R.id.tv_shoppingcar_title)
     TextView tvShoppingcarTitle;
 
+    @Bind(R.id.linear_container)
+    LinearLayout linearContainer;
+
     private ShoppingCarSellerAdapter shoppingCarSellerAdapter;
     private int selectedPageIndex = 0;
 
@@ -52,22 +56,6 @@ public class ShoppingCarSellerFragment extends BaseFragment<ShoppingCarSellerPre
 
     public ShoppingCarSellerFragment() {
         // Required empty public constructor
-    }
-
-    @Override
-    protected void initView() {
-        super.initView();
-        if (vpContainer == null) {
-
-        }
-    }
-
-    @Override
-    protected void initEvent() {
-        super.initEvent();
-        if (vpContainer == null) {
-
-        }
     }
 
     @Override
@@ -83,10 +71,12 @@ public class ShoppingCarSellerFragment extends BaseFragment<ShoppingCarSellerPre
     @OnClick(R.id.btn_addorder)
     public void onAddOrderClick() {
         Order order = shoppingCarSellerAdapter.getOrder(selectedPageIndex);
+        /////////TODO 测试数据
         order.getProduct().setName("苹果");
         order.setProduct_count(3);
         order.getProduct().getType().setUnit("框");
         order.setPrice(300);
+        /////////////////
         if (TextUtils.isEmpty(order.getProduct().getName())) {
             Toast.makeText(this.getActivity(), getActivity().getString(R.string.toast_product_name), Toast.LENGTH_SHORT).show();
             return;
@@ -113,7 +103,7 @@ public class ShoppingCarSellerFragment extends BaseFragment<ShoppingCarSellerPre
 
     @Override
     public void initViewPager(Shop shop) {
-
+        linearContainer.setVisibility(View.VISIBLE);
         shoppingCarSellerAdapter = new ShoppingCarSellerAdapter(getActivity(), shop);
         if (vpContainer != null) {
             vpContainer.setAdapter(shoppingCarSellerAdapter);
@@ -139,7 +129,7 @@ public class ShoppingCarSellerFragment extends BaseFragment<ShoppingCarSellerPre
         boolean enable = shoppingCarSellerAdapter.orderSuccessfulAdded(selectedPageIndex);
         //if the order successfully added,then should not add it again!
         btnAddproduct.setEnabled(!enable);
-        CharSequence charSequence = Phrase.from(this.getActivity(),R.string.tv_shopping_car_number).put("number",shoppingCarSellerAdapter.getCount()).put("index",selectedPageIndex).format();
+        CharSequence charSequence = Phrase.from(this.getActivity(), R.string.tv_shopping_car_number).put("number", shoppingCarSellerAdapter.getCount()).put("index", selectedPageIndex).format();
         tvProductIndex.setText(charSequence);
     }
 

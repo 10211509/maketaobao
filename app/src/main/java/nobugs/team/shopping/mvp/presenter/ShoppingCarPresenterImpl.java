@@ -39,17 +39,20 @@ public class ShoppingCarPresenterImpl extends BasePresenter<ShoppingCarView> imp
     public void onEventMainThread(RemoteOrderAddEvent event) {
         Order orderAdd = event.getOrder();
 
-        //TODO 卖家增加订单，处理UI
-
+        orders.add(orderAdd);
+        getView().refreshViewPager(orders);
 
         EventBus.getDefault().removeStickyEvent(event);
     }
 
     public void onEventMainThread(RemoteOrderDelEvent event) {
-        int orderDel = event.getOrderId();
+        String orderDel = String.valueOf(event.getOrderId());
 
-        //TODO 卖家删除订单，处理UI
-
+        for (Order order:orders){
+            if(order.getOrderid().equals(orderDel))
+                orders.remove(order);
+        }
+        getView().refreshViewPager(orders);
 
         EventBus.getDefault().removeStickyEvent(event);
     }
@@ -72,9 +75,6 @@ public class ShoppingCarPresenterImpl extends BasePresenter<ShoppingCarView> imp
         String orderId = orders.get(index).getOrderid();
 
         shoppingCarInteractor.deleteProduct(orderId, this);
-
-        //TODO 应该移至删除成功的回调中
-        IMSendHelper.sendDelOrder(mOwnUser.getPhone(), mPeerUser.getPhone(), Integer.parseInt(orderId));
     }
 
     @Override
@@ -82,7 +82,7 @@ public class ShoppingCarPresenterImpl extends BasePresenter<ShoppingCarView> imp
         //pushed from service
         orders.add(order);
         //refresh UI
-        getView().addOrder(orders);
+        getView().refreshViewPager(orders);
     }
 
     @Override
@@ -91,7 +91,9 @@ public class ShoppingCarPresenterImpl extends BasePresenter<ShoppingCarView> imp
             if(order.getOrderid().equals(id))
                 orders.remove(order);
         }
-        getView().loadCar(orders);
+        getView().refreshViewPager(orders);
+        //tell the seller to refresh order list
+        IMSendHelper.sendDelOrder(mOwnUser.getPhone(), mPeerUser.getPhone(), Integer.parseInt(id));
     }
 
     @Override

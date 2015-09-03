@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -40,6 +41,8 @@ public class ShoppingCarBuyerFragment extends BaseFragment<ShoppingCarPresenter>
     Button btnCommitPruduct;
     @Bind(R.id.tv_buyer_product_index)
     TextView tvBuyerProductIndex;
+    @Bind(R.id.linear_buyer_shoppingcar_container)
+    LinearLayout linearBuyerShoppingcarContainer;
 
     private ShoppingCarAdapter shoppingCarAdapter;
     private int selectedPageIndex = 0;
@@ -88,23 +91,27 @@ public class ShoppingCarBuyerFragment extends BaseFragment<ShoppingCarPresenter>
                 getPresenter().deleteProduct(selectedPageIndex);
                 break;
             case R.id.btn_commitproduct:
-//                getPresenter().commitProduct();
                 fragmentActionListener.onFragmentChange(btnCommitPruduct);
                 break;
         }
     }
 
     @Override
-    public void addOrder(List<Order> orders) {
+    public void refreshViewPager(List<Order> orders) {
         shoppingCarAdapter.replaceOrders(orders);
         shoppingCarAdapter.notifyDataSetChanged();//refresh UI
+        if (orders == null || orders.size() <=0 ){
+            linearBuyerShoppingcarContainer.setVisibility(View.INVISIBLE);
+        }else{
+            linearBuyerShoppingcarContainer.setVisibility(View.VISIBLE);
+        }
     }
 
-    @Override
+    /*@Override
     public void loadCar(List<Order> orders) {
         shoppingCarAdapter.replaceOrders(orders);
         shoppingCarAdapter.notifyDataSetChanged();//refresh UI
-    }
+    }*/
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -115,13 +122,27 @@ public class ShoppingCarBuyerFragment extends BaseFragment<ShoppingCarPresenter>
     public void onPageSelected(int position) {
         selectedPageIndex = position;
         //if the order successfully added,then should not add it again!
-        CharSequence charSequence = Phrase.from(this.getActivity(),R.string.tv_shopping_car_number).put("number",shoppingCarAdapter.getCount()).put("index",selectedPageIndex).format();
+        CharSequence charSequence = Phrase.from(this.getActivity(), R.string.tv_shopping_car_number).put("number", shoppingCarAdapter.getCount()).put("index", selectedPageIndex).format();
         tvBuyerProductIndex.setText(charSequence);
     }
 
     @Override
     public void onPageScrollStateChanged(int state) {
         //empty
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        ButterKnife.bind(this, rootView);
+        return rootView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
     }
 
 

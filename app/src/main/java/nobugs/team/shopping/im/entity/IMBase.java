@@ -5,7 +5,7 @@ package nobugs.team.shopping.im.entity;
  */
 public class IMBase {
     public static final String TYPE_SELECT_SHOP = "selectShop";
-    public static final String TYPE_ADD_ORDER = "addOrder";
+    public static final String TYPE_ADD_ORDER = "refreshViewPager";
     public static final String TYPE_DEL_ORDER = "delOrder";
 
     private String type;
