@@ -23,6 +23,17 @@ public class OrderMapper implements IModelMapper<Order, OrderPo> {
         po.setState(order.getState());
         po.setPlacetime(order.getPlace_time());
 
+        if (order.getBuyer() != null && order.getBuyer().getId() != null) {
+            po.setBuyid(order.getBuyer().getId().intValue());
+        }
+        if (order.getSeller() != null && order.getSeller().getId() != null) {
+            po.setSaleid(order.getSeller().getId().intValue());
+        }
+        po.setIspay("0");
+        po.setIscoll("0");
+        po.setIsgoods("0");
+        po.setIsesc("0");
+
         if (order.getProduct() != null) {
             po.setProductname(order.getProduct().getName());
             po.setProductid(order.getProduct().getId());
@@ -44,6 +55,9 @@ public class OrderMapper implements IModelMapper<Order, OrderPo> {
         order.setPlace_time(orderPo.getPlacetime());
 
         Product product = new Product();
+        if (orderPo.getProductid() != null){
+            product.setId(orderPo.getProductid());
+        }
         product.setName(orderPo.getProductname());
 
         ProductType productType = new ProductType();

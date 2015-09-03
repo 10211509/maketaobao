@@ -21,7 +21,7 @@ public class RetrofitAdapter {
     public void initDefaultAdapter() {
         this.restAdapter = new RestAdapter.Builder()
                 .setEndpoint(AppConfig.URL.WEB_HOST)
-                .setLogLevel(RestAdapter.LogLevel.BASIC)
+                .setLogLevel(RestAdapter.LogLevel.FULL)
                 .build();
         this.baseApiService = restAdapter.create(ApiService.class);
     }

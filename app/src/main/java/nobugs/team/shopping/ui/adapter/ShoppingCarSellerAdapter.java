@@ -15,7 +15,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import nobugs.team.shopping.R;
@@ -107,6 +106,8 @@ public class ShoppingCarSellerAdapter extends PagerAdapter {
 
 
         final Order order = orders.get(position);
+
+
         initProductName(spName, shop, order.getProduct().getName());
         etAmount.setText(String.valueOf(order.getProduct_count()));
         initProductUnit(spUnit, order.getProduct().getType().getUnit());
@@ -118,6 +119,7 @@ public class ShoppingCarSellerAdapter extends PagerAdapter {
 //                orders.get(position).setPrice(123);
                 String name = ((TextView)view).getText().toString();
                 orders.get(position).getProduct().setName(name);
+                orders.get(position).getProduct().setId(shop.getProducts().get(index).getId());
             }
 
             @Override

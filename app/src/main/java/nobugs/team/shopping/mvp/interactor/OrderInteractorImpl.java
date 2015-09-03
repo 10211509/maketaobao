@@ -13,7 +13,6 @@ import nobugs.team.shopping.repo.Repository;
 public class OrderInteractorImpl implements OrderInteractor {
 
 
-
     private void getOrdersBuyer(int buyerId, int pageCount, int curPage, boolean isOver, final GetListCallback callback) {
         Repository.getInstance().getOrderListSeller(buyerId, pageCount, curPage, isOver, new RepoCallback.GetList<Order>() {
             @Override
@@ -78,6 +77,7 @@ public class OrderInteractorImpl implements OrderInteractor {
             public void onGotDataSuccess(Order order) {
                 callback.onGetOrderSuccess(order);
             }
+
             @Override
             public void onError(int errType, String errMsg) {
                 callback.onFailure();
@@ -87,6 +87,12 @@ public class OrderInteractorImpl implements OrderInteractor {
 
     @Override
     public void addOrder(Order order, final AddCallback callback) {
+//        RequestFactory.createPostRequest()
+//        OkVolleyUtils.addRequest(new GsonGetRequest<Object>());
+
+        if (order.getProduct() != null) {
+            order.getProduct().setName(null);
+        }
         Repository.getInstance().addOrder(order, new RepoCallback.Add<Order>() {
             @Override
             public void onAddDataSuccess(int id) {

@@ -29,6 +29,7 @@ public class MainOrderListFragment extends BaseFragment<MainOrderPresenter> impl
 
     @Bind(R.id.pager)
     ViewPager mViewPager;
+
     @Bind(android.R.id.tabhost)
     TabHost mTabHost;
 

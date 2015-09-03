@@ -1,10 +1,7 @@
 package nobugs.team.shopping.ui.fragment;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -83,10 +80,6 @@ public class ShoppingCarSellerFragment extends BaseFragment<ShoppingCarSellerPre
         }
         if (order.getProduct_count() <= 0) {
             Toast.makeText(this.getActivity(), getActivity().getString(R.string.toast_product_amount), Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if (TextUtils.isEmpty(order.getProduct().getType().getUnit())) {
-            Toast.makeText(this.getActivity(), getActivity().getString(R.string.toast_product_unit), Toast.LENGTH_SHORT).show();
             return;
         }
         if (TextUtils.isEmpty(order.getProduct().getType().getUnit())) {

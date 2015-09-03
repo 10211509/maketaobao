@@ -16,6 +16,9 @@ public class OrderPo extends BasePo {
     private Integer productid;
 
     @Expose
+    private Integer buyid;
+
+    @Expose
     private Double price;
 
     @Expose
@@ -158,5 +161,13 @@ public class OrderPo extends BasePo {
 
     public void setIsesc(String isesc) {
         this.isesc = isesc;
+    }
+
+    public Integer getBuyid() {
+        return buyid;
+    }
+
+    public void setBuyid(Integer buyid) {
+        this.buyid = buyid;
     }
 }

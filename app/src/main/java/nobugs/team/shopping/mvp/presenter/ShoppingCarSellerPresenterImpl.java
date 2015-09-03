@@ -11,6 +11,8 @@ import nobugs.team.shopping.R;
 import nobugs.team.shopping.event.CallBeginEvent;
 import nobugs.team.shopping.event.RemoteOrderDelEvent;
 import nobugs.team.shopping.im.IMSendHelper;
+import nobugs.team.shopping.mvp.interactor.OrderInteractor;
+import nobugs.team.shopping.mvp.interactor.OrderInteractorImpl;
 import nobugs.team.shopping.mvp.interactor.ProductInteractor;
 import nobugs.team.shopping.mvp.interactor.ProductInteractorImpl;
 import nobugs.team.shopping.mvp.interactor.ShoppingCarInteractor;
@@ -24,12 +26,13 @@ import nobugs.team.shopping.mvp.view.ShoppingCarSellerView;
 /**
  * Created by xiayong on 2015/8/30.
  */
-public class ShoppingCarSellerPresenterImpl extends BasePresenter<ShoppingCarSellerView> implements ShoppingCarSellerPresenter, ShoppingCarInteractor.Callback,ProductInteractor.Callback {
+public class ShoppingCarSellerPresenterImpl extends BasePresenter<ShoppingCarSellerView> implements ShoppingCarSellerPresenter, ShoppingCarInteractor.Callback,ProductInteractor.Callback, OrderInteractor.AddCallback {
     private static final String TAG = "ShoppingCarSeller";
     private Shop shop;
     private List<Order> orders;
     private ShoppingCarInteractor shoppingCarInteractor;
     private ProductInteractor productInteractor;
+    private OrderInteractor orderInteractor;
     private User mOwnUser;
     private User mPeerUser;
 
@@ -38,6 +41,7 @@ public class ShoppingCarSellerPresenterImpl extends BasePresenter<ShoppingCarSel
         orders = new ArrayList<>();
         shoppingCarInteractor = new ShoppingCarInteractorImpl();
         productInteractor = new ProductInteractorImpl();
+        orderInteractor = new OrderInteractorImpl();
     }
 
     @Override
@@ -72,7 +76,11 @@ public class ShoppingCarSellerPresenterImpl extends BasePresenter<ShoppingCarSel
     @Override
     public void addOrder(Order order) {
         orders.add(order);
-        shoppingCarInteractor.addProduct(order, this);
+        order.setSeller(mOwnUser);
+        order.setBuyer(mPeerUser);
+        order.setOrderState(1);
+
+        orderInteractor.addOrder(order, this);
     }
 
     @Override
@@ -91,7 +99,10 @@ public class ShoppingCarSellerPresenterImpl extends BasePresenter<ShoppingCarSel
         shoppingCarInteractor.deleteProduct(orderId, this);
     }
 
+    @Override
+    public void onAddOrderSuccess(int orderId) {
 
+    }
     @Override
     public void onDeleteSuccess(String id) {
         //TODO 应该移至删除成功的回调中
@@ -132,6 +143,7 @@ public class ShoppingCarSellerPresenterImpl extends BasePresenter<ShoppingCarSel
     public void onFailure() {
         Toast.makeText(getContext(),getContext().getString(R.string.operation_failed),Toast.LENGTH_SHORT).show();
     }
+
 
 
 }

@@ -1,5 +1,7 @@
 package nobugs.team.shopping.repo.api.retrofit;
 
+import java.util.Map;
+
 import nobugs.team.shopping.constant.AppConfig;
 import nobugs.team.shopping.repo.api.entity.EmptyResult;
 import nobugs.team.shopping.repo.api.entity.LoginResult;
@@ -7,12 +9,10 @@ import nobugs.team.shopping.repo.api.entity.OrderListResult;
 import nobugs.team.shopping.repo.api.entity.ProductListResult;
 import nobugs.team.shopping.repo.api.entity.ShopListResult;
 import nobugs.team.shopping.repo.api.entity.TypeListResult;
-import nobugs.team.shopping.repo.entity.OrderPo;
 import retrofit.Callback;
-import retrofit.http.Body;
 import retrofit.http.GET;
-import retrofit.http.POST;
 import retrofit.http.Query;
+import retrofit.http.QueryMap;
 
 /**
  * Created by Administrator on 2015/8/23 0023.
@@ -57,11 +57,11 @@ public interface ApiService {
     @GET(AppConfig.URL.GET_ORDER)
     OrderListResult getOrder(@Query("id") int orderId);
 
-    @POST(AppConfig.URL.ADD_ORDER)
-    void addOrder(/*@QueryMap String orderId,*/ @Body OrderPo order, Callback<OrderListResult> callback);
+    @GET(AppConfig.URL.ADD_ORDER)
+    void addOrder(/*@QueryMap String orderId,*/ @QueryMap Map<String, String> order, Callback<OrderListResult> callback);
 
-    @POST(AppConfig.URL.ADD_ORDER)
-    OrderListResult addOrder(/*@QueryMap String orderId*/@Body OrderPo order);
+    @GET(AppConfig.URL.ADD_ORDER)
+    OrderListResult addOrder(/*@QueryMap String orderId*/@QueryMap Map<String, String> order);
 
     @GET(AppConfig.URL.DEL_ORDER)
     void delOrder(@Query("id") int orderId, Callback<EmptyResult> callback);
