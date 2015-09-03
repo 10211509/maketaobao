@@ -30,6 +30,7 @@
             android:layout_width="0dp"
             android:layout_height="45dp"
             android:layout_weight="1"
+            android:background="@drawable/bg_btn_red_shape"
             android:text="@string/tv_delivered"
             android:visibility="gone"/>
         <Button
@@ -37,6 +38,7 @@
             android:layout_width="0dp"
             android:layout_height="45dp"
             android:layout_weight="1"
+            android:background="@drawable/bg_btn_red_shape"
             android:text="@string/tv_payed"
             android:visibility="gone"/>
         <Button
@@ -44,6 +46,7 @@
             android:layout_width="0dp"
             android:layout_height="45dp"
             android:layout_weight="1"
+            android:background="@drawable/bg_btn_red_shape"
             android:text="@string/tv_collected"
             android:visibility="gone"/>
         <Button
@@ -51,6 +54,7 @@
             android:layout_width="0dp"
             android:layout_height="45dp"
             android:layout_weight="1"
+            android:background="@drawable/bg_btn_red_shape"
             android:text="@string/tv_cancel"
             android:visibility="gone"/>
     </LinearLayout>
