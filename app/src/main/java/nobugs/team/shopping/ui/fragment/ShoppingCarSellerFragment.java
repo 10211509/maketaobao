@@ -83,6 +83,10 @@ public class ShoppingCarSellerFragment extends BaseFragment<ShoppingCarSellerPre
     @OnClick(R.id.btn_addorder)
     public void onAddOrderClick() {
         Order order = shoppingCarSellerAdapter.getOrder(selectedPageIndex);
+        order.getProduct().setName("苹果");
+        order.setProduct_count(3);
+        order.getProduct().getType().setUnit("框");
+        order.setPrice(300);
         if (TextUtils.isEmpty(order.getProduct().getName())) {
             Toast.makeText(this.getActivity(), getActivity().getString(R.string.toast_product_name), Toast.LENGTH_SHORT).show();
             return;
