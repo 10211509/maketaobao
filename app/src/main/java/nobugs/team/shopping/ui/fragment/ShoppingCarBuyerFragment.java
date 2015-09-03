@@ -1,8 +1,11 @@
 package nobugs.team.shopping.ui.fragment;
 
 import android.app.Activity;
+import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -10,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import nobugs.team.shopping.R;
 import nobugs.team.shopping.app.base.BaseFragment;
@@ -18,11 +22,12 @@ import nobugs.team.shopping.mvp.presenter.ShoppingCarPresenter;
 import nobugs.team.shopping.mvp.presenter.ShoppingCarPresenterImpl;
 import nobugs.team.shopping.mvp.view.ShoppingCarView;
 import nobugs.team.shopping.ui.adapter.ShoppingCarAdapter;
+import nobugs.team.shopping.utils.Phrase;
 
 /**
  * display the products that buyer has chosen
  */
-public class ShoppingCarBuyerFragment extends BaseFragment<ShoppingCarPresenter> implements ShoppingCarView,ViewPager.OnPageChangeListener {
+public class ShoppingCarBuyerFragment extends BaseFragment<ShoppingCarPresenter> implements ShoppingCarView, ViewPager.OnPageChangeListener {
 
 
     @Bind(R.id.tv_shoppingcar_title)
@@ -33,6 +38,8 @@ public class ShoppingCarBuyerFragment extends BaseFragment<ShoppingCarPresenter>
     Button btnDelete;
     @Bind(R.id.btn_commitproduct)
     Button btnCommitPruduct;
+    @Bind(R.id.tv_buyer_product_index)
+    TextView tvBuyerProductIndex;
 
     private ShoppingCarAdapter shoppingCarAdapter;
     private int selectedPageIndex = 0;
@@ -74,9 +81,9 @@ public class ShoppingCarBuyerFragment extends BaseFragment<ShoppingCarPresenter>
         return R.layout.fragment_shoppingcar_buyer;
     }
 
-    @OnClick({R.id.btn_delete,R.id.btn_commitproduct})
-    public void onClick(View view){
-        switch (view.getId()){
+    @OnClick({R.id.btn_delete, R.id.btn_commitproduct})
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.btn_delete:
                 getPresenter().deleteProduct(selectedPageIndex);
                 break;
@@ -86,6 +93,7 @@ public class ShoppingCarBuyerFragment extends BaseFragment<ShoppingCarPresenter>
                 break;
         }
     }
+
     @Override
     public void addOrder(List<Order> orders) {
         shoppingCarAdapter.replaceOrders(orders);
@@ -106,6 +114,9 @@ public class ShoppingCarBuyerFragment extends BaseFragment<ShoppingCarPresenter>
     @Override
     public void onPageSelected(int position) {
         selectedPageIndex = position;
+        //if the order successfully added,then should not add it again!
+        CharSequence charSequence = Phrase.from(this.getActivity(),R.string.tv_shopping_car_number).put("number",shoppingCarAdapter.getCount()).put("index",selectedPageIndex).format();
+        tvBuyerProductIndex.setText(charSequence);
     }
 
     @Override
@@ -113,7 +124,8 @@ public class ShoppingCarBuyerFragment extends BaseFragment<ShoppingCarPresenter>
         //empty
     }
 
-    public interface FragmentActionListener{
+
+    public interface FragmentActionListener {
         void onFragmentChange(View view);
     }
 }
