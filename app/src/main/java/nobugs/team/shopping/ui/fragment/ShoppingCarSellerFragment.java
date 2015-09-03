@@ -1,8 +1,12 @@
 package nobugs.team.shopping.ui.fragment;
 
+import android.app.Activity;
+import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -11,6 +15,7 @@ import android.widget.Toast;
 import java.util.List;
 
 import butterknife.Bind;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import nobugs.team.shopping.R;
 import nobugs.team.shopping.app.base.BaseFragment;
@@ -23,7 +28,7 @@ import nobugs.team.shopping.ui.adapter.ShoppingCarSellerAdapter;
 import nobugs.team.shopping.ui.interfaces.CountChangeListener;
 import nobugs.team.shopping.utils.Phrase;
 
-public class ShoppingCarSellerFragment extends BaseFragment<ShoppingCarSellerPresenter> implements ShoppingCarSellerView, ViewPager.OnPageChangeListener ,CountChangeListener {
+public class ShoppingCarSellerFragment extends BaseFragment<ShoppingCarSellerPresenter> implements ShoppingCarSellerView, ViewPager.OnPageChangeListener, CountChangeListener {
 
     @Bind(R.id.tv_product_index)
     TextView tvProductIndex;
@@ -43,8 +48,22 @@ public class ShoppingCarSellerFragment extends BaseFragment<ShoppingCarSellerPre
     @Bind(R.id.linear_container)
     LinearLayout linearContainer;
 
+    @Bind(R.id.btn_sure)
+    Button btnCommitSure;
+    @Bind(R.id.tv_who)
+    TextView tvBuyerName;
+    @Bind(R.id.tv_amount)
+    TextView tvAmount;
+    @Bind(R.id.tv_totalprice)
+    TextView tvTotalprice;
+
+    @Bind(R.id.layout_commit)
+    TextView layoutCommit;
+
+
     private ShoppingCarSellerAdapter shoppingCarSellerAdapter;
     private int selectedPageIndex = 0;
+    private FragmentActionListener fragmentActionListener;
 
     public static ShoppingCarSellerFragment newInstance() {
         ShoppingCarSellerFragment fragment = new ShoppingCarSellerFragment();
@@ -54,7 +73,15 @@ public class ShoppingCarSellerFragment extends BaseFragment<ShoppingCarSellerPre
     public ShoppingCarSellerFragment() {
         // Required empty public constructor
     }
-
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        try {
+            fragmentActionListener = (FragmentActionListener) activity;
+        } catch (ClassCastException e) {
+            e.printStackTrace();
+        }
+    }
     @Override
     protected void initEvent() {
         vpContainer.addOnPageChangeListener(this);
@@ -79,7 +106,7 @@ public class ShoppingCarSellerFragment extends BaseFragment<ShoppingCarSellerPre
         order.getProduct().getType().setUnit("框");
         order.setPrice(300);*/
         /////////////////
-        if(!TextUtils.isEmpty(order.getOrderid())){
+        if (!TextUtils.isEmpty(order.getOrderid())) {
             Toast.makeText(this.getActivity(), getActivity().getString(R.string.tv_product_already_added), Toast.LENGTH_SHORT).show();
             return;
         }
@@ -107,6 +134,13 @@ public class ShoppingCarSellerFragment extends BaseFragment<ShoppingCarSellerPre
         getPresenter().deleteOrder(selectedPageIndex);
     }
 
+    @OnClick(R.id.btn_sure)
+    public void onCommitSureClick() {
+//        getPresenter().deleteOrder(selectedPageIndex);
+        fragmentActionListener.onFragmentChange(btnCommitSure);
+    }
+
+
     @Override
     public void initViewPager(Shop shop) {
         linearContainer.setVisibility(View.VISIBLE);
@@ -127,9 +161,17 @@ public class ShoppingCarSellerFragment extends BaseFragment<ShoppingCarSellerPre
     }
 
     @Override
+    public void showCommitView(String name, int amount, double totalPrice) {
+        layoutCommit.setVisibility(View.VISIBLE);
+        tvAmount.setText(Phrase.from(this.getActivity(), R.string.tv_commit_amout).put("amount", amount).format());
+        tvBuyerName.setText("买方成功提交购物车！");
+        tvTotalprice.setText(Phrase.from(this.getActivity(),R.string.tv_commit_totalprice).put("price",String.valueOf(totalPrice)).format());
+    }
+
+    @Override
     public void showPagerLast() {
         int lastIndex = vpContainer.getChildCount();
-        vpContainer.setCurrentItem(lastIndex,true);
+        vpContainer.setCurrentItem(lastIndex, true);
     }
 
 
@@ -144,7 +186,7 @@ public class ShoppingCarSellerFragment extends BaseFragment<ShoppingCarSellerPre
 //        boolean enable = shoppingCarSellerAdapter.orderSuccessfulAdded(selectedPageIndex);
         //if the order successfully added,then should not add it again!
 //        btnAddproduct.setEnabled(!enable);
-        CharSequence charSequence = Phrase.from(this.getActivity(), R.string.tv_shopping_car_number).put("number", shoppingCarSellerAdapter.getCount()).put("index", selectedPageIndex+1).format();
+        CharSequence charSequence = Phrase.from(this.getActivity(), R.string.tv_shopping_car_number).put("number", shoppingCarSellerAdapter.getCount()).put("index", selectedPageIndex + 1).format();
         tvProductIndex.setText(charSequence);
     }
 
@@ -155,7 +197,11 @@ public class ShoppingCarSellerFragment extends BaseFragment<ShoppingCarSellerPre
 
     @Override
     public void onCountChange(int newCount) {
-        CharSequence charSequence = Phrase.from(this.getActivity(), R.string.tv_shopping_car_number).put("number",newCount).put("index", selectedPageIndex+1).format();
+        CharSequence charSequence = Phrase.from(this.getActivity(), R.string.tv_shopping_car_number).put("number", newCount).put("index", selectedPageIndex + 1).format();
         tvProductIndex.setText(charSequence);
+    }
+
+    public interface FragmentActionListener {
+        void onFragmentChange(View view);
     }
 }

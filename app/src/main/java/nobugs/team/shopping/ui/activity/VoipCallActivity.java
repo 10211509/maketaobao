@@ -190,7 +190,7 @@ public class VoipCallActivity extends BaseActivity<VoipCallPresenter> implements
 
     @Override
     public void onFragmentChange(View view) {
-        if(view.getId() == R.id.btn_commit_shopping_cart){
+        if(view.getId() == R.id.btn_sure){
             btnHangup.performClick();
         }
     }

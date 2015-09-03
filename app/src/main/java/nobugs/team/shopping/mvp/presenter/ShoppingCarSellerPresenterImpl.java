@@ -110,6 +110,11 @@ public class ShoppingCarSellerPresenterImpl extends BasePresenter<ShoppingCarSel
     }
 
     @Override
+    public void showCommitView(String name, int amount, double totalPrice) {
+
+    }
+
+    @Override
     public void onAddOrderSuccess(Order order) {
         Toast.makeText(getContext(), "添加成功", Toast.LENGTH_SHORT).show();
         IMSendHelper.sendAddOrder(mOwnUser.getPhone(), mPeerUser.getPhone(), order);

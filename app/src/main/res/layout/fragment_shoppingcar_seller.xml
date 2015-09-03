@@ -69,5 +69,5 @@
             android:text="删除该商品"
             android:textColor="@android:color/white" />
     </LinearLayout>
-
+    <include android:id="@+id/layout_commit" layout="@layout/layout_commit_orders_successful"/>
 </LinearLayout>

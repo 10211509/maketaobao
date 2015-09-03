@@ -107,8 +107,8 @@ public class ShoppingCarBuyerFragment extends BaseFragment<ShoppingCarPresenter>
                 getPresenter().commitShoppingCart(selectedPageIndex);
                 break;
             case R.id.btn_sure:
-//                fragmentActionListener.onFragmentChange(btnCommitPruduct);
-                layoutCommit.setVisibility(View.GONE);
+                fragmentActionListener.onFragmentChange(btnCommitPruduct);
+//                layoutCommit.setVisibility(View.GONE);
                 break;
         }
     }

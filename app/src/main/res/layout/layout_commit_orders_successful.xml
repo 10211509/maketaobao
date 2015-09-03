@@ -33,9 +33,10 @@
         android:layout_centerHorizontal="true" />
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
         android:text="确定"
+        android:textColor="@android:color/white"
         android:id="@+id/btn_sure"
         android:background="@drawable/bg_btn_blue_shape"
         android:layout_alignParentBottom="true"
