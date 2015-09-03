@@ -63,9 +63,15 @@ public class OrderDetailsActivity extends BaseActivity<OrderDetailsPresenter> im
         if (order.getOrderState() == Order.State.placed) {
             btnPayed.setEnabled(true);
             btnCanceled.setEnabled(true);
-        } else {
+            btnAccepted.setEnabled(false);
+        } else if(order.getOrderState() == Order.State.delivered){
             btnPayed.setEnabled(false);
             btnCanceled.setEnabled(false);
+            btnAccepted.setEnabled(true);
+        }else{
+            btnPayed.setEnabled(false);
+            btnCanceled.setEnabled(false);
+            btnAccepted.setEnabled(false);
         }
 
     }
