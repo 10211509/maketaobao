@@ -75,5 +75,5 @@
             android:textColor="@android:color/white"
             android:text="提交购物车"/>
     </LinearLayout>
-    <include android:id="@+id/layout_commit" layout="@layout/layout_commit_orders_successful"/>
+    <include android:visibility="gone" android:id="@+id/layout_commit" layout="@layout/layout_commit_orders_successful"/>
 </LinearLayout>
