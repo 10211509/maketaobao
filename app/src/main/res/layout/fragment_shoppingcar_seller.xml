@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="@android:color/white"
     android:orientation="vertical"
-    android:visibility="visible"
+    android:visibility="invisible"
     android:weightSum="1">
 
     <TextView
@@ -69,5 +69,6 @@
             android:text="删除该商品"
             android:textColor="@android:color/white" />
     </LinearLayout>
-    <include android:id="@+id/layout_commit" layout="@layout/layout_commit_orders_successful"/>
+    <include  android:visibility="gone"
+        android:id="@+id/layout_commit" layout="@layout/layout_commit_orders_successful"/>
 </LinearLayout>

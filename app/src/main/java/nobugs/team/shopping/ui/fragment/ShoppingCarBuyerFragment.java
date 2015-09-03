@@ -42,7 +42,7 @@ public class ShoppingCarBuyerFragment extends BaseFragment<ShoppingCarPresenter>
     LinearLayout linearBuyerShoppingcarContainer;
     @Bind(R.id.tv_who)
     TextView tvCommitTitle;
-    @Bind(R.id.tv_amount)
+    @Bind(R.id.tv_commit_amount)
     TextView tvCommitAmount;
     @Bind(R.id.tv_totalprice)
     TextView tvCommitTotalprice;

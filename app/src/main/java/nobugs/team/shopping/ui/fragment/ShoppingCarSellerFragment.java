@@ -50,15 +50,18 @@ public class ShoppingCarSellerFragment extends BaseFragment<ShoppingCarSellerPre
 
     @Bind(R.id.btn_sure)
     Button btnCommitSure;
+
     @Bind(R.id.tv_who)
     TextView tvBuyerName;
-    @Bind(R.id.tv_amount)
+
+    @Bind(R.id.tv_commit_amount)
     TextView tvAmount;
+
     @Bind(R.id.tv_totalprice)
     TextView tvTotalprice;
 
     @Bind(R.id.layout_commit)
-    TextView layoutCommit;
+    View layoutCommit;
 
 
     private ShoppingCarSellerAdapter shoppingCarSellerAdapter;

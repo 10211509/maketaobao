@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/tv_commit_amout"
-        android:id="@+id/tv_amount"
+        android:id="@+id/tv_commit_amount"
         android:layout_below="@+id/tv_who"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="51dp" />
@@ -34,7 +34,7 @@
 
     <Button
         android:layout_width="300dp"
-        android:layout_height="60dp"
+        android:layout_height="40dp"
         android:text="确定"
         android:textColor="@android:color/white"
         android:id="@+id/btn_sure"
