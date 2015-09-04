@@ -1,6 +1,7 @@
 package nobugs.team.shopping.utils;
 
 import android.content.Context;
+import android.media.AudioManager;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
@@ -15,13 +16,15 @@ import java.util.Map;
 
 /**
  * Created by xiayong on 2015/8/15.
- *
+ * <p/>
  * 通用工具类
  */
 public class CommonTools {
+    private static int currVolume;
+
     public static String getDeviceId(Context context) {
         TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-        if(telephonyManager != null ) {
+        if (telephonyManager != null) {
             return telephonyManager.getDeviceId();
         }
 
@@ -76,12 +79,12 @@ public class CommonTools {
 
     public static String getDevicNO(Context context) {
         String deviceID = getDeviceId(context);
-        if(!TextUtils.isEmpty(deviceID)) {
+        if (!TextUtils.isEmpty(deviceID)) {
             return deviceID;
         }
 
-        String  macAddress = getMacAddress(context);
-        if(!TextUtils.isEmpty(macAddress)) {
+        String macAddress = getMacAddress(context);
+        if (!TextUtils.isEmpty(macAddress)) {
             return macAddress;
         }
         return " ";
@@ -121,7 +124,7 @@ public class CommonTools {
                     field = field.toLowerCase().charAt(0) + field.substring(1);
 
                     Object value = method.invoke(javaBean, (Object[]) null);
-                    if (value != null){
+                    if (value != null) {
                         result.put(field, value.toString());
                     }
                 }
@@ -131,15 +134,17 @@ public class CommonTools {
 
         return result;
     }
+
     /**
      * 判断number参数是否是整型数表示方式
+     *
      * @param number
      * @return
      */
-    public static boolean isIntegerNumber(String number){
-        number=number.trim();
-        String intNumRegex="\\-{0,1}\\d+";//整数的正则表达式
-        if(number.matches(intNumRegex))
+    public static boolean isIntegerNumber(String number) {
+        number = number.trim();
+        String intNumRegex = "\\-{0,1}\\d+";//整数的正则表达式
+        if (number.matches(intNumRegex))
             return true;
         else
             return false;
@@ -147,16 +152,30 @@ public class CommonTools {
 
     /**
      * 判断number参数是否是浮点数表示方式
+     *
      * @param number
      * @return
      */
-    public static boolean isFloatPointNumber(String number){
-        number=number.trim();
-        String pointPrefix="(\\-|\\+){0,1}\\d*\\.\\d+";//浮点数的正则表达式-小数点在中间与前面
-        String pointSuffix="(\\-|\\+){0,1}\\d+\\.";//浮点数的正则表达式-小数点在后面
-        if(number.matches(pointPrefix)||number.matches(pointSuffix))
+    public static boolean isFloatPointNumber(String number) {
+        number = number.trim();
+        String pointPrefix = "(\\-|\\+){0,1}\\d*\\.\\d+";//浮点数的正则表达式-小数点在中间与前面
+        String pointSuffix = "(\\-|\\+){0,1}\\d+\\.";//浮点数的正则表达式-小数点在后面
+        if (number.matches(pointPrefix) || number.matches(pointSuffix))
             return true;
         else
             return false;
     }
+
+    //打开扬声器
+    public static void openSpeaker(Context context, boolean on) {
+        AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+        if(on) {
+            audioManager.setMode(AudioManager.MODE_NORMAL);
+            audioManager.setSpeakerphoneOn(true);
+        } else {
+            audioManager.setSpeakerphoneOn(false);
+        }
+    }
+
+
 }

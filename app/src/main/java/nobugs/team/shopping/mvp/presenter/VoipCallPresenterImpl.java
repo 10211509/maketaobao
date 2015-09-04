@@ -63,9 +63,9 @@ public class VoipCallPresenterImpl extends BasePresenter<VoipCallView> implement
 
         mOwnUser = Repository.getInstance().getLoginUser();
 
+        initSpeaker();
         initCameraInfo();
         initCameraSurfaceView();
-        initSpeaker();
         isConnect = true;
 
         if (isIncomingCall) {
@@ -139,6 +139,7 @@ public class VoipCallPresenterImpl extends BasePresenter<VoipCallView> implement
 
     private void initSpeaker() {
         ECDevice.getECVoIPSetupManager().enableLoudSpeaker(true);
+//        CommonTools.openSpeaker(MyApplication.getInstance());
     }
 
     @Override

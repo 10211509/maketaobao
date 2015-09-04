@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Shopping</string>
+    <string name="app_name">视频营销</string>
     <string name="login_name">请输入用户名</string>
     <string name="login_password">请输入密码</string>
     <string name="login_button">登录</string>
