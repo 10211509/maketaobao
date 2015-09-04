@@ -212,9 +212,9 @@ public class ShoppingCarSellerAdapter extends PagerAdapter {
             }
         }
         spUnit.setSelection(position, true);
-        if(position == 0){
+//        if(position == 0){
             currentOrder.getProduct().getType().setUnit(spProductUnit.getItem(position));
-        }
+//        }
     }
 
     private void initProductName(Spinner spName, Shop shop, Order currentOrder) {
@@ -231,10 +231,10 @@ public class ShoppingCarSellerAdapter extends PagerAdapter {
         ArrayAdapter<String> spNameAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, productNames);
         spName.setAdapter(spNameAdapter);
         spName.setSelection(position, true);
-        if(position == 0){
+//        if(position == 0){
             currentOrder.getProduct().setName(shop.getProducts().get(position).getName());
             currentOrder.getProduct().setId(shop.getProducts().get(position).getId());
-        }
+//        }
     }
 
     public Order createEmptyOrder() {
