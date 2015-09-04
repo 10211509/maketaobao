@@ -80,8 +80,7 @@
             android:exported="false" />
 
         <activity
-            android:name=".ui.activity.OrderDetailsActivity"
-            android:label="@string/title_activity_order_list" >
+            android:name=".ui.activity.OrderDetailsActivity">
         </activity>
     </application>
 
