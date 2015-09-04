@@ -7,6 +7,7 @@ package nobugs.team.shopping.mvp.model;
 public class Order {
     //    private int id;//主键id
     private String orderid;//订单编号
+    private String orderSn;//订单sn编号
     private Product product;//用户购买的商品
     private int product_count;//商品数量
     private double price;//总价格
@@ -36,6 +37,14 @@ public class Order {
 
     public void setSeller(User seller) {
         this.seller = seller;
+    }
+
+    public String getOrderSn() {
+        return orderSn;
+    }
+
+    public void setOrderSn(String orderSn) {
+        this.orderSn = orderSn;
     }
 
     //订单状态

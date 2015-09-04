@@ -22,6 +22,7 @@ public class OrderMapper implements IModelMapper<Order, OrderPo> {
         po.setNumber(order.getProduct_count());
         po.setState(order.getState());
         po.setPlacetime(order.getPlace_time());
+        po.setOrdernum(order.getOrderSn());
 
         if (order.getBuyer() != null && order.getBuyer().getId() != null) {
             po.setBuyid(order.getBuyer().getId().intValue());
@@ -60,6 +61,8 @@ public class OrderMapper implements IModelMapper<Order, OrderPo> {
         if (orderPo.getState() != null){
             order.setOrderState(orderPo.getState());
         }
+
+        order.setOrderSn(orderPo.getOrdernum());
         order.setPlace_time(orderPo.getPlacetime());
 
         //TODO 买家卖家信息

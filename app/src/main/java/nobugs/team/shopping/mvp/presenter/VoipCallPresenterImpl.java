@@ -112,6 +112,7 @@ public class VoipCallPresenterImpl extends BasePresenter<VoipCallView> implement
         mPeerUser = event.getBuyer();
 
         getView().showCallInView(mPeerUser);
+
         // remove the sticky event
         EventBus.getDefault().removeStickyEvent(event);
     }
@@ -137,7 +138,7 @@ public class VoipCallPresenterImpl extends BasePresenter<VoipCallView> implement
     }
 
     private void initSpeaker() {
-        ECDevice. getECVoIPSetupManager().enableLoudSpeaker(true);
+        ECDevice.getECVoIPSetupManager().enableLoudSpeaker(true);
     }
 
     @Override
@@ -153,8 +154,9 @@ public class VoipCallPresenterImpl extends BasePresenter<VoipCallView> implement
 
     @Override
     public void onUIChangeSilence() {
-        boolean isMute = ECDevice. getECVoIPSetupManager().getMuteStatus();
-        ECDevice. getECVoIPSetupManager().setMute(!isMute);
+        boolean isMute = ECDevice.getECVoIPSetupManager().getMuteStatus();
+        Toast.makeText(getActivity(), "已" + (isMute ? "关闭" : "开启") + "静音模式", Toast.LENGTH_SHORT).show();
+        ECDevice.getECVoIPSetupManager().setMute(!isMute);
     }
 
     @Override
@@ -206,10 +208,10 @@ public class VoipCallPresenterImpl extends BasePresenter<VoipCallView> implement
         mCurrentCallId = getActivity().getIntent().getStringExtra(ECDevice.CALLID);
         String callPhone = getActivity().getIntent().getStringExtra(ECDevice.CALLER);
 
-        mPeerUser = new User();
-        mPeerUser.setPhone(callPhone);
+//        mPeerUser = new User();
+//        mPeerUser.setPhone(callPhone);
 
-        getView().showCallInView(mPeerUser);
+//        getView().showCallInView(mPeerUser);
     }
 
     protected void doHandUpCall() {
@@ -226,14 +228,13 @@ public class VoipCallPresenterImpl extends BasePresenter<VoipCallView> implement
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if (!isConnect) {
-            new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    getView().goBack();
-                }
-            }, 2000L);
-        }
+
+        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                getView().goBack();
+            }
+        }, 2000L);
     }
 
     /**
@@ -304,6 +305,9 @@ public class VoipCallPresenterImpl extends BasePresenter<VoipCallView> implement
                 case SdkErrorCode.REMOUNT_CALL_BUSY:
                     Toast.makeText(getActivity(), "拨号失败，对方拒接", Toast.LENGTH_SHORT).show();
                     break;
+                case 175408:
+                    Toast.makeText(getActivity(), "拨号次数太多，请稍后再试", Toast.LENGTH_SHORT).show();
+                    break;
                 case 175404:
                     Toast.makeText(getActivity(), "拨号失败，对方不在线", Toast.LENGTH_SHORT).show();
                     break;
@@ -311,8 +315,8 @@ public class VoipCallPresenterImpl extends BasePresenter<VoipCallView> implement
                     Toast.makeText(getActivity(), "拨号失败，原因：reason" + reason, Toast.LENGTH_SHORT).show();
                     break;
             }
-            doHandUpCall();
         }
+        doHandUpCall();
     }
 
     /**

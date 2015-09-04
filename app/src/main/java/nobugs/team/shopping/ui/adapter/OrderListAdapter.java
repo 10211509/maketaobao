@@ -68,14 +68,15 @@ public class OrderListAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         Order order = orders.get(position);
-        String orderId = order.getOrderid();
+        String orderSn = order.getOrderSn();
+
         String orderName = order.getProduct() != null ? order.getProduct().getName() : "";
         int productCount = order.getProduct_count();
         String price = String.valueOf(order.getPrice());
         String placeTime = String.valueOf(order.getPrice());
 
-        if (!TextUtils.isEmpty(orderId)) {
-            viewHolder.tvOrderId.setText(Phrase.from(context, R.string.order_id).put("orderid", orderId).format());
+        if (!TextUtils.isEmpty(orderSn)) {
+            viewHolder.tvOrderId.setText(Phrase.from(context, R.string.order_id).put("orderid", orderSn).format());
         }
         if (!TextUtils.isEmpty(orderName)){
             viewHolder.tvName.setText(Phrase.from(context, R.string.order_name).put("name", orderName).format());

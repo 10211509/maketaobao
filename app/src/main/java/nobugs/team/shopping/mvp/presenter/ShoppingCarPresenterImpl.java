@@ -10,8 +10,8 @@ import nobugs.team.shopping.event.CallBeginEvent;
 import nobugs.team.shopping.event.RemoteOrderAddEvent;
 import nobugs.team.shopping.event.RemoteOrderDelEvent;
 import nobugs.team.shopping.im.IMSendHelper;
-import nobugs.team.shopping.mvp.interactor.ShoppingCarInteractor;
-import nobugs.team.shopping.mvp.interactor.ShoppingCarInteractorImpl;
+import nobugs.team.shopping.mvp.interactor.OrderInteractor;
+import nobugs.team.shopping.mvp.interactor.OrderInteractorImpl;
 import nobugs.team.shopping.mvp.model.Order;
 import nobugs.team.shopping.mvp.model.User;
 import nobugs.team.shopping.mvp.view.ShoppingCarView;
@@ -19,15 +19,15 @@ import nobugs.team.shopping.mvp.view.ShoppingCarView;
 /**
  * Created by xiayong on 2015/8/29.
  */
-public class ShoppingCarPresenterImpl extends BasePresenter<ShoppingCarView> implements ShoppingCarPresenter, ShoppingCarInteractor.Callback {
-    private ShoppingCarInteractor shoppingCarInteractor;
+public class ShoppingCarPresenterImpl extends BasePresenter<ShoppingCarView> implements ShoppingCarPresenter, OrderInteractor.DeleteCallback {
+    private OrderInteractor orderInteractor;
     private List<Order> orders;
     private User mOwnUser;
     private User mPeerUser;
 
     public ShoppingCarPresenterImpl(ShoppingCarView shoppingCarView) {
         super(shoppingCarView);
-        shoppingCarInteractor = new ShoppingCarInteractorImpl();
+        orderInteractor = new OrderInteractorImpl();
         orders = new ArrayList<>();
     }
 
@@ -40,7 +40,7 @@ public class ShoppingCarPresenterImpl extends BasePresenter<ShoppingCarView> imp
 
     public void onEventMainThread(RemoteOrderAddEvent event) {
         Order orderAdd = event.getOrder();
-        Toast.makeText(getContext(), "卖家添加了订单，id:" + orderAdd, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "卖家添加了订单，id:" + orderAdd.getOrderid(), Toast.LENGTH_SHORT).show();
 
         orders.add(orderAdd);
         getView().refreshViewPager(orders);
@@ -65,18 +65,18 @@ public class ShoppingCarPresenterImpl extends BasePresenter<ShoppingCarView> imp
     @Override
     public void commitShoppingCart(int index) {
         if (index < 0 || index > orders.size()) {
-            Toast.makeText(getContext(),"请选择正确的商品提交",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "请选择正确的商品提交", Toast.LENGTH_SHORT).show();
         }
         Order order = orders.get(index);
-        getView().showCommitView(order.getProduct_count(),order.getPrice());
+        getView().showCommitView(order.getProduct_count(), order.getPrice());
 
         int productTotal = 0;
         double priceTotal = 0;
 
         for (int i = 0; i < orders.size(); i++) {
-            if (orders.get(i) != null){
+            if (orders.get(i) != null) {
                 productTotal += orders.get(i).getProduct_count();
-                priceTotal +=  orders.get(i).getPrice();
+                priceTotal += orders.get(i).getPrice();
             }
         }
 
@@ -96,7 +96,7 @@ public class ShoppingCarPresenterImpl extends BasePresenter<ShoppingCarView> imp
         }
         String orderId = orders.get(index).getOrderid();
 
-        shoppingCarInteractor.deleteProduct(orderId, this);
+        orderInteractor.removeOrder(orderId, this);
     }
 
     @Override
@@ -113,6 +113,8 @@ public class ShoppingCarPresenterImpl extends BasePresenter<ShoppingCarView> imp
             if (order.getOrderid().equals(id))
                 orders.remove(order);
         }
+        Toast.makeText(getContext(), "删除订单成功" , Toast.LENGTH_SHORT).show();
+
         getView().refreshViewPager(orders);
         //tell the seller to refresh order list
         IMSendHelper.sendDelOrder(mOwnUser.getPhone(), mPeerUser.getPhone(), Integer.parseInt(id));
@@ -123,10 +125,6 @@ public class ShoppingCarPresenterImpl extends BasePresenter<ShoppingCarView> imp
         EventBus.getDefault().unregister(this);
     }
 
-    @Override
-    public void onAddSuccess(Order order) {
-        //
-    }
 
     @Override
     public void onNetWorkError() {

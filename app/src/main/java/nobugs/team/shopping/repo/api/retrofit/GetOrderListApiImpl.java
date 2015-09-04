@@ -21,7 +21,7 @@ public class GetOrderListApiImpl extends BaseRetrofitHandler implements GetOrder
 
     @Override
     public void getOrderListBuyer(int buyerId, int everyPage, int currentPage, boolean isOver, final Callback callback) {
-        getService().getOrderListBuyer(buyerId, everyPage, currentPage, isOver ? 1 : 0, new retrofit.Callback<OrderListResult>() {
+        getService().getOrderListBuyer(buyerId, everyPage, currentPage, isOver ? 2 : 1, new retrofit.Callback<OrderListResult>() {
             @Override
             public void success(OrderListResult orderListResult, Response response) {
                 callback.onFinish((List<Order>) mapper.map(orderListResult));
@@ -36,7 +36,7 @@ public class GetOrderListApiImpl extends BaseRetrofitHandler implements GetOrder
 
     @Override
     public void getOrderListSeller(int sellerId, int everyPage, int currentPage, boolean isOver, final Callback callback) {
-        getService().getOrderListSeller(sellerId, everyPage, currentPage, isOver ? 1 : 0, new retrofit.Callback<OrderListResult>() {
+        getService().getOrderListSeller(sellerId, everyPage, currentPage, isOver ? 2 : 1, new retrofit.Callback<OrderListResult>() {
             @Override
             public void success(OrderListResult orderListResult, Response response) {
                 callback.onFinish((List<Order>) mapper.map(orderListResult));

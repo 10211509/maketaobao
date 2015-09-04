@@ -13,21 +13,24 @@ import nobugs.team.shopping.repo.Repository;
  */
 public class OrderInteractorImpl implements OrderInteractor {
 
+    private void filterIsOver(List<Order> orders, boolean isOver){
+        List<Order> orderList = new ArrayList<Order>();
+        for (Order order : orders) {
+            if (isOver && order.isCompleted()) {
+
+                orderList.add(order);
+            } else if (!isOver && !order.isCompleted()) {
+                orderList.add(order);
+            }
+        }
+        orders = orderList;
+    }
 
     private void getOrdersBuyer(int buyerId, int pageCount, int curPage, final  boolean isOver, final GetListCallback callback) {
         Repository.getInstance().getOrderListSeller(buyerId, pageCount, curPage, isOver, new RepoCallback.GetList<Order>() {
             @Override
             public void onGotDataListSuccess(List<Order> orders) {
-                List<Order> orderList = new ArrayList<Order>();
-                for(Order order : orders){
-                    if(isOver && order.isCompleted()){
-
-                        orderList.add(order);
-                    }else if(!isOver && !order.isCompleted()){
-                        orderList.add(order);
-                    }
-                }
-                callback.onGetOrderListSuccess(orderList);
+                callback.onGetOrderListSuccess(orders);
             }
 
             @Override
@@ -41,16 +44,7 @@ public class OrderInteractorImpl implements OrderInteractor {
         Repository.getInstance().getOrderListBuyer(sellerId, pageCount, curPage, isOver, new RepoCallback.GetList<Order>() {
             @Override
             public void onGotDataListSuccess(List<Order> orders) {
-                List<Order> orderList = new ArrayList<Order>();
-                for(Order order : orders){
-                    if(isOver && order.isCompleted()){
-
-                        orderList.add(order);
-                    }else if(!isOver && !order.isCompleted()){
-                        orderList.add(order);
-                    }
-                }
-                callback.onGetOrderListSuccess(orderList);
+                callback.onGetOrderListSuccess(orders);
             }
 
             @Override

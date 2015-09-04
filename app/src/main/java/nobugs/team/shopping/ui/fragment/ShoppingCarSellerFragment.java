@@ -1,12 +1,9 @@
 package nobugs.team.shopping.ui.fragment;
 
 import android.app.Activity;
-import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -15,7 +12,6 @@ import android.widget.Toast;
 import java.util.List;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import nobugs.team.shopping.R;
 import nobugs.team.shopping.app.base.BaseFragment;
@@ -140,7 +136,7 @@ public class ShoppingCarSellerFragment extends BaseFragment<ShoppingCarSellerPre
     @OnClick(R.id.btn_sure)
     public void onCommitSureClick() {
 //        getPresenter().deleteOrder(selectedPageIndex);
-        fragmentActionListener.onFragmentChange(btnCommitSure);
+        fragmentActionListener.onShoppingCartCommit();
     }
 
 
@@ -168,7 +164,7 @@ public class ShoppingCarSellerFragment extends BaseFragment<ShoppingCarSellerPre
         layoutCommit.setVisibility(View.VISIBLE);
         tvAmount.setText(Phrase.from(this.getActivity(), R.string.tv_commit_amout).put("amount", amount).format());
         tvBuyerName.setText("买方成功提交购物车！");
-        tvTotalprice.setText(Phrase.from(this.getActivity(),R.string.tv_commit_totalprice).put("price",String.valueOf(totalPrice)).format());
+        tvTotalprice.setText(Phrase.from(this.getActivity(), R.string.tv_commit_totalprice).put("price", String.valueOf(totalPrice)).format());
     }
 
     @Override
@@ -205,6 +201,6 @@ public class ShoppingCarSellerFragment extends BaseFragment<ShoppingCarSellerPre
     }
 
     public interface FragmentActionListener {
-        void onFragmentChange(View view);
+        void onShoppingCartCommit();
     }
 }

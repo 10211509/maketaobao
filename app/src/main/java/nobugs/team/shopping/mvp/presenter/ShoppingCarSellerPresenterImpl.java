@@ -25,20 +25,19 @@ import nobugs.team.shopping.mvp.view.ShoppingCarSellerView;
 /**
  * Created by xiayong on 2015/8/30.
  */
-public class ShoppingCarSellerPresenterImpl extends BasePresenter<ShoppingCarSellerView> implements ShoppingCarSellerPresenter,/* ShoppingCarInteractor.Callback, */ProductInteractor.Callback, OrderInteractor.AddCallback, OrderInteractor.DeleteCallback {
+public class ShoppingCarSellerPresenterImpl extends BasePresenter<ShoppingCarSellerView> implements ShoppingCarSellerPresenter, ProductInteractor.Callback, OrderInteractor.AddCallback, OrderInteractor.DeleteCallback {
     private static final String TAG = "ShoppingCarSeller";
     private Shop shop;
     private CopyOnWriteArrayList<Order> orders;
-    //    private ShoppingCarInteractor shoppingCarInteractor;
     private ProductInteractor productInteractor;
     private OrderInteractor orderInteractor;
     private User mOwnUser;
     private User mPeerUser;
+    private List<Product> mProductList;
 
     public ShoppingCarSellerPresenterImpl(ShoppingCarSellerView addShoppingCarView) {
         super(addShoppingCarView);
         orders = new CopyOnWriteArrayList<>();
-//        shoppingCarInteractor = new ShoppingCarInteractorImpl();
         productInteractor = new ProductInteractorImpl();
         orderInteractor = new OrderInteractorImpl();
     }
@@ -72,7 +71,8 @@ public class ShoppingCarSellerPresenterImpl extends BasePresenter<ShoppingCarSel
         double priceTotal = event.getPriceTotal();
 
         //TODO 买家提交购物车，处理UI
-        Toast.makeText(getContext(), "买家提交购物车，商品数量：" + orderCount + "，总价格：" + priceTotal, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getContext(), "买家提交购物车，商品数量：" + orderCount + "，总价格：" + priceTotal, Toast.LENGTH_SHORT).show();
+        getView().showCommitView("", orderCount, priceTotal);
 
         EventBus.getDefault().removeStickyEvent(event);
     }
@@ -117,14 +117,30 @@ public class ShoppingCarSellerPresenterImpl extends BasePresenter<ShoppingCarSel
     @Override
     public void onAddOrderSuccess(Order order) {
         Toast.makeText(getContext(), "添加成功", Toast.LENGTH_SHORT).show();
+
+        //获取productName
+        if (order.getProduct() != null){
+            int productId = order.getProduct().getId();
+            String productName = null;
+            for (Product product: mProductList) {
+                if (product != null && product.getId() == productId){
+                    productName = product.getName();
+                }
+            }
+            order.getProduct().setName(productName);
+        }
+
         IMSendHelper.sendAddOrder(mOwnUser.getPhone(), mPeerUser.getPhone(), order);
+
         getView().refreshViewPagerWhenDataSetChange(orders);
 //        getView().showPagerLast();
     }
 
+
     @Override
     public void onDeleteSuccess(String orderId) {
         Toast.makeText(getContext(), "删除成功", Toast.LENGTH_SHORT).show();
+
         IMSendHelper.sendDelOrder(mOwnUser.getPhone(), mPeerUser.getPhone(), Integer.parseInt(orderId));
         for (Order order : orders) {
             if (order.getOrderid() != null && order.getOrderid().equals(orderId))
@@ -141,6 +157,8 @@ public class ShoppingCarSellerPresenterImpl extends BasePresenter<ShoppingCarSel
 
     @Override
     public void onSuccess(List<Product> products) {
+        mProductList = products;
+        
         Shop shop = new Shop();
         shop.setProducts(products);
         getView().initViewPager(shop);

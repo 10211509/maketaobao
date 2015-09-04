@@ -5,8 +5,8 @@
     <solid android:color="#B0B65E" />
 
     <padding
-        android:bottom="2dp"
-        android:top="2dp"
+        android:bottom="0.5dp"
+        android:top="0.5dp"
         android:right="6dp"
         android:left="6dp"/>
 
