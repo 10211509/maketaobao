@@ -60,6 +60,7 @@ public class ShoppingCarSellerPresenterImpl extends BasePresenter<ShoppingCarSel
     public void onEventMainThread(RemoteOrderDelEvent event) {
         int orderDel = event.getOrderId();
 
+        //TODO 买家删除订单，处理UI
         Toast.makeText(getContext(), "买家删除了订单，id:" + orderDel, Toast.LENGTH_SHORT).show();
         for (Order order : orders) {
             if (order.getOrderid() != null && order.getOrderid().equals(String.valueOf(orderDel)))
@@ -73,7 +74,7 @@ public class ShoppingCarSellerPresenterImpl extends BasePresenter<ShoppingCarSel
         int orderCount = event.getProductTotal();
         double priceTotal = event.getPriceTotal();
 
-        // 买家提交购物车，处理UI
+        //TODO 买家提交购物车，处理UI
 //        Toast.makeText(getContext(), "买家提交购物车，商品数量：" + orderCount + "，总价格：" + priceTotal, Toast.LENGTH_SHORT).show();
         getView().showCommitView("", orderCount, priceTotal);
 

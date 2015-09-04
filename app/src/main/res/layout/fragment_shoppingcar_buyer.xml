@@ -40,7 +40,8 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="卖家张三刚刚添加了商品带鱼，请注意购物车变化"
         android:layout_gravity="center"
-        android:gravity="center" />
+        android:gravity="center"
+        android:visibility="gone"/>
 
     <LinearLayout
         android:layout_width="match_parent"

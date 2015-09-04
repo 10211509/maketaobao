@@ -92,7 +92,8 @@ public class ShoppingCarPresenterImpl extends BasePresenter<ShoppingCarView> imp
     @Override
     public void deleteProduct(int index) {
         if (index < 0 || index > orders.size()) {
-            throw new IllegalArgumentException("The product index doesn't exist");
+//            throw new IllegalArgumentException("The product index doesn't exist");
+            Toast.makeText(getContext(), "请选择正确的商品提交", Toast.LENGTH_SHORT).show();
         }
         String orderId = orders.get(index).getOrderid();
 
@@ -109,12 +110,14 @@ public class ShoppingCarPresenterImpl extends BasePresenter<ShoppingCarView> imp
 
     @Override
     public void onDeleteSuccess(String id) {
+       List<Order> orderList = new ArrayList<>();
         for (Order order : orders) {
-            if (order.getOrderid().equals(id))
-                orders.remove(order);
+            if (!order.getOrderid().equals(id))
+                orderList.add(order);
         }
         Toast.makeText(getContext(), "删除订单成功" , Toast.LENGTH_SHORT).show();
 
+        orders = orderList;
         getView().refreshViewPager(orders);
         //tell the seller to refresh order list
         IMSendHelper.sendDelOrder(mOwnUser.getPhone(), mPeerUser.getPhone(), Integer.parseInt(id));

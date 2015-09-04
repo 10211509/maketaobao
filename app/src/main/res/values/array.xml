@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="product_unit">
-        <item>框</item>
+        <item>筐</item>
         <item>千克 </item>
         <item>件</item>
         <item>个</item>
