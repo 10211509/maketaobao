@@ -120,6 +120,7 @@ public class ShoppingCarBuyerFragment extends BaseFragment<ShoppingCarPresenter>
         shoppingCarAdapter.replaceOrders(orders);
         shoppingCarAdapter.notifyDataSetChanged();//refresh UI
         circleIndicator.setViewPager(vpContainer);
+        selectedPageIndex = 0;
         if (orders == null || orders.size() <= 0) {
             linearBuyerShoppingcarContainer.setVisibility(View.INVISIBLE);
         } else {

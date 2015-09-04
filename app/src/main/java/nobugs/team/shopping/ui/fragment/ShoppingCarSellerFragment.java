@@ -161,6 +161,7 @@ public class ShoppingCarSellerFragment extends BaseFragment<ShoppingCarSellerPre
         shoppingCarSellerAdapter.replaceOrders(orders);
         shoppingCarSellerAdapter.notifyDataSetChanged();
         circleIndicator.setViewPager(vpContainer);
+        selectedPageIndex = 0;
     }
 
     @Override
