@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +24,7 @@ import nobugs.team.shopping.mvp.model.Product;
 import nobugs.team.shopping.mvp.model.ProductType;
 import nobugs.team.shopping.mvp.model.Shop;
 import nobugs.team.shopping.ui.interfaces.CountChangeListener;
+import nobugs.team.shopping.utils.CommonTools;
 
 /**
  * Created by xiayong on 2015/8/29.
@@ -183,10 +185,15 @@ public class ShoppingCarSellerAdapter extends PagerAdapter {
             @Override
             public void afterTextChanged(Editable s) {
                 if(TextUtils.isEmpty(s)){
-                    orders.get(position).setPrice(0.0);
+                    orders.get(position).setPrice(0);
                     return;
                 }
-                orders.get(position).setPrice(Double.valueOf(s.toString()));
+                if(CommonTools.isFloatPointNumber(s.toString())||CommonTools.isIntegerNumber(s.toString())){
+                    orders.get(position).setPrice(Double.valueOf(s.toString()));
+                }else{
+                    Toast.makeText(context,"请输入正确的金额",Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
         ((ViewPager) collection).addView(container, 0);
