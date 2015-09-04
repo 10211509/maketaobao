@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="@android:color/white"
     android:orientation="vertical"
-    android:visibility="invisible"
+    android:visibility="visible"
     android:weightSum="1">
 
     <TextView
@@ -17,15 +17,6 @@
         android:text="@string/tv_shoppingcar_title"
         android:textColor="@android:color/white" />
 
-    <TextView
-        android:id="@+id/tv_buyer_product_index"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="0.1"
-        android:gravity="center"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:text="@string/tv_index_initdata" />
     <android.support.v4.view.ViewPager
         android:id="@+id/vPager"
         android:layout_width="match_parent"
@@ -37,7 +28,10 @@
         android:background="@android:color/white"
         android:flipInterval="30"
         android:persistentDrawingCache="animation" />
-
+    <me.relex.circleindicator.CircleIndicator
+        android:id="@+id/circleIndicator"
+        android:layout_width="fill_parent"
+        android:layout_height="20dp"/>
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"

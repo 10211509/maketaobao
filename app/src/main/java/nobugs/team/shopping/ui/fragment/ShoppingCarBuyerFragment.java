@@ -12,6 +12,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import me.relex.circleindicator.CircleIndicator;
 import nobugs.team.shopping.R;
 import nobugs.team.shopping.app.base.BaseFragment;
 import nobugs.team.shopping.mvp.model.Order;
@@ -36,8 +37,6 @@ public class ShoppingCarBuyerFragment extends BaseFragment<ShoppingCarPresenter>
     Button btnDelete;
     @Bind(R.id.btn_commit_shopping_cart)
     Button btnCommitPruduct;
-    @Bind(R.id.tv_buyer_product_index)
-    TextView tvBuyerProductIndex;
     @Bind(R.id.linear_buyer_shoppingcar_container)
     LinearLayout linearBuyerShoppingcarContainer;
     @Bind(R.id.tv_who)
@@ -51,6 +50,9 @@ public class ShoppingCarBuyerFragment extends BaseFragment<ShoppingCarPresenter>
 
     @Bind(R.id.btn_sure)
     Button btnCommitSure;
+    @Bind(R.id.circleIndicator)
+    CircleIndicator circleIndicator;
+
     private ShoppingCarAdapter shoppingCarAdapter;
     private int selectedPageIndex = 0;
     private FragmentActionListener fragmentActionListener;
@@ -117,6 +119,7 @@ public class ShoppingCarBuyerFragment extends BaseFragment<ShoppingCarPresenter>
     public void refreshViewPager(List<Order> orders) {
         shoppingCarAdapter.replaceOrders(orders);
         shoppingCarAdapter.notifyDataSetChanged();//refresh UI
+        circleIndicator.setViewPager(vpContainer);
         if (orders == null || orders.size() <= 0) {
             linearBuyerShoppingcarContainer.setVisibility(View.INVISIBLE);
         } else {
@@ -147,8 +150,8 @@ public class ShoppingCarBuyerFragment extends BaseFragment<ShoppingCarPresenter>
     public void onPageSelected(int position) {
         selectedPageIndex = position;
         //if the order successfully added,then should not add it again!
-        CharSequence charSequence = Phrase.from(this.getActivity(), R.string.tv_shopping_car_number).put("number", shoppingCarAdapter.getCount()).put("index", selectedPageIndex).format();
-        tvBuyerProductIndex.setText(charSequence);
+     /*   CharSequence charSequence = Phrase.from(this.getActivity(), R.string.tv_shopping_car_number).put("number", shoppingCarAdapter.getCount()).put("index", selectedPageIndex).format();
+        tvBuyerProductIndex.setText(charSequence);*/
     }
 
     @Override
@@ -158,8 +161,8 @@ public class ShoppingCarBuyerFragment extends BaseFragment<ShoppingCarPresenter>
 
     @Override
     public void onCountChange(int newCount) {
-        CharSequence charSequence = Phrase.from(this.getActivity(), R.string.tv_shopping_car_number).put("number",newCount).put("index", selectedPageIndex+1).format();
-        tvBuyerProductIndex.setText(charSequence);
+        /*CharSequence charSequence = Phrase.from(this.getActivity(), R.string.tv_shopping_car_number).put("number",newCount).put("index", selectedPageIndex+1).format();
+        tvBuyerProductIndex.setText(charSequence);*/
     }
 
     public interface FragmentActionListener {

@@ -60,4 +60,5 @@ dependencies {
     compile 'com.demievil.library:refreshlayout:1.0.0@aar'
     compile project(':okvolley')
     compile files('libs/Yuntx_FullLib_v5.1.5r.jar')
+    compile 'me.relex:circleindicator:1.1.5@aar'
 }

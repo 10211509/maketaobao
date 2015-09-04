@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="@android:color/white"
     android:orientation="vertical"
-    android:visibility="invisible"
+    android:visibility="visible"
     android:weightSum="1">
 
     <TextView
@@ -18,16 +18,6 @@
         android:textColor="@android:color/white"
         android:textSize="18sp" />
 
-    <TextView
-        android:id="@+id/tv_product_index"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="0.1"
-        android:gravity="center"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:text="@string/tv_index_initdata" />
-
     <android.support.v4.view.ViewPager
         android:id="@+id/vPager_seller"
         android:layout_width="match_parent"
@@ -39,14 +29,18 @@
         android:background="@android:color/white"
         android:flipInterval="30"
         android:persistentDrawingCache="animation" />
-
+    <me.relex.circleindicator.CircleIndicator
+        android:id="@+id/circleIndicator"
+        android:layout_width="fill_parent"
+        android:background="@android:color/black"
+        android:layout_height="20dp"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.159"
         android:gravity="center"
         android:orientation="horizontal"
-        android:layout_marginBottom="10dp">
+        android:layout_marginBottom="5dp">
 
         <Button
             android:id="@+id/btn_addorder"

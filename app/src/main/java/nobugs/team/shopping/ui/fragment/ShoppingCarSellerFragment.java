@@ -13,6 +13,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import me.relex.circleindicator.CircleIndicator;
 import nobugs.team.shopping.R;
 import nobugs.team.shopping.app.base.BaseFragment;
 import nobugs.team.shopping.mvp.model.Order;
@@ -25,9 +26,6 @@ import nobugs.team.shopping.ui.interfaces.CountChangeListener;
 import nobugs.team.shopping.utils.Phrase;
 
 public class ShoppingCarSellerFragment extends BaseFragment<ShoppingCarSellerPresenter> implements ShoppingCarSellerView, ViewPager.OnPageChangeListener, CountChangeListener {
-
-    @Bind(R.id.tv_product_index)
-    TextView tvProductIndex;
 
     @Bind(R.id.vPager_seller)
     ViewPager vpContainer;
@@ -58,6 +56,8 @@ public class ShoppingCarSellerFragment extends BaseFragment<ShoppingCarSellerPre
 
     @Bind(R.id.layout_commit)
     View layoutCommit;
+    @Bind(R.id.circleIndicator)
+    CircleIndicator circleIndicator;
 
 
     private ShoppingCarSellerAdapter shoppingCarSellerAdapter;
@@ -72,6 +72,7 @@ public class ShoppingCarSellerFragment extends BaseFragment<ShoppingCarSellerPre
     public ShoppingCarSellerFragment() {
         // Required empty public constructor
     }
+
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
@@ -81,6 +82,7 @@ public class ShoppingCarSellerFragment extends BaseFragment<ShoppingCarSellerPre
             e.printStackTrace();
         }
     }
+
     @Override
     protected void initEvent() {
         vpContainer.addOnPageChangeListener(this);
@@ -145,6 +147,7 @@ public class ShoppingCarSellerFragment extends BaseFragment<ShoppingCarSellerPre
         linearContainer.setVisibility(View.VISIBLE);
         shoppingCarSellerAdapter = new ShoppingCarSellerAdapter(getActivity(), shop);
         shoppingCarSellerAdapter.setCountChangeListener(this);
+
        /* CharSequence charSequence = Phrase.from(this.getActivity(), R.string.tv_shopping_car_number).put("number", shoppingCarSellerAdapter.getCount()).put("index", selectedPageIndex+1).format();
         tvProductIndex.setText(charSequence);*/
         if (vpContainer != null) {
@@ -157,6 +160,7 @@ public class ShoppingCarSellerFragment extends BaseFragment<ShoppingCarSellerPre
     public void refreshViewPagerWhenDataSetChange(List<Order> orders) {
         shoppingCarSellerAdapter.replaceOrders(orders);
         shoppingCarSellerAdapter.notifyDataSetChanged();
+        circleIndicator.setViewPager(vpContainer);
     }
 
     @Override
@@ -185,8 +189,8 @@ public class ShoppingCarSellerFragment extends BaseFragment<ShoppingCarSellerPre
 //        boolean enable = shoppingCarSellerAdapter.orderSuccessfulAdded(selectedPageIndex);
         //if the order successfully added,then should not add it again!
 //        btnAddproduct.setEnabled(!enable);
-        CharSequence charSequence = Phrase.from(this.getActivity(), R.string.tv_shopping_car_number).put("number", shoppingCarSellerAdapter.getCount()).put("index", selectedPageIndex + 1).format();
-        tvProductIndex.setText(charSequence);
+        /*CharSequence charSequence = Phrase.from(this.getActivity(), R.string.tv_shopping_car_number).put("number", shoppingCarSellerAdapter.getCount()).put("index", selectedPageIndex + 1).format();
+        tvProductIndex.setText(charSequence);*/
     }
 
     @Override
@@ -196,8 +200,8 @@ public class ShoppingCarSellerFragment extends BaseFragment<ShoppingCarSellerPre
 
     @Override
     public void onCountChange(int newCount) {
-        CharSequence charSequence = Phrase.from(this.getActivity(), R.string.tv_shopping_car_number).put("number", newCount).put("index", selectedPageIndex + 1).format();
-        tvProductIndex.setText(charSequence);
+       /* CharSequence charSequence = Phrase.from(this.getActivity(), R.string.tv_shopping_car_number).put("number", newCount).put("index", selectedPageIndex + 1).format();
+        tvProductIndex.setText(charSequence);*/
     }
 
     public interface FragmentActionListener {
