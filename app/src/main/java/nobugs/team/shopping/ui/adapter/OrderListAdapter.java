@@ -63,6 +63,8 @@ public class OrderListAdapter extends BaseAdapter {
             viewHolder.tvAmount = (TextView) convertView.findViewById(R.id.tv_amount);
             viewHolder.tvPrice = (TextView) convertView.findViewById(R.id.tv_price);
             viewHolder.tvPlaceTime = (TextView) convertView.findViewById(R.id.tv_place_time);
+            viewHolder.tvBuyerName = (TextView) convertView.findViewById(R.id.tv_buyer_name);
+            viewHolder.tvShopName = (TextView) convertView.findViewById(R.id.tv_shop_name);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
@@ -73,17 +75,22 @@ public class OrderListAdapter extends BaseAdapter {
         String orderName = order.getProduct() != null ? order.getProduct().getName() : "";
         int productCount = order.getProduct_count();
         String price = String.valueOf(order.getPrice());
-        String placeTime = String.valueOf(order.getPrice());
-
+        String placeTime = String.valueOf(order.getPlace_time());
+        String unit = order.getProduct().getType().getUnit();
+        String buyername = order.getBuyer().getName();
+        String shopName = order.getShop().getName();
         if (!TextUtils.isEmpty(orderSn)) {
             viewHolder.tvOrderId.setText(Phrase.from(context, R.string.order_id).put("orderid", orderSn).format());
         }
         if (!TextUtils.isEmpty(orderName)){
             viewHolder.tvName.setText(Phrase.from(context, R.string.order_name).put("name", orderName).format());
         }
-        viewHolder.tvAmount.setText(Phrase.from(context, R.string.order_amount).put("amount", productCount).format());
+        viewHolder.tvAmount.setText(Phrase.from(context, R.string.order_amount_unit).put("amount", productCount).put("unit", unit).format());
         viewHolder.tvPrice.setText(Phrase.from(context, R.string.order_price).put("price", price).format());
         viewHolder.tvPlaceTime.setText(Phrase.from(context, R.string.order_place_time).put("place_time", placeTime).format());
+        viewHolder.tvBuyerName.setText(Phrase.from(context, R.string.tv_buyer_name).put("buyer_name", buyername).format());
+        viewHolder.tvShopName.setText(Phrase.from(context, R.string.tv_shop_name).put("shop_name", shopName).format());
+
         return convertView;
     }
 
@@ -93,6 +100,8 @@ public class OrderListAdapter extends BaseAdapter {
         public TextView tvAmount;
         public TextView tvPrice;
         public TextView tvPlaceTime;
+        public TextView tvBuyerName;
+        public TextView tvShopName;
     }
 
 }

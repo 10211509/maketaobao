@@ -49,5 +49,19 @@
             android:gravity="center_vertical"
             android:text="@string/order_place_time"
             android:textColor="@color/c777777" />
+        <TextView
+            android:id="@+id/tv_buyer_name"
+            android:layout_width="wrap_content"
+            android:layout_height="28dp"
+            android:gravity="center_vertical"
+            android:text="@string/tv_buyer_name"
+            android:textColor="@color/c777777" />
+        <TextView
+            android:id="@+id/tv_shop_name"
+            android:layout_width="wrap_content"
+            android:layout_height="28dp"
+            android:gravity="center_vertical"
+            android:text="@string/tv_shop_name"
+            android:textColor="@color/c777777" />
     </LinearLayout>
 </LinearLayout>

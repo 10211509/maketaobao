@@ -33,8 +33,11 @@
     <string name="tv_my_orders">我的订单</string>
     <string name="order_name">名称：{name}</string>
     <string name="order_amount">数量：{amount}</string>
+    <string name="order_amount_unit">数量：{amount}{unit}</string>
     <string name="order_price">总价：¥{price}</string>
     <string name="order_place_time">下单时间:{place_time}</string>
+    <string name="tv_buyer_name">下单人:{buyer_name}</string>
+    <string name="tv_shop_name">商店:{shop_name}</string>
     <string name="order_id">订单号：{orderid}</string>
     <string name="tv_delivered">已发货</string>
     <string name="tv_payed">已付款</string>
