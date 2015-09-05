@@ -12,7 +12,6 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
-import me.relex.circleindicator.CircleIndicator;
 import nobugs.team.shopping.R;
 import nobugs.team.shopping.app.base.BaseFragment;
 import nobugs.team.shopping.mvp.model.Order;
@@ -21,12 +20,13 @@ import nobugs.team.shopping.mvp.presenter.ShoppingCarPresenterImpl;
 import nobugs.team.shopping.mvp.view.ShoppingCarView;
 import nobugs.team.shopping.ui.adapter.ShoppingCarAdapter;
 import nobugs.team.shopping.ui.interfaces.CountChangeListener;
+import nobugs.team.shopping.ui.widget.CircleIndicator;
 import nobugs.team.shopping.utils.Phrase;
 
 /**
  * display the products that buyer has chosen
  */
-public class ShoppingCarBuyerFragment extends BaseFragment<ShoppingCarPresenter> implements ShoppingCarView, ViewPager.OnPageChangeListener,CountChangeListener {
+public class ShoppingCarBuyerFragment extends BaseFragment<ShoppingCarPresenter> implements ShoppingCarView{
 
 
     @Bind(R.id.tv_shoppingcar_title)
@@ -54,7 +54,7 @@ public class ShoppingCarBuyerFragment extends BaseFragment<ShoppingCarPresenter>
     CircleIndicator circleIndicator;
 
     private ShoppingCarAdapter shoppingCarAdapter;
-    private int selectedPageIndex = 0;
+//    private int selectedPageIndex = 0;
     private FragmentActionListener fragmentActionListener;
 
     public static ShoppingCarBuyerFragment newInstance() {
@@ -76,10 +76,6 @@ public class ShoppingCarBuyerFragment extends BaseFragment<ShoppingCarPresenter>
         }
     }
     @Override
-    protected void initEvent() {
-        vpContainer.addOnPageChangeListener(this);
-    }
-    @Override
     protected ShoppingCarPresenter initPresenter() {
         return new ShoppingCarPresenterImpl(this);
     }
@@ -89,9 +85,7 @@ public class ShoppingCarBuyerFragment extends BaseFragment<ShoppingCarPresenter>
         List<Order> orders = new ArrayList<>();
         shoppingCarAdapter = new ShoppingCarAdapter(orders);
         vpContainer.setAdapter(shoppingCarAdapter);
-        shoppingCarAdapter.setCountChangeListener(this);
-       /* CharSequence charSequence = Phrase.from(this.getActivity(), R.string.tv_shopping_car_number).put("number", shoppingCarAdapter.getCount()).put("index", selectedPageIndex).format();
-        tvBuyerProductIndex.setText(charSequence);*/
+        circleIndicator.setViewPager(vpContainer);
     }
 
     @Override
@@ -103,10 +97,10 @@ public class ShoppingCarBuyerFragment extends BaseFragment<ShoppingCarPresenter>
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_delete:
-                getPresenter().deleteProduct(selectedPageIndex);
+                getPresenter().deleteProduct(vpContainer.getCurrentItem());
                 break;
             case R.id.btn_commit_shopping_cart:
-                getPresenter().commitShoppingCart(selectedPageIndex);
+                getPresenter().commitShoppingCart(vpContainer.getCurrentItem());
                 break;
             case R.id.btn_sure:
                 fragmentActionListener.onShoppingCartCommit();
@@ -119,8 +113,12 @@ public class ShoppingCarBuyerFragment extends BaseFragment<ShoppingCarPresenter>
     public void refreshViewPager(List<Order> orders) {
         shoppingCarAdapter.replaceOrders(orders);
         shoppingCarAdapter.notifyDataSetChanged();//refresh UI
-        circleIndicator.setViewPager(vpContainer);
-        selectedPageIndex = 0;
+        circleIndicator.recreateIndicators();
+        if (orders.size() <= 1) {
+            circleIndicator.setVisibility(View.INVISIBLE);
+        } else {
+            circleIndicator.setVisibility(View.VISIBLE);
+        }
         if (orders == null || orders.size() <= 0) {
             linearBuyerShoppingcarContainer.setVisibility(View.INVISIBLE);
         } else {
@@ -141,30 +139,6 @@ public class ShoppingCarBuyerFragment extends BaseFragment<ShoppingCarPresenter>
         shoppingCarAdapter.replaceOrders(orders);
         shoppingCarAdapter.notifyDataSetChanged();//refresh UI
     }*/
-
-    @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        //empty
-    }
-
-    @Override
-    public void onPageSelected(int position) {
-        selectedPageIndex = position;
-        //if the order successfully added,then should not add it again!
-     /*   CharSequence charSequence = Phrase.from(this.getActivity(), R.string.tv_shopping_car_number).put("number", shoppingCarAdapter.getCount()).put("index", selectedPageIndex).format();
-        tvBuyerProductIndex.setText(charSequence);*/
-    }
-
-    @Override
-    public void onPageScrollStateChanged(int state) {
-        //empty
-    }
-
-    @Override
-    public void onCountChange(int newCount) {
-        /*CharSequence charSequence = Phrase.from(this.getActivity(), R.string.tv_shopping_car_number).put("number",newCount).put("index", selectedPageIndex+1).format();
-        tvBuyerProductIndex.setText(charSequence);*/
-    }
 
     public interface FragmentActionListener {
         void onShoppingCartCommit();

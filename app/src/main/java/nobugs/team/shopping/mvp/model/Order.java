@@ -1,5 +1,7 @@
 package nobugs.team.shopping.mvp.model;
 
+import java.util.List;
+
 /**
  * Created by xiayong on 2015/8/10.
  * 订单实体bean
@@ -178,5 +180,13 @@ public class Order {
     public boolean isCompleted(){
         return orderState ==  State.canceled||orderState == State.complete;
     }
-
+    public int getProductIdByName(String productname){
+        List<Product> products = shop.getProducts();
+        for (Product product : products){
+            if(product.getName().equals(productname)){
+                return product.getId();
+            }
+        }
+        return 0;
+    }
 }

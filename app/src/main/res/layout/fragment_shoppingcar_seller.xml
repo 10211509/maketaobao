@@ -30,7 +30,7 @@
         android:background="@android:color/white"
         android:flipInterval="30"
         android:persistentDrawingCache="animation" />
-    <me.relex.circleindicator.CircleIndicator
+    <nobugs.team.shopping.ui.widget.CircleIndicator
         android:id="@+id/circleIndicator"
         android:layout_width="fill_parent"
         app:ci_drawable="@drawable/red_radius"

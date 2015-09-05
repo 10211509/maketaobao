@@ -85,7 +85,7 @@ public class ShoppingCarAdapter extends PagerAdapter {
 
         Order order = orders.get(position);
         if (TextUtils.isEmpty(order.getProduct().getName())){
-            order.getProduct().setName("xxx苹果");
+            order.getProduct().setName("苹果");
         }
         tvName.setText(Phrase.from(container, R.string.tv_product_name).put("name", order.getProduct().getName()).format());
         tvAmount.setText(Phrase.from(container, R.string.tv_number).put("number", order.getProduct_count()).format());
@@ -93,5 +93,10 @@ public class ShoppingCarAdapter extends PagerAdapter {
         tvTotalPrice.setText(Phrase.from(container, R.string.tv_total_price).put("price", String.valueOf(order.getPrice())).format());
         ((ViewPager) view).addView(container, 0);
         return container;
+    }
+
+    @Override
+    public int getItemPosition(Object object) {
+        return POSITION_NONE;
     }
 }

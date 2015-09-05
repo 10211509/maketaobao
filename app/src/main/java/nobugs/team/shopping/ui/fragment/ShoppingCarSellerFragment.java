@@ -5,7 +5,9 @@ import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -13,7 +15,6 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
-import me.relex.circleindicator.CircleIndicator;
 import nobugs.team.shopping.R;
 import nobugs.team.shopping.app.base.BaseFragment;
 import nobugs.team.shopping.mvp.model.Order;
@@ -22,10 +23,11 @@ import nobugs.team.shopping.mvp.presenter.ShoppingCarSellerPresenter;
 import nobugs.team.shopping.mvp.presenter.ShoppingCarSellerPresenterImpl;
 import nobugs.team.shopping.mvp.view.ShoppingCarSellerView;
 import nobugs.team.shopping.ui.adapter.ShoppingCarSellerAdapter;
-import nobugs.team.shopping.ui.interfaces.CountChangeListener;
+import nobugs.team.shopping.ui.widget.CircleIndicator;
+import nobugs.team.shopping.utils.CommonTools;
 import nobugs.team.shopping.utils.Phrase;
 
-public class ShoppingCarSellerFragment extends BaseFragment<ShoppingCarSellerPresenter> implements ShoppingCarSellerView, ViewPager.OnPageChangeListener, CountChangeListener {
+public class ShoppingCarSellerFragment extends BaseFragment<ShoppingCarSellerPresenter> implements ShoppingCarSellerView {
 
     @Bind(R.id.vPager_seller)
     ViewPager vpContainer;
@@ -61,7 +63,6 @@ public class ShoppingCarSellerFragment extends BaseFragment<ShoppingCarSellerPre
 
 
     private ShoppingCarSellerAdapter shoppingCarSellerAdapter;
-    private int selectedPageIndex = 0;
     private FragmentActionListener fragmentActionListener;
 
     public static ShoppingCarSellerFragment newInstance() {
@@ -84,11 +85,6 @@ public class ShoppingCarSellerFragment extends BaseFragment<ShoppingCarSellerPre
     }
 
     @Override
-    protected void initEvent() {
-        vpContainer.addOnPageChangeListener(this);
-    }
-
-    @Override
     protected ShoppingCarSellerPresenterImpl initPresenter() {
         return new ShoppingCarSellerPresenterImpl(this);
     }
@@ -100,34 +96,51 @@ public class ShoppingCarSellerFragment extends BaseFragment<ShoppingCarSellerPre
 
     @OnClick(R.id.btn_addorder)
     public void onAddOrderClick() {
+        int selectedPageIndex = vpContainer.getCurrentItem();
         Order order = shoppingCarSellerAdapter.getOrder(selectedPageIndex);
-
+        View currentView = shoppingCarSellerAdapter.getPrimaryItem();
         if (!TextUtils.isEmpty(order.getOrderid())) {
             Toast.makeText(this.getActivity(), getActivity().getString(R.string.tv_product_already_added), Toast.LENGTH_SHORT).show();
             return;
         }
-        if (TextUtils.isEmpty(order.getProduct().getName())) {
+
+        Spinner spName = (Spinner) currentView.findViewById(R.id.sp_name);
+        EditText etAmount = (EditText) currentView.findViewById(R.id.et_product_number);
+        Spinner spUnit = (Spinner) currentView.findViewById(R.id.sp_unit);
+        EditText etTotalPrice = (EditText) currentView.findViewById(R.id.ed_total_price);
+        String productName = spName.getSelectedItem().toString();
+        String amount = etAmount.getText().toString();
+        String unit = spUnit.getSelectedItem().toString();
+        String totalPrice = etTotalPrice.getText().toString();
+        if (TextUtils.isEmpty(productName)) {
             Toast.makeText(this.getActivity(), getActivity().getString(R.string.toast_product_name), Toast.LENGTH_SHORT).show();
             return;
         }
-        if (order.getProduct_count() <= 0) {
+        if (!CommonTools.isIntegerNumber(amount) || Integer.valueOf(amount) < 0) {
             Toast.makeText(this.getActivity(), getActivity().getString(R.string.toast_product_amount), Toast.LENGTH_SHORT).show();
             return;
         }
-        if (TextUtils.isEmpty(order.getProduct().getType().getUnit())) {
+
+        if (TextUtils.isEmpty(unit)) {
             Toast.makeText(this.getActivity(), getActivity().getString(R.string.toast_product_unit), Toast.LENGTH_SHORT).show();
             return;
         }
-        if (order.getPrice() <= 0) {
+        if (!CommonTools.isIntegerNumber(totalPrice) && !CommonTools.isFloatPointNumber(totalPrice)) {
             Toast.makeText(this.getActivity(), getActivity().getString(R.string.toast_product_price), Toast.LENGTH_SHORT).show();
             return;
         }
+        order.getProduct().setName(productName);
+        int productid = order.getProductIdByName(productName);
+        order.getProduct().setId(productid);
+        order.setProduct_count(Integer.valueOf(amount));
+        order.getProduct().getType().setUnit(unit);
+        order.setPrice(Double.valueOf(totalPrice));
         getPresenter().addOrder(order);
     }
 
     @OnClick(R.id.btn_deleteorder)
     public void onDelOrderClick() {
-        getPresenter().deleteOrder(selectedPageIndex);
+        getPresenter().deleteOrder(vpContainer.getCurrentItem());
     }
 
     @OnClick(R.id.btn_sure)
@@ -141,13 +154,8 @@ public class ShoppingCarSellerFragment extends BaseFragment<ShoppingCarSellerPre
     public void initViewPager(Shop shop) {
         linearContainer.setVisibility(View.VISIBLE);
         shoppingCarSellerAdapter = new ShoppingCarSellerAdapter(getActivity(), shop);
-        shoppingCarSellerAdapter.setCountChangeListener(this);
-
-       /* CharSequence charSequence = Phrase.from(this.getActivity(), R.string.tv_shopping_car_number).put("number", shoppingCarSellerAdapter.getCount()).put("index", selectedPageIndex+1).format();
-        tvProductIndex.setText(charSequence);*/
-        if (vpContainer != null) {
-            vpContainer.setAdapter(shoppingCarSellerAdapter);
-        }
+        circleIndicator.setViewPager(vpContainer);
+        vpContainer.setAdapter(shoppingCarSellerAdapter);
 
     }
 
@@ -155,8 +163,12 @@ public class ShoppingCarSellerFragment extends BaseFragment<ShoppingCarSellerPre
     public void refreshViewPagerWhenDataSetChange(List<Order> orders) {
         shoppingCarSellerAdapter.replaceOrders(orders);
         shoppingCarSellerAdapter.notifyDataSetChanged();
-        circleIndicator.setViewPager(vpContainer);
-        selectedPageIndex = 0;
+        circleIndicator.recreateIndicators();
+        if (orders.size() <= 0) {
+            circleIndicator.setVisibility(View.INVISIBLE);
+        } else {
+            circleIndicator.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -169,35 +181,9 @@ public class ShoppingCarSellerFragment extends BaseFragment<ShoppingCarSellerPre
 
     @Override
     public void showPagerLast() {
-        int lastIndex = vpContainer.getChildCount();
-        vpContainer.setCurrentItem(lastIndex, true);
-    }
-
-
-    @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-    }
-
-    @Override
-    public void onPageSelected(int position) {
-        selectedPageIndex = position;
-//        boolean enable = shoppingCarSellerAdapter.orderSuccessfulAdded(selectedPageIndex);
-        //if the order successfully added,then should not add it again!
-//        btnAddproduct.setEnabled(!enable);
-        /*CharSequence charSequence = Phrase.from(this.getActivity(), R.string.tv_shopping_car_number).put("number", shoppingCarSellerAdapter.getCount()).put("index", selectedPageIndex + 1).format();
-        tvProductIndex.setText(charSequence);*/
-    }
-
-    @Override
-    public void onPageScrollStateChanged(int state) {
-
-    }
-
-    @Override
-    public void onCountChange(int newCount) {
-       /* CharSequence charSequence = Phrase.from(this.getActivity(), R.string.tv_shopping_car_number).put("number", newCount).put("index", selectedPageIndex + 1).format();
-        tvProductIndex.setText(charSequence);*/
+        //TODO 写法错误
+       /* int lastIndex = vpContainer.getChildCount();
+        vpContainer.setCurrentItem(lastIndex, true);*/
     }
 
     public interface FragmentActionListener {
