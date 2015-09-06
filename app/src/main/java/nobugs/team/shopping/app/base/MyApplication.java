@@ -2,6 +2,8 @@ package nobugs.team.shopping.app.base;
 
 import android.app.Application;
 
+import com.tencent.bugly.crashreport.CrashReport;
+
 import team.nobugs.library.request.utils.OkVolleyUtils;
 
 
@@ -12,6 +14,8 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         OkVolleyUtils.init(this);
+        CrashReport.initCrashReport(this, "900008097", false);
+//        CrashReport.testJavaCrash();
         instance = this;
     }
     public static MyApplication getInstance() {
