@@ -36,6 +36,7 @@ public class ShoppingCarSellerAdapter extends PagerAdapter {
     private Context context;
     private CountChangeListener countChangeListener;
     private View currentView;
+
     public ShoppingCarSellerAdapter(Context context, Shop shop) {
         this.context = context;
         this.orders = new ArrayList<>();
@@ -124,89 +125,26 @@ public class ShoppingCarSellerAdapter extends PagerAdapter {
 
 
         initProductName(spName, shop, order);
-        if (isEmpeyOrder(order)){
+        if (isEmpeyOrder(order)) {
             etAmount.setText("");
             etTotalPrice.setText("");
-        }else {
+        } else {
             etAmount.setText(String.valueOf(order.getProduct_count()));
             etTotalPrice.setText(String.valueOf(order.getPrice()));
         }
         initProductUnit(spUnit, order);
 
-       /* spName.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int index, long id) {
-//                orders.get(position).setPrice(123);
-                String name = ((TextView) view).getText().toString();
-                orders.get(position).getProduct().setName(name);
-                orders.get(position).getProduct().setId(shop.getProducts().get(index).getId());
-            }
+        //order added successfully,disable all input view
+        boolean orderNotAdded = TextUtils.isEmpty(order.getOrderid());
+        spName.setEnabled(orderNotAdded);
+        etAmount.setEnabled(orderNotAdded);
+        spUnit.setEnabled(orderNotAdded);
+        etTotalPrice.setEnabled(orderNotAdded);
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
+    ((ViewPager)collection).addView(container, 0);
 
-            }
-        });
-        spUnit.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int index, long id) {
-                String unit = ((TextView) view).getText().toString();
-                orders.get(position).getProduct().getType().setUnit(unit);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });*/
-       /* etAmount.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                //leave it empty
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//leave it empty
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if(TextUtils.isEmpty(s)){
-                    orders.get(position).setProduct_count(0);
-                    return;
-                }
-                orders.get(position).setProduct_count(Integer.valueOf(s.toString()));
-            }
-        });
-        etTotalPrice.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//leave it empty
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//leave it empty
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if(TextUtils.isEmpty(s)){
-                    orders.get(position).setPrice(0);
-                    return;
-                }
-                if(CommonTools.isFloatPointNumber(s.toString())||CommonTools.isIntegerNumber(s.toString())){
-                    orders.get(position).setPrice(Double.valueOf(s.toString()));
-                }else{
-                    Toast.makeText(context,"请输入正确的金额",Toast.LENGTH_SHORT).show();
-                }
-
-            }
-        });*/
-        ((ViewPager) collection).addView(container, 0);
-        return container;
-    }
+    return container;
+}
 
     private void initProductUnit(Spinner spUnit, Order currentOrder) {
         String[] productUnit = context.getResources().getStringArray(R.array.product_unit);
@@ -219,7 +157,7 @@ public class ShoppingCarSellerAdapter extends PagerAdapter {
                 position = i;
             }
         }
-        if(!isEmpeyOrder(currentOrder)){
+        if (!isEmpeyOrder(currentOrder)) {
             spUnit.setSelection(position, true);
         }
 //      /*  if(position == 0){
@@ -268,9 +206,10 @@ public class ShoppingCarSellerAdapter extends PagerAdapter {
         currentView = (View) object;
     }
 
-    public View getPrimaryItem(){
+    public View getPrimaryItem() {
         return currentView;
     }
+
     @Override
     public int getItemPosition(Object object) {
         return POSITION_NONE;
