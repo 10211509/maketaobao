@@ -47,13 +47,13 @@
     <RelativeLayout
         android:id="@+id/rl_video_local"
         android:layout_above="@+id/fl_frag_content"
-        android:layout_width="100dp"
-        android:layout_height="140dp"
+        android:layout_width="1px"
+        android:layout_height="1px"
         android:layout_alignParentLeft="true"
         android:layout_marginBottom="6.0dip"
         android:layout_marginLeft="6.0dip"
-        android:visibility="gone"
-        android:padding="2.0dip" />
+        android:visibility="visible"
+        />
 
     <FrameLayout
         android:id="@+id/fl_frag_content"

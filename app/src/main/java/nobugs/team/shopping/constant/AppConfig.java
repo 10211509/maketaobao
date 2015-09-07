@@ -32,5 +32,7 @@ public class AppConfig {
         public static final String GET_ORDER  = "/web!queryOrderByid.do";
 
         public static final String UPDATE_ORDER  = "/web!updateOrderState.do";
+
+        public static final String GET_UNIT_LIST  = "/web!unitList.do";
     }
 }

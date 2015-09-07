@@ -25,7 +25,7 @@ import nobugs.team.shopping.mvp.view.ShoppingCarSellerView;
 /**
  * Created by xiayong on 2015/8/30.
  */
-public class ShoppingCarSellerPresenterImpl extends BasePresenter<ShoppingCarSellerView> implements ShoppingCarSellerPresenter, ProductInteractor.Callback, OrderInteractor.AddCallback, OrderInteractor.DeleteCallback {
+public class ShoppingCarSellerPresenterImpl extends BasePresenter<ShoppingCarSellerView> implements ShoppingCarSellerPresenter, ProductInteractor.Callback, OrderInteractor.AddCallback, OrderInteractor.DeleteCallback,ProductInteractor.TypeCallback {
     private static final String TAG = "ShoppingCarSeller";
     private Shop shop;
     private CopyOnWriteArrayList<Order> orders;
@@ -34,6 +34,7 @@ public class ShoppingCarSellerPresenterImpl extends BasePresenter<ShoppingCarSel
     private User mOwnUser;
     private User mPeerUser;
     private List<Product> mProductList;
+    private List<String> mProductUnitList;
 
     public ShoppingCarSellerPresenterImpl(ShoppingCarSellerView addShoppingCarView) {
         super(addShoppingCarView);
@@ -54,6 +55,7 @@ public class ShoppingCarSellerPresenterImpl extends BasePresenter<ShoppingCarSel
 
         //get product list by shop id
         productInteractor.getProducts(String.valueOf(shop.getId()), this);
+        productInteractor.getProductUnit(this);
         EventBus.getDefault().removeStickyEvent(event);
     }
 
@@ -159,13 +161,29 @@ public class ShoppingCarSellerPresenterImpl extends BasePresenter<ShoppingCarSel
         getView().refreshViewPagerWhenDataSetChange(orders);
     }*/
 
+   /* @Override
+    public void onSuccess(List<Product> products) {
+
+    }*/
+
+    @Override
+    public void onTypeSuccess(List<String> productUnit) {
+        mProductUnitList = productUnit;
+        if(mProductList !=null && mProductList.size()>0){
+            Shop shop = new Shop();
+            shop.setProducts(mProductList);
+            getView().initViewPager(shop,mProductUnitList);
+        }
+    }
+
     @Override
     public void onSuccess(List<Product> products) {
         mProductList = products;
-        
-        Shop shop = new Shop();
-        shop.setProducts(products);
-        getView().initViewPager(shop);
+        if(mProductUnitList != null && mProductUnitList.size() >0){
+            Shop shop = new Shop();
+            shop.setProducts(products);
+            getView().initViewPager(shop,mProductUnitList);
+        }
     }
 
     @Override

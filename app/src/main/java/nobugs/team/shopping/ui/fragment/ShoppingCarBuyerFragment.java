@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -97,9 +98,17 @@ public class ShoppingCarBuyerFragment extends BaseFragment<ShoppingCarPresenter>
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_delete:
+                if(shoppingCarAdapter == null || shoppingCarAdapter.getCount()<=0){
+                    Toast.makeText(getActivity(),"购物车里暂时没有商品！",Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 getPresenter().deleteProduct(vpContainer.getCurrentItem());
                 break;
             case R.id.btn_commit_shopping_cart:
+                if(shoppingCarAdapter == null || shoppingCarAdapter.getCount()<=0){
+                    Toast.makeText(getActivity(),"购物车里暂时没有商品！",Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 getPresenter().commitShoppingCart(vpContainer.getCurrentItem());
                 break;
             case R.id.btn_sure:

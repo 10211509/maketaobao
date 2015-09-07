@@ -18,6 +18,7 @@ import butterknife.OnClick;
 import nobugs.team.shopping.R;
 import nobugs.team.shopping.app.base.BaseFragment;
 import nobugs.team.shopping.mvp.model.Order;
+import nobugs.team.shopping.mvp.model.ProductType;
 import nobugs.team.shopping.mvp.model.Shop;
 import nobugs.team.shopping.mvp.presenter.ShoppingCarSellerPresenter;
 import nobugs.team.shopping.mvp.presenter.ShoppingCarSellerPresenterImpl;
@@ -151,9 +152,9 @@ public class ShoppingCarSellerFragment extends BaseFragment<ShoppingCarSellerPre
 
 
     @Override
-    public void initViewPager(Shop shop) {
+    public void initViewPager(Shop shop,List<String> productTypes) {
         linearContainer.setVisibility(View.VISIBLE);
-        shoppingCarSellerAdapter = new ShoppingCarSellerAdapter(getActivity(), shop);
+        shoppingCarSellerAdapter = new ShoppingCarSellerAdapter(getActivity(), shop,productTypes);
         circleIndicator.setViewPager(vpContainer);
         vpContainer.setAdapter(shoppingCarSellerAdapter);
 

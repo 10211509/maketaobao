@@ -25,4 +25,20 @@ public class ProductInteractorImpl implements ProductInteractor {
             }
         });
     }
+
+    @Override
+    public void getProductUnit(final TypeCallback callback) {
+        Repository.getInstance().getUnitList(new RepoCallback.GetList<String>() {
+            @Override
+            public void onGotDataListSuccess(List<String> strings) {
+                callback.onTypeSuccess(strings);
+            }
+
+            @Override
+            public void onError(int errType, String errMsg) {
+                callback.onFailure();
+            }
+        });
+    }
+
 }

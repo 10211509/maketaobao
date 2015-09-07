@@ -15,6 +15,7 @@ import nobugs.team.shopping.repo.api.GetOrderListApi;
 import nobugs.team.shopping.repo.api.GetProductListApi;
 import nobugs.team.shopping.repo.api.GetShopListApi;
 import nobugs.team.shopping.repo.api.GetTypeListApi;
+import nobugs.team.shopping.repo.api.GetUnitListApi;
 import nobugs.team.shopping.repo.api.LoginApi;
 import nobugs.team.shopping.repo.api.UpdateOrderApi;
 import nobugs.team.shopping.repo.api.retrofit.AddOrderApiImpl;
@@ -24,6 +25,7 @@ import nobugs.team.shopping.repo.api.retrofit.GetOrderListApiImpl;
 import nobugs.team.shopping.repo.api.retrofit.GetProductListApiImpl;
 import nobugs.team.shopping.repo.api.retrofit.GetShopListApiImpl;
 import nobugs.team.shopping.repo.api.retrofit.GetTypeListApiImpl;
+import nobugs.team.shopping.repo.api.retrofit.GetUnitListApiImpl;
 import nobugs.team.shopping.repo.api.retrofit.LoginApiImpl;
 import nobugs.team.shopping.repo.api.retrofit.RetrofitAdapter;
 import nobugs.team.shopping.repo.api.retrofit.UpdateOrderApiImpl;
@@ -61,7 +63,7 @@ public class Repository {
     private AddOrderApi addOrderApi;
     private DeleteOrderApi deleteOrderApi;
     private UpdateOrderApi updateOrderApi;
-
+    private GetUnitListApi getUnitListApi;
     /** 类型缓存 */
 //    private List<ProductType> typeListCache;
 
@@ -85,6 +87,7 @@ public class Repository {
         this.addOrderApi = new AddOrderApiImpl(adapter);
         this.deleteOrderApi = new DeleteOrderApiImpl(adapter);
         this.updateOrderApi = new UpdateOrderApiImpl(adapter);
+        this.getUnitListApi = new GetUnitListApiImpl(adapter);
     }
 
     public User getLoginUser() {
@@ -202,6 +205,20 @@ public class Repository {
             @Override
             public void onFinish(Order order) {
                 callbackGet.onGotDataSuccess(order);
+            }
+
+            @Override
+            public void onError(int errType, String errMsg) {
+                callbackGet.onError(errType, errMsg);
+            }
+        });
+    }
+
+    public void getUnitList(final RepoCallback.GetList<String> callbackGet) {
+        getUnitListApi.getUnitList(new GetUnitListApi.Callback() {
+            @Override
+            public void onFinish(List<String> unitList) {
+                callbackGet.onGotDataListSuccess(unitList);
             }
 
             @Override
