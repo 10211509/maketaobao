@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -182,6 +183,13 @@ public class VoipCallActivity extends BaseActivity<VoipCallPresenter> implements
     @Override
     public ViewGroup getLocalCameraView() {
         return rlVideoLocal;
+    }
+
+    @Override
+    public void addLocalCameraView(SurfaceView svLocal) {
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+//        svLocal.setZ(false);
+        rootVoipVideo.addView(svLocal,0, params);
     }
 
     @Override

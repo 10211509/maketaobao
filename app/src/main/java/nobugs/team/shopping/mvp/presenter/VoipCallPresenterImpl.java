@@ -5,6 +5,7 @@ import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.SurfaceView;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
@@ -65,12 +66,15 @@ public class VoipCallPresenterImpl extends BasePresenter<VoipCallView> implement
 
         initSpeaker();
         initCameraInfo();
-        initCameraSurfaceView();
+
         isConnect = true;
 
         if (isIncomingCall) {
             // action to receive a call
             handleReceiveCall();
+            initSellerSurfaceView();
+        } else {
+            initBuyerSurfaceView();
         }
 
         EventBus.getDefault().registerSticky(this);
@@ -117,11 +121,14 @@ public class VoipCallPresenterImpl extends BasePresenter<VoipCallView> implement
         EventBus.getDefault().removeStickyEvent(event);
     }
 
-    private void initCameraSurfaceView() {
+    private void initBuyerSurfaceView() {
         ECDevice.getECVoIPSetupManager().setVideoView(getView().getRemoteCameraView(), null);
-        DisplayLocalSurfaceView();
+        DisplayBuyerLocalSurfaceView();
     }
-
+    private void initSellerSurfaceView() {
+        ECDevice.getECVoIPSetupManager().setVideoView(getView().getRemoteCameraView(), getView().getRemoteCameraView());
+        DisplaySellerLocalSurfaceView();
+    }
     private void initCameraInfo() {
         cameraInfos = ECDevice.getECVoIPSetupManager().getCameraInfos();
         // Find the ID of the default camera
@@ -358,7 +365,7 @@ public class VoipCallPresenterImpl extends BasePresenter<VoipCallView> implement
         }
     }
 
-    public void DisplayLocalSurfaceView() {
+    public void DisplayBuyerLocalSurfaceView() {
         // Create a RelativeLayout container that will hold a SurfaceView,
         // and set it as the content of our activity.
         SurfaceView localView = ViERenderer.CreateLocalRenderer(getActivity());
@@ -369,6 +376,16 @@ public class VoipCallPresenterImpl extends BasePresenter<VoipCallView> implement
         vgLocal.setBackgroundColor(getActivity().getResources().getColor(
                 android.R.color.white));
         vgLocal.addView(localView);
+//        vgLocal.setVisibility(View.GONE);
     }
 
+    public void DisplaySellerLocalSurfaceView() {
+        // Create a RelativeLayout container that will hold a SurfaceView,
+        // and set it as the content of our activity.
+        getView().getRemoteCameraView().setVisibility(View.GONE);
+
+        SurfaceView sv = ViERenderer.CreateLocalRenderer(getActivity());
+        getView().addLocalCameraView(sv);
+        // localView.setLayoutParams(layoutParams);
+    }
 }

@@ -36,11 +36,13 @@ public class ShoppingCarSellerAdapter extends PagerAdapter {
     private Context context;
     private CountChangeListener countChangeListener;
     private View currentView;
+    private List<String> productTypes;
 
-    public ShoppingCarSellerAdapter(Context context, Shop shop) {
+    public ShoppingCarSellerAdapter(Context context, Shop shop,List<String> productTypes) {
         this.context = context;
         this.orders = new ArrayList<>();
         this.shop = shop;
+        this.productTypes = productTypes;
         orders.add(createEmptyOrder());
     }
 
@@ -147,16 +149,16 @@ public class ShoppingCarSellerAdapter extends PagerAdapter {
 }
 
     private void initProductUnit(Spinner spUnit, Order currentOrder) {
-        String[] productUnit = context.getResources().getStringArray(R.array.product_unit);
         String selectedUnit = currentOrder.getProduct().getType().getUnit();
-        ArrayAdapter<String> spProductUnit = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, productUnit);
-        spUnit.setAdapter(spProductUnit);
         int position = 0;
-        for (int i = 0; i < productUnit.length; i++) {
-            if (selectedUnit.equals(productUnit[i])) {
+        for (int i = 0; i < productTypes.size(); i++) {
+            if (selectedUnit.equals(productTypes.get(i))) {
                 position = i;
             }
         }
+        ArrayAdapter<String> spProductUnit = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, productTypes);
+        spUnit.setAdapter(spProductUnit);
+
         if (!isEmpeyOrder(currentOrder)) {
             spUnit.setSelection(position, true);
         }

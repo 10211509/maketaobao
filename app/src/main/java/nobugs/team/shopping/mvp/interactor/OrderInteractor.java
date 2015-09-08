@@ -23,6 +23,8 @@ public interface OrderInteractor {
 
     void removeOrder(String orderId, DeleteCallback callback);
 
+    void updateOrdersState(String orderIds, Order.State state, UpdateCallback callback);
+
 
 //    void getOrderByPosition(int position);
 

@@ -62,13 +62,13 @@ public class ShoppingCarPresenterImpl extends BasePresenter<ShoppingCarView> imp
     }
 
 
-    @Override
-    public void commitShoppingCart(int index) {
-        if (index < 0 || index > orders.size()) {
+
+    private void commitShoppingCart() {
+        /*if (index < 0 || index > orders.size()) {
             Toast.makeText(getContext(), "请选择正确的商品提交", Toast.LENGTH_SHORT).show();
         }
-        Order order = orders.get(index);
-        getView().showCommitView(order.getProduct_count(), order.getPrice());
+        Order order = orders.get(index);*/
+
 
         int productTotal = 0;
         double priceTotal = 0;
@@ -79,7 +79,7 @@ public class ShoppingCarPresenterImpl extends BasePresenter<ShoppingCarView> imp
                 priceTotal += orders.get(i).getPrice();
             }
         }
-
+        getView().showCommitView(productTotal, priceTotal);
         // 将提交购物车推送给卖家
         IMSendHelper.sendShoppingCartCommit(mOwnUser.getPhone(), mPeerUser.getPhone(), productTotal, priceTotal);
     }
@@ -106,6 +106,30 @@ public class ShoppingCarPresenterImpl extends BasePresenter<ShoppingCarView> imp
         orders.add(order);
         //refresh UI
         getView().refreshViewPager(orders);
+    }
+
+    @Override
+    public void onConfirmBtnClick() {
+        StringBuilder orderIds = new StringBuilder();
+        for(Order order : orders){
+            orderIds.append(order.getOrderid()).append(",");
+        }
+        orderInteractor.updateOrdersState(orderIds.toString(), null, new OrderInteractor.UpdateCallback() {
+            @Override
+            public void onOrderStateUpdateSuccess(Order.State newState) {
+                commitShoppingCart();
+            }
+
+            @Override
+            public void onNetWorkError() {
+
+            }
+
+            @Override
+            public void onFailure() {
+
+            }
+        });
     }
 
     @Override

@@ -12,8 +12,7 @@
         android:id="@+id/tv_who"
         android:layout_centerHorizontal="true"
         android:layout_above="@+id/tv_commit_amount"
-        android:layout_marginBottom="40dp"
-        android:layout_marginTop="87dp" />
+        android:layout_marginBottom="20dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -24,7 +23,7 @@
         android:id="@+id/tv_commit_amount"
         android:layout_centerHorizontal="true"
         android:layout_above="@+id/tv_totalprice"
-        android:layout_marginBottom="40dp" />
+        android:layout_marginBottom="20dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -34,7 +33,7 @@
         android:text="@string/tv_commit_totalprice"
         android:id="@+id/tv_totalprice"
         android:layout_above="@+id/btn_sure"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="20dp"
         android:layout_centerHorizontal="true" />
 
     <Button

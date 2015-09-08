@@ -9,6 +9,7 @@ import nobugs.team.shopping.repo.api.entity.OrderListResult;
 import nobugs.team.shopping.repo.api.entity.ProductListResult;
 import nobugs.team.shopping.repo.api.entity.ShopListResult;
 import nobugs.team.shopping.repo.api.entity.TypeListResult;
+import nobugs.team.shopping.repo.api.entity.UnitListResult;
 import nobugs.team.shopping.repo.entity.OrderPo;
 import retrofit.Callback;
 import retrofit.http.Body;
@@ -77,5 +78,11 @@ public interface ApiService {
 
     @GET(AppConfig.URL.UPDATE_ORDER)
     EmptyResult updateOrder(@Query("id") int orderId, @Query("state") int orderStat);
+
+    @GET(AppConfig.URL.GET_UNIT_LIST)
+    void getUnitList(Callback<UnitListResult> callback);
+
+    @GET(AppConfig.URL.GET_UNIT_LIST)
+    EmptyResult getUnitList();
 
 }
