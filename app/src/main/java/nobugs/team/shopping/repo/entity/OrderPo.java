@@ -51,6 +51,14 @@ public class OrderPo extends BasePo {
     @Expose
     private String isesc;
 
+    @Expose
+    private String builerName;
+
+    @Expose
+    private String storeName;
+
+
+
     public Integer getId() {
         return id;
     }
@@ -165,6 +173,22 @@ public class OrderPo extends BasePo {
 
     public Integer getBuyid() {
         return buyid;
+    }
+
+    public String getBuilerName() {
+        return builerName;
+    }
+
+    public void setBuilerName(String builerName) {
+        this.builerName = builerName;
+    }
+
+    public String getStoreName() {
+        return storeName;
+    }
+
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
     }
 
     public void setBuyid(Integer buyid) {

@@ -33,8 +33,11 @@
     <string name="tv_my_orders">我的订单</string>
     <string name="order_name">名称：{name}</string>
     <string name="order_amount">数量：{amount}</string>
+    <string name="order_amount_unit">数量：{amount}{unit}</string>
     <string name="order_price">总价：¥{price}</string>
     <string name="order_place_time">下单时间:{place_time}</string>
+    <string name="tv_buyer_name">下单人:{buyer_name}</string>
+    <string name="tv_shop_name">商店:{shop_name}</string>
     <string name="order_id">订单号：{orderid}</string>
     <string name="tv_delivered">已发货</string>
     <string name="tv_payed">已付款</string>
@@ -54,9 +57,9 @@
     <string name="network_failed">连接服务器失败，请检查您的网络</string>
     <string name="operation_failed">操作失败，请稍后再试</string>
     <string name="toast_product_name">请填写商品名称！</string>
-    <string name="toast_product_amount">请填写商品数量！</string>
+    <string name="toast_product_amount">请填写正确的商品数量！</string>
     <string name="toast_product_unit">请填写商品单位！</string>
-    <string name="toast_product_price">请填写商品总价！</string>
+    <string name="toast_product_price">请填写正确的商品总价！</string>
     <string name="toast_no_orders">没有更多订单了</string>
     <string name="load_more">加载更多...</string>
     <string name="tv_commit_who">买方{buyer_name}已经提交购物车</string>

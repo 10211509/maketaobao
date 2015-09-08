@@ -39,6 +39,10 @@ public class OrderDetailsActivity extends BaseActivity<OrderDetailsPresenter> im
     Button btnCanceled;
     @Bind(R.id.btn_accepted)
     Button btnAccepted;
+    @Bind(R.id.tv_buyer_name)
+    TextView tvBuyerName;
+    @Bind(R.id.tv_shop_name)
+    TextView tvShopName;
 
     @Override
     protected OrderDetailsPresenter initPresenter() {
@@ -64,11 +68,11 @@ public class OrderDetailsActivity extends BaseActivity<OrderDetailsPresenter> im
             btnPayed.setEnabled(true);
             btnCanceled.setEnabled(true);
             btnAccepted.setEnabled(false);
-        } else if(order.getOrderState() == Order.State.delivered){
+        } else if (order.getOrderState() == Order.State.delivered) {
             btnPayed.setEnabled(false);
             btnCanceled.setEnabled(false);
             btnAccepted.setEnabled(true);
-        }else{
+        } else {
             btnPayed.setEnabled(false);
             btnCanceled.setEnabled(false);
             btnAccepted.setEnabled(false);
@@ -109,12 +113,16 @@ public class OrderDetailsActivity extends BaseActivity<OrderDetailsPresenter> im
     private void updateOrderView(Order order) {
         tvOrderid.setText(Phrase.from(this, R.string.order_id).put("orderid", order.getOrderid()).format());
         tvName.setText(Phrase.from(this, R.string.order_name).put("name", order.getProduct().getName()).format());
-        tvAmount.setText(Phrase.from(this, R.string.order_amount).put("amount", order.getProduct_count()).format());
+        tvAmount.setText(Phrase.from(this, R.string.order_amount_unit).put("amount", order.getProduct_count()).put("unit", order.getProduct().getType().getUnit()).format());
         tvPrice.setText(Phrase.from(this, R.string.order_price).put("price", String.valueOf(order.getPrice())).format());
         tvPlaceTime.setText(Phrase.from(this, R.string.order_place_time).put("place_time", order.getPlace_time()).format());
+        String buyername = order.getBuyer().getName();
+        String shopName = order.getShop().getName();
+        tvBuyerName.setText(Phrase.from(this, R.string.tv_buyer_name).put("buyer_name", buyername).format());
+        tvShopName.setText(Phrase.from(this, R.string.tv_shop_name).put("shop_name", shopName).format());
     }
 
-    @OnClick({R.id.btn_delivered, R.id.btn_payed, R.id.btn_collected, R.id.btn_canceled,R.id.btn_accepted})
+    @OnClick({R.id.btn_delivered, R.id.btn_payed, R.id.btn_collected, R.id.btn_canceled, R.id.btn_accepted})
     void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_payed:
@@ -134,5 +142,4 @@ public class OrderDetailsActivity extends BaseActivity<OrderDetailsPresenter> im
                 break;
         }
     }
-
 }

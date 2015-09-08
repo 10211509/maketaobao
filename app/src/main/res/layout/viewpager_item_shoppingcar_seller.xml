@@ -44,8 +44,7 @@
             android:ems="10"
             android:id="@+id/et_product_number"
             android:textColor="@android:color/black"
-            android:layout_weight="1"
-            android:text="5" />
+            android:layout_weight="1" />
 
         <Spinner
             android:layout_width="wrap_content"
@@ -71,8 +70,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:id="@+id/ed_total_price"
-            android:layout_gravity="center_horizontal"
-            android:text="1000" />
+            android:layout_gravity="center_horizontal"/>
 
         <TextView
             android:layout_width="wrap_content"

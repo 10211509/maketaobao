@@ -1,5 +1,7 @@
 package nobugs.team.shopping.mvp.model;
 
+import java.util.List;
+
 /**
  * Created by xiayong on 2015/8/10.
  * 订单实体bean
@@ -13,7 +15,7 @@ public class Order {
     private double price;//总价格
     private Shop shop;//购买商品所在商店
     private User buyer;//买家
-    private User seller;//买家
+    private User seller;//卖家 TODO 非必要字段，卖家信息已包含在shop字段里
     private String place_time;
     private State orderState = State.payed;
 
@@ -178,5 +180,13 @@ public class Order {
     public boolean isCompleted(){
         return orderState ==  State.canceled||orderState == State.complete;
     }
-
+    public int getProductIdByName(String productname){
+        List<Product> products = shop.getProducts();
+        for (Product product : products){
+            if(product.getName().equals(productname)){
+                return product.getId();
+            }
+        }
+        return 0;
+    }
 }

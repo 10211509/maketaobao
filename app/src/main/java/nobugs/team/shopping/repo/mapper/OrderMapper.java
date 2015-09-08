@@ -5,6 +5,8 @@ import android.text.TextUtils;
 import nobugs.team.shopping.mvp.model.Order;
 import nobugs.team.shopping.mvp.model.Product;
 import nobugs.team.shopping.mvp.model.ProductType;
+import nobugs.team.shopping.mvp.model.Shop;
+import nobugs.team.shopping.mvp.model.User;
 import nobugs.team.shopping.repo.entity.OrderPo;
 
 /**
@@ -79,6 +81,13 @@ public class OrderMapper implements IModelMapper<Order, OrderPo> {
         product.setType(productType);
 
         order.setProduct(product);
+
+        User buyer = new User();
+        buyer.setName(orderPo.getBuilerName());
+        order.setBuyer(buyer);
+        Shop shop = new Shop();
+        shop.setName(orderPo.getStoreName());
+        order.setShop(shop);
         return order;
     }
 
