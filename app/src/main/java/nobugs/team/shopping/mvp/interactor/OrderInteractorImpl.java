@@ -1,19 +1,29 @@
 package nobugs.team.shopping.mvp.interactor;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+
+import org.apache.http.message.BasicNameValuePair;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import nobugs.team.shopping.constant.AppConfig;
 import nobugs.team.shopping.mvp.model.Order;
 import nobugs.team.shopping.mvp.model.User;
 import nobugs.team.shopping.repo.RepoCallback;
 import nobugs.team.shopping.repo.Repository;
+import team.nobugs.library.request.GsonGetRequest;
+import team.nobugs.library.request.phraser.HttpObject;
+import team.nobugs.library.request.utils.OkVolleyUtils;
+import team.nobugs.library.request.utils.RequestFactory;
 
 /**
  * Created by xiayong on 2015/8/22.
  */
 public class OrderInteractorImpl implements OrderInteractor {
 
-    private void filterIsOver(List<Order> orders, boolean isOver){
+    private void filterIsOver(List<Order> orders, boolean isOver) {
         List<Order> orderList = new ArrayList<Order>();
         for (Order order : orders) {
             if (isOver && order.isCompleted()) {
@@ -26,7 +36,7 @@ public class OrderInteractorImpl implements OrderInteractor {
         orders = orderList;
     }
 
-    private void getOrdersBuyer(int buyerId, int pageCount, int curPage, final  boolean isOver, final GetListCallback callback) {
+    private void getOrdersBuyer(int buyerId, int pageCount, int curPage, final boolean isOver, final GetListCallback callback) {
         Repository.getInstance().getOrderListSeller(buyerId, pageCount, curPage, isOver, new RepoCallback.GetList<Order>() {
             @Override
             public void onGotDataListSuccess(List<Order> orders) {
@@ -154,5 +164,27 @@ public class OrderInteractorImpl implements OrderInteractor {
                 callback.onFailure();
             }
         });
+    }
+    @Override
+    public void updateOrdersState(String orderIds, Order.State state, final UpdateCallback callback) {
+        List<BasicNameValuePair> params = new ArrayList<>();
+        params.add(new BasicNameValuePair("ids", orderIds));
+        GsonGetRequest<HttpObject> request =  RequestFactory.createGetRequest(AppConfig.URL.WEB_HOST + AppConfig.URL.CHANGE_ORDERS_STATE, params, new Response.Listener<HttpObject>() {
+
+            @Override
+            public void onResponse(HttpObject response) {
+                if (response.getCode() == 0) {
+                    callback.onOrderStateUpdateSuccess(Order.State.placed);
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+
+
+        });
+        OkVolleyUtils.addRequest(request,"updateOrdersState");
     }
 }

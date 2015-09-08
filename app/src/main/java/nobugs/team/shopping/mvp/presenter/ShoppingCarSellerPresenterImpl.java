@@ -94,7 +94,7 @@ public class ShoppingCarSellerPresenterImpl extends BasePresenter<ShoppingCarSel
         orders.add(order);
         order.setSeller(mOwnUser);
         order.setBuyer(mPeerUser);
-        order.setOrderState(1);
+        order.setOrderState(0);
 
         orderInteractor.addOrder(order, this);
     }

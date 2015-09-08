@@ -109,7 +109,7 @@ public class ShoppingCarBuyerFragment extends BaseFragment<ShoppingCarPresenter>
                     Toast.makeText(getActivity(),"购物车里暂时没有商品！",Toast.LENGTH_SHORT).show();
                     return;
                 }
-                getPresenter().commitShoppingCart(vpContainer.getCurrentItem());
+                getPresenter().onConfirmBtnClick();
                 break;
             case R.id.btn_sure:
                 fragmentActionListener.onShoppingCartCommit();
