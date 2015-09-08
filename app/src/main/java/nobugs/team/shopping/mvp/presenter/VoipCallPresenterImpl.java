@@ -125,10 +125,12 @@ public class VoipCallPresenterImpl extends BasePresenter<VoipCallView> implement
         ECDevice.getECVoIPSetupManager().setVideoView(getView().getRemoteCameraView(), null);
         DisplayBuyerLocalSurfaceView();
     }
+
     private void initSellerSurfaceView() {
         ECDevice.getECVoIPSetupManager().setVideoView(getView().getRemoteCameraView(), getView().getRemoteCameraView());
         DisplaySellerLocalSurfaceView();
     }
+
     private void initCameraInfo() {
         cameraInfos = ECDevice.getECVoIPSetupManager().getCameraInfos();
         // Find the ID of the default camera
@@ -147,6 +149,8 @@ public class VoipCallPresenterImpl extends BasePresenter<VoipCallView> implement
     private void initSpeaker() {
         ECDevice.getECVoIPSetupManager().enableLoudSpeaker(true);
 //        CommonTools.openSpeaker(MyApplication.getInstance());
+//        AudioManager audioManager = (AudioManager) getActivity().getSystemService(Context.AUDIO_SERVICE);
+//        audioManager.setSpeakerphoneOn(true);
     }
 
     @Override

@@ -46,7 +46,7 @@ public class MainPageActivity extends BaseActivity<MainPagePresenter> implements
         mFragmentOrder = (MainOrderListFragment) getSupportFragmentManager().findFragmentById(R.id.id_fragment_order);
         getPresenter().initView();
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
-        /////
+
     }
 
     @Override
