@@ -51,6 +51,7 @@ public class Order {
 
     //订单状态
     public enum State {
+        created,
         placed,
         payed,
         collected,
@@ -66,8 +67,10 @@ public class Order {
 
     public int getState() {
         if (orderState == null)
-            return 0;
+            return -1;
         switch (orderState) {
+            case created:
+                return 0;
             case placed:
                 return 1;
             case payed:
@@ -93,6 +96,9 @@ public class Order {
 
     public void setOrderState(int orderState) {
         switch (orderState) {
+            case 0:
+                this.orderState = State.created;
+                break;
             case 1:
                 this.orderState = State.placed;
                 break;

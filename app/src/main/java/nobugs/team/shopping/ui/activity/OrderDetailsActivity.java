@@ -111,7 +111,7 @@ public class OrderDetailsActivity extends BaseActivity<OrderDetailsPresenter> im
     }*/
 
     private void updateOrderView(Order order) {
-        tvOrderid.setText(Phrase.from(this, R.string.order_id).put("orderid", order.getOrderid()).format());
+        tvOrderid.setText(Phrase.from(this, R.string.order_id).put("orderid", order.getOrderSn()).format());
         tvName.setText(Phrase.from(this, R.string.order_name).put("name", order.getProduct().getName()).format());
         tvAmount.setText(Phrase.from(this, R.string.order_amount_unit).put("amount", order.getProduct_count()).put("unit", order.getProduct().getType().getUnit()).format());
         tvPrice.setText(Phrase.from(this, R.string.order_price).put("price", String.valueOf(order.getPrice())).format());
