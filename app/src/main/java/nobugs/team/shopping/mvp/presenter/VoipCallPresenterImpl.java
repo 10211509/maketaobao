@@ -1,5 +1,9 @@
 package nobugs.team.shopping.mvp.presenter;
 
+import android.content.res.AssetFileDescriptor;
+import android.media.MediaPlayer;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
@@ -19,6 +23,7 @@ import com.yuntongxun.ecsdk.SdkErrorCode;
 
 import org.webrtc.videoengine.ViERenderer;
 
+import java.io.IOException;
 import java.util.Arrays;
 
 import de.greenrobot.event.EventBus;
@@ -51,6 +56,7 @@ public class VoipCallPresenterImpl extends BasePresenter<VoipCallView> implement
     private int mCameraCapbilityIndex;
     private int cameraCurrentlyLocked;
     private boolean isFrontCamera;
+    private MediaPlayer mMediaPlayer;
 
     public VoipCallPresenterImpl(VoipCallView callOutView) {
         super(callOutView);
@@ -73,12 +79,15 @@ public class VoipCallPresenterImpl extends BasePresenter<VoipCallView> implement
             // action to receive a call
             handleReceiveCall();
             initSellerSurfaceView();
+            playInComingSound();
         } else {
             initBuyerSurfaceView();
+            playOutgoingSound();
         }
 
         EventBus.getDefault().registerSticky(this);
     }
+
 
     @Override
     public void onStart() {
@@ -153,6 +162,41 @@ public class VoipCallPresenterImpl extends BasePresenter<VoipCallView> implement
 //        audioManager.setSpeakerphoneOn(true);
     }
 
+
+    private void playInComingSound() {
+        Uri mediaUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
+        mMediaPlayer = MediaPlayer.create(getActivity(),
+                mediaUri);
+        mMediaPlayer.setLooping(true);
+        mMediaPlayer.start();
+    }
+
+    private void playOutgoingSound() {
+        try {
+            AssetFileDescriptor fileDescriptor = getActivity().getAssets().openFd("outgoing.ogg");
+            mMediaPlayer = new MediaPlayer();
+            mMediaPlayer.setDataSource(fileDescriptor.getFileDescriptor(),
+                    fileDescriptor.getStartOffset(),
+                    fileDescriptor.getLength());
+            mMediaPlayer.setLooping(true);
+            mMediaPlayer.prepare();
+            mMediaPlayer.start();
+
+//            AudioManager am = (AudioManager) getActivity().getSystemService(Context.AUDIO_SERVICE);
+//            am.setMode(AudioManager.MODE_IN_CALL); //设定为通话中即可
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void stopRingSound() {
+        if (mMediaPlayer != null) {
+            mMediaPlayer.stop();
+            mMediaPlayer.release();
+        }
+    }
+
     @Override
     public void onUIHangupCall() {
         //hang up the phone
@@ -162,6 +206,7 @@ public class VoipCallPresenterImpl extends BasePresenter<VoipCallView> implement
     @Override
     public void onUIAnswerCall() {
         VoIPCallHelper.acceptCall(mCurrentCallId);
+        stopRingSound();
     }
 
     @Override
@@ -231,6 +276,7 @@ public class VoipCallPresenterImpl extends BasePresenter<VoipCallView> implement
         Log.d(TAG, "Voip talk hand up, CurrentCallId " + mCurrentCallId);
         try {
             if (mCurrentCallId != null) {
+                stopRingSound();
                 if (isIncomingCall && !isConnect) {
                     VoIPCallHelper.rejectCall(mCurrentCallId);
                 } else {
