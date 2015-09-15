@@ -165,35 +165,42 @@ public class VoipCallPresenterImpl extends BasePresenter<VoipCallView> implement
 
     private void playInComingSound() {
         Uri mediaUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
-        mMediaPlayer = MediaPlayer.create(getActivity(),
-                mediaUri);
-        mMediaPlayer.setLooping(true);
-        mMediaPlayer.start();
+        if (mMediaPlayer == null || !mMediaPlayer.isPlaying()) {
+            mMediaPlayer = MediaPlayer.create(getActivity(), mediaUri);
+            mMediaPlayer.setLooping(true);
+            mMediaPlayer.start();
+        }
     }
 
     private void playOutgoingSound() {
-        try {
-            AssetFileDescriptor fileDescriptor = getActivity().getAssets().openFd("outgoing.ogg");
-            mMediaPlayer = new MediaPlayer();
-            mMediaPlayer.setDataSource(fileDescriptor.getFileDescriptor(),
-                    fileDescriptor.getStartOffset(),
-                    fileDescriptor.getLength());
-            mMediaPlayer.setLooping(true);
-            mMediaPlayer.prepare();
-            mMediaPlayer.start();
-
+        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    AssetFileDescriptor fileDescriptor = getActivity().getAssets().openFd("outgoing.ogg");
+                    if (mMediaPlayer == null || !mMediaPlayer.isPlaying()) {
+                        mMediaPlayer = new MediaPlayer();
+                        mMediaPlayer.setDataSource(fileDescriptor.getFileDescriptor(),
+                                fileDescriptor.getStartOffset(),
+                                fileDescriptor.getLength());
+                        mMediaPlayer.prepare();
+                        mMediaPlayer.setLooping(true);
+                        mMediaPlayer.start();
+                    }
 //            AudioManager am = (AudioManager) getActivity().getSystemService(Context.AUDIO_SERVICE);
-//            am.setMode(AudioManager.MODE_IN_CALL); //设定为通话中即可
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//            am.setMode(AudioManager.MODE_IN_CALL);//设定为通话中即可
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, 1000);
     }
 
     private void stopRingSound() {
         if (mMediaPlayer != null) {
             mMediaPlayer.stop();
             mMediaPlayer.release();
+            mMediaPlayer = null;
         }
     }
 
