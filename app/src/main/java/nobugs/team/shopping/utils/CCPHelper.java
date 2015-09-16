@@ -59,6 +59,9 @@ public class CCPHelper implements ECDevice.InitListener, ECDevice.OnECDeviceConn
         }
     }
 
+    public void logout() {
+        ECDevice.logout(this);
+    }
 
     @Override
     public void onInitialized() {
