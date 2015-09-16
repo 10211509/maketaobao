@@ -14,7 +14,7 @@ import com.yuntongxun.ecsdk.ECVoIPCallManager;
 import com.yuntongxun.ecsdk.ECVoIPSetupManager;
 import com.yuntongxun.ecsdk.SdkErrorCode;
 
-import nobugs.team.shopping.constant.AppConfig;
+import nobugs.team.shopping.constant.CCPToken;
 import nobugs.team.shopping.im.IMChattingHelper;
 import nobugs.team.shopping.ui.activity.LoginActivity;
 import nobugs.team.shopping.ui.activity.VoipCallActivity;
@@ -73,10 +73,10 @@ public class CCPHelper implements ECDevice.InitListener, ECDevice.OnECDeviceConn
         // 如：VoIP账号/手机号码/..
         mInitParams.setUserid(mUserId);
         // appkey
-        mInitParams.setAppKey(AppConfig.CCP_APP_ID);
+        mInitParams.setAppKey(CCPToken.CCP_APP_ID);
         // mInitParams.setAppKey(/*clientUser.getAppKey()*/"ff8080813d823ee6013d856001000029");
         // appToken
-        mInitParams.setToken(AppConfig.CCP_APP_TOKEN);
+        mInitParams.setToken(CCPToken.CCP_APP_TOKEN);
         // mInitParams.setToken(/*clientUser.getAppToken()*/"d459711cd14b443487c03b8cc072966e");
         // ECInitParams.LoginMode.FORCE_LOGIN
         mInitParams.setMode(ECInitParams.LoginMode.FORCE_LOGIN);

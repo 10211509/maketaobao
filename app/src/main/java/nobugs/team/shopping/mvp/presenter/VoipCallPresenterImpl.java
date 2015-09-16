@@ -40,7 +40,7 @@ import nobugs.team.shopping.utils.VoIPCallHelper;
 /**
  * Created by xiayong on 2015/8/17.
  */
-public class VoipCallPresenterImpl extends BasePresenter<VoipCallView> implements VoipCallPresenter, VoIPCallHelper.OnCallEventNotifyListener {
+public class VoipCallPresenterImpl extends BasePresenter<VoipCallView> implements VoipCallPresenter, VoIPCallHelper.OnCallEventNotifyListener, MediaPlayer.OnPreparedListener, MediaPlayer.OnErrorListener {
 
     public static final String EXTRA_OUTGOING_CALL = "con.yuntongxun.ecdemo.VoIP_OUTGOING_CALL";
     private static final String TAG = "DEBUG_VOIP";
@@ -86,22 +86,26 @@ public class VoipCallPresenterImpl extends BasePresenter<VoipCallView> implement
         }
 
         EventBus.getDefault().registerSticky(this);
+
+        VoIPCallHelper.setOnCallEventNotifyListener(this);
     }
 
 
     @Override
     public void onStart() {
-        VoIPCallHelper.setOnCallEventNotifyListener(this);
+        resumeRingSound();
     }
 
     @Override
     public void onStop() {
-        VoIPCallHelper.setOnCallEventNotifyListener(null);
+        stopRingSound();
     }
 
     @Override
     public void onDestroy() {
         EventBus.getDefault().unregister(this);
+
+        VoIPCallHelper.setOnCallEventNotifyListener(null);
         VoIPCallHelper.mHandlerVideoCall = false;
     }
 
@@ -167,6 +171,8 @@ public class VoipCallPresenterImpl extends BasePresenter<VoipCallView> implement
         Uri mediaUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
         if (mMediaPlayer == null || !mMediaPlayer.isPlaying()) {
             mMediaPlayer = MediaPlayer.create(getActivity(), mediaUri);
+            mMediaPlayer.setOnPreparedListener(this);
+            mMediaPlayer.setOnErrorListener(this);
             mMediaPlayer.setLooping(true);
             mMediaPlayer.start();
         }
@@ -183,9 +189,10 @@ public class VoipCallPresenterImpl extends BasePresenter<VoipCallView> implement
                         mMediaPlayer.setDataSource(fileDescriptor.getFileDescriptor(),
                                 fileDescriptor.getStartOffset(),
                                 fileDescriptor.getLength());
-                        mMediaPlayer.prepare();
                         mMediaPlayer.setLooping(true);
-                        mMediaPlayer.start();
+                        mMediaPlayer.setOnErrorListener(VoipCallPresenterImpl.this);
+                        mMediaPlayer.setOnPreparedListener(VoipCallPresenterImpl.this);
+                        mMediaPlayer.prepareAsync();
                     }
 //            AudioManager am = (AudioManager) getActivity().getSystemService(Context.AUDIO_SERVICE);
 //            am.setMode(AudioManager.MODE_IN_CALL);//设定为通话中即可
@@ -196,7 +203,21 @@ public class VoipCallPresenterImpl extends BasePresenter<VoipCallView> implement
         }, 1000);
     }
 
+
+
+    private void resumeRingSound() {
+        if (mMediaPlayer != null && !mMediaPlayer.isPlaying()) {
+            mMediaPlayer.prepareAsync();
+        }
+    }
+
     private void stopRingSound() {
+        if (mMediaPlayer != null) {
+            mMediaPlayer.stop();
+        }
+    }
+
+    private void releaseRingSound() {
         if (mMediaPlayer != null) {
             mMediaPlayer.stop();
             mMediaPlayer.release();
@@ -213,7 +234,7 @@ public class VoipCallPresenterImpl extends BasePresenter<VoipCallView> implement
     @Override
     public void onUIAnswerCall() {
         VoIPCallHelper.acceptCall(mCurrentCallId);
-        stopRingSound();
+        releaseRingSound();
     }
 
     @Override
@@ -283,7 +304,7 @@ public class VoipCallPresenterImpl extends BasePresenter<VoipCallView> implement
         Log.d(TAG, "Voip talk hand up, CurrentCallId " + mCurrentCallId);
         try {
             if (mCurrentCallId != null) {
-                stopRingSound();
+                releaseRingSound();
                 if (isIncomingCall && !isConnect) {
                     VoIPCallHelper.rejectCall(mCurrentCallId);
                 } else {
@@ -444,5 +465,15 @@ public class VoipCallPresenterImpl extends BasePresenter<VoipCallView> implement
         SurfaceView sv = ViERenderer.CreateLocalRenderer(getActivity());
         getView().addLocalCameraView(sv);
         // localView.setLayoutParams(layoutParams);
+    }
+
+    @Override
+    public void onPrepared(MediaPlayer mp) {
+        mp.start();
+    }
+
+    @Override
+    public boolean onError(MediaPlayer mp, int what, int extra) {
+        return false;
     }
 }
