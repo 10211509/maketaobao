@@ -53,7 +53,6 @@ public class CCPHelper implements ECDevice.InitListener, ECDevice.OnECDeviceConn
         mUserId = userId;
         if (!ECDevice.isInitialized()) {
             ECDevice.initial(mContext, this);
-//            ECDevice.getECVoIPSetupManager().
         } else {
             // 已经初始化成功，直接进行注册
             onInitialized();

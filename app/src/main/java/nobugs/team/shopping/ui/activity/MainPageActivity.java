@@ -119,6 +119,7 @@ public class MainPageActivity extends BaseActivity<MainPagePresenter> implements
             mExitTime = System.currentTimeMillis();
         }else{
             super.onBackPressed();
+            System.exit(0);
         }
     }
 }
