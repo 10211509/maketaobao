@@ -53,6 +53,7 @@ public class CCPHelper implements ECDevice.InitListener, ECDevice.OnECDeviceConn
         mUserId = userId;
         if (!ECDevice.isInitialized()) {
             ECDevice.initial(mContext, this);
+//            ECDevice.getECVoIPSetupManager().
         } else {
             // 已经初始化成功，直接进行注册
             onInitialized();
@@ -80,6 +81,7 @@ public class CCPHelper implements ECDevice.InitListener, ECDevice.OnECDeviceConn
         // ECInitParams.LoginMode.FORCE_LOGIN
         mInitParams.setMode(ECInitParams.LoginMode.FORCE_LOGIN);
 
+//        mInitParams.
         // 如果有密码（VoIP密码，对应的登陆验证模式是 ECInitParams.LoginAuthType.PASSWORD_AUTH）
 //        if (!TextUtils.isEmpty(clientUser.getPassword())) {
 //            mInitParams.setPwd(clientUser.getPassword());

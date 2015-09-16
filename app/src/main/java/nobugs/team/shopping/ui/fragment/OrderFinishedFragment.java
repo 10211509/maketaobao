@@ -125,11 +125,14 @@ public class OrderFinishedFragment extends BaseFragment<OrderListPresenter> impl
 
     @Override
     public void stopLoading() {
-        mRefreshLayout.setLoading(false);
+        if(mRefreshLayout!=null){
+            mRefreshLayout.setLoading(false);
+        }
     }
 
     @Override
     public void stopRefreshing() {
+        if(mRefreshLayout != null)
         mRefreshLayout.setRefreshing(false);
     }
 }
