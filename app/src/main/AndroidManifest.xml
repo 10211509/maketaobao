@@ -57,6 +57,7 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".ui.activity.LoginActivity"
+            android:screenOrientation="portrait"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -66,11 +67,13 @@
         </activity>
         <activity
             android:name=".ui.activity.MainPageActivity"
+            android:screenOrientation="portrait"
             android:launchMode="singleTask">
         </activity>
         <activity
             android:name=".ui.activity.VoipCallActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:screenOrientation="portrait"
            >
         </activity>
         // ECSDK核心服务类
@@ -80,7 +83,9 @@
             android:exported="false" />
 
         <activity
-            android:name=".ui.activity.OrderDetailsActivity">
+            android:name=".ui.activity.OrderDetailsActivity"
+            android:screenOrientation="portrait"
+            >
         </activity>
     </application>
 

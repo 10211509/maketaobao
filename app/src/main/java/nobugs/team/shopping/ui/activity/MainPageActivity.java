@@ -18,6 +18,7 @@ import nobugs.team.shopping.mvp.presenter.MainPagePresenterImpl;
 import nobugs.team.shopping.mvp.view.MainPageView;
 import nobugs.team.shopping.ui.fragment.MainOrderListFragment;
 import nobugs.team.shopping.ui.fragment.MainShopFragment;
+import nobugs.team.shopping.utils.CCPHelper;
 
 /**
  * 选择商家店铺页面
@@ -35,6 +36,7 @@ public class MainPageActivity extends BaseActivity<MainPagePresenter> implements
     private MainShopFragment mFragmentShop;
     private MainOrderListFragment mFragmentOrder;
     private long mExitTime;
+
     @Override
     protected MainPagePresenter initPresenter() {
         return new MainPagePresenterImpl(this);
@@ -114,12 +116,14 @@ public class MainPageActivity extends BaseActivity<MainPagePresenter> implements
 
     @Override
     public void onBackPressed() {
-        if(System.currentTimeMillis() - mExitTime >1500){
-            Toast.makeText(this,"再按一次退出程序", Toast.LENGTH_SHORT).show();
+        if (System.currentTimeMillis() - mExitTime > 1500) {
+            Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
             mExitTime = System.currentTimeMillis();
-        }else{
+        } else {
+            CCPHelper.getInstance(this).logout();
+
             super.onBackPressed();
-            System.exit(0);
+//            System.exit(0);
         }
     }
 }
